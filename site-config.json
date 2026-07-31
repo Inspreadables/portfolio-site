@@ -1,0 +1,34 @@
+﻿{
+  "siteTitle": "De Baak Publicatie Portaal",
+  "projects": [
+    {
+      "name": "Strategy",
+      "path": "project-strategy",
+      "sections": [
+        {
+          "name": "Informatie",
+          "items": [
+            "over-ons.html",
+            "diensten.html"
+          ]
+        },
+        {
+          "name": "Blog",
+          "items": [
+            "blog/eerste-post.html"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Document Management",
+      "path": "project-documentmanagement",
+      "sections": [
+        {
+          "name": "Documenten",
+          "items": []
+        }
+      ]
+    }
+  ]
+}

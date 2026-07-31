@@ -1,0 +1,19 @@
+{
+  "title": "Mijn Test Site",
+  "sections": [
+    {
+      "name": "Blog",
+      "items": [
+        "blog/eerste-post.html"
+      ]
+    },
+    {
+      "name": "Informatie",
+      "items": [
+        "over-ons.html",
+        "diensten.html"
+      ]
+    }
+  ],
+  "autoInclude": true
+}
