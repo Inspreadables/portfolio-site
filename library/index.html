@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>De Baak · Kennishub</title>
+  <style>
+    /* ----- DE BAAK HUISSTIJL v2.0 ----- */
+    :root {
+      --primary: #005ADC;      /* Seaside Blauw */
+      --secondary: #00A555;    /* De Horst Groen */
+      --accent: #FFE100;       /* Geel */
+      --bg: #F5F5EB;           /* Alabaster */
+      --text: #1A1A2E;
+      --border-light: #D6E4FA;
+      --shadow: 0 4px 20px rgba(0,90,220,0.12);
+      --radius: 16px;
+      --font: Arial, Helvetica, sans-serif;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: var(--font); background: var(--bg); color: var(--text); line-height: 1.5; }
+    .container { max-width: 1280px; margin: 0 auto; padding: 0 32px; }
+
+    .hero { text-align: center; padding: 64px 0 16px 0; }
+    .hero .label {
+      display: inline-block; background: var(--accent); color: var(--text);
+      font-weight: 700; font-size: 13px; letter-spacing: 1px; text-transform: uppercase;
+      padding: 6px 14px; border-radius: 999px; margin-bottom: 20px;
+    }
+    .hero h1 { font-size: 44px; font-weight: 700; color: var(--primary); margin-bottom: 12px; }
+    .hero p { font-size: 19px; opacity: 0.8; max-width: 680px; margin: 0 auto; }
+
+    .grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 24px; padding: 48px 0 80px 0;
+    }
+    .card {
+      display: flex; flex-direction: column; background: #fff;
+      border: 1px solid var(--border-light); border-radius: var(--radius);
+      padding: 28px; text-decoration: none; color: var(--text);
+      box-shadow: var(--shadow); transition: transform .15s ease, box-shadow .15s ease;
+    }
+    .card:hover { transform: translateY(-4px); box-shadow: 0 10px 30px rgba(0,90,220,0.20); }
+    .card .tag {
+      font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: .5px;
+      color: var(--secondary); margin-bottom: 10px;
+    }
+    .card h2 { font-size: 21px; color: var(--primary); margin-bottom: 8px; }
+    .card p { font-size: 15px; opacity: .75; flex-grow: 1; }
+    .card .arrow { margin-top: 18px; font-weight: 700; color: var(--primary); }
+
+    footer { text-align: center; padding: 32px 0; font-size: 14px; opacity: .6;
+      border-top: 1px solid var(--border-light); }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header class="hero">
+      <span class="label">De Baak · 2026</span>
+      <h1>Kennishub</h1>
+      <p>Een overzicht van onze infographics en briefings — strategie, werkmethode, research en governance.</p>
+    </header>
+
+    <main class="grid">
+      <a class="card" href="kennishub.html">
+        <span class="tag">Overzicht</span>
+        <h2>Kennishub</h2>
+        <p>Uit het midden, naar de toekomst — het verhaal van de hub.</p>
+        <span class="arrow">Bekijk →</span>
+      </a>
+      <a class="card" href="strategie.html">
+        <span class="tag">Strategie</span>
+        <h2>Inspreadables</h2>
+        <p>Strategische positionering en verspreiding van kennis.</p>
+        <span class="arrow">Bekijk →</span>
+      </a>
+      <a class="card" href="mt-briefing.html">
+        <span class="tag">Briefing</span>
+        <h2>MT-Briefing</h2>
+        <p>Competitive Positioning De Baak.</p>
+        <span class="arrow">Bekijk →</span>
+      </a>
+      <a class="card" href="werkmethode.html">
+        <span class="tag">Werkmethode</span>
+        <h2>AI Scrum Master</h2>
+        <p>Hoe we werken: agile met AI-ondersteuning.</p>
+        <span class="arrow">Bekijk →</span>
+      </a>
+      <a class="card" href="knowledge-creation-workflow.html">
+        <span class="tag">Workflow</span>
+        <h2>AI Second Brain</h2>
+        <p>Knowledge creation workflow — leeromgeving.</p>
+        <span class="arrow">Bekijk →</span>
+      </a>
+      <a class="card" href="research-stack.html">
+        <span class="tag">Research</span>
+        <h2>AI Research Stack</h2>
+        <p>De technische research-stack in beeld.</p>
+        <span class="arrow">Bekijk →</span>
+      </a>
+      <a class="card" href="sandbox.html">
+        <span class="tag">Agent</span>
+        <h2>Sandbox Agent</h2>
+        <p>Veilig experimenteren in een sandbox-omgeving.</p>
+        <span class="arrow">Bekijk →</span>
+      </a>
+      <a class="card" href="security.html">
+        <span class="tag">Governance</span>
+        <h2>Security</h2>
+        <p>Beveiliging en veilig gebruik van AI.</p>
+        <span class="arrow">Bekijk →</span>
+      </a>
+      <a class="card" href="audit-infographic.html">
+        <span class="tag">Audit</span>
+        <h2>Audit Infographic</h2>
+        <p>De Baak USP & audit — 2026.</p>
+        <span class="arrow">Bekijk →</span>
+      </a>
+    </main>
+
+    <footer>© 2026 De Baak · Kennishub</footer>
+  </div>
+</body>
+</html>

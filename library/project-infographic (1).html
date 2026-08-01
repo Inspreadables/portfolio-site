@@ -1,0 +1,1039 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Project Knowledge Hub — Thread Infographic</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1a1a2e;
+    --paper: #f8f6f1;
+    --accent: #e85d04;
+    --accent-light: #f8961e;
+    --teal: #0a9396;
+    --teal-light: #94d2bd;
+    --plum: #5a189a;
+    --plum-light: #c77dff;
+    --rose: #d62828;
+    --slate: #4a4e69;
+    --mist: #eae4d9;
+    --card: #ffffff;
+    --shadow: 0 2px 24px rgba(26,26,46,0.07);
+    --shadow-hover: 0 8px 40px rgba(26,26,46,0.12);
+    --radius: 16px;
+    --grain: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--paper);
+    color: var(--ink);
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* === HERO === */
+  .hero {
+    position: relative;
+    background: linear-gradient(135deg, var(--ink) 0%, #16213e 50%, #0f3460 100%);
+    color: var(--paper);
+    padding: 80px 24px 100px;
+    text-align: center;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--grain);
+    pointer-events: none;
+  }
+
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    right: 0;
+    height: 60px;
+    background: var(--paper);
+    clip-path: ellipse(55% 100% at 50% 100%);
+  }
+
+  .hero-badge {
+    display: inline-block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    background: rgba(232,93,4,0.2);
+    color: var(--accent-light);
+    padding: 6px 20px;
+    border-radius: 100px;
+    border: 1px solid rgba(232,93,4,0.3);
+    margin-bottom: 28px;
+    animation: fadeSlideDown 0.8s ease-out;
+  }
+
+  .hero h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(2.2rem, 5vw, 3.8rem);
+    font-weight: 400;
+    line-height: 1.15;
+    max-width: 700px;
+    margin: 0 auto 20px;
+    animation: fadeSlideDown 0.8s ease-out 0.15s both;
+  }
+
+  .hero p {
+    font-size: 1.05rem;
+    opacity: 0.7;
+    max-width: 520px;
+    margin: 0 auto;
+    font-weight: 300;
+    animation: fadeSlideDown 0.8s ease-out 0.3s both;
+  }
+
+  /* Floating orbs */
+  .orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(60px);
+    opacity: 0.15;
+    animation: float 8s ease-in-out infinite;
+  }
+  .orb-1 { width: 300px; height: 300px; background: var(--accent); top: -50px; right: -80px; }
+  .orb-2 { width: 200px; height: 200px; background: var(--teal); bottom: 20px; left: -40px; animation-delay: -3s; }
+  .orb-3 { width: 150px; height: 150px; background: var(--plum); top: 40%; left: 60%; animation-delay: -5s; }
+
+  /* === STATS BAR === */
+  .stats-bar {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 1px;
+    background: var(--mist);
+    border-radius: var(--radius);
+    overflow: hidden;
+    max-width: 900px;
+    margin: -50px auto 60px;
+    position: relative;
+    z-index: 2;
+    box-shadow: var(--shadow);
+  }
+
+  .stat {
+    background: var(--card);
+    padding: 28px 20px;
+    text-align: center;
+    transition: transform 0.3s ease;
+  }
+
+  .stat:hover { transform: translateY(-3px); }
+
+  .stat-number {
+    font-family: 'DM Serif Display', serif;
+    font-size: 2rem;
+    color: var(--accent);
+    line-height: 1;
+  }
+
+  .stat-label {
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--slate);
+    margin-top: 6px;
+    font-weight: 500;
+  }
+
+  /* === CONTENT WRAPPER === */
+  .wrapper {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  /* === SECTION HEADERS === */
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 36px;
+  }
+
+  .section-number {
+    font-family: 'DM Serif Display', serif;
+    font-size: 3rem;
+    color: var(--mist);
+    line-height: 1;
+    flex-shrink: 0;
+  }
+
+  .section-header h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.6rem;
+    font-weight: 400;
+    color: var(--ink);
+  }
+
+  .section-header .section-line {
+    flex: 1;
+    height: 1px;
+    background: var(--mist);
+  }
+
+  /* === PIPELINE SECTION === */
+  .pipeline-section { margin-bottom: 80px; }
+
+  .pipeline {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .pipeline-step {
+    display: grid;
+    grid-template-columns: 60px 1fr;
+    gap: 24px;
+    position: relative;
+  }
+
+  .pipeline-track {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .pipeline-dot {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 0.85rem;
+    color: white;
+    flex-shrink: 0;
+    position: relative;
+    z-index: 1;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+  }
+
+  .pipeline-line {
+    width: 2px;
+    flex: 1;
+    min-height: 20px;
+    background: var(--mist);
+  }
+
+  .pipeline-card {
+    background: var(--card);
+    border-radius: var(--radius);
+    padding: 28px;
+    box-shadow: var(--shadow);
+    margin-bottom: 16px;
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+    border-left: 3px solid transparent;
+  }
+
+  .pipeline-card:hover {
+    box-shadow: var(--shadow-hover);
+    transform: translateX(4px);
+  }
+
+  .pipeline-card h3 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.2rem;
+    font-weight: 400;
+    margin-bottom: 8px;
+  }
+
+  .pipeline-card p {
+    font-size: 0.9rem;
+    color: var(--slate);
+    line-height: 1.7;
+  }
+
+  .pipeline-card .tool-tag {
+    display: inline-block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 1px;
+    padding: 4px 12px;
+    border-radius: 100px;
+    margin-top: 12px;
+    margin-right: 6px;
+    font-weight: 500;
+  }
+
+  .step-trigger .pipeline-dot { background: var(--accent); }
+  .step-trigger .pipeline-card { border-left-color: var(--accent); }
+  .step-trigger .tool-tag { background: #fff3e6; color: var(--accent); }
+
+  .step-research .pipeline-dot { background: var(--teal); }
+  .step-research .pipeline-card { border-left-color: var(--teal); }
+  .step-research .tool-tag { background: #e6f6f5; color: var(--teal); }
+
+  .step-analyze .pipeline-dot { background: var(--plum); }
+  .step-analyze .pipeline-card { border-left-color: var(--plum); }
+  .step-analyze .tool-tag { background: #f3e8ff; color: var(--plum); }
+
+  .step-deliver .pipeline-dot { background: var(--rose); }
+  .step-deliver .pipeline-card { border-left-color: var(--rose); }
+  .step-deliver .tool-tag { background: #fde8e8; color: var(--rose); }
+
+  /* === CONTENT LIBRARY === */
+  .library-section { margin-bottom: 80px; }
+
+  .library-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+  }
+
+  .lib-card {
+    background: var(--card);
+    border-radius: var(--radius);
+    padding: 24px;
+    box-shadow: var(--shadow);
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .lib-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-hover);
+  }
+
+  .lib-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+  }
+
+  .lib-card:nth-child(1)::before { background: var(--accent); }
+  .lib-card:nth-child(2)::before { background: var(--teal); }
+  .lib-card:nth-child(3)::before { background: var(--plum); }
+  .lib-card:nth-child(4)::before { background: var(--rose); }
+  .lib-card:nth-child(5)::before { background: var(--accent-light); }
+  .lib-card:nth-child(6)::before { background: var(--slate); }
+
+  .lib-count {
+    font-family: 'DM Serif Display', serif;
+    font-size: 2.4rem;
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+
+  .lib-card:nth-child(1) .lib-count { color: var(--accent); }
+  .lib-card:nth-child(2) .lib-count { color: var(--teal); }
+  .lib-card:nth-child(3) .lib-count { color: var(--plum); }
+  .lib-card:nth-child(4) .lib-count { color: var(--rose); }
+  .lib-card:nth-child(5) .lib-count { color: var(--accent-light); }
+  .lib-card:nth-child(6) .lib-count { color: var(--slate); }
+
+  .lib-title {
+    font-weight: 600;
+    font-size: 0.85rem;
+    margin-bottom: 6px;
+  }
+
+  .lib-desc {
+    font-size: 0.78rem;
+    color: var(--slate);
+    line-height: 1.5;
+  }
+
+  /* === WEEKLY RHYTHM === */
+  .rhythm-section { margin-bottom: 80px; }
+
+  .rhythm-timeline {
+    position: relative;
+    background: var(--card);
+    border-radius: var(--radius);
+    padding: 40px 32px;
+    box-shadow: var(--shadow);
+  }
+
+  .rhythm-timeline::before {
+    content: '';
+    position: absolute;
+    top: 80px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: calc(100% - 80px);
+    height: 2px;
+    background: linear-gradient(90deg, var(--accent), var(--teal), var(--plum), var(--rose));
+    border-radius: 2px;
+  }
+
+  .rhythm-header {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+
+  .rhythm-header h3 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.3rem;
+    font-weight: 400;
+  }
+
+  .rhythm-header p {
+    font-size: 0.82rem;
+    color: var(--slate);
+    margin-top: 4px;
+  }
+
+  .rhythm-steps {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    position: relative;
+  }
+
+  .rhythm-step {
+    text-align: center;
+    position: relative;
+  }
+
+  .rhythm-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 16px;
+    font-size: 1.2rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  .rhythm-step:nth-child(1) .rhythm-icon { background: #fff3e6; }
+  .rhythm-step:nth-child(2) .rhythm-icon { background: #e6f6f5; }
+  .rhythm-step:nth-child(3) .rhythm-icon { background: #f3e8ff; }
+  .rhythm-step:nth-child(4) .rhythm-icon { background: #fde8e8; }
+
+  .rhythm-step h4 {
+    font-size: 0.82rem;
+    font-weight: 600;
+    margin-bottom: 6px;
+  }
+
+  .rhythm-step p {
+    font-size: 0.75rem;
+    color: var(--slate);
+    line-height: 1.5;
+  }
+
+  /* === TOOL STACK === */
+  .stack-section { margin-bottom: 80px; }
+
+  .stack-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+  }
+
+  .stack-card {
+    background: var(--card);
+    border-radius: var(--radius);
+    padding: 28px;
+    box-shadow: var(--shadow);
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+    transition: transform 0.3s ease;
+  }
+
+  .stack-card:hover { transform: translateY(-3px); }
+
+  .stack-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-size: 1.3rem;
+    font-weight: 700;
+  }
+
+  .stack-card:nth-child(1) .stack-icon { background: linear-gradient(135deg, #ff6b2b, #e85d04); color: white; }
+  .stack-card:nth-child(2) .stack-icon { background: linear-gradient(135deg, #0a9396, #005f73); color: white; }
+  .stack-card:nth-child(3) .stack-icon { background: linear-gradient(135deg, #7b2cbf, #5a189a); color: white; }
+  .stack-card:nth-child(4) .stack-icon { background: linear-gradient(135deg, #d62828, #9d0208); color: white; }
+  .stack-card:nth-child(5) .stack-icon { background: linear-gradient(135deg, #f8961e, #f3722c); color: white; }
+  .stack-card:nth-child(6) .stack-icon { background: linear-gradient(135deg, #4a4e69, #22223b); color: white; }
+
+  .stack-info h4 {
+    font-weight: 600;
+    font-size: 0.95rem;
+    margin-bottom: 4px;
+  }
+
+  .stack-role {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 6px;
+  }
+
+  .stack-info p {
+    font-size: 0.82rem;
+    color: var(--slate);
+    line-height: 1.5;
+  }
+
+  /* === KEY INSIGHTS === */
+  .insights-section { margin-bottom: 80px; }
+
+  .insight-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+  }
+
+  .insight-card {
+    background: var(--ink);
+    color: var(--paper);
+    border-radius: var(--radius);
+    padding: 32px 28px;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s ease;
+  }
+
+  .insight-card:hover { transform: translateY(-3px); }
+
+  .insight-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--grain);
+    pointer-events: none;
+  }
+
+  .insight-num {
+    font-family: 'DM Serif Display', serif;
+    font-size: 4rem;
+    position: absolute;
+    top: -8px;
+    right: 16px;
+    opacity: 0.06;
+    line-height: 1;
+  }
+
+  .insight-card h4 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.1rem;
+    font-weight: 400;
+    margin-bottom: 10px;
+    color: var(--accent-light);
+  }
+
+  .insight-card p {
+    font-size: 0.85rem;
+    line-height: 1.7;
+    opacity: 0.8;
+  }
+
+  /* === TAGGING SYSTEM === */
+  .tags-section { margin-bottom: 80px; }
+
+  .tags-visual {
+    background: var(--card);
+    border-radius: var(--radius);
+    padding: 36px;
+    box-shadow: var(--shadow);
+  }
+
+  .tag-levels {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    justify-content: center;
+  }
+
+  .tag-level {
+    padding: 10px 20px;
+    border-radius: 100px;
+    font-size: 0.78rem;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: transform 0.2s ease;
+  }
+
+  .tag-level:hover { transform: scale(1.05); }
+
+  .tag-level .tag-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+  }
+
+  .tag-level:nth-child(1) { background: #fff3e6; color: var(--accent); }
+  .tag-level:nth-child(1) .tag-dot { background: var(--accent); }
+  .tag-level:nth-child(2) { background: #e6f6f5; color: var(--teal); }
+  .tag-level:nth-child(2) .tag-dot { background: var(--teal); }
+  .tag-level:nth-child(3) { background: #f3e8ff; color: var(--plum); }
+  .tag-level:nth-child(3) .tag-dot { background: var(--plum); }
+  .tag-level:nth-child(4) { background: #fde8e8; color: var(--rose); }
+  .tag-level:nth-child(4) .tag-dot { background: var(--rose); }
+  .tag-level:nth-child(5) { background: #fef3cd; color: #856404; }
+  .tag-level:nth-child(5) .tag-dot { background: #856404; }
+  .tag-level:nth-child(6) { background: #e8eaf0; color: var(--slate); }
+  .tag-level:nth-child(6) .tag-dot { background: var(--slate); }
+  .tag-level:nth-child(7) { background: #e0f4e8; color: #1b7a3d; }
+  .tag-level:nth-child(7) .tag-dot { background: #1b7a3d; }
+
+  .tags-example {
+    margin-top: 24px;
+    padding: 20px;
+    background: var(--paper);
+    border-radius: 12px;
+    text-align: center;
+  }
+
+  .tags-example p {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--slate);
+    line-height: 2;
+  }
+
+  .tags-example span {
+    display: inline-block;
+    background: var(--ink);
+    color: var(--paper);
+    padding: 2px 10px;
+    border-radius: 4px;
+    margin: 2px 3px;
+    font-size: 0.7rem;
+  }
+
+  /* === FOOTER === */
+  .footer {
+    text-align: center;
+    padding: 40px 24px 60px;
+    border-top: 1px solid var(--mist);
+  }
+
+  .footer p {
+    font-size: 0.75rem;
+    color: var(--slate);
+    font-family: 'JetBrains Mono', monospace;
+    letter-spacing: 0.5px;
+  }
+
+  /* === ANIMATIONS === */
+  @keyframes fadeSlideDown {
+    from { opacity: 0; transform: translateY(-16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translate(0, 0); }
+    50% { transform: translate(15px, -20px); }
+  }
+
+  /* === RESPONSIVE === */
+  @media (max-width: 768px) {
+    .hero { padding: 60px 20px 80px; }
+
+    .stats-bar {
+      grid-template-columns: repeat(2, 1fr);
+      margin: -40px 16px 40px;
+    }
+
+    .rhythm-timeline::before { display: none; }
+
+    .rhythm-steps {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+    }
+
+    .library-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .pipeline-step {
+      grid-template-columns: 40px 1fr;
+      gap: 16px;
+    }
+
+    .pipeline-dot {
+      width: 36px;
+      height: 36px;
+      font-size: 0.75rem;
+    }
+
+    .pipeline-card { padding: 20px; }
+
+    .section-number { font-size: 2.2rem; }
+    .section-header h2 { font-size: 1.3rem; }
+  }
+
+  @media (max-width: 480px) {
+    .stats-bar {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .rhythm-steps {
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+
+    .library-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .stack-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .insight-cards {
+      grid-template-columns: 1fr;
+    }
+
+    .tag-levels {
+      gap: 8px;
+    }
+
+    .tag-level {
+      font-size: 0.7rem;
+      padding: 8px 14px;
+    }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
+  <div class="hero-badge">Project Thread Summary</div>
+  <h1>Knowledge Automation &amp; Content Intelligence</h1>
+  <p>Automated research pipelines, content library management, and weekly executive intelligence — unified in one project.</p>
+</header>
+
+<!-- STATS BAR -->
+<div class="stats-bar">
+  <div class="stat">
+    <div class="stat-number">1,126</div>
+    <div class="stat-label">Documents</div>
+  </div>
+  <div class="stat">
+    <div class="stat-number">30</div>
+    <div class="stat-label">Categories</div>
+  </div>
+  <div class="stat">
+    <div class="stat-number">7</div>
+    <div class="stat-label">Tag Levels</div>
+  </div>
+  <div class="stat">
+    <div class="stat-number">5</div>
+    <div class="stat-label">Pipelines</div>
+  </div>
+  <div class="stat">
+    <div class="stat-number">60/40</div>
+    <div class="stat-label">EN / NL Split</div>
+  </div>
+</div>
+
+<div class="wrapper">
+
+  <!-- SECTION 1: AUTOMATION PIPELINE -->
+  <section class="pipeline-section">
+    <div class="section-header">
+      <span class="section-number">01</span>
+      <h2>Research Automation Pipeline</h2>
+      <span class="section-line"></span>
+    </div>
+
+    <div class="pipeline">
+      <!-- Step 1 -->
+      <div class="pipeline-step step-trigger">
+        <div class="pipeline-track">
+          <div class="pipeline-dot">1</div>
+          <div class="pipeline-line"></div>
+        </div>
+        <div class="pipeline-card">
+          <h3>Trigger</h3>
+          <p>Scheduled weekly via Zapier, or manually kicked off when a new topic lands in the content calendar or CRM entry appears.</p>
+          <span class="tool-tag">Zapier</span>
+          <span class="tool-tag">Cron / Schedule</span>
+        </div>
+      </div>
+
+      <!-- Step 2 -->
+      <div class="pipeline-step step-research">
+        <div class="pipeline-track">
+          <div class="pipeline-dot">2</div>
+          <div class="pipeline-line"></div>
+        </div>
+        <div class="pipeline-card">
+          <h3>Research &amp; Discovery</h3>
+          <p>Perplexity performs broad landscape scans and real-time data gathering. Deep Research reads hundreds of sources autonomously and exports to PDF.</p>
+          <span class="tool-tag">Perplexity</span>
+          <span class="tool-tag">Deep Research</span>
+        </div>
+      </div>
+
+      <!-- Step 3 -->
+      <div class="pipeline-step step-analyze">
+        <div class="pipeline-track">
+          <div class="pipeline-dot">3</div>
+          <div class="pipeline-line"></div>
+        </div>
+        <div class="pipeline-card">
+          <h3>Analysis &amp; Synthesis</h3>
+          <p>Claude API structures findings into polished reports — multi-document synthesis, trend analysis, and executive summaries with actionable recommendations.</p>
+          <span class="tool-tag">Claude API</span>
+          <span class="tool-tag">Long-form Analysis</span>
+        </div>
+      </div>
+
+      <!-- Step 4 -->
+      <div class="pipeline-step step-deliver">
+        <div class="pipeline-track">
+          <div class="pipeline-dot">4</div>
+        </div>
+        <div class="pipeline-card">
+          <h3>Publish &amp; Deliver</h3>
+          <p>Output automatically lands in Google Docs, Notion, email, or Slack — formatted, timestamped, and ready for stakeholder review.</p>
+          <span class="tool-tag">Google Docs</span>
+          <span class="tool-tag">Notion</span>
+          <span class="tool-tag">Slack</span>
+          <span class="tool-tag">Email</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 2: CONTENT LIBRARY -->
+  <section class="library-section">
+    <div class="section-header">
+      <span class="section-number">02</span>
+      <h2>Content Library Breakdown</h2>
+      <span class="section-line"></span>
+    </div>
+
+    <div class="library-grid">
+      <div class="lib-card">
+        <div class="lib-count">89</div>
+        <div class="lib-title">Learning &amp; Development</div>
+        <div class="lib-desc">Training plans, competency models, strategic L&amp;D, onboarding, blended learning</div>
+      </div>
+      <div class="lib-card">
+        <div class="lib-count">52</div>
+        <div class="lib-title">Community Management</div>
+        <div class="lib-desc">BTC materials, engagement strategies, social learning, KPIs</div>
+      </div>
+      <div class="lib-card">
+        <div class="lib-count">52</div>
+        <div class="lib-title">Research &amp; Methodology</div>
+        <div class="lib-desc">Expert opinions, benchmarking, best practices, market research</div>
+      </div>
+      <div class="lib-card">
+        <div class="lib-count">46</div>
+        <div class="lib-title">Templates &amp; Frameworks</div>
+        <div class="lib-desc">Reusable tools, WBS, project charters, planning templates</div>
+      </div>
+      <div class="lib-card">
+        <div class="lib-count">44</div>
+        <div class="lib-title">Executive Education</div>
+        <div class="lib-desc">Coaching, program evaluation, institutions, custom programs</div>
+      </div>
+      <div class="lib-card">
+        <div class="lib-count">843</div>
+        <div class="lib-title">30+ Other Categories</div>
+        <div class="lib-desc">AI &amp; tech, LMS, coaching, editorial, QA, org development, and more</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 3: WEEKLY RHYTHM -->
+  <section class="rhythm-section">
+    <div class="section-header">
+      <span class="section-number">03</span>
+      <h2>Weekly Update Rhythm</h2>
+      <span class="section-line"></span>
+    </div>
+
+    <div class="rhythm-timeline">
+      <div class="rhythm-header">
+        <h3>Every Week, Automatically</h3>
+        <p>Trigger → Research → Synthesize → Deliver executive summary</p>
+      </div>
+      <div class="rhythm-steps">
+        <div class="rhythm-step">
+          <div class="rhythm-icon">📋</div>
+          <h4>Scan &amp; Gather</h4>
+          <p>Perplexity scans for new developments across key domains and competitors</p>
+        </div>
+        <div class="rhythm-step">
+          <div class="rhythm-icon">🔍</div>
+          <h4>Analyze</h4>
+          <p>Claude synthesizes findings, compares against master file, flags what's new</p>
+        </div>
+        <div class="rhythm-step">
+          <div class="rhythm-icon">📄</div>
+          <h4>Update Master</h4>
+          <p>Master project file gets updated with latest intel, tagged and timestamped</p>
+        </div>
+        <div class="rhythm-step">
+          <div class="rhythm-icon">📊</div>
+          <h4>Exec Summary</h4>
+          <p>Responsive HTML exec summary delivered for quick stakeholder review</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 4: TOOL STACK -->
+  <section class="stack-section">
+    <div class="section-header">
+      <span class="section-number">04</span>
+      <h2>Tool Stack</h2>
+      <span class="section-line"></span>
+    </div>
+
+    <div class="stack-grid">
+      <div class="stack-card">
+        <div class="stack-icon">⚡</div>
+        <div class="stack-info">
+          <h4>Zapier</h4>
+          <div class="stack-role">Orchestration</div>
+          <p>Triggers, scheduling, MCP integration, and connecting all pipeline stages</p>
+        </div>
+      </div>
+      <div class="stack-card">
+        <div class="stack-icon">🔎</div>
+        <div class="stack-info">
+          <h4>Perplexity</h4>
+          <div class="stack-role">Research Layer</div>
+          <p>Real-time web research, citations, broad landscape scans, Deep Research</p>
+        </div>
+      </div>
+      <div class="stack-card">
+        <div class="stack-icon">🧠</div>
+        <div class="stack-info">
+          <h4>Claude API</h4>
+          <div class="stack-role">Analysis Engine</div>
+          <p>Multi-doc synthesis, structured reports, executive summaries, trend analysis</p>
+        </div>
+      </div>
+      <div class="stack-card">
+        <div class="stack-icon">📝</div>
+        <div class="stack-info">
+          <h4>Google Docs</h4>
+          <div class="stack-role">Master File</div>
+          <p>Living master document, version history, collaborative review</p>
+        </div>
+      </div>
+      <div class="stack-card">
+        <div class="stack-icon">🗂️</div>
+        <div class="stack-info">
+          <h4>Notion</h4>
+          <div class="stack-role">Knowledge Base</div>
+          <p>Structured storage, database views, tagging, cross-referencing</p>
+        </div>
+      </div>
+      <div class="stack-card">
+        <div class="stack-icon">💬</div>
+        <div class="stack-info">
+          <h4>Slack / Email</h4>
+          <div class="stack-role">Distribution</div>
+          <p>Notifications, digests, stakeholder delivery, quick review links</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 5: KEY INSIGHTS -->
+  <section class="insights-section">
+    <div class="section-header">
+      <span class="section-number">05</span>
+      <h2>Key Project Insights</h2>
+      <span class="section-line"></span>
+    </div>
+
+    <div class="insight-cards">
+      <div class="insight-card">
+        <div class="insight-num">01</div>
+        <h4>Sequential Beats Single-Tool</h4>
+        <p>Experts consistently recommend chaining Perplexity → Claude rather than relying on either alone. Each tool excels at different stages of the research workflow.</p>
+      </div>
+      <div class="insight-card">
+        <div class="insight-num">02</div>
+        <h4>Hierarchical Tagging Wins</h4>
+        <p>A 7-level tagging system (domain, function, format, audience, status, language, org) outperforms simple single-level categorization for 1,000+ doc libraries.</p>
+      </div>
+      <div class="insight-card">
+        <div class="insight-num">03</div>
+        <h4>Automation ≠ Autopilot</h4>
+        <p>Scheduled pipelines still benefit from human review protocols. The best workflow includes a final approval step before publishing to stakeholders.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 6: TAGGING SYSTEM -->
+  <section class="tags-section">
+    <div class="section-header">
+      <span class="section-number">06</span>
+      <h2>7-Level Tagging System</h2>
+      <span class="section-line"></span>
+    </div>
+
+    <div class="tags-visual">
+      <div class="tag-levels">
+        <div class="tag-level"><span class="tag-dot"></span> L1: Domain</div>
+        <div class="tag-level"><span class="tag-dot"></span> L2: Function</div>
+        <div class="tag-level"><span class="tag-dot"></span> L3: Format</div>
+        <div class="tag-level"><span class="tag-dot"></span> L4: Audience</div>
+        <div class="tag-level"><span class="tag-dot"></span> L5: Status</div>
+        <div class="tag-level"><span class="tag-dot"></span> L6: Language</div>
+        <div class="tag-level"><span class="tag-dot"></span> L7: Organization</div>
+      </div>
+      <div class="tags-example">
+        <p>Example document tag path:</p>
+        <p>
+          <span>#learning</span>
+          <span>#strategy</span>
+          <span>#template</span>
+          <span>#executive</span>
+          <span>#best-practices</span>
+          <span>#english</span>
+          <span>#baak</span>
+        </p>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <p>Knowledge Automation Project · Thread Infographic · Generated Feb 2026</p>
+</footer>
+
+</body>
+</html>

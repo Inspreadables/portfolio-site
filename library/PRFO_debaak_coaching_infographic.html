@@ -1,0 +1,1156 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Evaluating Executive Coaching Quality — de Baak</title>
+<style>
+  /* ── de Baak officiële huisstijl ── */
+  :root {
+    --blue:    #005ADC;
+    --blue-dk: #0047b0;
+    --green:   #00A555;
+    --green-dk:#008f47;
+    --yellow:  #FFE100;
+    --alabas:  #F5F5EB;
+    --white:   #ffffff;
+    --taupe:   #e8e5df;
+    --border:  #d4d4c8;
+    --charcoal:#2d2d2d;
+    --mid:     #5a5a5a;
+    --muted:   #8a8a8a;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.7;
+    background: var(--alabas);
+    color: var(--charcoal);
+    overflow-x: hidden;
+  }
+
+  /* ─── SCROLL FADE-IN ── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity .6s ease, transform .6s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ─── HERO ── */
+  .hero {
+    background: var(--blue);
+    position: relative;
+    padding: 96px 60px 80px;
+    overflow: hidden;
+  }
+
+  /* baken driehoek: CSS-only, geen afbeelding */
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -60px; right: -60px;
+    width: 0; height: 0;
+    border-left: 420px solid transparent;
+    border-top: 420px solid rgba(255,255,255,.05);
+    pointer-events: none;
+  }
+
+  .hero::after {
+    content: '';
+    position: absolute;
+    width: 420px; height: 420px;
+    border-radius: 50%;
+    background: rgba(255,255,255,.03);
+    right: -80px; bottom: -140px;
+    pointer-events: none;
+  }
+
+  .hero-inner {
+    position: relative;
+    max-width: 960px;
+    margin: 0 auto;
+  }
+
+  .hero-eyebrow {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 3.5px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,.65);
+    margin-bottom: 20px;
+  }
+
+  .hero h1 {
+    font-size: clamp(2.2rem, 4.5vw, 3.5rem);
+    font-weight: 900;
+    color: var(--white);
+    line-height: 1.13;
+    margin-bottom: 20px;
+    max-width: 680px;
+  }
+
+  .hero-sub {
+    font-size: 1.1rem;
+    font-weight: 400;
+    color: rgba(255,255,255,.82);
+    max-width: 500px;
+    line-height: 1.75;
+    margin-bottom: 52px;
+  }
+
+  /* stat strip in hero */
+  .roi-strip {
+    display: flex;
+    gap: 0;
+    background: rgba(255,255,255,.1);
+    border: 1px solid rgba(255,255,255,.18);
+    max-width: 580px;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  .roi-item {
+    flex: 1;
+    padding: 22px 26px;
+    border-right: 1px solid rgba(255,255,255,.15);
+    transition: background .3s;
+  }
+  .roi-item:last-child { border-right: none; }
+  .roi-item:hover { background: rgba(255,255,255,.07); }
+
+  .roi-num {
+    font-size: 2.3rem;
+    font-weight: 900;
+    color: var(--white);
+    line-height: 1;
+  }
+
+  .roi-lbl {
+    font-size: .76rem;
+    font-weight: 600;
+    color: rgba(255,255,255,.65);
+    margin-top: 5px;
+    letter-spacing: .4px;
+  }
+
+  .source-note {
+    font-size: .72rem;
+    color: rgba(255,255,255,.45);
+    margin-top: 14px;
+    font-style: italic;
+  }
+
+  /* ─── BODY WRAPPER ── */
+  .body-wrap {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 96px 60px;
+  }
+
+  /* ─── SECTION LABELS ── */
+  .section-eyebrow {
+    font-size: 10.5px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--blue);
+    margin-bottom: 8px;
+  }
+
+  .section-title {
+    font-size: 1.85rem;
+    font-weight: 900;
+    color: var(--charcoal);
+    margin-bottom: 12px;
+    line-height: 1.25;
+  }
+
+  .section-lead {
+    font-size: .95rem;
+    color: var(--mid);
+    max-width: 540px;
+    line-height: 1.75;
+    margin-bottom: 40px;
+  }
+
+  /* thin horizontal rule between major sections */
+  .section-divider {
+    height: 1px;
+    background: var(--border);
+    margin-bottom: 96px;
+    max-width: 120px;
+  }
+
+  /* ─── FRAMEWORK GRID (8-kaarten raster) ── */
+  .framework-wrap { margin-bottom: 96px; }
+
+  .framework-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2px;                          /* 2px gap = zichtbare rasterlijnen */
+    background: var(--border);
+    border: 2px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(45,45,45,.06);
+  }
+
+  .framework-card {
+    background: var(--white);
+    padding: 26px 22px 24px;
+    cursor: pointer;
+    transition: all .3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* blauwe onderlijn verschijnt bij hover/active */
+  .framework-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 3px;
+    background: var(--blue);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform .35s ease;
+  }
+
+  .framework-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(45,45,45,.1);
+    background: var(--alabas);
+  }
+  .framework-card:hover::after,
+  .framework-card.active::after { transform: scaleX(1); }
+  .framework-card.active {
+    background: var(--alabas);
+    box-shadow: 0 8px 24px rgba(45,45,45,.1);
+  }
+
+  /* groot sluimerend getal — blauw bij hover */
+  .fc-num {
+    font-size: 1.95rem;
+    font-weight: 900;
+    color: var(--border);
+    line-height: 1;
+    margin-bottom: 12px;
+    transition: color .3s;
+  }
+  .framework-card:hover .fc-num,
+  .framework-card.active .fc-num { color: var(--blue); }
+
+  .fc-title {
+    font-size: .86rem;
+    font-weight: 700;
+    color: var(--charcoal);
+    margin-bottom: 5px;
+    line-height: 1.3;
+  }
+
+  .fc-desc {
+    font-size: .75rem;
+    color: var(--muted);
+    line-height: 1.55;
+  }
+
+  /* ─── DETAIL PANEL (onder framework grid) ── */
+  .detail-panel {
+    background: var(--white);
+    border-left: 5px solid var(--blue);
+    padding: 38px 44px;
+    margin-top: 3px;
+    animation: panelFade .35s ease;
+    box-shadow: 0 4px 20px rgba(45,45,45,.07);
+    border-radius: 0 0 8px 8px;
+    display: none;
+  }
+  .detail-panel.visible { display: block; }
+
+  @keyframes panelFade {
+    from { opacity: 0; transform: translateY(10px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .detail-panel-head {
+    display: flex;
+    align-items: baseline;
+    gap: 18px;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+  }
+
+  .dp-num {
+    font-size: 3.2rem;
+    font-weight: 900;
+    color: var(--blue);
+    line-height: 1;
+    flex-shrink: 0;
+  }
+
+  .dp-title {
+    font-size: 1.45rem;
+    font-weight: 700;
+    color: var(--charcoal);
+    line-height: 1.25;
+  }
+
+  .dp-cols {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 36px;
+  }
+
+  .dp-col-label {
+    font-size: .73rem;
+    font-weight: 700;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .dp-col-label.good-lbl { color: var(--green-dk); }
+  .dp-col-label.bad-lbl  { color: #b85000; }   /* warm donker voor contrast op wit */
+
+  .dp-list { list-style: none; }
+  .dp-list li {
+    display: flex;
+    gap: 11px;
+    font-size: .9rem;
+    color: var(--mid);
+    margin-bottom: 11px;
+    line-height: 1.55;
+  }
+
+  .dp-icon {
+    flex-shrink: 0;
+    width: 18px; height: 18px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: .63rem;
+    font-weight: 700;
+    margin-top: 2px;
+  }
+  .icon-good { background: var(--green); color: white; }
+  .icon-bad  { background: #c05000; color: white; }
+
+  /* ─── MEASUREMENT LEVELS ── */
+  .measurement-section { margin-bottom: 96px; }
+
+  .levels-wrap {
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(45,45,45,.06);
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    background: var(--border);
+    border: 2px solid var(--border);
+  }
+
+  .level-row {
+    display: flex;
+    align-items: stretch;
+    transition: transform .25s;
+  }
+  .level-row:hover { transform: translateX(4px); }
+
+  .level-bar {
+    color: white;
+    display: flex;
+    align-items: center;
+    padding: 0 22px;
+    font-size: 1rem;
+    font-weight: 700;
+    flex-shrink: 0;
+    white-space: nowrap;
+    min-height: 58px;
+  }
+
+  /* blauw gradiënt van donker (niveau 1) naar licht (niveau 5) */
+  .level-row:nth-child(1) .level-bar { width: 140px; background: #0047b0; }
+  .level-row:nth-child(2) .level-bar { width: 178px; background: #005ADC; }
+  .level-row:nth-child(3) .level-bar { width: 216px; background: #2272e8; }
+  .level-row:nth-child(4) .level-bar { width: 254px; background: #4a90f0; }
+  .level-row:nth-child(5) .level-bar { width: 292px; background: #72aaf5; }
+
+  .level-content {
+    background: var(--white);
+    flex: 1;
+    padding: 14px 24px;
+  }
+
+  .level-name {
+    font-size: .86rem;
+    font-weight: 700;
+    color: var(--charcoal);
+    margin-bottom: 2px;
+  }
+
+  .level-desc {
+    font-size: .78rem;
+    color: var(--muted);
+  }
+
+  /* ROI berekeningsbalk onder levels */
+  .roi-calc {
+    background: var(--blue);
+    color: white;
+    padding: 34px 40px;
+    margin-top: 4px;
+    display: flex;
+    align-items: center;
+    gap: 36px;
+    flex-wrap: wrap;
+    border-radius: 0 0 8px 8px;
+  }
+
+  .roi-formula { flex: 1; min-width: 200px; }
+  .roi-formula-label { font-size: .78rem; opacity: .7; margin-bottom: 10px; }
+  .roi-fraction { display: flex; flex-direction: column; }
+  .roi-f-top, .roi-f-bot { font-size: .98rem; font-weight: 700; }
+  .roi-f-line { height: 2px; background: rgba(255,255,255,.45); margin: 5px 0; width: 100%; }
+  .roi-mult { font-size: .84rem; opacity: .75; margin-top: 10px; }
+  .roi-sep { font-size: 1.8rem; opacity: .22; }
+  .roi-example { flex: 1; min-width: 200px; }
+  .roi-ex-label { font-size: .78rem; opacity: .7; margin-bottom: 10px; }
+  .roi-ex-item { font-size: .83rem; padding: 7px 0; border-bottom: 1px solid rgba(255,255,255,.15); line-height: 1.4; }
+  .roi-ex-item:last-child { border: none; }
+  .roi-ex-result { font-size: 1.7rem; font-weight: 900; margin-top: 8px; line-height: 1.1; }
+
+  /* ─── ROADMAP ── */
+  .roadmap-section { margin-bottom: 96px; }
+
+  .roadmap-steps {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* verticale lijn */
+  .roadmap-steps::before {
+    content: '';
+    position: absolute;
+    left: 28px; top: 0; bottom: 0;
+    width: 2px;
+    background: var(--border);
+    z-index: 0;
+  }
+
+  .roadmap-step {
+    display: flex;
+    gap: 26px;
+    padding: 0 0 24px;
+    position: relative;
+    cursor: pointer;
+  }
+  .roadmap-step:last-child { padding-bottom: 0; }
+
+  .step-dot {
+    width: 58px; height: 58px;
+    border-radius: 50%;
+    background: var(--taupe);
+    border: 2px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    font-weight: 900;
+    color: var(--muted);
+    flex-shrink: 0;
+    position: relative;
+    z-index: 1;
+    transition: all .3s ease;
+  }
+
+  .roadmap-step:hover .step-dot,
+  .roadmap-step.expanded .step-dot {
+    background: var(--blue);
+    border-color: var(--blue);
+    color: white;
+    box-shadow: 0 0 0 7px rgba(0,90,220,.1);
+  }
+
+  .step-body { flex: 1; padding-top: 14px; }
+
+  .step-title {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--charcoal);
+    margin-bottom: 4px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .step-toggle { font-size: .72rem; color: var(--blue); font-weight: 600; }
+  .step-sub { font-size: .85rem; color: var(--mid); line-height: 1.6; }
+
+  .step-details {
+    display: none;
+    margin-top: 14px;
+    background: var(--alabas);
+    padding: 18px 20px;
+    border-left: 3px solid var(--blue);
+    border-radius: 0 6px 6px 0;
+  }
+  .step-details.open { display: block; }
+  .step-details ul { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+  .step-details li {
+    font-size: .84rem; color: var(--mid);
+    display: flex; gap: 9px; line-height: 1.5;
+  }
+  .step-details li::before { content: '→'; color: var(--blue); flex-shrink: 0; font-weight: 700; }
+
+  /* ─── CHECKLIST ── */
+  .checklist-section { margin-bottom: 96px; }
+
+  .checklist-count { font-size: .8rem; color: var(--muted); margin-bottom: 8px; }
+  .checklist-count span { color: var(--blue); font-weight: 700; }
+
+  .checklist-progress {
+    height: 4px; background: var(--taupe);
+    border-radius: 2px; overflow: hidden; margin-bottom: 16px;
+  }
+  .checklist-bar {
+    height: 100%; background: var(--blue);
+    width: 0%; transition: width .45s ease; border-radius: 2px;
+  }
+
+  .checklist-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+    background: var(--border);
+    border: 2px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(45,45,45,.06);
+  }
+
+  .check-item {
+    background: var(--white);
+    padding: 17px 22px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    cursor: pointer;
+    transition: background .2s;
+  }
+  .check-item:hover { background: var(--alabas); }
+
+  .check-box {
+    width: 22px; height: 22px;
+    border: 2px solid var(--border);
+    border-radius: 4px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all .25s;
+    font-size: .76rem;
+    color: transparent;
+  }
+  .check-item.checked .check-box {
+    background: var(--blue); border-color: var(--blue); color: white;
+  }
+  .check-text { font-size: .88rem; color: var(--charcoal); transition: opacity .2s; line-height: 1.4; }
+  .check-item.checked .check-text { opacity: .4; text-decoration: line-through; }
+
+  /* ─── TAKEAWAY BOX ── */
+  .takeaway-box {
+    background: var(--blue);
+    border-radius: 8px;
+    padding: 44px 50px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px 36px;
+    margin-bottom: 96px;
+    box-shadow: 0 4px 20px rgba(0,90,220,.2);
+  }
+
+  .takeaway-head {
+    font-size: 1.3rem;
+    font-weight: 900;
+    color: white;
+    grid-column: 1 / -1;
+    margin-bottom: 4px;
+  }
+
+  .takeaway-item {
+    display: flex;
+    gap: 14px;
+    color: rgba(255,255,255,.88);
+    font-size: .9rem;
+    line-height: 1.65;
+  }
+
+  .takeaway-dot {
+    width: 28px; height: 28px;
+    background: rgba(255,255,255,.15);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: .8rem;
+    font-weight: 900;
+    color: white;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  /* ─── FOOTER ── */
+  .footer {
+    background: var(--blue);
+    padding: 52px 60px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 28px;
+    flex-wrap: wrap;
+  }
+
+  .footer-brand {
+    font-size: 1.4rem;
+    font-weight: 900;
+    color: var(--white);
+  }
+
+  .footer-since {
+    font-size: .72rem;
+    color: rgba(255,255,255,.55);
+    margin-top: 6px;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+
+  .footer-tagline {
+    font-size: .88rem;
+    color: rgba(255,255,255,.65);
+    max-width: 360px;
+    text-align: right;
+    line-height: 1.75;
+  }
+
+  /* ─── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    .hero { padding: 60px 28px 56px; }
+    .body-wrap { padding: 60px 28px; }
+    .framework-grid { grid-template-columns: repeat(2, 1fr); }
+    .dp-cols { grid-template-columns: 1fr; }
+    .checklist-grid { grid-template-columns: 1fr; }
+    .roi-strip { flex-direction: column; }
+    .roi-item { border-right: none; border-bottom: 1px solid rgba(255,255,255,.15); }
+    .footer { padding: 44px 28px; flex-direction: column; }
+    .footer-tagline { text-align: left; }
+    .level-row:nth-child(n) .level-bar { width: 90px; font-size: .82rem; }
+    .takeaway-box { grid-template-columns: 1fr; padding: 32px 28px; }
+    .takeaway-head { grid-column: 1; }
+    .roi-calc { flex-direction: column; gap: 24px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="hero-inner">
+    <div class="hero-eyebrow">de Baak Leiderschapsontwikkeling · 2026</div>
+    <h1>Kwaliteit van Executive Coaching Evalueren</h1>
+    <p class="hero-sub">Een compleet kader om evidence-based coaching te onderscheiden van ongefundeerde aanpakken — en je investering te maximaliseren.</p>
+
+    <div class="roi-strip">
+      <div class="roi-item">
+        <div class="roi-num">5–7×</div>
+        <div class="roi-lbl">Gemiddeld ROI</div>
+      </div>
+      <div class="roi-item">
+        <div class="roi-num">77%</div>
+        <div class="roi-lbl">Tevredenheid deelnemers</div>
+      </div>
+      <div class="roi-item">
+        <div class="roi-num">14×</div>
+        <div class="roi-lbl">Maximaal rendement</div>
+      </div>
+    </div>
+    <div class="source-note">Bron: ICF Global Coaching Study, 2025</div>
+  </div>
+</header>
+
+<!-- BODY -->
+<main class="body-wrap">
+
+  <!-- 8-criteria raster -->
+  <div class="framework-wrap reveal">
+    <div class="section-eyebrow">Het kader</div>
+    <div class="section-title">8 Criteria voor Kwaliteitsevaluatie</div>
+    <p class="section-lead">Klik op een criterium om kwaliteitsindicatoren en waarschuwingssignalen te bekijken.</p>
+
+    <div class="framework-grid" id="frameworkGrid">
+      <div class="framework-card" onclick="toggleDetail(0)">
+        <div class="fc-num">01</div>
+        <div class="fc-title">Verificeer Credentials</div>
+        <div class="fc-desc">ICF, EMCC, BCC certificeringen</div>
+      </div>
+      <div class="framework-card" onclick="toggleDetail(1)">
+        <div class="fc-num">02</div>
+        <div class="fc-title">Programma-ontwerp</div>
+        <div class="fc-desc">Maatwerk methodologie</div>
+      </div>
+      <div class="framework-card" onclick="toggleDetail(2)">
+        <div class="fc-num">03</div>
+        <div class="fc-title">Meting</div>
+        <div class="fc-desc">5-niveau ROI-meting</div>
+      </div>
+      <div class="framework-card" onclick="toggleDetail(3)">
+        <div class="fc-num">04</div>
+        <div class="fc-title">Onderbouwing</div>
+        <div class="fc-desc">Wetenschappelijk gefundeerde methoden</div>
+      </div>
+      <div class="framework-card" onclick="toggleDetail(4)">
+        <div class="fc-num">05</div>
+        <div class="fc-title">Ethische standaarden</div>
+        <div class="fc-desc">Professionele gedragscodes</div>
+      </div>
+      <div class="framework-card" onclick="toggleDetail(5)">
+        <div class="fc-num">06</div>
+        <div class="fc-title">Trainerskwaliteit</div>
+        <div class="fc-desc">Leiderschapservaring</div>
+      </div>
+      <div class="framework-card" onclick="toggleDetail(6)">
+        <div class="fc-num">07</div>
+        <div class="fc-title">Transparantie</div>
+        <div class="fc-desc">Heldere prijzen & aanpak</div>
+      </div>
+      <div class="framework-card" onclick="toggleDetail(7)">
+        <div class="fc-num">08</div>
+        <div class="fc-title">Aantoonbare resultaten</div>
+        <div class="fc-desc">Verifieerbare referenties</div>
+      </div>
+    </div>
+
+    <div class="detail-panel" id="detailPanel"></div>
+  </div>
+
+  <div class="section-divider"></div>
+
+  <!-- Meetmodel -->
+  <div class="measurement-section reveal">
+    <div class="section-eyebrow">Criterium 3 — Verdieping</div>
+    <div class="section-title">Kirkpatrick + Phillips<br>5-Niveau Meetmodel</div>
+    <p class="section-lead">Elke serieuze coachingaanbieder moet zich committeren aan alle vijf niveaus — van initiële reactie tot volledige ROI-berekening.</p>
+
+    <div class="levels-wrap">
+      <div class="level-row">
+        <div class="level-bar">Niveau 1</div>
+        <div class="level-content">
+          <div class="level-name">Reactie</div>
+          <div class="level-desc">Tevredenheid en betrokkenheid van deelnemers</div>
+        </div>
+      </div>
+      <div class="level-row">
+        <div class="level-bar">Niveau 2</div>
+        <div class="level-content">
+          <div class="level-name">Leren</div>
+          <div class="level-desc">Opgedane kennis en gemeten vaardigheidsontwikkeling</div>
+        </div>
+      </div>
+      <div class="level-row">
+        <div class="level-bar">Niveau 3</div>
+        <div class="level-content">
+          <div class="level-name">Gedrag</div>
+          <div class="level-desc">Waarneembare gedragsveranderingen op de werkvloer</div>
+        </div>
+      </div>
+      <div class="level-row">
+        <div class="level-bar">Niveau 4</div>
+        <div class="level-content">
+          <div class="level-name">Resultaten</div>
+          <div class="level-desc">Meetbare zakelijke impact</div>
+        </div>
+      </div>
+      <div class="level-row">
+        <div class="level-bar">Niveau 5</div>
+        <div class="level-content">
+          <div class="level-name">ROI</div>
+          <div class="level-desc">Rendement op investering als percentage</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="roi-calc">
+      <div class="roi-formula">
+        <div class="roi-formula-label">Niveau 5 formule:</div>
+        <div class="roi-fraction">
+          <div class="roi-f-top">Baten − Kosten</div>
+          <div class="roi-f-line"></div>
+          <div class="roi-f-bot">Kosten</div>
+        </div>
+        <div class="roi-mult">× 100 = ROI %</div>
+      </div>
+      <div class="roi-sep">|</div>
+      <div class="roi-example">
+        <div class="roi-ex-label">Praktijkvoorbeeld:</div>
+        <div class="roi-ex-item">Investering: €50.000 coachingprogramma</div>
+        <div class="roi-ex-item">Baten: €750.000 productiviteit + retentie</div>
+        <div class="roi-ex-result">ROI: 1.400% — 14× rendement</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-divider"></div>
+
+  <!-- Routekaart -->
+  <div class="roadmap-section reveal">
+    <div class="section-eyebrow">Implementatie</div>
+    <div class="section-title">Stappenplan in Vier Stappen</div>
+    <p class="section-lead">Klik op elke stap om de gedetailleerde acties te bekijken die in die fase vereist zijn.</p>
+
+    <div class="roadmap-steps">
+      <div class="roadmap-step" onclick="toggleStep(this)">
+        <div class="step-dot">1</div>
+        <div class="step-body">
+          <div class="step-title">Voer Due Diligence uit <span class="step-toggle">▾ uitklappen</span></div>
+          <div class="step-sub">Verifieer credentials, onderzoek reputatie, valideer alle claims.</div>
+          <div class="step-details">
+            <ul>
+              <li>Verifieer credentials via officiële certificeringsinstanties (ICF, EMCC, BCC)</li>
+              <li>Onderzoek de achtergrond en marktreputatie van de aanbieder</li>
+              <li>Controleer op klachten of negatieve beoordelingen op onafhankelijke platforms</li>
+              <li>Valideer alle claims over methodologie en genoemde resultaten</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="roadmap-step" onclick="toggleStep(this)">
+        <div class="step-dot">2</div>
+        <div class="step-body">
+          <div class="step-title">Vraag Gedetailleerde Voorstellen <span class="step-toggle">▾ uitklappen</span></div>
+          <div class="step-sub">Uitgebreide programmabeschrijvingen en volledige kostenspecificaties.</div>
+          <div class="step-details">
+            <ul>
+              <li>Uitgebreide programmabeschrijvingen met expliciete scope en doelstellingen</li>
+              <li>Meet- en evaluatiekaders met gedefinieerde KPI's</li>
+              <li>Voorbeeldmaterialen, sessiestructuren en methodologieën</li>
+              <li>Gedetailleerde kostenspecificatie — geen verborgen kosten</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="roadmap-step" onclick="toggleStep(this)">
+        <div class="step-dot">3</div>
+        <div class="step-body">
+          <div class="step-title">Voer een Pilot uit <span class="step-toggle">▾ uitklappen</span></div>
+          <div class="step-sub">Test op kleine schaal met gedefinieerde succescriteria voordat je opschaalt.</div>
+          <div class="step-details">
+            <ul>
+              <li>Selecteer een representatieve kleine groep voor de pilot</li>
+              <li>Stel duidelijke succescriteria vast vóór aanvang van het programma</li>
+              <li>Monitor de voortgang nauwlettend gedurende de pilotfase</li>
+              <li>Evalueer resultaten objectief aan de hand van vooraf bepaalde criteria</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="roadmap-step" onclick="toggleStep(this)">
+        <div class="step-dot">4</div>
+        <div class="step-body">
+          <div class="step-title">Implementeer Doorlopende Evaluatie <span class="step-toggle">▾ uitklappen</span></div>
+          <div class="step-sub">Regelmatige reviews, resultaten bijhouden, itereren op basis van bewijs.</div>
+          <div class="step-details">
+            <ul>
+              <li>Bouw een ritme van regelmatige voortgangsreviews in de programmaplanning</li>
+              <li>Monitor zowel kwantitatieve metrics als kwalitatieve feedback van deelnemers</li>
+              <li>Voer follow-upevaluaties uit na 3, 6 en 12 maanden</li>
+              <li>Pas programma-elementen aan op basis van bewijs en resultaten</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-divider"></div>
+
+  <!-- Checklist -->
+  <div class="checklist-section reveal">
+    <div class="section-eyebrow">Voordat je tekent</div>
+    <div class="section-title">Kwaliteitsevaluatie Checklist</div>
+    <p class="section-lead">Doorloop alle acht criteria voordat je een contract tekent. Vink elk punt af zodra je het hebt geverifieerd.</p>
+
+    <div class="checklist-count"><span id="checkedCount">0</span> van 8 criteria geverifieerd</div>
+    <div class="checklist-progress"><div class="checklist-bar" id="checkBar"></div></div>
+
+    <div class="checklist-grid">
+      <div class="check-item" onclick="toggleCheck(this)">
+        <div class="check-box">✓</div>
+        <div class="check-text">ICF / EMCC / BCC credentials geverifieerd</div>
+      </div>
+      <div class="check-item" onclick="toggleCheck(this)">
+        <div class="check-box">✓</div>
+        <div class="check-text">Maatwerk methodologie gedocumenteerd</div>
+      </div>
+      <div class="check-item" onclick="toggleCheck(this)">
+        <div class="check-box">✓</div>
+        <div class="check-text">5-niveau meetsysteem aanwezig</div>
+      </div>
+      <div class="check-item" onclick="toggleCheck(this)">
+        <div class="check-box">✓</div>
+        <div class="check-text">Evidence-based aanpak bevestigd</div>
+      </div>
+      <div class="check-item" onclick="toggleCheck(this)">
+        <div class="check-box">✓</div>
+        <div class="check-text">Naleving ethische standaarden geverifieerd</div>
+      </div>
+      <div class="check-item" onclick="toggleCheck(this)">
+        <div class="check-box">✓</div>
+        <div class="check-text">Kwalificaties trainers beoordeeld</div>
+      </div>
+      <div class="check-item" onclick="toggleCheck(this)">
+        <div class="check-box">✓</div>
+        <div class="check-text">Transparante prijsopgave ontvangen</div>
+      </div>
+      <div class="check-item" onclick="toggleCheck(this)">
+        <div class="check-box">✓</div>
+        <div class="check-text">Referenties van klanten gevalideerd</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Takeaways -->
+  <div class="takeaway-box reveal">
+    <div class="takeaway-head">Belangrijkste inzichten</div>
+    <div class="takeaway-item">
+      <div class="takeaway-dot">1</div>
+      <div>Pas het systematische 8-criteria kader toe voordat je je aan een aanbieder verbindt.</div>
+    </div>
+    <div class="takeaway-item">
+      <div class="takeaway-dot">2</div>
+      <div>Eis erkende credentials (ICF/EMCC) en evidence-based methodologieën.</div>
+    </div>
+    <div class="takeaway-item">
+      <div class="takeaway-dot">3</div>
+      <div>Sta erop dat een volledig 5-niveau meetsysteem met gedefinieerde KPI's vooraf vastligt.</div>
+    </div>
+    <div class="takeaway-item">
+      <div class="takeaway-dot">4</div>
+      <div>Begin altijd met een pilotprogramma voordat je volledig opschaalt.</div>
+    </div>
+  </div>
+
+</main>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div>
+    <div class="footer-brand">de Baak</div>
+    <div class="footer-since">Training · Ontwikkeling · Leiderschap · Sinds 1947</div>
+  </div>
+  <div class="footer-tagline">
+    Kwalitatieve executive coaching levert meetbare waarde — mits goed geëvalueerd en geïmplementeerd.
+  </div>
+</footer>
+
+<script>
+const details = [
+  {
+    title: "Verificeer Credentials van de Coach",
+    good: [
+      "ICF credentials: ACC (60+ uur training, 100+ uur praktijk), PCC (125+/500+), MCC (200+/2.500+)",
+      "EMCC niveaus: Foundation, Practitioner, Senior Practitioner, Master Practitioner",
+      "BCC of gelijkwaardige nationale certificering met volledig verifieerbare gegevens",
+      "Bereidheid om formele opleidings- en professionele achtergrond te delen"
+    ],
+    bad: [
+      "Geen verifieerbare credentials van erkende certificeringsinstantie",
+      "Zelfverklaarde 'expert' zonder formele opleiding",
+      "Certificeringen van onbekende of niet-geaccrediteerde organisaties",
+      "Terughoudendheid bij het delen van opleidingsachtergrond of coachinguren"
+    ]
+  },
+  {
+    title: "Beoordeel het Programma-ontwerp",
+    good: [
+      "Maatwerk aanpak afgestemd op jouw specifieke organisatiecontext",
+      "Duidelijke, meetbare doelstellingen vooraf schriftelijk vastgelegd",
+      "Gestructureerde, evidence-based methodologie met transparant kader",
+      "Uitgebreid organisatorisch onderzoek en diagnoseproces als eerste stap"
+    ],
+    bad: [
+      "Generieke one-size-fits-all programma's zonder enige aanpassing",
+      "Vage doelstellingen of onrealistische transformatiebeloften",
+      "Claims over snelle resultaten in ongeloofwaardig korte tijdframes",
+      "Geen diagnoseproces voordat het programma-ontwerp begint"
+    ]
+  },
+  {
+    title: "Evalueer het Meetsysteem",
+    good: [
+      "Commitment aan alle 5 Kirkpatrick + Phillips niveaus van evaluatie",
+      "Voor- en nametingen met gevalideerde psychometrische instrumenten",
+      "Meetbare zakelijke impactcriteria vastgesteld vóór aanvang programma",
+      "Gestructureerde ROI-berekeningsaanpak vooraf transparant gedeeld"
+    ],
+    bad: [
+      "Alleen subjectieve tevredenheidsscores van deelnemers gemeten",
+      "Geen tracking buiten anekdotische getuigenissen",
+      "Onvermogen of weigering om zakelijke impact aan te tonen",
+      "Geen follow-upevaluatie na afloop gepland"
+    ]
+  },
+  {
+    title: "Onderzoek de Wetenschappelijke Onderbouwing",
+    good: [
+      "Methoden gebaseerd op peer-reviewed, gepubliceerd onderzoek",
+      "Gepubliceerde casestudies met onafhankelijk verifieerbare uitkomsten",
+      "Transparante wetenschappelijke of theoretische basis voor elke gebruikte methode",
+      "Actieve betrokkenheid bij actueel academisch en sectoronderzoek"
+    ],
+    bad: [
+      "Uitsluitend eigen methoden zonder externe wetenschappelijke validatie",
+      "Geen onderzoek beschikbaar gesteld na directe vraag",
+      "Niet-onderbouwde claims zonder enige evidentiebasis",
+      "Afwijzende houding tegenover wetenschappelijke kritiek"
+    ]
+  },
+  {
+    title: "Verifieer Ethische Standaarden",
+    good: [
+      "Strikte vertrouwelijkheid: duidelijke protocollen ter bescherming van klantinformatie",
+      "Volledige transparantie: alle voorwaarden, grenzen en processen vooraf uitgelegd",
+      "Geïnformeerde toestemming: deelnemers begrijpen volledig de scope en beperkingen",
+      "Commitment aan doorlopende professionele ontwikkeling en externe supervisie"
+    ],
+    bad: [
+      "Vage of volledig afwezige vertrouwelijkheidsbeleid",
+      "Niet-openbaar gemaakte dubbele relaties of belangenconflicten",
+      "Geen duidelijke uitleg van de grens tussen coaching en therapie",
+      "Geen bewijs van voortdurende professionele ontwikkeling"
+    ]
+  },
+  {
+    title: "Beoordeel de Kwalificaties van de Trainer",
+    good: [
+      "Echte, senior leiderschapservaring in relevante sectoren",
+      "Bewezen en onafhankelijk verifieerbare trackrecord van meetbare klantimpact",
+      "Diepgaande domeinexpertise direct relevant voor jouw organisatiecontext",
+      "Duidelijk vermogen om ROI-methodologie en verwachte resultaten toe te lichten"
+    ],
+    bad: [
+      "Geen substantiële leiderschaps- of managementervaring",
+      "Kan ROI niet uitleggen of enige vorm van meetbare impact aantonen",
+      "Afhankelijkheid van complex jargon om een dunne methodologie te verhullen",
+      "Weerstand bij het bespreken van eigen professionele achtergrond"
+    ]
+  },
+  {
+    title: "Evalueer de Transparantie",
+    good: [
+      "Heldere, gespecificeerde prijsstructuur zonder verborgen extra's",
+      "Realistische verwachtingen gesteld voor haalbare tijdlijnen en uitkomsten",
+      "Open en volledig openbaar gemaakte methodologie en coachingaanpak",
+      "Eerlijk relaas van wat coaching wel en niet realistisch kan bereiken"
+    ],
+    bad: [
+      "Verborgen kosten die pas na een commitment aan het licht komen",
+      "Onrealistische of gegarandeerde uitkomstbeloften zonder onderbouwing",
+      "Harde verkooptactieken of gecreëerde urgentie",
+      "Weigering om methodologie, kaders of procesdocumentatie te delen"
+    ]
+  },
+  {
+    title: "Verifieer Referenties van Klanten",
+    good: [
+      "Verifieerbare getuigenissen met specifieke, meetbare uitkomsten",
+      "Aanbevelingen van senior directeuren in je eigen netwerk",
+      "Gepubliceerde succesverhalen met kwantificeerbare, verifieerbare resultaten",
+      "Proactieve bereidheid om directe referentiecontacten te verstrekken"
+    ],
+    bad: [
+      "Alleen anonieme of volledig niet-verifieerbare getuigenissen beschikbaar",
+      "Onvermogen om klanten, sectoren of organisaties te noemen",
+      "Terughoudendheid bij het faciliteren van direct contact met vroegere deelnemers",
+      "Uitkomstclaims die op geen enkele manier onafhankelijk verifieerbaar zijn"
+    ]
+  }
+];
+
+let activeDetail = null;
+
+function toggleDetail(id) {
+  const panel = document.getElementById('detailPanel');
+  const cards = document.querySelectorAll('.framework-card');
+
+  if (activeDetail === id) {
+    panel.classList.remove('visible');
+    cards[id].classList.remove('active');
+    activeDetail = null;
+    return;
+  }
+
+  cards.forEach(c => c.classList.remove('active'));
+  cards[id].classList.add('active');
+  activeDetail = id;
+
+  const d = details[id];
+  panel.innerHTML = `
+    <div class="detail-panel-head">
+      <div class="dp-num">0${id + 1}</div>
+      <div class="dp-title">${d.title}</div>
+    </div>
+    <div class="dp-cols">
+      <div>
+        <div class="dp-col-label good-lbl">✓ Kwaliteitsindicatoren</div>
+        <ul class="dp-list">
+          ${d.good.map(g => `<li><span class="dp-icon icon-good">✓</span>${g}</li>`).join('')}
+        </ul>
+      </div>
+      <div>
+        <div class="dp-col-label bad-lbl">⚠ Waarschuwingssignalen</div>
+        <ul class="dp-list">
+          ${d.bad.map(b => `<li><span class="dp-icon icon-bad">✕</span>${b}</li>`).join('')}
+        </ul>
+      </div>
+    </div>
+  `;
+
+  panel.classList.add('visible');
+  setTimeout(() => panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 50);
+}
+
+function toggleStep(el) {
+  const det = el.querySelector('.step-details');
+  const tog = el.querySelector('.step-toggle');
+  const open = det.classList.contains('open');
+  det.classList.toggle('open');
+  el.classList.toggle('expanded');
+  tog.textContent = open ? '▾ uitklappen' : '▴ inklappen';
+}
+
+function toggleCheck(el) {
+  el.classList.toggle('checked');
+  const all = document.querySelectorAll('.check-item');
+  const n = document.querySelectorAll('.check-item.checked').length;
+  document.getElementById('checkedCount').textContent = n;
+  document.getElementById('checkBar').style.width = (n / all.length * 100) + '%';
+}
+
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.08 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>

@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>De Baak · AI Scrum Master Infographic</title>
+  <style>
+    /* ----- DE BAAK HUISSTIJL v2.0 ----- */
+    :root {
+      --primary: #005ADC;
+      --secondary: #00A555;
+      --accent: #FFE100;
+      --bg: #F5F5EB;
+      --text: #1A1A2E;
+      --shadow: 0 8px 20px rgba(0,0,0,0.05), 0 2px 4px rgba(0,0,0,0.02);
+      --card-radius: 16px;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.4;
+    }
+
+    /* container */
+    .infographic {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem 1rem 1.5rem;
+    }
+
+    /* header */
+    .header h1 {
+      font-size: clamp(1.6rem, 5vw, 2.4rem);
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 0.25rem;
+      letter-spacing: -0.3px;
+    }
+    .sub {
+      font-size: 1rem;
+      color: #4a4a5e;
+      border-left: 4px solid var(--secondary);
+      padding-left: 1rem;
+      margin: 0.75rem 0 1.5rem 0;
+    }
+
+    /* ----- tabs navigation ----- */
+    .tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      border-bottom: 2px solid #e2e0d0;
+      margin-bottom: 1.25rem;
+    }
+    .tab-btn {
+      background: transparent;
+      border: none;
+      padding: 0.9rem 1.6rem;
+      font-family: Arial, sans-serif;
+      font-size: 1rem;
+      font-weight: 600;
+      color: #5a5a6e;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      border-radius: 32px 32px 0 0;
+      margin-bottom: -2px;
+      touch-action: manipulation;
+      min-height: 48px; /* touch target */
+    }
+    .tab-btn:hover {
+      background: rgba(0, 90, 220, 0.05);
+      color: var(--primary);
+    }
+    .tab-btn.active {
+      color: var(--primary);
+      border-bottom: 3px solid var(--primary);
+      background: white;
+      border-radius: 32px 32px 0 0;
+    }
+
+    /* dot legend */
+    .dot-legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+      padding: 0.5rem 0;
+      border-bottom: 1px dashed #ddd8c6;
+    }
+    .legend-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.85rem;
+      font-weight: 500;
+    }
+    .dot {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      display: inline-block;
+    }
+    .dot.primary { background-color: var(--primary); }
+    .dot.secondary { background-color: var(--secondary); }
+    .dot.accent { background-color: var(--accent); }
+
+    /* card grid */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.8rem;
+      margin: 1rem 0 2rem 0;
+    }
+
+    /* card styling */
+    .card {
+      background: white;
+      border-radius: var(--card-radius);
+      box-shadow: var(--shadow);
+      transition: transform 0.2s ease, box-shadow 0.2s;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 28px -8px rgba(0,0,0,0.12);
+    }
+    /* 4px top border per thema */
+    .card-primary {
+      border-top: 4px solid var(--primary);
+    }
+    .card-secondary {
+      border-top: 4px solid var(--secondary);
+    }
+    .card-accent {
+      border-top: 4px solid var(--accent);
+    }
+    .card-content {
+      padding: 1.5rem 1.2rem 1.4rem 1.2rem;
+    }
+    .card-icon {
+      font-size: 1.8rem;
+      margin-bottom: 0.6rem;
+    }
+    .card-title {
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      color: var(--text);
+    }
+    .card-desc {
+      font-size: 0.9rem;
+      color: #3a3a4e;
+      line-height: 1.45;
+    }
+    .card-meta {
+      margin-top: 0.8rem;
+      font-size: 0.75rem;
+      color: #6b6b7e;
+      display: flex;
+      gap: 0.75rem;
+      align-items: center;
+    }
+    .badge {
+      background: #f0efe5;
+      padding: 0.2rem 0.6rem;
+      border-radius: 30px;
+    }
+
+    /* tabs content panels */
+    .tab-pane {
+      display: none;
+    }
+    .tab-pane.active-pane {
+      display: block;
+    }
+
+    /* footer */
+    .footer {
+      background-color: var(--primary);
+      color: white;
+      text-align: center;
+      padding: 1.2rem 1.5rem;
+      margin-top: 2.5rem;
+      position: relative;
+    }
+    .footer p {
+      font-size: 0.9rem;
+      font-weight: 500;
+      letter-spacing: 0.3px;
+    }
+    .gradient-bar {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: linear-gradient(90deg, var(--secondary), var(--accent), var(--secondary));
+    }
+
+    /* responsive */
+    @media (max-width: 768px) {
+      .infographic {
+        padding: 1.2rem 1rem;
+      }
+      .cards-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+      }
+      .tab-btn {
+        padding: 0.7rem 1rem;
+        font-size: 0.9rem;
+        flex: 1 0 auto;
+        text-align: center;
+      }
+      .tabs {
+        gap: 0.3rem;
+      }
+      .legend-item {
+        font-size: 0.75rem;
+      }
+      .card-content {
+        padding: 1.2rem;
+      }
+      .card-title {
+        font-size: 1.1rem;
+      }
+    }
+
+    /* touch target increase for buttons & legend */
+    button, .legend-item {
+      cursor: pointer;
+      touch-action: manipulation;
+    }
+    .legend-item {
+      padding: 4px 0;
+    }
+
+    /* extra spacing */
+    .small-note {
+      margin-top: 0.8rem;
+      text-align: center;
+      font-size: 0.75rem;
+      color: #6e6e82;
+    }
+  </style>
+</head>
+<body>
+<div class="infographic">
+  <div class="header">
+    <h1>🤖 De Baak AI Scrum Master</h1>
+    <div class="sub">Karpathy knowledge stack + agent orchestratie — proactief projectmanagement voor L&D portfolio’s</div>
+  </div>
+
+  <!-- tabs navigation -->
+  <div class="tabs">
+    <button class="tab-btn active" data-tab="tab1">📚 Kennisstack (Karpathy)</button>
+    <button class="tab-btn" data-tab="tab2">⚙️ Agent Orchestratie</button>
+    <button class="tab-btn" data-tab="tab3">📊 Proactief PMO Dashboard</button>
+  </div>
+
+  <!-- dot legend (kleuren betekenis) -->
+  <div class="dot-legend">
+    <div class="legend-item"><span class="dot primary"></span> Kennisbasis & persistent geheugen</div>
+    <div class="legend-item"><span class="dot secondary"></span> AI Agents (Scrum Master / dependency)</div>
+    <div class="legend-item"><span class="dot accent"></span> Proactieve alerts & bottlenecks</div>
+  </div>
+
+  <!-- TAB 1: Karpathy Stack -->
+  <div id="tab1" class="tab-pane active-pane">
+    <div class="cards-grid">
+      <!-- card 1: raw folder -->
+      <div class="card card-primary">
+        <div class="card-content">
+          <div class="card-icon">📂</div>
+          <div class="card-title">raw/ — bronmateriaal</div>
+          <div class="card-desc">Alle notulen, projectcharters, Slack logs, e-mail, Jira exports. Menselijk dumpen, AI verwerkt.</div>
+          <div class="card-meta"><span class="badge">altijd aangevuld</span><span>📄 oneindige context</span></div>
+        </div>
+      </div>
+      <!-- card 2: wiki compilation -->
+      <div class="card card-primary">
+        <div class="card-content">
+          <div class="card-icon">🌐</div>
+          <div class="card-title">wiki/ — gestructureerde kennis</div>
+          <div class="card-desc">Claude leest raw, bouwt semantische wiki met backlinks, entiteiten (projecten, personen, afhankelijkheden).</div>
+          <div class="card-meta"><span class="badge">automatisch bijgewerkt</span></div>
+        </div>
+      </div>
+      <!-- card 3: outputs reports -->
+      <div class="card card-primary">
+        <div class="card-content">
+          <div class="card-icon">📈</div>
+          <div class="card-title">outputs/ — actierapporten</div>
+          <div class="card-desc">Wekelijkse health checks, dependency mapping, bottleneck analyse, kennislacunes.</div>
+          <div class="card-meta"><span class="badge">proactief gedeeld in townhall</span></div>
+        </div>
+      </div>
+      <!-- card 4: persistent memory -->
+      <div class="card card-primary">
+        <div class="card-content">
+          <div class="card-icon">🧠</div>
+          <div class="card-title">Geheugen zonder verlies</div>
+          <div class="card-desc">Stateless LLM’s verliezen context. Met de Karpathy stack blijft alle projectkennis beschikbaar, ook na weken.</div>
+          <div class="card-meta"><span class="badge">geen ‘van nul beginnen’</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TAB 2: Agent Orchestration (Scrum Master + dependency sync) -->
+  <div id="tab2" class="tab-pane">
+    <div class="cards-grid">
+      <div class="card card-secondary">
+        <div class="card-content">
+          <div class="card-icon">🤝</div>
+          <div class="card-title">Scrum Master Agent</div>
+          <div class="card-desc">Faciliteert ceremonies, signaleert impediments, bewaakt sprintdoelen over projecten heen. Automatische stand-up analyse.</div>
+          <div class="card-meta"><span class="badge">multiproject coördinatie</span></div>
+        </div>
+      </div>
+      <div class="card card-secondary">
+        <div class="card-content">
+          <div class="card-icon">🔗</div>
+          <div class="card-title">Dependency Analyst</div>
+          <div class="card-desc">Leest alle project-WBS’s, detecteert harde en zachte afhankelijkheden (blokkeert/wacht op). Toont vertragingsrisico’s.</div>
+          <div class="card-meta"><span class="badge">Work Graph visualisatie</span></div>
+        </div>
+      </div>
+      <div class="card card-secondary">
+        <div class="card-content">
+          <div class="card-icon">⚡</div>
+          <div class="card-title">Proactieve bottleneckdetectie</div>
+          <div class="card-desc">Integratie met FTE-tabellen & tijdregistratie: signaleert overbelasting (Robin >120%) en adviseert herprioritering.</div>
+          <div class="card-meta"><span class="badge">real-time waarschuwingen</span></div>
+        </div>
+      </div>
+      <div class="card card-secondary">
+        <div class="card-content">
+          <div class="card-icon">🔄</div>
+          <div class="card-title">Cross-team kennis sharing</div>
+          <div class="card-desc">Agent identificeert overlap in trainingscontent, suggesties voor hergebruik, verbindt experts op basis van wiki.</div>
+          <div class="card-meta"><span class="badge">lerende organisatie</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TAB 3: Proactief PMO Dashboard (outputs & meerwaarde) -->
+  <div id="tab3" class="tab-pane">
+    <div class="cards-grid">
+      <div class="card card-accent">
+        <div class="card-content">
+          <div class="card-icon">📋</div>
+          <div class="card-title">Wekelijks portfolio dashboard</div>
+          <div class="card-desc">Stoplichten per project (🟢/🟡/🔴), geaggregeerde health, budgetverbruik, fase pipeline.</div>
+          <div class="card-meta"><span class="badge">automatisch gegenereerd</span></div>
+        </div>
+      </div>
+      <div class="card card-accent">
+        <div class="card-content">
+          <div class="card-icon">🚨</div>
+          <div class="card-title">Bottleneck alerts</div>
+          <div class="card-desc">“Project X heeft review nodig van team Y → blokkeert 2 andere projecten.” Alert op Slack / e-mail.</div>
+          <div class="card-meta"><span class="badge">voorkomt vertragingen</span></div>
+        </div>
+      </div>
+      <div class="card card-accent">
+        <div class="card-content">
+          <div class="card-icon">🧩</div>
+          <div class="card-title">Kennislacune rapportage</div>
+          <div class="card-desc">AI detecteert ontbrekende documenten (charter, KPI’s, dependency mapping) en vraagt actie.</div>
+          <div class="card-meta"><span class="badge">verbeterde compliance</span></div>
+        </div>
+      </div>
+      <div class="card card-accent">
+        <div class="card-content">
+          <div class="card-icon">📉</div>
+          <div class="card-title">Kostenvergelijking</div>
+          <div class="card-desc">AI stack: ~€30/maand vs Microsoft Project Plan 5 (>€200/maand). Volledige controle, geen vendor lock-in.</div>
+          <div class="card-meta"><span class="badge">bespaart >80%</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="small-note">
+      ⚡ Elke maandag 09:00 ontvangt het MT een compleet dashboard – zonder handmatig werk.
+    </div>
+  </div>
+</div>
+
+<footer class="footer">
+  <p>De Baak · AI-gestuurd projectmanagement · Continue verbetering & transparantie</p>
+  <div class="gradient-bar"></div>
+</footer>
+
+<script>
+  // tab switching logic
+  const tabBtns = document.querySelectorAll('.tab-btn');
+  const panes = {
+    tab1: document.getElementById('tab1'),
+    tab2: document.getElementById('tab2'),
+    tab3: document.getElementById('tab3')
+  };
+
+  function activateTab(tabId) {
+    // deactivate all panes
+    Object.values(panes).forEach(pane => {
+      if (pane) pane.classList.remove('active-pane');
+    });
+    // deactivate all buttons
+    tabBtns.forEach(btn => btn.classList.remove('active'));
+    // activate selected pane
+    if (panes[tabId]) panes[tabId].classList.add('active-pane');
+    // activate matching button
+    const matchingBtn = Array.from(tabBtns).find(btn => btn.getAttribute('data-tab') === tabId);
+    if (matchingBtn) matchingBtn.classList.add('active');
+  }
+
+  tabBtns.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      const tabId = btn.getAttribute('data-tab');
+      if (tabId && panes[tabId]) {
+        activateTab(tabId);
+      }
+    });
+  });
+
+  // optional: ensure first tab active on load
+  if (!document.querySelector('.tab-pane.active-pane')) {
+    activateTab('tab1');
+  }
+
+  // touch / mobile friendly – no extra action needed
+</script>
+</body>
+</html>

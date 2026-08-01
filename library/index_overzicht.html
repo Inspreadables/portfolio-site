@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Presentaties Overzicht — De Baak</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700&family=Source+Sans+3:wght@300;400;500;600&display=swap');
+  :root{
+    --teal:#5a8f8f;--teal-dark:#3d6b6b;--teal-light:#e8f2f2;--teal-mid:#b8d4d4;
+    --creme:#f8f5ef;--creme-dark:#ede8df;--text:#2c2c2c;--text-light:#666;--border:#d8cfc4;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Source Sans 3',Helvetica,sans-serif;background:var(--creme);color:var(--text);font-size:14px;line-height:1.6}
+
+  header{background:var(--teal);color:white;padding:36px 48px 28px;position:relative;overflow:hidden}
+  header::before{content:'';position:absolute;top:-60px;right:80px;width:180px;height:180px;border-radius:50%;background:rgba(255,255,255,.05)}
+  header::after{content:'';position:absolute;bottom:-30px;right:-20px;width:150px;height:150px;border-radius:50%;background:rgba(255,255,255,.04)}
+  .hdr-label{font-size:11px;letter-spacing:2.5px;text-transform:uppercase;opacity:.72;font-weight:300;margin-bottom:8px}
+  header h1{font-family:'Merriweather',Georgia,serif;font-weight:300;font-size:26px;margin-bottom:4px}
+  header h1 strong{font-weight:700}
+  .hdr-sub{font-size:13px;opacity:.7;font-weight:300}
+  .hdr-badge{position:absolute;top:32px;right:48px;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.25);border-radius:4px;padding:8px 16px;font-size:11px;letter-spacing:1px;text-transform:uppercase;font-weight:600}
+  .hdr-count{display:inline-block;margin-top:12px;background:rgba(255,255,255,.18);border-radius:12px;padding:4px 14px;font-size:12px;font-weight:500}
+
+  .container{max-width:1080px;margin:0 auto;padding:36px 48px 64px}
+
+  .section{margin-bottom:28px;background:white;border-radius:6px;border:1px solid var(--border);overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.04)}
+  .sec-header{padding:14px 20px 13px;display:flex;align-items:center;gap:12px;border-bottom:1px solid var(--border);cursor:pointer;user-select:none}
+  .sec-header:hover{background:var(--creme)}
+  .sec-icon{width:32px;height:32px;border-radius:6px;background:var(--teal-light);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+  .sec-title{font-family:'Merriweather',Georgia,serif;font-weight:700;font-size:13px;color:var(--teal-dark);flex:1}
+  .sec-count{font-size:11px;color:var(--text-light);background:var(--creme-dark);border-radius:10px;padding:2px 9px;font-weight:500}
+  .arrow{font-size:11px;color:var(--teal);transition:transform .2s}
+  .section.closed .arrow{transform:rotate(-90deg)}
+  .sec-body{overflow:hidden;transition:max-height .3s ease,padding .3s}
+  .section.closed .sec-body{max-height:0!important;padding:0}
+
+  .item{display:grid;grid-template-columns:1fr auto;grid-template-rows:auto auto;gap:0 12px;padding:10px 20px;border-bottom:1px solid var(--creme-dark);align-items:start;transition:background .12s}
+  .item:hover{background:var(--creme)}
+  .item:last-child{border-bottom:none}
+  .item-title{grid-column:1;grid-row:1}
+  .item-desc{grid-column:1;grid-row:2;font-size:12px;color:var(--text-light);margin-top:3px;line-height:1.5}
+  .item-badge{grid-column:2;grid-row:1;align-self:center}
+
+  a.item-link{color:var(--teal-dark);text-decoration:none;font-size:13.5px;font-weight:500;border-bottom:1px solid var(--teal-mid);transition:color .15s,border-color .15s}
+  a.item-link:hover{color:var(--teal);border-color:var(--teal)}
+
+  .badge{font-size:10px;letter-spacing:.5px;text-transform:uppercase;font-weight:600;padding:3px 8px;border-radius:3px;white-space:nowrap;background:var(--teal-light);color:var(--teal-dark)}
+
+  footer{text-align:center;padding:24px;color:var(--text-light);font-size:11px;letter-spacing:.5px;border-top:1px solid var(--border)}
+  footer span{color:var(--teal)}
+</style>
+</head>
+<body>
+<header>
+  <div class="hdr-badge">De Baak · Presentaties</div>
+  <div class="hdr-label">Overzicht</div>
+  <h1>Presentaties &amp; <strong>Infographics</strong></h1>
+  <div class="hdr-sub">Alle HTML-presentaties gegroepeerd per onderwerp — klikbaar en doorzoekbaar</div>
+  <div class="hdr-count">64 presentaties · 8 categorieën</div>
+</header>
+<div class="container">
+
+  <div class="section" id="s0" style="animation:fadeUp .35s 0.05s ease both">
+    <div class="sec-header" onclick="tog('s0')">
+      <div class="sec-icon">🎯</div>
+      <div class="sec-title">Strategie &amp; Positionering</div>
+      <span class="sec-count">10 items</span>
+      <span class="arrow">▾</span>
+    </div>
+    <div class="sec-body">
+      <div class="item">
+        <div class="item-title"><a class="item-link" href="MT-Briefing.html" target="_blank">MT-Briefing — Competitive Positioning De Baak</a></div>
+        <div class="item-desc">Een uitgehold middenveld — drie wegen vooruit. Strategische herpositionering van De Baak in de markt voor leiderschapsontwikkeling.</div>
+        <span class="badge item-badge">HTML</span>
+      </div>
+      <div class="item">
+        <div class="item-title"><a class="item-link" href="MT_briefing_competitive_positioning.html" target="_blank">MT-Briefing — Competitive Positioning De Baak (v2)</a></div>
+        <div class="item-desc">Aanvullende versie van de MT-briefing over competitieve positionering.</div>
+        <span class="badge item-badge">HTML</span>
+      </div>
+      <div class="item">
+        <div class="item-title"><a class="item-link" href="De Baak Kennishub %23U2014 Uit het midden, naar de toekomst.html" target="_blank">De Baak Kennishub — Uit het midden, naar de toekomst</a></div>
+        <div class="item-desc">Strategische visie: hoe De Baak van middenmotor naar CEO-level co-creatie groeit.</div>
+        <span class="badge item-badge">HTML</span>
+      </div>
+      <div class="item">
+        <div class="item-title"><a class="item-link" href="mt_brief_ v8.0 _ strategische_herpositionering.html" target="_blank">De Baak Kennishub — Uit het midden v8.0</a></div>
+        <div class="item-desc">Versie 8.0 van de strategische herpositioneringspresentatie.</div>
+        <span class="badge item-badge">HTML</span>
+      </div>
+      <div class="item">
+        <div class="item-title"><a class="item-link" href="comparison baak.html" target="_blank">De Baak Strategic Evolution: Authority Network</a></div>
+        <div class="item-desc">De Baak 2.0 als Authority Multiplier — van trainingsorganisatie naar kennisnetwerk.</div>
+        <span class="badge item-badge">HTML</span>
+      </div>
+      <div class="item">
+        <div class="item-title"><a class="item-link" href="comparison baakv2.html" target="_blank">De Baak Strategic Evolution: Authority Network v2</a></div>
+        <div class="item-desc">Herziene versie van de Authority Network strategiepresentatie.</div>
+        <span class="badge item-badge">HTML</span>
+      </div>
+      <div class="item">
+        <div class="item-title"><a class="item-link" href="5 Best Leadership Training Companies in Netherlands for 2026.html" target="_blank">5 Best Leadership Training Companies Netherlands 2026</a></div>
+        <div class="item-desc">Benchmarkonderzoek: De Baak vergeleken met de top 5 leiderschapstrainers in Nederland.</div>
+        <span class="badge item-badge">HTML</span>
+      </div>
+      <div class="item">
+        <div class="item-title"><a class="item-link" href="baak_horizon_insights.html" target="_blank">De Baak | Infographic Insights</a></div>
+        <div class="item-desc">Data-driven foresight, strategie en impact — een horizonverkenning.</div>
+        <span class="badge item-badge">HTML</span>
+      </div>
+      <div class="item">
+        <div class="item-title"><a class="item-link" href="Baakusp.html" target="_blank">De Baak · Audit Infographic 2026</a></div>
+        <div class="item-desc">Website-audit van De Baak — april 2026. Inzicht in contentkwaliteit en digitale aanwezigheid.</div>
+        <span class="badge item-badge">HTML</span>
+      </div>
+      <div class="item">
+        <div class="item-title"><a class="item-link" href="comparison.html" target="_blank">Business Model Analysis: Platforms vs. Authorities</a></div>
+        <div class="item-desc">Vergelijking van Substack, Patreon, Designing Your Life, School of Life en Commune als businessmodellen.</div>
+        <span class="badge item-badge">HTML</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="section" id="s1" style="animation:fadeUp .35s 0.10s ease both">
+    <div class="sec-header" onclick="tog('s1')">
+      <div class="sec-icon">🧠</div>
+      <div class="sec-title">Kennismanagement &amp; AI</div>
+      <span class="sec-count">13 items</span>
+      <span class="arrow">▾</span>
+    </div>
+    <div class="sec-body">
+      <div class="item">
+        <div class="item-title"><a class="item-link" href="De Baak Kennishub %23U00b7 Executive Learning Reimagined.html" target="_blank">De Baak Kennishub · Executive Learning Reimagined</a></div>
+        <div class="item-desc">Hoe de Kennishub executive learning heruitvindt via AI en community.</div>
+        <span class="badge item-badge">HTML</span>
+      </div>
+      <div class="item">
+        <div class="item-title"><a class="item-link" href="De Baak _ Knowledge Factory Agent.html" target="_blank">De Baak | Knowledge Factory Agent</a></div>
+        <div class="item-desc">Geautomatiseerd portfolio en projectintelligentie via Disco LMS, ClickUp en Claude.</div>
+        <span class="badge item-badge">HTML</span>
+      </div>
+      <div class="item">
+        <div class="item-title"><a class="item-link" href="De Baak %23U00b7 Knowledge Factory _ PMO.html" target="_blank">De Baak · Knowledge Factory | PMO Infographic</a></div>
+        <div class="item-desc">AI-driven portfolio management gecombineerd met kenniscreatie en Karpathy-style retrieval.</div>
+        <span class="badge item-badge">HTML</span>
+      </div>
+      <div class="item">
+        <div class="item-title"><a class="item-link" href="Knowledge Automation %26 Content Intelligence (old).html" target="_blank">Knowledge Automation & Content Intelligence</a></div>
+        <div class="item-desc">Het oorspronkelijke framework voor kennisautomatisering en contentintelligentie bij De Baak.</div>
+        <span class="badge item-badge">HTML</span>
+      </div>
+      <div class="item">
+        <div class="item-title"><a class="item-link" href="project-infographic-baak.html" target="_blank">Knowledge Automation — De Baak</a></div>
+        <div class="item-desc">Projectinfographic: van content naar geautomatiseerde kennisdistributie.</div>
+        <span class="badge item-badge">HTML</span>
+      </div>
+      <div class="item">
+        <div class="item-title"><a class="item-link" href="knowledge-creation-pilot-infographic.html" target="_blank">Knowledge Creation Platform — Pilot Charter</a></div>
+        <div class="item-desc">Business case en projectcharter voor het kenniscreatie platform als flagship pilot.</div>
+        <span class="badge item-badge">HTML</span>
+      </div>
+      <div class="item">
+        <div class="item-title"><a class="item-link" href="De Baak _ AI Second Brain %23U2013 Leeromgeving Infographic.html" target="_blank">De Baak | AI Second Brain – Leeromgeving</a></div>
+        <div class="item-desc">AI Tweede Brein workflow: Knowledge Agent × Social Learning in één leeromgeving.</div>
+        <span class="badge item-badge">HTML</span>
+      </div>
+      <div class="item">
+        <div class="item-title"><a class="item-link" href="deepseek_html_20260602_255005.html" target="_blank">De Baak · Knowledge Assistant Infographic</a></div>
+        <div class="item-desc">Infographic over de Knowledge Assistant in De Baak huisstijl.</div>
+        <span class="badge item-badge">HTML</span>
+      </div>
+      <div class="item">
+        <div class="item-title"><a class="item-link" href="knowledge_management_infographic_debaak.html" target="_blank">Knowledge Management Framework | Interactive Infographic</a></div>
+        <div class="item-desc">Uitgebreid framework dat projectmanagement integreert met kenniscreatie, validatie en distributie.</div>
+        <span class="badge item-badge">HTML</span>
+      </div>
+      <div class="item">
+        <div class="item-title"><a class="item-link" href="knowledge_wiki.html" target="_blank">De Baak · AI Project Assistant</a></div>
+        <div class="item-desc">Intelligente portfolio companion met real-time bottleneck detectie en persistent kennisregister.</div>
+        <span class="badge item-badge">HTML</span>
+      </div>
+      <div class="item">
+        <div class="item-title"><a class="item-link" href="Research stack.html" target="_blank">De Baak · AI Research Stack Infographic</a></div>
+        <div class="item-desc">Overzicht van de AI-toolstack voor learning professionals bij De Baak.</div>
+        <span class="badge item-badge">HTML</span>
+      </div>
+      <div class="item">
+        <div class="item-title"><a class="item-link" href="trainers_agent_knowledge_creation_research.html" target="_blank">De Baak · AI Research Stack for Trainers</a></div>
+        <div class="item-desc">AI Research Stack specifiek voor trainers — een lab-aanpak voor kenniscreatie.</div>
+        <span class="badge item-badge">HTML</span>
+      </div>
+      <div class="item">
+        <div class="item-title"><a class="item-link" href="%23AI research.html" target="_blank">#AI research</a></div>
+        <div class="item-desc">Ruwe research verzameling rond AI-toepassingen voor De Baak.</div>
+        <span class="badge item-badge">HTML</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="section" id="s2" style="animation:fadeUp .35s 0.15s ease both">
+    <div class="sec-header" onclick="tog('s2')">
+      <div class="sec-icon">📋</div>
+      <div class="sec-title">MT Briefings &amp; Pilots</div>
+      <span class="sec-count">9 items</span>
+      <span class="arrow">▾</span>
+    </div>
+    <div class="sec-body">
+      <div class="item">
+        <div class="item-title"><a class="item-link" href="De Baak _ Lerende Organisatie Infographic.html" target="_blank">De Baak | Lerende Organisatie Infographic</a></div>
+        <div class="item-desc">MT Brief: Versnelling van De Baak als lerende organisatie.</div>
+        <span class="badge item-badge">HTML</span>
+      </div>
+      <div class="item">
+        <div class="item-title"><a class="item-link" href="Living Lab Pilot Infographic (1).html" target="_blank">Living Lab Pilot Infographic</a></div>
+        <div class="item-desc">Gefaseerde, vrijwilligersgestuurde aanpak om communities te transformeren via leren.</div>
+        <span class="badge item-badge">HTML</span>
+      </div>
+      <div class="item">
+        <div class="item-title"><a class="item-link" href="pilot-presentatie-nederlands.html" target="_blank">Living Lab Pilot — Amsterdam 1077 VN</a></div>
+        <div class="item-desc">Managementpresentatie voor de Living Lab pilot in Amsterdam. Ambitieus maar uitvoerbaar.</div>
+        <span class="badge item-badge">HTML</span>
+      </div>
+      <div class="item">
+        <div class="item-title"><a class="item-link" href="Executive Development Research Initiative.html" target="_blank">Executive Development Research Initiative</a></div>
+        <div class="item-desc">Onderzoeksinitiatief voor executieve ontwikkeling als strategische pijler.</div>
+        <span class="badge item-badge">HTML</span>
+      </div>
+      <div class="item">
+        <div class="item-title"><a class="item-link" href="mt_brief_social learning_roadmap.html" target="_blank">MT Brief: Social Learning Roadmap</a></div>
+        <div class="item-desc">Baakie als intelligent orchestrator voor social learning workflows.</div>
+        <span class="badge item-badge">HTML</span>
+      </div>
+      <div class="item">
+        <div class="item-title"><a class="item-link" href="mt_brief_pilot_rapid_prototyping.html" target="_blank">MT Brief: Pilot Rapid Prototyping</a></div>
+        <div class="item-desc">Design Thinking infographic voor de rapid prototyping pilot.</div>
+        <span class="badge item-badge">HTML</span>
+      </div>
+      <div class="item">
+        <div class="item-title"><a class="item-link" href="mt_brief_pilot_visie projectmanagement.html" target="_blank">MT Brief: Pilot Projectmanagement Visie</a></div>
+        <div class="item-desc">Scenarioplanning en lange termijn waardecreatie voor het projectmanagement pilot.</div>
+        <span class="badge item-badge">HTML</span>
+      </div>
+      <div class="item">
+        <div class="item-title"><a class="item-link" href="mt_brief_pilots.html" target="_blank">MT Brief: Pilots Overzicht</a></div>
+        <div class="item-desc">Samenvattend overzicht van alle lopende pilots binnen De Baak Kennishub.</div>
+        <span class="badge item-badge">HTML</span>
+      </div>
+      <div class="item">
+        <div class="item-title"><a class="item-link" href="mt_brief_visield.html" target="_blank">MT Brief: LD Visie</a></div>
+        <div class="item-desc">Drie strategische pijlers voor L&D — huisstijl infographic v2.0.</div>
+        <span class="badge item-badge">HTML</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="section" id="s3" style="animation:fadeUp .35s 0.20s ease both">
+    <div class="sec-header" onclick="tog('s3')">
+      <div class="sec-icon">🎓</div>
+      <div class="sec-title">L&amp;D &amp; Trainingsontwerp</div>
+      <span class="sec-count">11 items</span>
+      <span class="arrow">▾</span>
+    </div>
+    <div class="sec-body">
+      <div class="item">
+        <div class="item-title"><a class="item-link" href="LD_OrgChart_DeBaak.html" target="_blank">L&D Organisatiestructuur — De Baak</a></div>
+        <div class="item-desc">Interactief organogram van de L&D afdeling met rollen, verantwoordelijkheden en kerncompetenties.</div>
+        <span class="badge item-badge">HTML</span>
+      </div>
+      <div class="item">
+        <div class="item-title"><a class="item-link" href="L%26D Org Chart.html" target="_blank">L&D Department Interactive Org Chart (EN)</a></div>
+        <div class="item-desc">Engelstalige versie van het interactieve L&D organogram.</div>
+        <span class="badge item-badge">HTML</span>
+      </div>
+      <div class="item">
+        <div class="item-title"><a class="item-link" href="debaak_course_development_process.html" target="_blank">Course Development Process — De Baak Executive Learning</a></div>
+        <div class="item-desc">Stap-voor-stap proces voor het ontwikkelen van executive cursussen.</div>
+        <span class="badge item-badge">HTML</span>
+      </div>
+      <div class="item">
+        <div class="item-title"><a class="item-link" href="prompt-engineering-ld-handout.html" target="_blank">Prompt Engineering voor L&D Professionals</a></div>
+        <div class="item-desc">Praktische handout met de basisprincipes van prompt engineering specifiek voor L&D.</div>
+        <span class="badge item-badge">HTML</span>
+      </div>
+      <div class="item">
+        <div class="item-title"><a class="item-link" href="consultant-hr-partnership-infographic.html" target="_blank">External L&D Consultant × HR Partnership Guide</a></div>
+        <div class="item-desc">Samenwerkinsgids voor externe L&D consultants en HR-partners.</div>
+        <span class="badge item-badge">HTML</span>
+      </div>
+      <div class="item">
+        <div class="item-title"><a class="item-link" href="Disco LMS Decision Guide.html" target="_blank">Disco LMS Implementation — Management Decision Guide</a></div>
+        <div class="item-desc">Strategische roadmap voor student journey management via Disco LMS.</div>
+        <span class="badge item-badge">HTML</span>
+      </div>
+      <div class="item">
+        <div class="item-title"><a class="item-link" href="LMS365 Implementation Decision Guide (1).html" target="_blank">LMS365 Implementation Decision Guide</a></div>
+        <div class="item-desc">Strategisch beslissingskader voor de implementatie van LMS365.</div>
+        <span class="badge item-badge">HTML</span>
+      </div>
+      <div class="item">
+        <div class="item-title"><a class="item-link" href="Bewijs en Praktijkmodellen.html" target="_blank">Bewijs en Praktijkmodellen</a></div>
+        <div class="item-desc">Overzicht van evidence-based modellen en praktijktheorieën voor leren.</div>
+        <span class="badge item-badge">HTML</span>
+      </div>
+      <div class="item">
+        <div class="item-title"><a class="item-link" href="Audit Educatieve Content.html" target="_blank">Audit Educatieve Content</a></div>
+        <div class="item-desc">Template voor kwaliteitsaudit van educatieve content via evidence-based criteria.</div>
+        <span class="badge item-badge">HTML</span>
+      </div>
+      <div class="item">
+        <div class="item-title"><a class="item-link" href="PRFO_debaak_coaching_infographic.html" target="_blank">Evaluating Executive Coaching Quality — De Baak</a></div>
+        <div class="item-desc">Framework voor het evalueren van de kwaliteit van executive coaching.</div>
+        <span class="badge item-badge">HTML</span>
+      </div>
+      <div class="item">
+        <div class="item-title"><a class="item-link" href="bateson_infographic.html" target="_blank">Logische Niveaus van Bateson — De Baak</a></div>
+        <div class="item-desc">Infographic van het Bateson-model: zes denkniveaus voor dieper inzicht in verandering.</div>
+        <span class="badge item-badge">HTML</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="section" id="s4" style="animation:fadeUp .35s 0.25s ease both">
+    <div class="sec-header" onclick="tog('s4')">
+      <div class="sec-icon">📁</div>
+      <div class="sec-title">Document Management &amp; Werkproces</div>
+      <span class="sec-count">10 items</span>
+      <span class="arrow">▾</span>
+    </div>
+    <div class="sec-body">
+      <div class="item">
+        <div class="item-title"><a class="item-link" href="debaak-document-management-phase1.html" target="_blank">De Baak · Document Management Proces – Fase 1</a></div>
+        <div class="item-desc">Fase 1 van het documentmanagement proces: naamgeving, opslag en categorisatie.</div>
+        <span class="badge item-badge">HTML</span>
+      </div>
+      <div class="item">
+        <div class="item-title"><a class="item-link" href="Baakie-documentmanagement_productie.html" target="_blank">Baakie-orchestrator — uitgelegd alsof je 5 bent</a></div>
+        <div class="item-desc">ELI5: hoe één dirigent, vier helpers en een nachtelijke robot zorgen dat trainingscontent nooit kwijtraakt.</div>
+        <span class="badge item-badge">HTML</span>
+      </div>
+      <div class="item">
+        <div class="item-title"><a class="item-link" href="conversation-workflow-infographic.html" target="_blank">Van Content naar Branded Infographic: Workflow</a></div>
+        <div class="item-desc">Complete workflow van ruwe content naar een gepubliceerde infographic in De Baak huisstijl.</div>
+        <span class="badge item-badge">HTML</span>
+      </div>
+      <div class="item">
+        <div class="item-title"><a class="item-link" href="github_cheatsheet.html" target="_blank">Claude → GitHub Workflow — De Baak</a></div>
+        <div class="item-desc">Cheatsheet: sessies en HTML-pagina's opslaan per project via Claude en GitHub.</div>
+        <span class="badge item-badge">HTML</span>
+      </div>
+      <div class="item">
+        <div class="item-title"><a class="item-link" href="webpaginas_bewerken_gids.html" target="_blank">Webpagina's bewerken — Praktijkgids voor beginners</a></div>
+        <div class="item-desc">Stap-voor-stap gids voor het bewerken van webpagina's zonder technische kennis.</div>
+        <span class="badge item-badge">HTML</span>
+      </div>
+      <div class="item">
+        <div class="item-title"><a class="item-link" href="Publicatie Portfolio %23U00b7 De Baak.html" target="_blank">Publicatie Portfolio · De Baak</a></div>
+        <div class="item-desc">Overzicht van alle publicaties en wat er al geautomatiseerd is.</div>
+        <span class="badge item-badge">HTML</span>
+      </div>
+      <div class="item">
+        <div class="item-title"><a class="item-link" href="ppm-projectmanagement-omgeving.html" target="_blank">Het PPM Project Management Omgeving</a></div>
+        <div class="item-desc">Interactieve infographic over de PPM-omgeving voor project- en portfoliomanagement.</div>
+        <span class="badge item-badge">HTML</span>
+      </div>
+      <div class="item">
+        <div class="item-title"><a class="item-link" href="ppm-paradise-infographic_1.html" target="_blank">Het PPM-paradijs — Interactieve Infographic</a></div>
+        <div class="item-desc">Optimale omgeving voor succesvol project-, portfolio- en resourcemanagement.</div>
+        <span class="badge item-badge">HTML</span>
+      </div>
+      <div class="item">
+        <div class="item-title"><a class="item-link" href="clickup_knowledge_management_infographic.html" target="_blank">ClickUp Knowledge Management Framework</a></div>
+        <div class="item-desc">Interactieve infographic van het ClickUp framework voor kennismanagement.</div>
+        <span class="badge item-badge">HTML</span>
+      </div>
+      <div class="item">
+        <div class="item-title"><a class="item-link" href="index.html" target="_blank">De Baak Kennishub Index</a></div>
+        <div class="item-desc">Overzicht van alle infographics en briefings — strategie, werkmethode, research en governance.</div>
+        <span class="badge item-badge">HTML</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="section" id="s5" style="animation:fadeUp .35s 0.30s ease both">
+    <div class="sec-header" onclick="tog('s5')">
+      <div class="sec-icon">🤖</div>
+      <div class="sec-title">AI Tools &amp; Veiligheid</div>
+      <span class="sec-count">6 items</span>
+      <span class="arrow">▾</span>
+    </div>
+    <div class="sec-body">
+      <div class="item">
+        <div class="item-title"><a class="item-link" href="ict_brief_sandbox_safety_security.html" target="_blank">De Baak · Sandbox Agent Infographic</a></div>
+        <div class="item-desc">Sandbox agent checkt input op L0/L1 veiligheid. Bij L2/L3 data: direct STOP.</div>
+        <span class="badge item-badge">HTML</span>
+      </div>
+      <div class="item">
+        <div class="item-title"><a class="item-link" href="security.html" target="_blank">De Baak · Security Infographic</a></div>
+        <div class="item-desc">Audit GitHub code, Wireshark netwerkbewaking en prompt injectie detectie.</div>
+        <span class="badge item-badge">HTML</span>
+      </div>
+      <div class="item">
+        <div class="item-title"><a class="item-link" href="werkmethode.html" target="_blank">De Baak · AI Scrum Master Infographic</a></div>
+        <div class="item-desc">AI-gestuurd projectmanagement met continue verbetering en transparantie.</div>
+        <span class="badge item-badge">HTML</span>
+      </div>
+      <div class="item">
+        <div class="item-title"><a class="item-link" href="debaak_prompt_gen_v2_officieel.html" target="_blank">De Baak Prompt Generator v2</a></div>
+        <div class="item-desc">Kies een format, vul details in, ontvang een kant-en-klare merkprompt voor De Baak.</div>
+        <span class="badge item-badge">HTML</span>
+      </div>
+      <div class="item">
+        <div class="item-title"><a class="item-link" href="strategie.html" target="_blank">De Baak · Inspreadables Infographic</a></div>
+        <div class="item-desc">Sociaal leervermogen, heldere architectuur en toekomstbestendig ontwerp in huisstijl v2.0.</div>
+        <span class="badge item-badge">HTML</span>
+      </div>
+      <div class="item">
+        <div class="item-title"><a class="item-link" href="social_learning_ai_agent.html" target="_blank">Social Learning AI Agent</a></div>
+        <div class="item-desc">Hoe De Baak de analoge voorsprong terugpakt via een social learning AI-agent.</div>
+        <span class="badge item-badge">HTML</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="section" id="s6" style="animation:fadeUp .35s 0.35s ease both">
+    <div class="sec-header" onclick="tog('s6')">
+      <div class="sec-icon">📸</div>
+      <div class="sec-title">Headshots &amp; Media</div>
+      <span class="sec-count">2 items</span>
+      <span class="arrow">▾</span>
+    </div>
+    <div class="sec-body">
+      <div class="item">
+        <div class="item-title"><a class="item-link" href="AI_headshot_process.html" target="_blank">De Baak · AI Headshot Process & Cost Comparison</a></div>
+        <div class="item-desc">Thuis professionele headshots maken met AI — vergelijking van methodes en kosten.</div>
+        <span class="badge item-badge">HTML</span>
+      </div>
+      <div class="item">
+        <div class="item-title"><a class="item-link" href="usercontent.html" target="_blank">De Baak · Professional Headshots at Home</a></div>
+        <div class="item-desc">Praktische gids voor professionele headshots thuis met AI-ondersteuning.</div>
+        <span class="badge item-badge">HTML</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="section" id="s7" style="animation:fadeUp .35s 0.40s ease both">
+    <div class="sec-header" onclick="tog('s7')">
+      <div class="sec-icon">📌</div>
+      <div class="sec-title">Overig</div>
+      <span class="sec-count">3 items</span>
+      <span class="arrow">▾</span>
+    </div>
+    <div class="sec-body">
+      <div class="item">
+        <div class="item-title"><a class="item-link" href="Adviesgespreksmodel_Interactief.html" target="_blank">Het Adviesgespreksmodel — De Baak</a></div>
+        <div class="item-desc">Interactieve leidraad voor effectieve adviesgesprekken: profilering, opties en consequenties.</div>
+        <span class="badge item-badge">HTML</span>
+      </div>
+      <div class="item">
+        <div class="item-title"><a class="item-link" href="development business model substack pateron.html" target="_blank">Creator Economy: Substack vs. Patreon</a></div>
+        <div class="item-desc">Strategische vergelijking van Substack en Patreon als creator business models.</div>
+        <span class="badge item-badge">HTML</span>
+      </div>
+      <div class="item">
+        <div class="item-title"><a class="item-link" href="Infographic Dyl Vs Cn.html" target="_blank">Designing Your Life vs Cal Newport</a></div>
+        <div class="item-desc">Vergelijking van twee invloedrijke methodes voor loopbaanontwikkeling en focus.</div>
+        <span class="badge item-badge">HTML</span>
+      </div>
+    </div>
+  </div>
+</div>
+<footer><strong>De Baak</strong> &nbsp;·&nbsp; Presentaties Overzicht &nbsp;·&nbsp; <span>64 bestanden · automatisch gegenereerd</span></footer>
+<style>@keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}</style>
+<script>
+function tog(id){
+  const s=document.getElementById(id);
+  s.classList.toggle('closed');
+  const b=s.querySelector('.sec-body');
+  b.style.maxHeight=s.classList.contains('closed')?'0':b.scrollHeight+'px';
+}
+document.querySelectorAll('.section').forEach(s=>{
+  const b=s.querySelector('.sec-body');
+  b.style.maxHeight=b.scrollHeight+'px';
+});
+</script>
+</body>
+</html>

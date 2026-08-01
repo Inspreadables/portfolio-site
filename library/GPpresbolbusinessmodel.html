@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Bol.com Business Model: An Infographic</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #F3F4F6; /* Light Grey Background */
+        }
+        /* Color Palette: Inspired by Bol.com's branding and a professional look
+           Primary Blue: #0077C8
+           Secondary Orange: #FF6600
+           Dark Text/Accents: #1F2937 (Gray-800)
+           Medium Text: #4B5563 (Gray-600)
+           Light Backgrounds: #FFFFFF
+           Border/Divider: #E5E7EB (Gray-200)
+        */
+        .brand-blue { color: #0077C8; }
+        .brand-orange { color: #FF6600; }
+        .bg-brand-blue { background-color: #0077C8; }
+        .bg-brand-orange { background-color: #FF6600; }
+        
+        .section-title {
+            font-size: 2.25rem; /* 36px */
+            font-weight: 700;
+            color: #1F2937;
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+        .section-subtitle {
+            font-size: 1.125rem; /* 18px */
+            text-align: center;
+            color: #4B5563;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            margin-bottom: 3rem;
+        }
+        .card {
+            background-color: #FFFFFF;
+            border-radius: 0.75rem; /* 12px */
+            padding: 1.5rem; /* 24px */
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            height: 100%; /* For grid layout consistency */
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        .card-title {
+            font-size: 1.5rem; /* 24px */
+            font-weight: 600;
+            color: #1F2937;
+            margin-bottom: 1rem;
+        }
+        .card-text {
+            color: #4B5563;
+            line-height: 1.6;
+        }
+        .icon-style {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+        /* Confirmation: NEITHER Mermaid JS NOR SVG were used anywhere in this output. All charts are Chart.js (Canvas), diagrams are HTML/CSS with Unicode. */
+    </style>
+</head>
+<body class="text-gray-800">
+
+    <header class="bg-brand-blue text-white py-12 md:py-16 text-center">
+        <div class="container mx-auto px-4">
+            <h1 class="text-4xl md:text-5xl font-bold mb-4">The Engine of Bol.com</h1>
+            <p class="text-xl md:text-2xl opacity-90">An Infographic Breakdown of the Benelux E-commerce Leader</p>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-12 md:py-16">
+
+        <!-- Core Model Section -->
+        <section id="core-model" class="mb-16 md:mb-24">
+            <h2 class="section-title">A Hybrid Powerhouse Model</h2>
+            <p class="section-subtitle">Bol.com masterfully combines two roles: a traditional direct retailer and a massive marketplace for third-party sellers. This hybrid approach creates a vast and dynamic ecosystem.</p>
+            <div class="grid grid-cols-1 md:grid-cols-5 gap-8 items-center">
+                <div class="md:col-span-3 card flex flex-col justify-center">
+                    <h3 class="card-title text-center">Business Model Mix</h3>
+                    <div class="chart-container">
+                        <canvas id="hybridModelChart"></canvas>
+                    </div>
+                </div>
+                <div class="md:col-span-2 card">
+                    <h3 class="card-title">Two Sides of the Same Coin</h3>
+                    <div class="mb-4">
+                        <h4 class="font-semibold brand-blue text-lg">Direct Retail</h4>
+                        <p class="card-text text-sm">Bol.com buys, stores, and sells its own inventory. This is the foundation of their business, ensuring product availability and control over the customer experience.</p>
+                    </div>
+                    <div>
+                        <h4 class="font-semibold brand-orange text-lg">Marketplace Platform ("Plaza")</h4>
+                        <p class="card-text text-sm">Over 46,000 external partners sell their products via Bol.com, vastly expanding the product catalog. Bol.com acts as the facilitator, providing the platform and audience.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <hr class="my-16 border-gray-300">
+
+        <!-- Revenue Streams Section -->
+        <section id="revenue-streams" class="mb-16 md:mb-24">
+            <h2 class="section-title">How the Money Flows: Key Revenue Streams</h2>
+            <p class="section-subtitle">Bol.com monetizes its platform through a diverse set of income channels, moving beyond simple sales to offer a suite of valuable services.</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
+                <!-- Direct Sales -->
+                <div class="card text-center">
+                    <div class="icon-style brand-blue">🛒</div>
+                    <h3 class="text-xl font-semibold mb-2">Direct Sales</h3>
+                    <p class="card-text text-sm">Profit margins on goods that Bol.com owns and sells directly to consumers.</p>
+                </div>
+                <!-- Commissions -->
+                <div class="card text-center">
+                    <div class="icon-style brand-orange">🤝</div>
+                    <h3 class="text-xl font-semibold mb-2">Marketplace Commissions</h3>
+                    <p class="card-text text-sm">A fee (percentage of the sale) charged to third-party sellers for every transaction made on the platform.</p>
+                </div>
+                <!-- Logistics Services -->
+                <div class="card text-center">
+                    <div class="icon-style brand-blue">📦</div>
+                    <h3 class="text-xl font-semibold mb-2">Logistics Services (LvB)</h3>
+                    <p class="card-text text-sm">Fees paid by partners for Bol.com to handle their warehousing, packing, and shipping.</p>
+                </div>
+                <!-- Advertising -->
+                <div class="card text-center">
+                    <div class="icon-style brand-orange">📢</div>
+                    <h3 class="text-xl font-semibold mb-2">Advertising Services</h3>
+                    <p class="card-text text-sm">Revenue from sellers and brands paying for sponsored product placements to increase their visibility.</p>
+                </div>
+            </div>
+        </section>
+
+        <hr class="my-16 border-gray-300">
+
+        <!-- Value Proposition Section -->
+        <section id="value-prop" class="mb-16 md:mb-24">
+            <h2 class="section-title">The Value Proposition: A Two-Way Street</h2>
+            <p class="section-subtitle">The model's success hinges on providing distinct, compelling advantages to both its customers and its seller partners.</p>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <div class="card border-t-4 border-brand-blue">
+                    <h3 class="card-title flex items-center"><span class="text-3xl mr-3">🛍️</span> For Customers</h3>
+                    <ul class="space-y-3 card-text list-disc list-inside">
+                        <li><strong>Unmatched Selection:</strong> Access to millions of products from thousands of sellers in one place.</li>
+                        <li><strong>Convenience & Speed:</strong> Fast, reliable delivery with multiple options (home, pick-up points).</li>
+                        <li><strong>Trust and Reliability:</strong> A highly trusted brand with strong customer service and a user-friendly return process.</li>
+                        <li><strong>"Bol Select" Perks:</strong> Premium subscription for free shipping and other benefits.</li>
+                    </ul>
+                </div>
+                <div class="card border-t-4 border-brand-orange">
+                    <h3 class="card-title flex items-center"><span class="text-3xl mr-3">📈</span> For Sellers (Partners)</h3>
+                    <ul class="space-y-3 card-text list-disc list-inside">
+                        <li><strong>Massive Audience Reach:</strong> Instant access to over 13 million active customers in the Netherlands and Belgium.</li>
+                        <li><strong>Turnkey Infrastructure:</strong> Leverage Bol.com's powerful e-commerce platform, payment systems, and brand recognition.</li>
+                        <li><strong>Logistics as a Service:</strong> Outsource fulfillment complexities with "Logistiek via Bol" (LvB).</li>
+                        <li><strong>Marketing Tools:</strong> Opportunity to advertise and gain insights through platform analytics.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+        
+        <hr class="my-16 border-gray-300">
+
+        <!-- Strategic Pillars -->
+        <section id="strategy" class="mb-16 md:mb-24">
+            <h2 class="section-title">Strategic Pillars of Growth</h2>
+             <p class="section-subtitle">Bol.com's strategy focuses on reinforcing its core strengths to maintain market leadership and drive future growth.</p>
+            <div class="card">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+                    <div>
+                        <div class="icon-style brand-blue">🌐</div>
+                        <h3 class="text-xl font-semibold mb-2">Platform Dominance</h3>
+                        <p class="card-text text-sm">Continuously enhance the platform to be the default starting point for online shopping in the Benelux, driven by network effects (more buyers attract more sellers, and vice versa).</p>
+                    </div>
+                    <div>
+                        <div class="icon-style brand-orange">⚙️</div>
+                        <h3 class="text-xl font-semibold mb-2">Ecosystem of Services</h3>
+                        <p class="card-text text-sm">Build a rich ecosystem around the marketplace, offering high-value services like logistics, advertising, and data analytics to empower partners and create stickiness.</p>
+                    </div>
+                    <div>
+                        <div class="icon-style brand-blue">💚</div>
+                        <h3 class="text-xl font-semibold mb-2">Customer Centricity</h3>
+                        <p class="card-text text-sm">Invest in a seamless customer journey, from fast delivery and easy returns to personalized experiences, fostering loyalty and high lifetime value.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+    
+    <footer class="bg-gray-800 text-white text-center py-6">
+        <p class="text-sm opacity-80">Infographic illustrating the business model of Bol.com.</p>
+        <p class="text-xs opacity-60 mt-1">Created with Chart.js and Tailwind CSS. No SVG graphics were used.</p>
+    </footer>
+
+    <script>
+        function processLabels(labels, maxLength = 16) {
+            return labels.map(label => {
+                if (typeof label === 'string' && label.length > maxLength) {
+                    const words = label.split(' ');
+                    const lines = [];
+                    let currentLine = '';
+                    words.forEach(word => {
+                        if ((currentLine + word).length > maxLength && currentLine.length > 0) {
+                            lines.push(currentLine.trim());
+                            currentLine = word + ' ';
+                        } else {
+                            currentLine += word + ' ';
+                        }
+                    });
+                    lines.push(currentLine.trim());
+                    return lines;
+                }
+                return label;
+            });
+        }
+
+        const commonTooltipTitleCallback = function(tooltipItems) {
+            const item = tooltipItems[0];
+            let label = item.chart.data.labels[item.dataIndex];
+            if (Array.isArray(label)) {
+              return label.join(' ');
+            }
+            return label;
+        };
+        
+        // Chart 1: Hybrid Model
+        const hybridModelCtx = document.getElementById('hybridModelChart').getContext('2d');
+        new Chart(hybridModelCtx, {
+            type: 'doughnut',
+            data: {
+                labels: processLabels(['Marketplace (3rd Party Sellers)', 'Direct Retail (Bol.com Sales)']),
+                datasets: [{
+                    label: 'Business Focus',
+                    data: [60, 40], // Illustrative data showing marketplace dominance
+                    backgroundColor: ['#FF6600', '#0077C8'],
+                    borderColor: '#FFFFFF',
+                    borderWidth: 3,
+                    hoverOffset: 4,
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            color: '#1F2937',
+                            padding: 20,
+                            font: { size: 12 }
+                        }
+                    },
+                    tooltip: {
+                        callbacks: {
+                           title: commonTooltipTitleCallback,
+                           label: function(context) {
+                                let label = context.dataset.label || '';
+                                if (label) {
+                                    label += ': ';
+                                }
+                                if (context.parsed !== null) {
+                                    label += context.parsed + '%';
+                                }
+                                return label;
+                            }
+                        }
+                    }
+                },
+                cutout: '60%'
+            }
+        });
+    </script>
+
+</body>
+</html>

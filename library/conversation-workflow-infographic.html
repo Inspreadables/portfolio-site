@@ -1,0 +1,1003 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Van Content naar Branded Infographic: Een Complete Workflow</title>
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700;900&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #f5f3ef;
+            --bg-secondary: #ffffff;
+            --bg-tertiary: #e8e5df;
+            --accent-primary: #5a8f8f;
+            --accent-secondary: #8b6f47;
+            --accent-tertiary: #4a7c59;
+            --text-primary: #2d2d2d;
+            --text-secondary: #5a5a5a;
+            --text-muted: #8a8a8a;
+            --border-color: #d4cfc4;
+            --gradient-1: linear-gradient(135deg, #5a8f8f 0%, #7ba8a8 100%);
+            --gradient-2: linear-gradient(135deg, #8b6f47 0%, #a8865c 100%);
+            --gradient-3: linear-gradient(135deg, #4a7c59 0%, #6b9a72 100%);
+            --shadow-card: 0 8px 30px rgba(45, 45, 45, 0.12);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Source Sans 3', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 4px;
+            background: var(--gradient-1);
+            z-index: 1000;
+            transition: width 0.1s ease;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Hero */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 4rem 0;
+        }
+
+        .hero h1 {
+            font-family: 'Merriweather', serif;
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            font-weight: 900;
+            color: var(--accent-primary);
+            margin-bottom: 1.5rem;
+            line-height: 1.15;
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1.1rem, 2.5vw, 1.6rem);
+            color: var(--text-secondary);
+            max-width: 800px;
+            margin: 0 auto 3rem;
+        }
+
+        .workflow-badge {
+            display: inline-block;
+            background: var(--gradient-1);
+            color: white;
+            padding: 0.5rem 1.5rem;
+            border-radius: 30px;
+            font-weight: 600;
+            margin-bottom: 2rem;
+        }
+
+        /* Section */
+        .section {
+            padding: 6rem 0;
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s ease;
+        }
+
+        .section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-title {
+            font-family: 'Merriweather', serif;
+            font-size: clamp(2rem, 4vw, 3rem);
+            color: var(--accent-primary);
+            margin-bottom: 1rem;
+        }
+
+        .section-description {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* Timeline */
+        .timeline {
+            position: relative;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            height: 100%;
+            background: var(--gradient-1);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 4rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .timeline-item:nth-child(odd) {
+            flex-direction: row;
+        }
+
+        .timeline-item:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+
+        .timeline-content {
+            width: 45%;
+            background: var(--bg-secondary);
+            padding: 2rem;
+            border-radius: 8px;
+            border: 2px solid var(--border-color);
+            transition: all 0.3s ease;
+        }
+
+        .timeline-content:hover {
+            border-color: var(--accent-primary);
+            box-shadow: var(--shadow-card);
+            transform: translateY(-4px);
+        }
+
+        .timeline-number {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 50px;
+            background: var(--gradient-1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Merriweather', serif;
+            font-weight: 900;
+            font-size: 1.5rem;
+            color: white;
+            z-index: 10;
+        }
+
+        .timeline-title {
+            font-family: 'Merriweather', serif;
+            font-size: 1.5rem;
+            color: var(--accent-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-text {
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        .timeline-tag {
+            display: inline-block;
+            background: var(--bg-tertiary);
+            padding: 0.3rem 0.8rem;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            margin: 0.5rem 0.3rem 0 0;
+            color: var(--text-secondary);
+        }
+
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .stat-card {
+            background: var(--bg-secondary);
+            padding: 2rem;
+            border-radius: 8px;
+            border: 2px solid var(--border-color);
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            border-color: var(--accent-primary);
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-card);
+        }
+
+        .stat-number {
+            font-family: 'Merriweather', serif;
+            font-size: 3rem;
+            font-weight: 900;
+            color: var(--accent-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: var(--text-secondary);
+            font-size: 1rem;
+        }
+
+        /* Design Grid */
+        .design-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .design-card {
+            background: var(--bg-secondary);
+            padding: 2.5rem;
+            border-radius: 8px;
+            border-left: 4px solid var(--accent-primary);
+            border-top: 1px solid var(--border-color);
+            border-right: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .design-card h3 {
+            font-family: 'Merriweather', serif;
+            color: var(--accent-primary);
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .design-card ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .design-card li {
+            padding: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+            color: var(--text-secondary);
+        }
+
+        .design-card li::before {
+            content: '▸';
+            position: absolute;
+            left: 0;
+            color: var(--accent-primary);
+            font-weight: bold;
+        }
+
+        /* Color Swatches */
+        .color-swatches {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .color-swatch {
+            text-align: center;
+        }
+
+        .color-box {
+            width: 100%;
+            height: 100px;
+            border-radius: 8px;
+            margin-bottom: 0.5rem;
+            border: 2px solid var(--border-color);
+        }
+
+        .color-name {
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.25rem;
+        }
+
+        .color-code {
+            font-family: monospace;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        /* Prompt Cards */
+        .prompt-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .prompt-card {
+            background: var(--bg-secondary);
+            padding: 2rem;
+            border-radius: 8px;
+            border: 2px solid var(--border-color);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .prompt-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--gradient-2);
+        }
+
+        .prompt-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .prompt-title {
+            font-family: 'Merriweather', serif;
+            font-size: 1.4rem;
+            color: var(--accent-primary);
+            margin-bottom: 1rem;
+        }
+
+        .prompt-description {
+            color: var(--text-secondary);
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+        }
+
+        .prompt-features {
+            list-style: none;
+            padding: 0;
+        }
+
+        .prompt-features li {
+            padding: 0.4rem 0;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .prompt-features li::before {
+            content: '✓ ';
+            color: var(--accent-tertiary);
+            font-weight: bold;
+        }
+
+        /* Cost Comparison */
+        .cost-table {
+            background: var(--bg-secondary);
+            border-radius: 8px;
+            overflow: hidden;
+            margin-top: 3rem;
+            border: 2px solid var(--border-color);
+        }
+
+        .cost-table table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .cost-table th {
+            background: var(--bg-tertiary);
+            padding: 1.5rem;
+            text-align: left;
+            font-family: 'Merriweather', serif;
+            color: var(--accent-primary);
+            font-weight: 700;
+        }
+
+        .cost-table td {
+            padding: 1.5rem;
+            border-bottom: 1px solid var(--border-color);
+            color: var(--text-secondary);
+        }
+
+        .cost-table tr:hover {
+            background: var(--bg-tertiary);
+        }
+
+        .cost-highlight {
+            font-family: 'Merriweather', serif;
+            font-weight: 700;
+            color: var(--accent-tertiary);
+            font-size: 1.2rem;
+        }
+
+        /* Key Takeaway */
+        .takeaway-box {
+            background: var(--bg-secondary);
+            border-left: 6px solid var(--accent-primary);
+            padding: 3rem;
+            border-radius: 8px;
+            margin-top: 3rem;
+            border-top: 1px solid var(--border-color);
+            border-right: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .takeaway-box h3 {
+            font-family: 'Merriweather', serif;
+            font-size: 1.8rem;
+            color: var(--accent-primary);
+            margin-bottom: 1.5rem;
+        }
+
+        .takeaway-box p {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            color: var(--text-secondary);
+        }
+
+        .takeaway-box strong {
+            color: var(--accent-primary);
+        }
+
+        /* CTA Box */
+        .cta-box {
+            background: linear-gradient(135deg, rgba(90, 143, 143, 0.1) 0%, rgba(139, 111, 71, 0.1) 100%);
+            padding: 3rem;
+            border-radius: 8px;
+            text-align: center;
+            margin-top: 4rem;
+        }
+
+        .cta-box h3 {
+            font-family: 'Merriweather', serif;
+            font-size: 2rem;
+            color: var(--accent-primary);
+            margin-bottom: 1rem;
+        }
+
+        .cta-box p {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: var(--gradient-1);
+            color: white;
+            padding: 1rem 2.5rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-card);
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .timeline::before {
+                left: 25px;
+            }
+
+            .timeline-item {
+                flex-direction: column !important;
+                padding-left: 60px;
+            }
+
+            .timeline-number {
+                left: 25px;
+                transform: none;
+            }
+
+            .timeline-content {
+                width: 100%;
+            }
+
+            .stats-grid,
+            .design-grid,
+            .prompt-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .cost-table {
+                overflow-x: auto;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="progress-bar" id="progressBar"></div>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="container">
+            <div class="workflow-badge">Complete Workflow</div>
+            <h1>Van Content naar Branded Infographic</h1>
+            <p class="hero-subtitle">Een complete reis van ruwe data naar professionele, gebrandde visuele content in De Baak stijl</p>
+        </div>
+    </section>
+
+    <!-- Timeline -->
+    <section class="section" id="timeline">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">De Workflow in 7 Stappen</h2>
+                <p class="section-description">Van ruwe content analyse tot kostenefficiënte implementatie</p>
+            </div>
+
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-number">1</div>
+                    <div class="timeline-content">
+                        <h3 class="timeline-title">Ruwe Content Analyse</h3>
+                        <p class="timeline-text">Uitgebreide analyse van videoconferencing platforms (Zoom, Google Meet, Microsoft Teams) en AI-videotools (Synthesia, Pictory AI, HeyGen) voor educatieve content.</p>
+                        <span class="timeline-tag">18.000+ woorden</span>
+                        <span class="timeline-tag">Vergelijkingen</span>
+                        <span class="timeline-tag">Best practices</span>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-number">2</div>
+                    <div class="timeline-content">
+                        <h3 class="timeline-title">Eerste Infographic (Engels, Dark Theme)</h3>
+                        <p class="timeline-text">Responsive HTML infographic met donker kleurenschema, neon accenten, en Space Mono typografie. Interactieve features met scroll-triggers en expandable secties.</p>
+                        <span class="timeline-tag">HTML/CSS/JS</span>
+                        <span class="timeline-tag">Dark theme</span>
+                        <span class="timeline-tag">Neon kleuren</span>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-number">3</div>
+                    <div class="timeline-content">
+                        <h3 class="timeline-title">Nederlandse Vertaling + De Baak Branding</h3>
+                        <p class="timeline-text">Complete vertaling naar Nederlands met aardse, natuurlijke kleuren geïnspireerd op De Baak's website. Merriweather + Source Sans 3 typografie voor professionele uitstraling.</p>
+                        <span class="timeline-tag">Volledig Nederlands</span>
+                        <span class="timeline-tag">Aardse kleuren</span>
+                        <span class="timeline-tag">Rust & ruimte</span>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-number">4</div>
+                    <div class="timeline-content">
+                        <h3 class="timeline-title">Kleurenschema Optimalisatie</h3>
+                        <p class="timeline-text">Verwisseling van primair groen (#4a7c59) met tertiair teal (#5a8f8f) voor een kalmere, meer reflectieve uitstraling passend bij De Baak's focus op persoonlijke ontwikkeling.</p>
+                        <span class="timeline-tag">Teal primair</span>
+                        <span class="timeline-tag">Groen tertiair</span>
+                        <span class="timeline-tag">Bruin accent</span>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-number">5</div>
+                    <div class="timeline-content">
+                        <h3 class="timeline-title">Design System Analyse</h3>
+                        <p class="timeline-text">Diepgaande analyse van De Baak's visuele filosofie: ruimte, rust, natuurlijk, toegankelijk, professioneel maar warm, erfgoed ontmoet modern. Documentatie van alle design principes.</p>
+                        <span class="timeline-tag">6 kernprincipes</span>
+                        <span class="timeline-tag">Kleurpaletten</span>
+                        <span class="timeline-tag">Typografie</span>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-number">6</div>
+                    <div class="timeline-content">
+                        <h3 class="timeline-title">Prompt Template Library</h3>
+                        <p class="timeline-text">Creatie van 5 complete prompt templates voor verschillende formats: HTML infographics, PowerPoint presentaties, PDF handouts, one-page posters, en social media graphics.</p>
+                        <span class="timeline-tag">5 templates</span>
+                        <span class="timeline-tag">Alle formats</span>
+                        <span class="timeline-tag">Kant-en-klaar</span>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-number">7</div>
+                    <div class="timeline-content">
+                        <h3 class="timeline-title">Kostenanalyse & Optimalisatie</h3>
+                        <p class="timeline-text">Uitgebreide breakdown van Claude API pricing (€0.003-0.025/1K tokens) met praktische aanbevelingen: Claude.ai abonnement (€0 extra) vs API-gebruik voor verschillende scenario's.</p>
+                        <span class="timeline-tag">Prijsvergelijking</span>
+                        <span class="timeline-tag">ROI analyse</span>
+                        <span class="timeline-tag">Besparingstips</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats -->
+    <section class="section" id="stats">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Project Metrics</h2>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number">7</div>
+                    <div class="stat-label">Iteraties</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">5</div>
+                    <div class="stat-label">Prompt Templates</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">3</div>
+                    <div class="stat-label">Talen (NL/EN)</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">6</div>
+                    <div class="stat-label">Design Principes</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Design System -->
+    <section class="section" id="design">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">De Baak Design System</h2>
+                <p class="section-description">Zes kernprincipes die alle visuele communicatie vormgeven</p>
+            </div>
+
+            <div class="design-grid">
+                <div class="design-card">
+                    <h3>1. Ruimte</h3>
+                    <ul>
+                        <li>Genereuze witruimte (min 60px padding)</li>
+                        <li>Content ademt en krijgt aandacht</li>
+                        <li>Reflecteert "ruimte om te ontdekken"</li>
+                        <li>Consistente vertical rhythm</li>
+                    </ul>
+                </div>
+
+                <div class="design-card">
+                    <h3>2. Rust</h3>
+                    <ul>
+                        <li>Geen agressieve kleuren</li>
+                        <li>Subtiele animaties (300-600ms)</li>
+                        <li>Zachte schaduwen</li>
+                        <li>Gedempte saturatie</li>
+                    </ul>
+                </div>
+
+                <div class="design-card">
+                    <h3>3. Natuurlijk</h3>
+                    <ul>
+                        <li>Organische vormen (6-8px radius)</li>
+                        <li>Aardse kleurentinten</li>
+                        <li>Natuurfotografie</li>
+                        <li>Texturen van papier/hout</li>
+                    </ul>
+                </div>
+
+                <div class="design-card">
+                    <h3>4. Toegankelijk</h3>
+                    <ul>
+                        <li>WCAG AA compliant contrast</li>
+                        <li>Duidelijke visuele hiërarchie</li>
+                        <li>Touch-friendly (min 44px)</li>
+                        <li>Leesbare fontgroottes (16px+)</li>
+                    </ul>
+                </div>
+
+                <div class="design-card">
+                    <h3>5. Professioneel maar Warm</h3>
+                    <ul>
+                        <li>Autoriteit zonder corporate feel</li>
+                        <li>Benaderbaar zonder casualiteit</li>
+                        <li>Persoonlijke toon ("jou", "je")</li>
+                        <li>Mensgerichte beelden</li>
+                    </ul>
+                </div>
+
+                <div class="design-card">
+                    <h3>6. Erfgoed ontmoet Modern</h3>
+                    <ul>
+                        <li>"sinds 1947" positionering</li>
+                        <li>Klassieke typografie</li>
+                        <li>Moderne layout</li>
+                        <li>Tijdloos, niet trendy</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Color Swatches -->
+            <div style="margin-top: 4rem;">
+                <h3 style="font-family: 'Merriweather', serif; color: var(--accent-primary); text-align: center; margin-bottom: 2rem; font-size: 1.8rem;">Kleurenpalet</h3>
+                <div class="color-swatches">
+                    <div class="color-swatch">
+                        <div class="color-box" style="background: #5a8f8f;"></div>
+                        <div class="color-name">Primair Teal</div>
+                        <div class="color-code">#5a8f8f</div>
+                    </div>
+                    <div class="color-swatch">
+                        <div class="color-box" style="background: #8b6f47;"></div>
+                        <div class="color-name">Secundair Bruin</div>
+                        <div class="color-code">#8b6f47</div>
+                    </div>
+                    <div class="color-swatch">
+                        <div class="color-box" style="background: #4a7c59;"></div>
+                        <div class="color-name">Tertiair Groen</div>
+                        <div class="color-code">#4a7c59</div>
+                    </div>
+                    <div class="color-swatch">
+                        <div class="color-box" style="background: #f5f3ef;"></div>
+                        <div class="color-name">Achtergrond Crème</div>
+                        <div class="color-code">#f5f3ef</div>
+                    </div>
+                    <div class="color-swatch">
+                        <div class="color-box" style="background: #ffffff; border: 2px solid #d4cfc4;"></div>
+                        <div class="color-name">Content Wit</div>
+                        <div class="color-code">#ffffff</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Prompt Templates -->
+    <section class="section" id="prompts">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">5 Prompt Templates</h2>
+                <p class="section-description">Kant-en-klare templates voor alle content formats</p>
+            </div>
+
+            <div class="prompt-grid">
+                <div class="prompt-card">
+                    <div class="prompt-icon">🌐</div>
+                    <h3 class="prompt-title">HTML Infographic</h3>
+                    <p class="prompt-description">Responsive, interactieve infographics met scroll-triggers en expandable secties.</p>
+                    <ul class="prompt-features">
+                        <li>Single-file HTML/CSS/JS</li>
+                        <li>Mobile-responsive breakpoints</li>
+                        <li>Scroll animations</li>
+                        <li>Accessibility features</li>
+                        <li>Progress bar tracking</li>
+                    </ul>
+                </div>
+
+                <div class="prompt-card">
+                    <div class="prompt-icon">📊</div>
+                    <h3 class="prompt-title">PowerPoint Template</h3>
+                    <p class="prompt-description">Complete master slides met 6 verschillende slide types voor alle presentatie-behoeften.</p>
+                    <ul class="prompt-features">
+                        <li>Title, section divider, content slides</li>
+                        <li>Comparison & data visualization</li>
+                        <li>Consistent branding elements</li>
+                        <li>Smart Art graphics</li>
+                        <li>Icon sets included</li>
+                    </ul>
+                </div>
+
+                <div class="prompt-card">
+                    <div class="prompt-icon">📄</div>
+                    <h3 class="prompt-title">PDF/Print Handout</h3>
+                    <p class="prompt-description">Print-ready A4 documenten met CMYK kleuren en gedetailleerde typografie specificaties.</p>
+                    <ul class="prompt-features">
+                        <li>300 DPI print-ready</li>
+                        <li>CMYK color specifications</li>
+                        <li>Worksheet templates</li>
+                        <li>Proper margins & bleed</li>
+                        <li>Fillable PDF options</li>
+                    </ul>
+                </div>
+
+                <div class="prompt-card">
+                    <div class="prompt-icon">🎯</div>
+                    <h3 class="prompt-title">One-Page Poster</h3>
+                    <p class="prompt-description">Visuele samenvattingen in infographic-stijl voor maximale impact op één pagina.</p>
+                    <ul class="prompt-features">
+                        <li>A4 Portrait or A3 Landscape</li>
+                        <li>Scannable in 30 seconds</li>
+                        <li>Data visualization</li>
+                        <li>QR code integration</li>
+                        <li>Wall-poster quality</li>
+                    </ul>
+                </div>
+
+                <div class="prompt-card">
+                    <div class="prompt-icon">📱</div>
+                    <h3 class="prompt-title">Social Media Suite</h3>
+                    <p class="prompt-description">Complete template set voor LinkedIn, Instagram, en Stories met platform-specifieke afmetingen.</p>
+                    <ul class="prompt-features">
+                        <li>LinkedIn (1200x1200px)</li>
+                        <li>Instagram (1080x1080px)</li>
+                        <li>Stories (1080x1920px)</li>
+                        <li>Quote & statistic graphics</li>
+                        <li>Carousel post templates</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Cost Analysis -->
+    <section class="section" id="costs">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Kostenanalyse</h2>
+                <p class="section-description">Claude.ai abonnement vs API-gebruik voor verschillende scenario's</p>
+            </div>
+
+            <div class="cost-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Gebruik Scenario</th>
+                            <th>Volume/Maand</th>
+                            <th>Claude.ai</th>
+                            <th>API Kosten</th>
+                            <th>Aanbeveling</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Sporadisch gebruik</td>
+                            <td>1-10 prompts</td>
+                            <td class="cost-highlight">€0*</td>
+                            <td>~€0.50</td>
+                            <td>✅ Claude.ai</td>
+                        </tr>
+                        <tr>
+                            <td>Regulier gebruik</td>
+                            <td>10-50 prompts</td>
+                            <td class="cost-highlight">€0*</td>
+                            <td>~€5</td>
+                            <td>✅ Claude.ai</td>
+                        </tr>
+                        <tr>
+                            <td>Intensief gebruik</td>
+                            <td>100 prompts</td>
+                            <td class="cost-highlight">€0*</td>
+                            <td>~€22</td>
+                            <td>✅ Claude.ai</td>
+                        </tr>
+                        <tr>
+                            <td>Automatisering</td>
+                            <td>1000+ prompts</td>
+                            <td>N.v.t.</td>
+                            <td>~€220</td>
+                            <td>🔧 API</td>
+                        </tr>
+                        <tr>
+                            <td>Enterprise volume</td>
+                            <td>10.000+ prompts</td>
+                            <td>N.v.t.</td>
+                            <td>~€2.200</td>
+                            <td>🔧 API + Batch</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <p style="text-align: center; margin-top: 2rem; color: var(--text-muted); font-size: 0.9rem;">
+                * Inbegrepen in bestaand abonnement (Pro: €18-20/maand, Max: €200/maand)
+            </p>
+
+            <div class="takeaway-box">
+                <h3>💡 Belangrijkste Inzicht</h3>
+                <p>Voor <strong>typisch gebruik bij De Baak</strong> (1-50 prompts per maand voor het maken van trainingsmaterialen) is een <strong>Claude.ai abonnement de meest kosteneffectieve oplossing</strong>. De prompts kosten niets extra bovenop je bestaande abonnement.</p>
+                <p style="margin-top: 1rem;">API-gebruik wordt pas interessant bij <strong>geautomatiseerde workflows</strong> (1000+ prompts/maand) of <strong>systeem-integraties</strong>.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Key Deliverables -->
+    <section class="section" id="deliverables">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Opgeleverde Bestanden</h2>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number">3</div>
+                    <div class="stat-label">HTML Infographics</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">1</div>
+                    <div class="stat-label">Design Analysis (MD)</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">5</div>
+                    <div class="stat-label">Prompt Templates</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">100%</div>
+                    <div class="stat-label">Production Ready</div>
+                </div>
+            </div>
+
+            <div style="margin-top: 3rem; background: var(--bg-secondary); padding: 2rem; border-radius: 8px; border: 2px solid var(--border-color);">
+                <h3 style="font-family: 'Merriweather', serif; color: var(--accent-primary); margin-bottom: 1.5rem;">Bestandslijst</h3>
+                <ul style="list-style: none; padding: 0;">
+                    <li style="padding: 0.75rem; border-bottom: 1px solid var(--border-color); color: var(--text-secondary);">
+                        <strong style="color: var(--accent-primary);">1.</strong> video-tools-infographic.html <span style="color: var(--text-muted); font-size: 0.9rem;">(Engels, dark theme)</span>
+                    </li>
+                    <li style="padding: 0.75rem; border-bottom: 1px solid var(--border-color); color: var(--text-secondary);">
+                        <strong style="color: var(--accent-primary);">2.</strong> video-tools-infographic-nl-debaak.html <span style="color: var(--text-muted); font-size: 0.9rem;">(Nederlands, De Baak branding)</span>
+                    </li>
+                    <li style="padding: 0.75rem; border-bottom: 1px solid var(--border-color); color: var(--text-secondary);">
+                        <strong style="color: var(--accent-primary);">3.</strong> debaak-design-analysis-and-prompts.md <span style="color: var(--text-muted); font-size: 0.9rem;">(Complete design system + 5 templates)</span>
+                    </li>
+                    <li style="padding: 0.75rem; color: var(--text-secondary);">
+                        <strong style="color: var(--accent-primary);">4.</strong> conversation-workflow-infographic.html <span style="color: var(--text-muted); font-size: 0.9rem;">(Deze infographic)</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="section" style="padding-bottom: 8rem;">
+        <div class="container">
+            <div class="cta-box">
+                <h3>Volgende Stappen</h3>
+                <p>Gebruik de prompt templates om direct aan de slag te gaan met het maken van branded content voor De Baak</p>
+                <a href="#" class="cta-button">Bekijk alle templates →</a>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Scroll Progress Bar
+        window.addEventListener('scroll', () => {
+            const winScroll = document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            document.getElementById('progressBar').style.width = scrolled + '%';
+        });
+
+        // Intersection Observer
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.section').forEach(section => {
+            observer.observe(section);
+        });
+    </script>
+</body>
+</html>

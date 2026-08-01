@@ -1,0 +1,231 @@
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+--seaside:#005ADC;--seaside-dark:#0047b0;--seaside-light:#3380e6;
+--horst:#00A555;--horst-dark:#008f47;
+--baken:#FFE100;--baken-dark:#ffd000;
+--alabaster:#F5F5EB;--wit:#ffffff;
+--text1:#2d2d2d;--text2:#5a5a5a;--text3:#8a8a8a;--border:#d4cfc4;
+--shadow-card:0 8px 30px rgba(0,90,220,.12);
+--shadow-hover:0 12px 40px rgba(0,90,220,.18);
+--radius-s:6px;--radius-m:12px;--radius-l:16px;--radius-pill:9999px;
+}
+body{font-family:Arial,sans-serif;color:var(--text1);line-height:1.7;background:var(--alabaster)}
+
+.hero{padding:64px 24px 48px;text-align:center;background:var(--wit);position:relative;overflow:hidden}
+.baken-tr{position:absolute;top:0;right:0;width:0;height:0;border-style:solid;border-width:0 140px 140px 0;border-color:transparent var(--seaside) transparent transparent;opacity:.12}
+.baken-bl{position:absolute;bottom:0;left:0;width:0;height:0;border-style:solid;border-width:140px 0 0 140px;border-color:transparent transparent transparent var(--horst);opacity:.08}
+.logo-style{display:inline-flex;align-items:baseline;gap:.3rem;margin-bottom:20px}
+.logo-style .de{color:transparent;-webkit-text-stroke:2.5px var(--seaside);font-weight:400;font-size:1.1rem}
+.logo-style .baak{color:var(--seaside);font-weight:900;font-size:1.1rem}
+.badge{display:inline-block;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--wit);background:linear-gradient(135deg,var(--seaside),var(--seaside-light));border-radius:var(--radius-pill);padding:5px 18px;margin-bottom:18px;font-weight:700}
+.hero h1{font-size:clamp(2.2rem,6vw,3.2rem);font-weight:900;line-height:1.1;color:var(--seaside);max-width:580px;margin:0 auto 12px}
+.hero h1 .h-green{color:var(--horst)}
+.hero-tagline{font-size:18px;font-weight:700;color:var(--text1);max-width:520px;margin:0 auto 16px;line-height:1.4}
+.hero-sub{font-size:15px;color:var(--text2);max-width:540px;margin:0 auto 24px;line-height:1.7}
+.descriptor{font-size:.9rem;color:var(--seaside);font-weight:600;letter-spacing:.5px;margin-top:20px}
+.btn-primary{display:inline-block;background:linear-gradient(135deg,var(--seaside),var(--seaside-light));color:var(--wit);font-family:Arial,sans-serif;font-size:14px;font-weight:700;padding:13px 28px;border-radius:var(--radius-s);border:none;cursor:pointer;text-decoration:none;box-shadow:0 4px 12px rgba(0,90,220,.2)}
+.btn-secondary{display:inline-block;background:transparent;color:var(--seaside);border:2px solid var(--seaside);font-family:Arial,sans-serif;font-size:13px;font-weight:700;padding:11px 26px;border-radius:var(--radius-s);cursor:pointer;text-decoration:none;margin-left:8px}
+
+.section{padding:72px 24px;max-width:680px;margin:0 auto}
+.s-badge{display:inline-block;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--wit);background:var(--horst);border-radius:var(--radius-pill);padding:4px 14px;margin-bottom:14px;font-weight:700}
+.section h2{font-size:clamp(1.4rem,3.8vw,1.9rem);font-weight:900;color:var(--seaside);margin-bottom:14px;line-height:1.15}
+.section h3{font-size:18px;font-weight:900;color:var(--seaside);margin-top:24px;margin-bottom:8px}
+.section p{font-size:15px;color:var(--text2);margin-bottom:14px}
+
+.belofte-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:24px 0}
+.belofte-card{background:var(--wit);border-radius:var(--radius-l);padding:20px;box-shadow:var(--shadow-card);border-top:4px solid var(--horst)}
+.belofte-card h4{font-size:14px;font-weight:900;color:var(--seaside);margin-bottom:6px}
+.belofte-card p{font-size:13px;color:var(--text2);margin:0;line-height:1.6}
+
+.story-block{background:var(--wit);border-radius:var(--radius-l);padding:24px;margin:20px 0;box-shadow:var(--shadow-card);border-left:4px solid var(--seaside)}
+.story-block p{font-size:15px;color:var(--text1);margin-bottom:12px;line-height:1.7}
+.story-block p:last-child{margin-bottom:0}
+.tags{font-size:12px;color:var(--horst);font-weight:700;margin-top:8px}
+
+.witfius-section{background:var(--wit);padding:72px 24px;position:relative;overflow:hidden}
+.witfius-inner{max-width:680px;margin:0 auto}
+.witfius-section h2{color:var(--seaside)}
+.witfius-section h2 small{display:block;font-size:14px;font-weight:400;color:var(--text2);margin-top:6px;font-style:italic}
+
+.feature-card{background:var(--alabaster);border-radius:var(--radius-l);padding:22px;margin:14px 0;border-left:4px solid var(--seaside)}
+.feature-card:nth-child(even){border-left-color:var(--horst)}
+.feature-card h3{margin-top:0;font-size:16px;color:var(--seaside)}
+.feature-card:nth-child(even) h3{color:var(--horst)}
+.feature-card p{font-size:14px;color:var(--text2);margin:0;line-height:1.7}
+.feature-card .tip{background:rgba(255,225,0,.12);border-left:3px solid var(--baken);padding:10px 14px;margin-top:10px;border-radius:0 8px 8px 0;font-size:13px;color:var(--text1)}
+.feature-card .tip strong{color:var(--seaside)}
+
+.struct-quote{background:linear-gradient(135deg,rgba(0,90,220,.05),rgba(0,165,85,.05));border-radius:var(--radius-l);padding:24px;margin:20px 0;text-align:center}
+.struct-quote h3{font-size:17px;color:var(--seaside);margin:0 0 8px;font-weight:900}
+.struct-quote p{font-size:14px;color:var(--text2);margin:0;line-height:1.6}
+
+.constitution{background:rgba(0,165,85,.06);border-left:3px solid var(--horst);border-radius:0 var(--radius-m) var(--radius-m) 0;padding:18px 22px;margin:18px 0;font-size:13px;color:var(--text2);line-height:1.7}
+.constitution strong{color:var(--horst)}
+.constitution ol{margin:8px 0 0 20px}
+.constitution ol li{margin-bottom:4px}
+
+.faq-item{display:flex;gap:14px;align-items:flex-start;margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border)}
+.faq-item:last-child{border-bottom:none}
+.faq-icon{min-width:30px;height:30px;border-radius:50%;background:rgba(0,90,220,.08);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:900;color:var(--seaside);flex-shrink:0}
+.faq-q{font-size:14px;font-weight:700;color:var(--text1);margin-bottom:4px}
+.faq-a{font-size:13px;color:var(--text2);line-height:1.7}
+
+.cta-final{text-align:center;padding:64px 24px;background:linear-gradient(135deg,var(--seaside),var(--seaside-light));position:relative;overflow:hidden;border-radius:24px 24px 0 0}
+.cta-final .baken-tr{border-color:transparent var(--baken) transparent transparent;opacity:.12;border-width:0 100px 100px 0}
+.cta-final h2{font-size:1.6rem;font-weight:900;color:var(--wit);margin-bottom:8px}
+.cta-final p{font-size:14px;color:rgba(255,255,255,.8);margin-bottom:20px;max-width:480px;margin-left:auto;margin-right:auto}
+.cta-final .btn-primary{background:var(--baken);color:var(--text1)}
+.cta-final .btn-secondary{color:rgba(255,255,255,.8);border-color:rgba(255,255,255,.4);margin-top:10px;margin-left:0}
+
+.footer{text-align:center;padding:18px;background:var(--seaside-dark)}
+.footer .logo-style .de{-webkit-text-stroke:1.5px rgba(255,255,255,.7);font-size:14px}
+.footer .logo-style .baak{color:var(--wit);font-size:14px}
+.footer .descriptor{color:rgba(255,255,255,.5);font-size:11px;margin-top:4px;font-weight:400}
+</style>
+
+<header class="hero">
+  <div class="baken-tr"></div>
+  <div class="baken-bl"></div>
+  <div class="logo-style"><span class="de">de</span><span class="baak">baak</span></div>
+  <div class="badge">Kennishub</div>
+  <h1>alleen maar <span class="h-green">samen</span></h1>
+  <p class="hero-tagline">Omdat het tijd is om de "analoge voorsprong" terug te pakken.</p>
+  <p class="hero-sub">Kennis ontwikkelen en publiceren, producten maken en updaten, eten, drinken, Town Halls. Ondersteund door technologie — zodat je tijd overhoudt, meer verdient, en in een sociaal netwerk je expertise én relaties ontwikkelt.</p>
+  <div>
+    <a href="#aanmelden" class="btn-primary">Ontdek de Kennishub</a>
+    <a href="#hoe-het-werkt" class="btn-secondary">Bekijk hoe het werkt</a>
+  </div>
+  <div class="descriptor">Training &middot; Ontwikkeling &middot; Leiderschap &middot; Sinds 1947</div>
+</header>
+
+<section class="section">
+  <div class="s-badge">De kans</div>
+  <h2>Onze belofte: Meer tijd voor wat ertoe doet</h2>
+  <div class="belofte-grid">
+    <div class="belofte-card"><h4>Samen ontwikkelen</h4><p>Social learning met collega-coaches via tiny experiments</p></div>
+    <div class="belofte-card"><h4>Ruimte voor ideeën</h4><p>Tijd die je kwijt was aan formatteren besteed je aan inhoudelijke verdieping</p></div>
+    <div class="belofte-card"><h4>Van idee naar content</h4><p>Bestaand materiaal in minder dan een minuut getransformeerd</p></div>
+    <div class="belofte-card"><h4>Meer vrije tijd</h4><p>Repetitief werk delegeren betekent eerder klaar zijn</p></div>
+  </div>
+
+  <div class="story-block">
+    <p>In onze aanpak staat sociaal leren voorop: mensen ontwikkelen zich door samen echte vraagstukken op te lossen, elkaar feedback te geven, ervaringen uit te wisselen en nieuwe praktijken te testen in hun dagelijkse werkcontext.</p>
+    <p>Digitale en blended leeroplossingen creëren de ruimte en de structuur voor die interacties — bijvoorbeeld via community-sessies, peer-coaching, action learning-groepen, gezamenlijke reflecties en het systematisch delen van 'working out loud'.</p>
+    <p>De technologie neemt repetitieve, individuele taken over (curatie, distributie, administratie, samenvattingen), zodat tijd en aandacht vrijkomt voor wat alleen mensen kunnen: denken, verbinden, twijfelen, experimenteren en betekenis geven.</p>
+    <div class="tags">#DigitaalMinimalisme &middot; #Focus &middot; #Leiderschap &middot; #IntentioneelLeven</div>
+  </div>
+</section>
+
+<section class="witfius-section">
+  <div class="baken-tr" style="opacity:.06"></div>
+  <div class="witfius-inner">
+    <div class="s-badge">Voor jou</div>
+    <h2>What's in it for us? <small>(en ja, dat gaat over jou)</small></h2>
+
+    <div class="feature-card">
+      <h3>Jouw community: wij zijn van De Baak en er om je te helpen</h3>
+      <p>De community managers delen kennis op basis van jullie behoeften en ondersteunen: onderzoekspublicaties, workshops, wekelijks inloopuur, town hall meetings, forum en chat. De roadmap wordt samen bepaald via sociocratische besluitvorming.</p>
+      <div class="tip"><strong>Tip:</strong> Vertel wat je wil dat start, stopt en waar je meer van wil in het kanaal 'hou van me'. We berichten in nieuws wat we doen en overleggen tijdens de town hall wat vervolgens moet starten of stoppen.</div>
+    </div>
+
+    <div class="feature-card">
+      <h3>Jouw business: nieuwe formats en verdienmodellen</h3>
+      <p>Naast content ook nadrukkelijk aandacht voor ontwikkeling van nieuwe formats en verdienmodellen voor jou én de organisatie.</p>
+    </div>
+
+    <div class="feature-card">
+      <h3>Jouw stem telt</h3>
+      <p>Top down én bottom up. Een community die je actief betrekt bij de doorontwikkeling van de community en de kenniscreatie. Die je in staat stelt om zelf kennis te ontwikkelen en te delen — bijvoorbeeld als het gaat om nieuwe formats en verdienmodellen voor jouw organisatie.</p>
+    </div>
+
+    <div class="struct-quote">
+      <h3>Google meets Extinction Rebellion</h3>
+      <p>Een top-down én bottom-up organisatiestructuur die we samen doorontwikkelen.</p>
+    </div>
+
+    <div class="feature-card">
+      <h3>Jouw voorkeur voor kennisontwikkeling</h3>
+      <p>Gebaseerd op de beste social learning practices: real-world collaborative contexts waar mensen van elkaar leren terwijl ze aan gedeelde problemen werken. Met simpele digitale tools, peer-structuren, community-led trainings en praktische uitwisselingen tussen mensen die vergelijkbaar werk doen — zodat leren sociaal gebeurt terwijl je samen handelt, beslist en concrete taken oplost.</p>
+    </div>
+
+    <div class="feature-card">
+      <h3>Jouw expertise samen doorontwikkelen</h3>
+      <p>Met peer-to-peer programs zoals BaaktoBaak buddies en expert-led communities waar mensen elkaar leren in opt-in sessies, ondersteund door collaboratieve tools die kennisdeling inbedden in het dagelijkse werk.</p>
+      <p>Op basis van jullie behoeften organiseren we trainings, regeneratieve praktijken, vrijwilligersreizen en praktische uitwisselingen — zodat mensen samen leren door acties te plannen, anderen te helpen en concrete taken op te lossen, voortdurend reflecterend en nieuwe deelnemers betrekkend.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="s-badge">Hoe het werkt</div>
+  <h2>Een community waarin jij ondersteund wordt door technologie</h2>
+
+  <div class="feature-card">
+    <h3>Jouw stem, altijd herkenbaar</h3>
+    <p>De technologie creëert in jóuw stijl op basis van je bestaande content. Geen generieke output, maar jouw eigenheid — versneld. En jij doet de eindredactie.</p>
+  </div>
+
+  <div class="feature-card">
+    <h3>Van idee naar content in seconden</h3>
+    <p>Bestaande presentaties en whitepapers transformeren naar interactieve modules, handouts en leerpaden. Direct klaar voor je training of facilitatie.</p>
+    <div class="tip"><strong>Tip:</strong> Navigeer naar de 'hoe maak ik'-modules in deze omgeving en zie met eigen ogen hoe we content maken en updaten.</div>
+  </div>
+
+  <div class="feature-card">
+    <h3>Jouw eigendom, jouw data</h3>
+    <p>100% auteursrecht blijft bij jou. Data wordt niet gedeeld met derden. Materiaal wordt rechtenvrij doorontwikkeld.</p>
+  </div>
+
+  <div class="constitution">
+    <strong>Met technologie die werkt op instructies uit onze constitutie:</strong>
+    <ol>
+      <li>Be honest about uncertainty</li>
+      <li>Avoid manipulative or fear-based framing</li>
+      <li>Prefer actionable, low-risk suggestions for real organizations</li>
+      <li>Treat all groups respectfully, avoid stereotyping</li>
+    </ol>
+    <p style="margin-top:8px;margin-bottom:0">De assistent geeft eerst een antwoord, doet dan een constitutionele self-check, en herziet het antwoord één keer om aansluiting bij deze principes te verbeteren.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="s-badge">Veelgestelde vragen</div>
+  <h2>Maar wat als...</h2>
+  <div style="margin-top:20px">
+    <div class="faq-item">
+      <div class="faq-icon">?</div>
+      <div>
+        <div class="faq-q">"Verlies ik niet mijn eigenheid als AI meewerkt?"</div>
+        <div class="faq-a">Juist niet. Jij instrueert je assistent, niet andersom. De AI bouwt een persoonlijke 'voice prompt' op basis van jouw bestaand materiaal en schrijft uitsluitend in jouw stijl. Net als een goede junior die jouw aanwijzingen opvolgt.</div>
+      </div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-icon">?</div>
+      <div>
+        <div class="faq-q">"Wat gebeurt er met mijn intellectueel eigendom?"</div>
+        <div class="faq-a">Jij behoudt 100% auteursrecht. Data wordt niet met derden gedeeld. Alle content wordt rechtenvrij doorontwikkeld binnen de community. Jouw kennis blijft van jou.</div>
+      </div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-icon">?</div>
+      <div>
+        <div class="faq-q">"Ik ben niet technisch — kan ik dit wel?"</div>
+        <div class="faq-a">De hub is ontworpen voor coaches, niet voor developers. Wekelijks online inloopuur, directe chat-hulp en een community die je verder helpt. Je kunt ook een directe afspraak inplannen.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-final" id="aanmelden">
+  <div class="baken-tr"></div>
+  <h2>Klaar om mee te bouwen?</h2>
+  <p>Sluit je aan bij De Baak Kennishub. Stuur je eigen assistent aan, ontwikkel samen kennis, en houd tijd over voor wat écht telt.</p>
+  <div><a href="#aanmelden-form" class="btn-primary">Word lid van de community</a></div>
+  <div><a href="#inloopmoment" class="btn-secondary">Of plan eerst een inloopmoment</a></div>
+</section>
+
+<footer class="footer">
+  <div class="logo-style"><span class="de">de</span><span class="baak">baak</span></div>
+  <div class="descriptor">Training &middot; Ontwikkeling &middot; Leiderschap &middot; Sinds 1947</div>
+</footer>

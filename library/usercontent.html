@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<!-- saved from url=(0066)https://run-html-chat.deepseeksvc.com/usercontent/usercontent.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>De Baak · Professional Headshots at Home</title>
+    <style>body { margin: 0; }</style><style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* De Baak huisstijl v2.0 - CSS variables */
+        :root {
+            --primary: #005ADC;
+            --secondary: #00A555;
+            --accent: #FFE100;
+            --bg: #F5F5EB;
+            --text: #1A1A2E;
+            --shadow: 0 12px 24px -12px rgba(0, 0, 0, 0.12), 0 4px 12px rgba(0, 0, 0, 0.06);
+            --card-radius: 16px;
+            --transition: all 0.2s ease;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.5;
+            padding: 1.5rem;
+        }
+
+        .infographic-container {
+            max-width: 1280px;
+            margin: 0 auto;
+        }
+
+        /* header */
+        .brand-header {
+            margin-bottom: 2rem;
+        }
+        .brand-header h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            letter-spacing: -0.3px;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+        .brand-header p {
+            font-size: 1rem;
+            color: #4a4a5e;
+            max-width: 720px;
+        }
+
+        /* dot legend */
+        .dot-legend {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            background: white;
+            padding: 0.8rem 1.8rem;
+            border-radius: 60px;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+            border: 1px solid #e2e2d4;
+            justify-content: center;
+        }
+        .legend-item {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+        .legend-dot {
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            display: inline-block;
+        }
+        .legend-dot.primary-dot { background-color: var(--primary); }
+        .legend-dot.secondary-dot { background-color: var(--secondary); }
+        .legend-dot.accent-dot { background-color: var(--accent); }
+        .legend-text {
+            color: var(--text);
+        }
+
+        /* tabs navigation - touch targets ≥44px */
+        .tabs {
+            display: flex;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+            border-bottom: 2px solid #e0e0d0;
+            padding-bottom: 0.25rem;
+        }
+        .tab-btn {
+            background: transparent;
+            border: none;
+            font-size: 1rem;
+            font-weight: 700;
+            font-family: Arial, sans-serif;
+            padding: 0.75rem 1.6rem;
+            min-height: 48px;
+            cursor: pointer;
+            color: #5a5a6e;
+            transition: var(--transition);
+            border-radius: 40px;
+            margin-bottom: 0.2rem;
+        }
+        .tab-btn:hover {
+            background-color: rgba(0, 90, 220, 0.08);
+            color: var(--primary);
+        }
+        .tab-btn.active {
+            background-color: var(--primary);
+            color: white;
+            box-shadow: 0 2px 10px rgba(0,90,220,0.25);
+        }
+
+        /* 2-column card grid */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.8rem;
+        }
+
+        /* card styling */
+        .card {
+            background: white;
+            border-radius: var(--card-radius);
+            box-shadow: var(--shadow);
+            padding: 1.5rem 1.5rem 1.8rem;
+            transition: transform 0.2s, box-shadow 0.2s;
+            border-top: 4px solid;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+        .card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 20px 28px -14px rgba(0, 0, 0, 0.15);
+        }
+        .card-primary {
+            border-top-color: var(--primary);
+        }
+        .card-secondary {
+            border-top-color: var(--secondary);
+        }
+        .card-accent {
+            border-top-color: var(--accent);
+        }
+        .card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 0.75rem;
+            font-weight: 700;
+            letter-spacing: -0.2px;
+        }
+        .card .metric {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--primary);
+            margin: 0.5rem 0 0.25rem;
+            line-height: 1.2;
+        }
+        .card p {
+            color: #2e2e3e;
+            font-size: 0.95rem;
+            margin: 0.5rem 0;
+        }
+        .card ul {
+            margin: 0.5rem 0 0 1.2rem;
+            font-size: 0.9rem;
+            color: #2e2e3e;
+        }
+        .card li {
+            margin: 0.3rem 0;
+        }
+        .comparison-row {
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 1px dashed #ddd;
+            padding: 0.6rem 0;
+            font-size: 0.9rem;
+        }
+        .comparison-label {
+            font-weight: 700;
+        }
+        .saving-highlight {
+            background-color: rgba(0, 165, 85, 0.12);
+            padding: 0.5rem;
+            border-radius: 12px;
+            margin-top: 0.8rem;
+            text-align: center;
+            font-weight: 700;
+            color: var(--secondary);
+        }
+
+        /* tab panes */
+        .tab-pane {
+            display: none;
+            animation: fade 0.25s ease;
+        }
+        .tab-pane.active-pane {
+            display: block;
+        }
+        @keyframes fade {
+            from { opacity: 0; transform: translateY(6px);}
+            to { opacity: 1; transform: translateY(0);}
+        }
+
+        /* footer */
+        .site-footer {
+            background-color: var(--primary);
+            color: white;
+            margin-top: 3rem;
+            border-radius: 24px 24px 0 0;
+            position: relative;
+            overflow: hidden;
+        }
+        .footer-content {
+            padding: 2rem 2rem 1.5rem;
+            text-align: center;
+        }
+        .footer-content p {
+            margin-bottom: 0.4rem;
+            font-size: 0.9rem;
+            opacity: 0.92;
+        }
+        .gradient-bottom-bar {
+            height: 6px;
+            background: linear-gradient(90deg, var(--secondary) 0%, var(--accent) 50%, var(--secondary) 100%);
+            width: 100%;
+        }
+        .footer-brief {
+            margin-top: 0.75rem;
+            font-weight: 600;
+            background: rgba(255,255,255,0.12);
+            display: inline-block;
+            padding: 0.3rem 1rem;
+            border-radius: 40px;
+            font-size: 0.85rem;
+        }
+
+        /* responsive */
+        @media (max-width: 768px) {
+            body {
+                padding: 1rem;
+            }
+            .cards-grid {
+                grid-template-columns: 1fr;
+                gap: 1.2rem;
+            }
+            .tab-btn {
+                padding: 0.6rem 1.2rem;
+                min-height: 44px;
+                font-size: 0.9rem;
+            }
+            .dot-legend {
+                border-radius: 32px;
+                gap: 1.2rem;
+                padding: 0.7rem 1rem;
+            }
+            .legend-item {
+                font-size: 0.8rem;
+            }
+            .card h3 {
+                font-size: 1.25rem;
+            }
+            .brand-header h1 {
+                font-size: 1.7rem;
+            }
+        }
+        @media (max-width: 480px) {
+            .tabs {
+                justify-content: center;
+            }
+        }
+        .badge-icon {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+        }
+        .text-small {
+            font-size: 0.8rem;
+            color: #6c6c80;
+        }
+    </style>
+</head>
+<body>
+<div class="infographic-container">
+    <div class="brand-header">
+        <h1>🎯 Professionele headshots · Thuis maken</h1>
+        <p>Van selfie naar studio-kwaliteit met AI — consistent, veilig &amp; kostenbesparend. Volg het eenvoudige proces, gebruik de richtlijnen en bespaar tot 85% t.o.v. traditionele fotografie.</p>
+    </div>
+
+    <!-- dot legend (huisstijl v2.0) -->
+    <div class="dot-legend">
+        <div class="legend-item"><span class="legend-dot primary-dot"></span><span class="legend-text">Proces &amp; acties</span></div>
+        <div class="legend-item"><span class="legend-dot secondary-dot"></span><span class="legend-text">Kwaliteit &amp; richtlijnen</span></div>
+        <div class="legend-item"><span class="legend-dot accent-dot"></span><span class="legend-text">Kosten &amp; besparing</span></div>
+    </div>
+
+    <!-- tabs navigation -->
+    <div class="tabs" role="tablist" aria-label="Headshot workflow">
+        <button class="tab-btn" data-tab="tab1" id="tab1Btn" role="tab" aria-selected="false">📸 Stappenplan</button>
+        <button class="tab-btn" data-tab="tab2" id="tab2Btn" role="tab" aria-selected="false">✨ Belichting &amp; compositie</button>
+        <button class="tab-btn active" data-tab="tab3" id="tab3Btn" role="tab" aria-selected="true">💰 Kostenvergelijking</button>
+    </div>
+
+    <!-- TAB 1: HET PROCES (stappenplan) -->
+    <div id="tab1" class="tab-pane">
+        <div class="cards-grid">
+            <div class="card card-primary">
+                <div class="badge-icon">📱</div>
+                <h3>1. Maak 2-3 selfies</h3>
+                <p>Gebruik een neutrale muur, ooghoogte, en natuurlijk licht (bij een raam). Kies een ontspannen, professionele uitstraling.</p>
+                <div class="text-small">✓ Geen make-up overschot? Geen probleem — AI corrigeert subtiel.</div>
+            </div>
+            <div class="card card-primary">
+                <div class="badge-icon">⬆️</div>
+                <h3>2. Upload naar HeadshotPro</h3>
+                <p>Elke collega ontvangt een teamlink. Upload de selfies en kies één stijl (bijv. 'Corporate Blauw') voor uniforme eindresultaten.</p>
+                <div class="text-small">🔒 SOC2 Type II, GDPR — foto's worden na 7 dagen verwijderd.</div>
+            </div>
+            <div class="card card-secondary">
+                <div class="badge-icon">⚡</div>
+                <h3>3. AI-generatie (10 min)</h3>
+                <p>HeadshotPro levert 40+ studio-headshots per persoon, met variaties in pose, achtergrond en kledingstijl.</p>
+                <div class="text-small">✔ Geen wachttijden, geen fotograaf — volledig geautomatiseerd.</div>
+            </div>
+            <div class="card card-accent">
+                <div class="badge-icon">🎯</div>
+                <h3>4. Selecteer &amp; gebruik</h3>
+                <p>Download 4K-resolutie, pas achtergrond aan via bewerkingscredits, en gebruik de foto’s op website, LinkedIn, e-mailhandtekening.</p>
+                <div class="text-small">✅ 100% tevredenheidsgarantie: gratis herkansing.</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- TAB 2: RICHTLIJNEN VOOR LICHT, KADER EN HOUDING -->
+    <div id="tab2" class="tab-pane">
+        <div class="cards-grid">
+            <div class="card card-secondary">
+                <div class="badge-icon">💡</div>
+                <h3>Licht &amp; schaduw</h3>
+                <p><strong>DOE:</strong> Raamlicht of zacht frontaal licht. Vermijd harde flits of tegenlicht.<br>
+                <strong>DON'T:</strong> Donkere schaduwen op gezicht, halve verlichting.</p>
+                <div class="saving-highlight" style="background: none; color: var(--secondary); font-weight: normal;">✓ Daglichtvenster = ideale softbox</div>
+            </div>
+            <div class="card card-secondary">
+                <div class="badge-icon">🖼️</div>
+                <h3>Kader &amp; compositie</h3>
+                <p>Houd telefoon op ooghoogte. Kadreer van borst tot net boven het hoofd. Vermijd extreme close-ups of groothoek.</p>
+                <ul>
+                    <li>Ogen in bovenste derde</li>
+                    <li>Rustige, neutrale achtergrond</li>
+                </ul>
+            </div>
+            <div class="card card-primary">
+                <div class="badge-icon">🧥</div>
+                <h3>Kleding &amp; styling</h3>
+                <p>Draag effen kleuren (wit, marine, grijs). Vermijd felle patronen of sterke logo's. Zorg voor verzorgde look.</p>
+                <div class="text-small">De AI genereert ook alternatieve outfits — maar de basis bepaalt gezichtsherkenning.</div>
+            </div>
+            <div class="card card-accent">
+                <div class="badge-icon">🧘</div>
+                <h3>Houding &amp; uitstraling</h3>
+                <p>Ontspannen schouders, kin iets omlaag, natuurlijke glimlach. Denk aan een zelfverzekerde maar benaderbare houding.</p>
+                <div class="text-small">💡 Tip: een lichte hoofdrotatie geeft dynamiek.</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- TAB 3: KOSTENVERGELIJKING TRADITIONEEL VS AI (brief + uitgebreide vergelijking) -->
+    <div id="tab3" class="tab-pane active-pane">
+        <div class="cards-grid">
+            <div class="card card-primary">
+                <h3>📸 Traditionele fotografie</h3>
+                <div class="comparison-row"><span class="comparison-label">Studio sessie (p.p.)</span><span>€150 – €250</span></div>
+                <div class="comparison-row"><span class="comparison-label">Reiskosten / verlof</span><span>€30 – €80</span></div>
+                <div class="comparison-row"><span class="comparison-label">Professionele nabewerking</span><span>€50 – €100</span></div>
+                <div class="comparison-row"><span class="comparison-label">Totaal per persoon</span><span><strong>€230 – €430</strong></span></div>
+                <div class="comparison-row"><span class="comparison-label">Doorlooptijd</span><span>1–3 weken</span></div>
+                <div class="text-small" style="margin-top: 10px;">⚠️ Inconsistente belichting &amp; achtergronden bij verschillende teams.</div>
+            </div>
+            <div class="card card-secondary">
+                <h3>🤖 AI-aanpak (HeadshotPro)</h3>
+                <div class="comparison-row"><span class="comparison-label">Basic plan p.p.</span><span>$29 (≈ €27)</span></div>
+                <div class="comparison-row"><span class="comparison-label">Professional plan p.p.</span><span>$39 (≈ €36)</span></div>
+                <div class="comparison-row"><span class="comparison-label">Premium plan p.p.</span><span>$59 (≈ €54)</span></div>
+                <div class="comparison-row"><span class="comparison-label">Reiskosten / vrije tijd</span><span>€0 (thuis)</span></div>
+                <div class="comparison-row"><span class="comparison-label">Generatietijd</span><span>~10 minuten</span></div>
+                <div class="saving-highlight" style="margin-top: 12px;">💎 40–240 headshots p.p. in 4K, inclusief bewerkingscredits</div>
+            </div>
+            <div class="card card-accent">
+                <h3>📊 Besparing &amp; ROI (team van 50 personen)</h3>
+                <div class="metric" style="color: var(--accent);">Tot 85%</div>
+                <p>Kostenbesparing ten opzichte van traditionele fotografie bij gebruik van Professional plan.</p>
+                <div class="comparison-row"><span>Traditioneel totaal (50 pers.)</span><span>€11.500 – €21.500</span></div>
+                <div class="comparison-row"><span>HeadshotPro totaal</span><span>~€1.800 (€36 p.p.)</span></div>
+                <div class="saving-highlight">💰 Besparing: minimaal €9.700 tot bijna €20.000</div>
+                <div class="text-small" style="margin-top: 8px;">✓ Geen reistijd, geen productieverlies, directe download</div>
+            </div>
+            <div class="card card-primary">
+                <h3>📋 Korte management brief</h3>
+                <p><strong>Conclusie:</strong> HeadshotPro levert uniforme, professionele headshots tegen een fractie van de kosten (€36 i.p.v. €250+). De AI-gestuurde workflow garandeert consistente belichting, framing en achtergrond — perfect voor de huisstijl van De Baak. Veiligheid: SOC2 Type II, automatische dataverwijdering. Implementatie binnen 1 week, volledig thuis uitvoerbaar.</p>
+                <div class="saving-highlight" style="background: rgba(0,90,220,0.08); color: var(--primary);">Aanbeveling: kies Professional plan (€39 p.p.) voor 120 variaties per medewerker.</div>
+                <div class="text-small">✔ 4.8/5 sterren (3.200+ reviews) | ✔ 14-dagen garantie</div>
+            </div>
+        </div>
+        <!-- Extra samenvattende noot: het brief-gedeelte staat al in de vierde kaart -->
+    </div>
+
+    <!-- footer met gradient balk en slotopmerking -->
+    <footer class="site-footer">
+        <div class="footer-content">
+            <p>© De Baak · Huisstijl v2.0 – Professionele headshots op afstand</p>
+            <p>Veilig, schaalbaar &amp; volledig in lijn met merkidentiteit</p>
+            <div class="footer-brief">
+                📌 KOSTENVERGELIJKING: Traditioneel €230–€430 p.p. vs. AI €36 p.p. → bespaar 80-85% + uniforme uitstraling
+            </div>
+        </div>
+        <div class="gradient-bottom-bar" aria-hidden="true"></div>
+    </footer>
+</div>
+
+<script>
+    (function() {
+        // tab switching with accessibility and touch
+        const tabButtons = document.querySelectorAll('.tab-btn');
+        const panes = document.querySelectorAll('.tab-pane');
+
+        function activateTab(tabId) {
+            // hide all panes
+            panes.forEach(pane => {
+                pane.classList.remove('active-pane');
+            });
+            // remove active class from all buttons, set aria-selected false
+            tabButtons.forEach(btn => {
+                btn.classList.remove('active');
+                btn.setAttribute('aria-selected', 'false');
+            });
+            // show selected pane
+            const activePane = document.getElementById(tabId);
+            if (activePane) {
+                activePane.classList.add('active-pane');
+            }
+            // set active button
+            const activeBtn = document.querySelector(`.tab-btn[data-tab="${tabId}"]`);
+            if (activeBtn) {
+                activeBtn.classList.add('active');
+                activeBtn.setAttribute('aria-selected', 'true');
+            }
+        }
+
+        // add event listeners
+        tabButtons.forEach(button => {
+            button.addEventListener('click', (e) => {
+                const tabId = button.getAttribute('data-tab');
+                if (tabId) {
+                    activateTab(tabId);
+                }
+                e.preventDefault();
+            });
+            button.setAttribute('role', 'tab');
+            button.setAttribute('aria-selected', button.classList.contains('active') ? 'true' : 'false');
+        });
+
+        // ensure initial active tab (tab1) is consistent
+        const initialActiveBtn = document.querySelector('.tab-btn.active');
+        if (initialActiveBtn && initialActiveBtn.getAttribute('data-tab') !== 'tab1') {
+            activateTab('tab1');
+        } else if (!initialActiveBtn) {
+            activateTab('tab1');
+        } else {
+            // double-check pane visibility
+            const activeTabVal = initialActiveBtn.getAttribute('data-tab');
+            if (activeTabVal) {
+                const activePaneCheck = document.getElementById(activeTabVal);
+                if (activePaneCheck && !activePaneCheck.classList.contains('active-pane')) {
+                    panes.forEach(p => p.classList.remove('active-pane'));
+                    activePaneCheck.classList.add('active-pane');
+                }
+            }
+        }
+
+        // keyboard accessibility: Enter / Space triggers tab
+        tabButtons.forEach(btn => {
+            btn.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    btn.click();
+                }
+            });
+        });
+    })();
+</script>
+
+</body></html>

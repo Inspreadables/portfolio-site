@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<!-- saved from url=(0083)file:///C:/Users/arijj/Desktop/0107presentations/deepseek_html_20260630_9a732c.html -->
+<html lang="nl"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>De Baak Kennishub · Executive Learning Reimagined</title>
+    <style>
+        /* ========== DE BAAK HUISSTIJL v2.0 ========== */
+        :root {
+            --primary: #005ADC;
+            --secondary: #00A555;
+            --accent: #FFE100;
+            --bg: #F5F5EB;
+            --text: #1A1A2E;
+            --white: #FFFFFF;
+            --gray-mid: #4A5568;
+            --shadow: 0 12px 28px rgba(0, 90, 220, 0.12);
+            --shadow-hover: 0 18px 40px rgba(0, 90, 220, 0.18);
+            --radius-card: 16px;
+            --border-light: rgba(0, 90, 220, 0.12);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: var(--bg);
+            font-family: Arial, Helvetica, sans-serif;
+            color: var(--text);
+            line-height: 1.5;
+            scroll-behavior: smooth;
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+        }
+
+        /* header */
+        .main-header {
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .logo {
+            display: inline-flex;
+            align-items: baseline;
+            gap: 4px;
+            font-weight: 900;
+            font-size: 1.8rem;
+            color: var(--primary);
+            margin-bottom: 0.75rem;
+        }
+        .logo .de {
+            -webkit-text-stroke: 1.5px var(--primary);
+            color: transparent;
+        }
+        .logo .baak {
+            color: var(--primary);
+        }
+        .tagline {
+            color: var(--gray-mid);
+            font-size: 0.85rem;
+            letter-spacing: 0.02em;
+            margin-bottom: 0.5rem;
+        }
+        h1 {
+            font-size: clamp(1.8rem, 5vw, 2.6rem);
+            font-weight: 900;
+            color: var(--primary);
+            margin: 0.5rem 0 0.25rem;
+        }
+        .sub {
+            color: var(--gray-mid);
+            max-width: 680px;
+            margin: 0 auto;
+            font-size: 1rem;
+        }
+
+        /* TABS STYLING */
+        .tabs-nav {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 0.75rem;
+            margin: 2rem 0 1.5rem;
+            border-bottom: 2px solid rgba(0, 90, 220, 0.15);
+            padding-bottom: 0.75rem;
+        }
+        .tab-btn {
+            background: transparent;
+            border: none;
+            font-family: Arial, sans-serif;
+            font-weight: 700;
+            font-size: 1rem;
+            padding: 0.75rem 1.8rem;
+            border-radius: 40px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            color: var(--gray-mid);
+            background: var(--white);
+            box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+        }
+        .tab-btn.active {
+            background: var(--primary);
+            color: white;
+            box-shadow: var(--shadow);
+        }
+        .tab-btn:hover:not(.active) {
+            background: rgba(0, 90, 220, 0.08);
+            color: var(--primary);
+        }
+
+        /* DOT LEGEND */
+        .dot-legend {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+        }
+        .legend-dot {
+            display: inline-block;
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            margin-right: 6px;
+            vertical-align: middle;
+        }
+        .legend-dot.primary { background: var(--primary); }
+        .legend-dot.secondary { background: var(--secondary); }
+        .legend-dot.accent { background: var(--accent); }
+        .legend-item {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--gray-mid);
+        }
+
+        /* TAB CONTENT */
+        .tab-pane {
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+        .tab-pane.active-pane {
+            display: block;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px);}
+            to { opacity: 1; transform: translateY(0);}
+        }
+
+        /* 2‑COLUMN CARD GRID */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.8rem;
+        }
+        /* cards */
+        .card {
+            background: var(--white);
+            border-radius: var(--radius-card);
+            box-shadow: var(--shadow);
+            padding: 1.6rem 1.6rem 1.8rem;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            border-top: 4px solid var(--primary);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        .card:hover {
+            transform: translateY(-6px);
+            box-shadow: var(--shadow-hover);
+        }
+        /* card border variants */
+        .card.border-primary { border-top-color: var(--primary); }
+        .card.border-secondary { border-top-color: var(--secondary); }
+        .card.border-accent { border-top-color: var(--accent); }
+        
+        .card-title {
+            font-size: 1.35rem;
+            font-weight: 900;
+            margin-bottom: 0.8rem;
+            color: var(--text);
+            line-height: 1.25;
+        }
+        .card-meta {
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+        .card-text {
+            color: var(--gray-mid);
+            font-size: 0.9rem;
+            line-height: 1.55;
+            margin-bottom: 1rem;
+            flex: 1;
+        }
+        .price-tag {
+            font-weight: 800;
+            font-size: 1.1rem;
+            color: var(--secondary);
+            background: rgba(0, 165, 85, 0.08);
+            display: inline-block;
+            padding: 0.2rem 0.8rem;
+            border-radius: 40px;
+            margin-top: 0.5rem;
+        }
+        .list-styled {
+            padding-left: 1.2rem;
+            margin: 0.8rem 0;
+            font-size: 0.85rem;
+            color: var(--gray-mid);
+        }
+        .list-styled li {
+            margin-bottom: 0.5rem;
+        }
+        hr {
+            margin: 0.8rem 0;
+            border: none;
+            height: 1px;
+            background: var(--border-light);
+        }
+        .brief-compare {
+            background: var(--bg);
+            padding: 1rem;
+            border-radius: 12px;
+            margin-top: 1rem;
+            font-size: 0.85rem;
+            border-left: 4px solid var(--secondary);
+        }
+        .two-col-compact {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-top: 0.5rem;
+        }
+        .badge {
+            background: var(--primary);
+            color: white;
+            font-size: 0.7rem;
+            border-radius: 20px;
+            padding: 0.2rem 0.7rem;
+            display: inline-block;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+        }
+
+        /* FOOTER */
+        footer {
+            background: var(--primary);
+            color: white;
+            margin-top: 3rem;
+            position: relative;
+        }
+        .footer-content {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem 1.8rem;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1.2rem;
+        }
+        .footer-logo {
+            font-weight: 900;
+            font-size: 1.3rem;
+        }
+        .footer-logo span:first-child {
+            -webkit-text-stroke: 1px white;
+            color: transparent;
+        }
+        .footer-text {
+            font-size: 0.8rem;
+            color: rgba(255,255,255,0.8);
+        }
+        .gradient-bar {
+            height: 6px;
+            background: linear-gradient(90deg, var(--secondary) 0%, var(--accent) 50%, var(--secondary) 100%);
+            width: 100%;
+        }
+        
+        /* responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 1.2rem;
+            }
+            .card-grid {
+                grid-template-columns: 1fr;
+                gap: 1.2rem;
+            }
+            .tab-btn {
+                padding: 0.6rem 1.2rem;
+                font-size: 0.85rem;
+            }
+            .dot-legend {
+                gap: 1rem;
+            }
+            .footer-content {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+        }
+
+        /* touch targets */
+        .tab-btn, .card, .legend-item {
+            touch-action: manipulation;
+        }
+        .tab-btn {
+            min-height: 44px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="main-header">
+        <div class="logo">
+            <span class="de">de</span><span class="baak">baak</span>
+        </div>
+        <div class="tagline">Training · Ontwikkeling · Leiderschap · Sinds 1947</div>
+        <h1>Van middenmotor naar CEO-level co-creatie</h1>
+        <p class="sub">IDEO Human-Centered Design · AI-sensors · Real-world modules · Bouwen in Oekraïne · Heerlijke tuinen · Digitale minimalisme</p>
+    </div>
+
+    <!-- TABS WITH DOT LEGEND -->
+    <div class="tabs-nav">
+        <button class="tab-btn active" data-tab="tab1">1 · Proces &amp; Aanpak</button>
+        <button class="tab-btn" data-tab="tab2">2 · Zes Pilots</button>
+        <button class="tab-btn" data-tab="tab3">3 · Kostenvergelijking</button>
+    </div>
+
+    <div class="dot-legend">
+        <span class="legend-item"><span class="legend-dot primary"></span> IDEO &amp; monitoring</span>
+        <span class="legend-item"><span class="legend-dot secondary"></span> Leerformats (pilots)</span>
+        <span class="legend-item"><span class="legend-dot accent"></span> Traditioneel vs Nieuw</span>
+    </div>
+
+    <!-- TAB 1: PROCES + HCD & CLICKUP MONITORING -->
+    <div id="tab1" class="tab-pane active-pane">
+        <div class="card-grid">
+            <div class="card border-primary">
+                <div class="badge">Human-Centered Design · IDEO</div>
+                <div class="card-title">Empathize · Define · Ideate · Prototype · Test</div>
+                <div class="card-text">
+                    We ontwerpen alle pilots samen met executives, trainers en sensordata. 
+                    <strong>Stappen:</strong>
+                    <ul class="list-styled">
+                        <li>Weeks 1-2: empathie-interviews (CEO's, HR, Oekraïne-partners)</li>
+                        <li>Weeks 3-4: definiëren succesmetrics (focus-uren, conflictresolutie, tuinopbrengst)</li>
+                        <li>Week 5-6: co-creatie workshops met IDEO-methodes</li>
+                        <li>Week 7-9: parallelle prototypes van 6 pilots</li>
+                        <li>Week 10-12: testen, sensoranalyse, itereren naar productierijp</li>
+                    </ul>
+                </div>
+                <div class="price-tag">12 weken · continue iteratie</div>
+            </div>
+            <div class="card border-secondary">
+                <div class="badge">AI + ClickUp Monitoring</div>
+                <div class="card-title">Realtime projectinzicht · Risicodetectie · Sandbox Agent</div>
+                <div class="card-text">
+                    <ul class="list-styled">
+                        <li>ClickUp dashboards met AI: automatische statusrapportages per pilot</li>
+                        <li>Wearable sensoren (focus, stem, nabijheid) – privacy-first via Universal Sandbox Agent</li>
+                        <li>Real-time alerts: stress-spikes (Oekraïne), tuin sensordata, creatieve conflicten</li>
+                        <li>Geanonimiseerde teaminzichten verbeteren samenwerking zonder blootstelling</li>
+                        <li>Agile aanpassingen mogelijk binnen 48 uur dankzij AI-signalen</li>
+                    </ul>
+                </div>
+                <div class="price-tag">Transparant · Ethisch · Datagedreven</div>
+            </div>
+        </div>
+        <div style="margin-top: 1.8rem; background: var(--white); border-radius: 20px; padding: 1.2rem; box-shadow: var(--shadow);">
+            <p style="font-weight: 700; color: var(--primary);">📋 Roadmap in het kort</p>
+            <p style="font-size: 0.85rem; color: var(--gray-mid);">6 pilots draaien parallel in 12 weken: van empathie tot testfase. ClickUp bewaakt mijlpalen, AI-sensoren leveren realtime feedback voor bijsturing. Afsluitend: Kennishub Playbook met alle gevalideerde formats.</p>
+        </div>
+    </div>
+
+    <!-- TAB 2: ZES PILOTS – met prijzen en kernmerken -->
+    <div id="tab2" class="tab-pane">
+        <div class="card-grid">
+            <!-- Pilot 1: Digitale minimalisme -->
+            <div class="card border-primary">
+                <div class="card-title">📵 1. Attention Sanctuary</div>
+                <div class="card-meta">Digitaal minimalisme · Cal Newport</div>
+                <div class="card-text">3-daagse retreat met burner phones, EEG-focus sensoren en tech contract. Meetbare diepe werk sessies, persoonlijk actieplan.</div>
+                <div><span class="price-tag">€ 4.200 p.p.</span> <span style="font-size: 0.7rem;"> (incl. sensors, 3 dagen, 30d AI-nudges)</span></div>
+            </div>
+            <!-- Pilot 2: AI Sensor Lab + KAI -->
+            <div class="card border-secondary">
+                <div class="card-title">🧠 2. Creative Differences Lab</div>
+                <div class="card-meta">AI-badges · KAI framework</div>
+                <div class="card-text">2-daagse lab met turn-taking sensoren, KAI profielen. Visualiseer creatieve conflicten en verbeter besluitvorming.</div>
+                <div><span class="price-tag">€ 2.800 p.p.</span> <span style="font-size: 0.7rem;"> (badges, facilitator, teamdashboard)</span></div>
+            </div>
+            <!-- Pilot 3: Oekraïne bouwen -->
+            <div class="card border-primary">
+                <div class="card-title">🏗️ 3. Ukraine Housing</div>
+                <div class="card-meta">Extreme teamcooperation · echte huizen</div>
+                <div class="card-text">8 dagen in Lviv-regio: bouwen met lokale teams. Proximity-sensoren, trauma-informed debriefs. Leiderschap in crises.</div>
+                <div><span class="price-tag">€ 6.800 p.p.</span> <span style="font-size: 0.7rem;"> (donatie, security, vluchten, sensors)</span></div>
+            </div>
+            <!-- Pilot 4: Heerlijke Tuinen -->
+            <div class="card border-secondary">
+                <div class="card-title">🌿 4. Regenerative Garden Lab</div>
+                <div class="card-meta">Heerlijke Tuinen · Biomimicry</div>
+                <div class="card-text">4-daags op permacultuurlocatie: ontwerp zelfvoorzienende tuin. Bodem-/water sensoren. Leiderschapsmetaforen uit de natuur.</div>
+                <div><span class="price-tag">€ 3.600 p.p.</span> <span style="font-size: 0.7rem;"> (tuinblueprint, sensorkit, 30d opvolging)</span></div>
+            </div>
+            <!-- Pilot 5: Hybride monitoring -->
+            <div class="card border-primary">
+                <div class="card-title">📊 5. Hybrid Monitoring Lab</div>
+                <div class="card-meta">6 weken · AI conflictcoach</div>
+                <div class="card-text">4 wekelijks virtueel + 2-daagse lab. Wearables in dagelijks werk → inzicht in spreekgedrag, psychologische veiligheid.</div>
+                <div><span class="price-tag">€ 6.500 p/team (6 pers)</span> <span style="font-size: 0.7rem;"> (badges, facilitator, AI rapportage)</span></div>
+            </div>
+            <!-- Pilot 6: CEO co-creatie platform -->
+            <div class="card border-secondary">
+                <div class="card-title">🤝 6. CEO Co‑creation Council</div>
+                <div class="card-meta">12 mnd · bol.com-model</div>
+                <div class="card-text">Kwartaalretreats + AI Kennishub. CEO's bepalen nieuwe modules, externen 80% commissie, grassroots → officieel.</div>
+                <div><span class="price-tag">€ 14.000 per CEO/jaar</span> <span style="font-size: 0.7rem;"> (toegang alle co-creatie, 4 retreats)</span></div>
+            </div>
+        </div>
+        <div class="brief-compare" style="margin-top: 1.8rem;">
+            <strong>✨ Wat maakt deze pilots anders?</strong> Geen klassieke trainingen, maar real-world impact + AI-sensorfeedback + privacy-first architectuur. Combinatie van fysieke locaties (Noordwijk/Driebergen, Oekraïne, Heerlijke tuinen) met continue digitale ondersteuning – uniek in de markt.
+        </div>
+    </div>
+
+    <!-- TAB 3: KOSTENVERGELIJKING TRADITIONEEL VS DEZE AANPAK + BRIEF -->
+    <div id="tab3" class="tab-pane">
+        <div class="card-grid">
+            <!-- Traditioneel model -->
+            <div class="card border-primary">
+                <div class="card-title">📉 Traditioneel De Baak / Middenmotor</div>
+                <div class="card-meta">Klassieke trainingen · Weinig data</div>
+                <div class="card-text">
+                    <ul class="list-styled">
+                        <li><strong>Kosten:</strong> € 1.500 – € 2.500 per dagdeel / p.p. (gemiddeld € 2.000 voor 2-daagse)</li>
+                        <li><strong>Behoud na 60 dagen:</strong> ~20% kennisretentie, gedragsverandering moeilijk meetbaar</li>
+                        <li><strong>Geen sensordata:</strong> blind voor teamdynamiek, creatieve conflicten</li>
+                        <li><strong>Risico:</strong> lege zalen, prijsdruk door Udemy/AI-coaching, wegkwijnende marge</li>
+                        <li><strong>Positionering:</strong> vast in het midden – boutique noch massaal</li>
+                    </ul>
+                </div>
+                <div class="price-tag" style="background: rgba(0,90,220,0.1); color: var(--primary);">Voorbeeld: 10 leiders, 2-daagse workshop = € 20.000 - beperkt effect</div>
+            </div>
+            <!-- Nieuwe aanpak Kennishub -->
+            <div class="card border-secondary">
+                <div class="card-title">🚀 Nieuwe Aanpak · Kennishub Pilots</div>
+                <div class="card-meta">AI-gestuurd · Real-world · Hoge retentie</div>
+                <div class="card-text">
+                    <ul class="list-styled">
+                        <li><strong>Investering pilots:</strong> € 2.800 – € 14.000 p.p., afhankelijk van diepgang (Oekraïne/CEO platform)</li>
+                        <li><strong>Meetbare gedragsdata:</strong> focus-uren, turn-taking, stressniveaus, tuinresilience</li>
+                        <li><strong>Retentie na 90 dagen:</strong> &gt;65% door immersie en AI-nudges &amp; sensorfeedback</li>
+                        <li><strong>Unieke waardepropositie:</strong> niemand combineert fysieke retraites met altijd-aan AI-coaching en co-creatie</li>
+                        <li><strong>ROI:</strong> lagere verzuimkosten, snellere teamconflictresolutie, tastbare leiderschapsverandering</li>
+                    </ul>
+                </div>
+                <div class="price-tag">Voorbeeld: Oekraïne-pilot €6.800 p.p. levert meetbare teamcohesie en maatschappelijke impact</div>
+            </div>
+        </div>
+        <!-- einde met brief comparing costs traditional vs deze aanpak -->
+        <div class="brief-compare" style="margin-top: 1.2rem; background: var(--white); border-left-color: var(--accent);">
+            <strong>💡 Korte vergelijking: traditionele kosten versus deze aanpak</strong><br>
+            Een traditionele 2-daagse training kost gemiddeld € 2.000 p.p., maar na 60 dagen is 80% vervlogen en is er <strong>geen gedragsdata</strong>. Onze pilots lijken hoger in initiële uitgave (€ 2.800 tot € 6.800 voor high-end modules), maar leveren <strong>permanente gedragsverandering, AI-gestuurde inzichten en een community die zelf modules verbetert</strong> (bol.com-model). Een CEO-co-creatieplatform van €14.000 per jaar geeft toegang tot vier retraites, altijd beschikbare kennis én mede-eigenaarschap – iets wat elke klassieke training nooit kan bieden. <br><br>
+            <strong>Conclusie:</strong> De 'middenmotor'-kosten lijken laag, maar het rendement verdampt. De Baak Kennishub kiest voor hogere initiële prijs met <em>onbetwistbaar meetbare outcome, hogere retentie en defensieve positionering</em> tegen AI-commodities. Geen weg terug naar het midden.
+        </div>
+        <div style="margin-top: 1rem; display: flex; gap: 0.5rem; flex-wrap: wrap; justify-content: center;">
+            <span style="background: var(--secondary); color: white; padding: 0.4rem 1rem; border-radius: 40px; font-size: 0.7rem;">✔ 3x hogere retentie</span>
+            <span style="background: var(--primary); color: white; padding: 0.4rem 1rem; border-radius: 40px; font-size: 0.7rem;">✔ Realtime data</span>
+            <span style="background: var(--accent); color: #1A1A2E; padding: 0.4rem 1rem; border-radius: 40px; font-size: 0.7rem;">✔ Co-creatie met CEO's</span>
+        </div>
+    </div>
+</div>
+
+<footer>
+    <div class="gradient-bar"></div>
+    <div class="footer-content">
+        <div>
+            <div class="footer-logo">
+                <span>de</span><span>baak</span>
+            </div>
+            <div class="footer-text">Training · Ontwikkeling · Leiderschap · Sinds 1947</div>
+        </div>
+        <div class="footer-text">
+            Strategische herpositionering · MT Briefing v8.0<br>
+            Van middenmotor naar platform voor CEO-level co-creatie · 2026
+        </div>
+    </div>
+</footer>
+
+<script>
+    (function() {
+        const tabs = document.querySelectorAll('.tab-btn');
+        const panes = {
+            tab1: document.getElementById('tab1'),
+            tab2: document.getElementById('tab2'),
+            tab3: document.getElementById('tab3')
+        };
+
+        function activateTab(tabId) {
+            // deactivate all panes
+            Object.values(panes).forEach(pane => {
+                if (pane) pane.classList.remove('active-pane');
+            });
+            // deactivate all buttons
+            tabs.forEach(btn => btn.classList.remove('active'));
+            // activate selected pane
+            if (panes[tabId]) panes[tabId].classList.add('active-pane');
+            // activate matching button
+            const activeBtn = Array.from(tabs).find(btn => btn.getAttribute('data-tab') === tabId);
+            if (activeBtn) activeBtn.classList.add('active');
+        }
+
+        tabs.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const tabId = btn.getAttribute('data-tab');
+                if (tabId && panes[tabId]) activateTab(tabId);
+            });
+        });
+
+        // initial active tab = tab1 (already active)
+        // safety: ensure tab1 visible if any glitch
+        if (!panes.tab1.classList.contains('active-pane')) {
+            activateTab('tab1');
+        }
+    })();
+</script>
+
+
+</body></html>

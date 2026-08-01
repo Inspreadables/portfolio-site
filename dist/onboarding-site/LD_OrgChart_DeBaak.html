@@ -1,0 +1,1339 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>L&D Organisatiestructuur — De Baak</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet" />
+  <style>
+    /* ===== DE BAAK DESIGN SYSTEM ===== */
+    :root {
+      --teal:         #5a8f8f;
+      --teal-dark:    #4a7a7a;
+      --teal-light:   #7ba8a8;
+      --teal-faint:   rgba(90, 143, 143, 0.10);
+      --brown:        #8b6f47;
+      --brown-light:  #a8865c;
+      --brown-faint:  rgba(139, 111, 71, 0.10);
+      --green:        #4a7c59;
+      --green-faint:  rgba(74, 124, 89, 0.10);
+      --cream:        #f5f3ef;
+      --cream-dark:   #e8e5df;
+      --border:       #d4cfc4;
+      --white:        #ffffff;
+      --charcoal:     #2d2d2d;
+      --gray-mid:     #5a5a5a;
+      --gray-light:   #8a8a8a;
+
+      --font-head: 'Merriweather', Georgia, serif;
+      --font-body: 'Source Sans 3', 'Segoe UI', sans-serif;
+
+      --shadow-soft: 0 4px 20px rgba(45, 45, 45, 0.08);
+      --shadow-hover: 0 8px 32px rgba(45, 45, 45, 0.14);
+      --radius: 8px;
+      --radius-sm: 6px;
+      --transition: 320ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { font-size: 16px; }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--cream);
+      color: var(--charcoal);
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+      min-height: 100vh;
+    }
+
+    /* ===== HEADER ===== */
+    .page-header {
+      background: var(--white);
+      border-bottom: 1px solid var(--border);
+      padding: 32px 48px;
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+
+    .header-brand {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .brand-tag {
+      font-family: var(--font-body);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--teal);
+    }
+
+    .page-title {
+      font-family: var(--font-head);
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--charcoal);
+      line-height: 1.25;
+    }
+
+    .page-subtitle {
+      font-size: 14px;
+      color: var(--gray-mid);
+      max-width: 520px;
+      line-height: 1.6;
+      margin-top: 4px;
+    }
+
+    .header-meta {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 8px;
+    }
+
+    .debaak-badge {
+      background: var(--teal);
+      color: var(--white);
+      font-family: var(--font-head);
+      font-size: 12px;
+      font-weight: 700;
+      padding: 6px 14px;
+      border-radius: 4px;
+      letter-spacing: 0.04em;
+    }
+
+    .since-tag {
+      font-size: 11px;
+      color: var(--gray-light);
+      font-style: italic;
+      font-family: var(--font-head);
+    }
+
+    /* ===== MAIN LAYOUT ===== */
+    .page-body {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 40px 48px;
+      display: grid;
+      grid-template-columns: 1fr 380px;
+      gap: 32px;
+      align-items: start;
+    }
+
+    @media (max-width: 1100px) {
+      .page-body { grid-template-columns: 1fr; padding: 24px; }
+      .page-header { padding: 24px; }
+    }
+
+    /* ===== PANELS ===== */
+    .panel {
+      background: var(--white);
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow-soft);
+      overflow: hidden;
+    }
+
+    .panel-head {
+      padding: 24px 28px 20px;
+      border-bottom: 1px solid var(--cream-dark);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .panel-head-title {
+      font-family: var(--font-head);
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--charcoal);
+    }
+
+    .panel-head-caption {
+      font-size: 13px;
+      color: var(--gray-mid);
+      margin-top: 2px;
+    }
+
+    .panel-body {
+      padding: 28px;
+    }
+
+    /* ===== LEGEND ===== */
+    .legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 24px;
+    }
+
+    .legend-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 4px 12px 4px 8px;
+      background: var(--cream);
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      font-size: 12px;
+      color: var(--gray-mid);
+    }
+
+    .legend-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 3px;
+      flex-shrink: 0;
+    }
+
+    .dot-exec    { background: var(--teal); }
+    .dot-dir     { background: var(--brown); }
+    .dot-mgr     { background: var(--green); }
+    .dot-staff   { background: var(--gray-light); }
+
+    /* ===== ORG CHART CANVAS ===== */
+    .org-wrapper {
+      position: relative;
+      width: 100%;
+      overflow-x: auto;
+    }
+
+    .org-canvas {
+      position: relative;
+      width: 100%;
+      min-width: 700px;
+      height: 560px;
+    }
+
+    /* SVG connector layer */
+    .connector-svg {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .connector-svg line {
+      stroke: var(--border);
+      stroke-width: 2;
+      stroke-dasharray: none;
+    }
+
+    /* ===== ORG NODES ===== */
+    .org-node {
+      position: absolute;
+      width: 164px;
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-soft);
+      cursor: pointer;
+      transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
+      text-align: left;
+      padding: 0;
+      outline: none;
+      z-index: 2;
+      transform: translateX(-50%);
+      overflow: hidden;
+      display: block;
+      font-family: var(--font-body);
+    }
+
+    .org-node:hover {
+      transform: translateX(-50%) translateY(-4px);
+      box-shadow: var(--shadow-hover);
+      border-color: var(--teal-light);
+    }
+
+    .org-node:focus-visible {
+      border-color: var(--teal);
+      box-shadow: 0 0 0 3px rgba(90, 143, 143, 0.25), var(--shadow-hover);
+    }
+
+    .org-node.is-active {
+      border-color: var(--teal);
+      box-shadow: 0 0 0 3px rgba(90, 143, 143, 0.20), var(--shadow-hover);
+      transform: translateX(-50%) translateY(-4px);
+    }
+
+    .org-node-accent {
+      height: 4px;
+      width: 100%;
+    }
+
+    .accent-exec  { background: var(--teal); }
+    .accent-dir   { background: var(--brown); }
+    .accent-mgr   { background: var(--green); }
+    .accent-staff { background: var(--gray-light); }
+
+    .org-node-inner {
+      padding: 10px 13px 12px;
+    }
+
+    .org-node-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--charcoal);
+      line-height: 1.35;
+      font-family: var(--font-body);
+    }
+
+    .org-node-sub {
+      font-size: 11px;
+      color: var(--gray-mid);
+      margin-top: 4px;
+      line-height: 1.4;
+    }
+
+    .org-node-tag {
+      display: inline-block;
+      margin-top: 7px;
+      padding: 2px 8px;
+      border-radius: 999px;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+    }
+
+    .tag-teal  { background: var(--teal-faint);  color: var(--teal-dark); }
+    .tag-brown { background: var(--brown-faint); color: var(--brown); }
+    .tag-green { background: var(--green-faint); color: var(--green); }
+    .tag-gray  { background: var(--cream-dark);  color: var(--gray-mid); }
+
+    /* ===== TOOLBAR ===== */
+    .toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 20px;
+      align-items: center;
+    }
+
+    .toolbar-label {
+      font-size: 12px;
+      color: var(--gray-light);
+      font-style: italic;
+      font-family: var(--font-head);
+    }
+
+    .btn-tool {
+      border: 1px solid var(--border);
+      background: var(--cream);
+      color: var(--gray-mid);
+      border-radius: 999px;
+      padding: 5px 14px;
+      font-size: 12px;
+      font-family: var(--font-body);
+      cursor: pointer;
+      transition: all 200ms ease;
+    }
+
+    .btn-tool:hover {
+      background: var(--teal-faint);
+      color: var(--teal-dark);
+      border-color: var(--teal-light);
+    }
+
+    .btn-reset {
+      background: var(--teal);
+      color: var(--white);
+      border: none;
+      padding: 7px 16px;
+      border-radius: var(--radius-sm);
+      font-size: 13px;
+      font-weight: 600;
+      font-family: var(--font-body);
+      cursor: pointer;
+      transition: background var(--transition);
+    }
+
+    .btn-reset:hover { background: var(--teal-dark); }
+
+    /* ===== DETAILS PANEL (RIGHT) ===== */
+    .filter-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+      padding: 16px 28px;
+      background: var(--cream);
+      border-bottom: 1px solid var(--cream-dark);
+    }
+
+    .filter-label {
+      font-size: 11px;
+      color: var(--gray-light);
+      font-style: italic;
+      font-family: var(--font-head);
+      align-self: center;
+      margin-right: 4px;
+    }
+
+    .filter-pill {
+      border: 1px solid var(--border);
+      background: var(--white);
+      color: var(--gray-mid);
+      border-radius: 999px;
+      padding: 4px 12px;
+      font-size: 12px;
+      font-family: var(--font-body);
+      cursor: pointer;
+      transition: all 200ms ease;
+    }
+
+    .filter-pill:hover {
+      border-color: var(--teal-light);
+      color: var(--teal-dark);
+    }
+
+    .filter-pill.is-active {
+      background: var(--teal);
+      border-color: var(--teal);
+      color: var(--white);
+    }
+
+    .search-wrap {
+      padding: 16px 28px 0;
+      position: relative;
+    }
+
+    .search-input {
+      width: 100%;
+      padding: 9px 36px 9px 14px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      font-size: 13px;
+      font-family: var(--font-body);
+      background: var(--cream);
+      color: var(--charcoal);
+      transition: border-color 200ms;
+    }
+
+    .search-input:focus {
+      outline: none;
+      border-color: var(--teal);
+      background: var(--white);
+    }
+
+    .search-icon {
+      position: absolute;
+      right: 42px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--gray-light);
+      font-size: 16px;
+      pointer-events: none;
+    }
+
+    /* ===== ROLE DETAILS ===== */
+    .details-body {
+      padding: 24px 28px 28px;
+    }
+
+    .role-header {
+      border-left: 3px solid var(--teal);
+      padding-left: 14px;
+      margin-bottom: 20px;
+    }
+
+    .role-name {
+      font-family: var(--font-head);
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--charcoal);
+      line-height: 1.3;
+    }
+
+    .role-level-badge {
+      display: inline-block;
+      margin-top: 6px;
+      padding: 3px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 600;
+      font-family: var(--font-body);
+    }
+
+    .snap-box {
+      background: var(--cream);
+      border-radius: var(--radius-sm);
+      border-left: 3px solid var(--brown);
+      padding: 14px 16px;
+      margin-bottom: 20px;
+    }
+
+    .snap-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.10em;
+      text-transform: uppercase;
+      color: var(--brown);
+      margin-bottom: 6px;
+    }
+
+    .snap-text {
+      font-size: 13px;
+      color: var(--gray-mid);
+      line-height: 1.6;
+    }
+
+    .chips-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 10px;
+    }
+
+    .chip {
+      padding: 3px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(90, 143, 143, 0.30);
+      background: var(--teal-faint);
+      color: var(--teal-dark);
+      font-size: 11px;
+      font-weight: 600;
+    }
+
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+
+    @media (max-width: 480px) { .two-col { grid-template-columns: 1fr; } }
+
+    .detail-section-title {
+      font-family: var(--font-head);
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--teal);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 10px;
+    }
+
+    .detail-list {
+      list-style: none;
+      padding: 0;
+      font-size: 13px;
+      color: var(--gray-mid);
+    }
+
+    .detail-list li {
+      padding: 5px 0 5px 14px;
+      position: relative;
+      line-height: 1.5;
+      border-bottom: 1px solid var(--cream-dark);
+    }
+
+    .detail-list li:last-child { border-bottom: none; }
+
+    .detail-list li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 13px;
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--teal-light);
+    }
+
+    /* ===== INSIGHTS BOX ===== */
+    .insights-box {
+      background: linear-gradient(135deg, rgba(90,143,143,0.07) 0%, rgba(74,124,89,0.05) 100%);
+      border: 1px solid rgba(90, 143, 143, 0.18);
+      border-radius: var(--radius-sm);
+      padding: 16px;
+      margin-top: 4px;
+    }
+
+    .insights-title {
+      font-family: var(--font-head);
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--teal);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 10px;
+    }
+
+    .insights-list {
+      list-style: none;
+      padding: 0;
+      font-size: 12px;
+      color: var(--gray-mid);
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .insights-list li {
+      padding-left: 12px;
+      position: relative;
+      line-height: 1.55;
+    }
+
+    .insights-list li::before {
+      content: '→';
+      position: absolute;
+      left: 0;
+      color: var(--teal);
+      font-size: 10px;
+      top: 2px;
+    }
+
+    .metric-num {
+      font-family: var(--font-head);
+      font-weight: 700;
+      color: var(--teal);
+    }
+
+    /* ===== QUICK ACTIONS ===== */
+    .quick-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 20px;
+      padding-top: 16px;
+      border-top: 1px solid var(--cream-dark);
+    }
+
+    .qa-label {
+      width: 100%;
+      font-size: 11px;
+      color: var(--gray-light);
+      font-style: italic;
+      font-family: var(--font-head);
+    }
+
+    /* ===== EMPTY STATE ===== */
+    .empty-state {
+      text-align: center;
+      padding: 32px 16px;
+      color: var(--gray-light);
+    }
+
+    .empty-state-icon {
+      font-size: 32px;
+      margin-bottom: 12px;
+      opacity: 0.5;
+    }
+
+    .empty-state-text {
+      font-family: var(--font-head);
+      font-size: 14px;
+      font-style: italic;
+      line-height: 1.6;
+    }
+
+    /* ===== FOOTER ===== */
+    .page-footer {
+      text-align: center;
+      padding: 24px 48px 40px;
+      font-size: 12px;
+      color: var(--gray-light);
+      font-style: italic;
+      font-family: var(--font-head);
+    }
+
+    /* ===== FADE-IN ===== */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(10px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .fade-in { animation: fadeUp 380ms var(--transition) both; }
+  </style>
+</head>
+<body>
+
+<!-- ===== PAGE HEADER ===== -->
+<header class="page-header">
+  <div class="header-brand">
+    <span class="brand-tag">Training · Ontwikkeling · Leiderschap</span>
+    <h1 class="page-title">L&amp;D Organisatiestructuur</h1>
+    <p class="page-subtitle">Verken elke rol in de Learning &amp; Development organisatie. Klik op een kaart in het organogram om een overzicht van de rol, verantwoordelijkheden en kerncompetenties te bekijken.</p>
+  </div>
+  <div class="header-meta">
+    <span class="debaak-badge">De Baak</span>
+    <span class="since-tag">sinds 1947</span>
+  </div>
+</header>
+
+<!-- ===== MAIN BODY ===== -->
+<div class="page-body">
+
+  <!-- LEFT: ORG CHART PANEL -->
+  <div class="panel">
+    <div class="panel-head">
+      <div>
+        <div class="panel-head-title">Organisatiestructuur</div>
+        <div class="panel-head-caption">Klik op een rol om details te bekijken aan de rechterkant.</div>
+      </div>
+      <button class="btn-reset" id="btn-reset" type="button">Reset weergave</button>
+    </div>
+    <div class="panel-body">
+      <!-- Legend -->
+      <div class="legend">
+        <div class="legend-item"><span class="legend-dot dot-exec"></span>Uitvoerend niveau</div>
+        <div class="legend-item"><span class="legend-dot dot-dir"></span>Directeur niveau</div>
+        <div class="legend-item"><span class="legend-dot dot-mgr"></span>Manager niveau</div>
+        <div class="legend-item"><span class="legend-dot dot-staff"></span>Specialist &amp; medewerker</div>
+      </div>
+
+      <!-- Org Canvas -->
+      <div class="org-wrapper">
+        <div class="org-canvas" id="org-canvas">
+
+          <!-- SVG Connectors -->
+          <svg class="connector-svg" id="connector-svg" aria-hidden="true"></svg>
+
+          <!-- Level 0 -->
+          <button class="org-node" data-id="clo" data-level="0"
+            style="top: 20px; left: 50%;" tabindex="0">
+            <div class="org-node-accent accent-exec"></div>
+            <div class="org-node-inner">
+              <div class="org-node-title">Chief Learning Officer (CLO)</div>
+              <div class="org-node-sub">Strategisch leiderschap &amp; stakeholder management</div>
+              <span class="org-node-tag tag-teal">Exec sponsor</span>
+            </div>
+          </button>
+
+          <!-- Level 1 -->
+          <button class="org-node" data-id="ld-director" data-level="1"
+            style="top: 160px; left: 18%;" tabindex="0">
+            <div class="org-node-accent accent-dir"></div>
+            <div class="org-node-inner">
+              <div class="org-node-title">L&amp;D Directeur</div>
+              <div class="org-node-sub">Programma-strategie &amp; teamleiderschap</div>
+              <span class="org-node-tag tag-brown">Portfolio planning</span>
+            </div>
+          </button>
+
+          <button class="org-node" data-id="program-director" data-level="1"
+            style="top: 160px; left: 50%;" tabindex="0">
+            <div class="org-node-accent accent-dir"></div>
+            <div class="org-node-inner">
+              <div class="org-node-title">Programma Directeur</div>
+              <div class="org-node-sub">Executive programma-ontwerp &amp; curriculumbeheer</div>
+              <span class="org-node-tag tag-brown">Flagship programma's</span>
+            </div>
+          </button>
+
+          <button class="org-node" data-id="operations-manager" data-level="1"
+            style="top: 160px; left: 82%;" tabindex="0">
+            <div class="org-node-accent accent-dir"></div>
+            <div class="org-node-inner">
+              <div class="org-node-title">Operations Manager</div>
+              <div class="org-node-sub">Logistiek, facilitering &amp; leveranciersbeheer</div>
+              <span class="org-node-tag tag-brown">Budget bewaking</span>
+            </div>
+          </button>
+
+          <!-- Level 2 -->
+          <button class="org-node" data-id="senior-ld-specialist" data-level="2"
+            style="top: 310px; left: 18%;" tabindex="0">
+            <div class="org-node-accent accent-mgr"></div>
+            <div class="org-node-inner">
+              <div class="org-node-title">Senior L&amp;D Specialist</div>
+              <div class="org-node-sub">Behoefteanalyse &amp; programma-evaluatie</div>
+              <span class="org-node-tag tag-green">Data-gedreven</span>
+            </div>
+          </button>
+
+          <button class="org-node" data-id="lead-id" data-level="2"
+            style="top: 310px; left: 37%;" tabindex="0">
+            <div class="org-node-accent accent-mgr"></div>
+            <div class="org-node-inner">
+              <div class="org-node-title">Lead Instructional Designer</div>
+              <div class="org-node-sub">Ontwerpmethodiek &amp; inhoudsstandaarden</div>
+              <span class="org-node-tag tag-green">Leerwetenschap</span>
+            </div>
+          </button>
+
+          <button class="org-node" data-id="program-manager" data-level="2"
+            style="top: 310px; left: 63%;" tabindex="0">
+            <div class="org-node-accent accent-mgr"></div>
+            <div class="org-node-inner">
+              <div class="org-node-title">Programma Manager</div>
+              <div class="org-node-sub">Projectmanagement &amp; leveringscoördinatie</div>
+              <span class="org-node-tag tag-green">Roadmaps</span>
+            </div>
+          </button>
+
+          <button class="org-node" data-id="admin-support-manager" data-level="2"
+            style="top: 310px; left: 82%;" tabindex="0">
+            <div class="org-node-accent accent-mgr"></div>
+            <div class="org-node-inner">
+              <div class="org-node-title">Administratief Support Manager</div>
+              <div class="org-node-sub">Planning, deelnemersbeheer &amp; documentatie</div>
+              <span class="org-node-tag tag-green">Service excellentie</span>
+            </div>
+          </button>
+
+          <!-- Level 3 -->
+          <button class="org-node" data-id="ld-specialists" data-level="3"
+            style="top: 460px; left: 18%;" tabindex="0">
+            <div class="org-node-accent accent-staff"></div>
+            <div class="org-node-inner">
+              <div class="org-node-title">L&amp;D Specialisten</div>
+              <div class="org-node-sub">Training levering &amp; deelnemersondersteuning</div>
+              <span class="org-node-tag tag-gray">Facilitering</span>
+            </div>
+          </button>
+
+          <button class="org-node" data-id="instructional-designers" data-level="3"
+            style="top: 460px; left: 37%;" tabindex="0">
+            <div class="org-node-accent accent-staff"></div>
+            <div class="org-node-inner">
+              <div class="org-node-title">Instructional Designers</div>
+              <div class="org-node-sub">Contentcreatie &amp; materiaalsontwikkeling</div>
+              <span class="org-node-tag tag-gray">Storyboards</span>
+            </div>
+          </button>
+
+          <button class="org-node" data-id="trainers" data-level="3"
+            style="top: 460px; left: 63%;" tabindex="0">
+            <div class="org-node-accent accent-staff"></div>
+            <div class="org-node-inner">
+              <div class="org-node-title">Trainers / Facilitators</div>
+              <div class="org-node-sub">Programmalevering &amp; executive coaching</div>
+              <span class="org-node-tag tag-gray">Klassikaal &amp; virtueel</span>
+            </div>
+          </button>
+
+          <button class="org-node" data-id="logistics-coordinators" data-level="3"
+            style="top: 460px; left: 82%;" tabindex="0">
+            <div class="org-node-accent accent-staff"></div>
+            <div class="org-node-inner">
+              <div class="org-node-title">Logistiek Coördinatoren</div>
+              <div class="org-node-sub">Evenementenplanning &amp; middelenbeheer</div>
+              <span class="org-node-tag tag-gray">Evenementen</span>
+            </div>
+          </button>
+
+        </div><!-- end org-canvas -->
+      </div><!-- end org-wrapper -->
+
+      <!-- Toolbar -->
+      <div class="toolbar">
+        <span class="toolbar-label">Snelle acties:</span>
+        <button class="btn-tool" id="btn-random" type="button">Willekeurige rol</button>
+        <button class="btn-tool" id="btn-leadership" type="button">Toon leiderschapspad</button>
+        <button class="btn-tool" id="btn-design" type="button">Toon ontwerpteam</button>
+        <button class="btn-tool" id="btn-ops" type="button">Toon operaties</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- RIGHT: DETAILS PANEL -->
+  <div class="panel" style="position: sticky; top: 24px;">
+    <div class="panel-head">
+      <div>
+        <div class="panel-head-title">Roldetails</div>
+        <div class="panel-head-caption">Selecteer een rol in het organogram.</div>
+      </div>
+    </div>
+
+    <div class="filter-row">
+      <span class="filter-label">Filter:</span>
+      <button class="filter-pill" data-filter="leadership" type="button">Leiderschap</button>
+      <button class="filter-pill" data-filter="design" type="button">Ontwerp</button>
+      <button class="filter-pill" data-filter="delivery" type="button">Levering</button>
+      <button class="filter-pill" data-filter="operations" type="button">Operaties</button>
+    </div>
+
+    <div class="search-wrap">
+      <label style="position:absolute;width:1px;height:1px;overflow:hidden;" for="search-role">Zoek op verantwoordelijkheid of vaardigheid</label>
+      <input id="search-role" type="text" class="search-input"
+        placeholder="Zoek op verantwoordelijkheid of vaardigheid…" autocomplete="off" />
+      <span class="search-icon" aria-hidden="true">⌕</span>
+    </div>
+
+    <div class="details-body" id="details-body" aria-live="polite">
+      <div class="empty-state" id="empty-state">
+        <div class="empty-state-icon">◎</div>
+        <p class="empty-state-text">Selecteer een rol in het organogram om de details te bekijken.</p>
+      </div>
+      <div id="role-content" style="display:none;">
+        <div class="role-header">
+          <div class="role-name" id="role-name">—</div>
+          <span class="role-level-badge" id="role-level-badge">—</span>
+        </div>
+
+        <div class="snap-box">
+          <div class="snap-label">Samenvatting</div>
+          <p class="snap-text" id="role-summary"></p>
+          <div class="chips-row" id="role-tags"></div>
+        </div>
+
+        <div class="two-col">
+          <div>
+            <div class="detail-section-title">Verantwoordelijkheden</div>
+            <ul class="detail-list" id="role-responsibilities"></ul>
+          </div>
+          <div>
+            <div class="detail-section-title">Vaardigheden</div>
+            <ul class="detail-list" id="role-skills"></ul>
+          </div>
+        </div>
+
+        <div class="insights-box">
+          <div class="insights-title">Organisatie-inzichten</div>
+          <ul class="insights-list">
+            <li><span class="metric-num" id="metric-leadership-count">4</span> leiderschapsrollen verankeren de strategische richting over programma's, operaties en ontwerp.</li>
+            <li>Gespecialiseerde leverings- en ontwerpfuncties garanderen leerervaring van hoge kwaliteit, terwijl een toegewijde operationstak de deelnemerservaring beschermt.</li>
+            <li>Senior specialistische rollen creëren een loopbaanpad van individuele bijdrager naar leiderschap binnen L&amp;D.</li>
+          </ul>
+        </div>
+
+        <div class="quick-actions">
+          <span class="qa-label">Snelle acties:</span>
+          <button class="btn-tool" id="btn-random-detail" type="button">Willekeurige rol</button>
+          <button class="btn-tool" id="btn-leadership-detail" type="button">Leiderschapspad</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- end page-body -->
+
+<footer class="page-footer">
+  De Baak — training ontwikkeling leiderschap sinds 1947
+</footer>
+
+<script>
+  // ===== ROLE DATA =====
+  const roleData = {
+    "clo": {
+      name: "Chief Learning Officer (CLO)",
+      level: "Uitvoerend niveau",
+      levelClass: "tag-teal",
+      summary: "Verantwoordelijk voor de algehele L&D-strategie van de organisatie. Stemt leerinitiatieven af op bedrijfsdoelstellingen en beheert relaties met senior stakeholders.",
+      tags: ["Exec sponsor", "Rapporteert aan CEO/CHRO", "Strategische visie"],
+      responsibilities: [
+        "Formuleer de L&D-strategie en meerjarenvisie",
+        "Beheer het totale L&D-budget en resource allocatie",
+        "Rapporteer aan de Raad van Bestuur over leerresultaten",
+        "Bouw strategische partnerships met externe aanbieders",
+        "Stimuleer een leercultuur in de gehele organisatie"
+      ],
+      skills: ["Strategisch denken", "Executive communicatie", "Budget management", "Verandermanagement", "Stakeholder alignment"]
+    },
+    "ld-director": {
+      name: "L&D Directeur",
+      level: "Directeur niveau",
+      levelClass: "tag-brown",
+      summary: "Leidt de dagelijkse L&D-operaties, beheert teams en zorgt voor afstemming van leerportfolio's op organisatiebehoeften.",
+      tags: ["Portfolio planning", "Leiderschapsontwikkeling", "Teamleiderschap"],
+      responsibilities: [
+        "Beheers het L&D-programmaportfolio",
+        "Leid, coach en ontwikkel het L&D-team",
+        "Stuur behoefteanalyses en prioritering",
+        "Rapporteer voortgang en resultaten aan de CLO",
+        "Onderhoud stakeholderrelaties op directieniveau"
+      ],
+      skills: ["Leiderschapsontwikkeling", "Portfolio management", "Coachen en begeleiden", "Stakeholder management", "Analytisch denken"]
+    },
+    "program-director": {
+      name: "Programma Directeur",
+      level: "Directeur niveau",
+      levelClass: "tag-brown",
+      summary: "Bewaakt de kwaliteit en samenhang van flagship-leiderschapsprogramma's. Verantwoordelijk voor curriculumontwerp op het hoogste niveau.",
+      tags: ["Flagship programma's", "Curriculumbeheer", "Executive development"],
+      responsibilities: [
+        "Ontwerp en bewak de curriculumarchitectuur",
+        "Selecteer en brief externe trainers en experts",
+        "Waarborg de inhoudelijke kwaliteit van alle programma's",
+        "Innoveer het aanbod op basis van markttrends",
+        "Coördineer multi-stakeholder evaluatieprocessen"
+      ],
+      skills: ["Curriculum design", "Academisch leiderschap", "Kwaliteitsborging", "Inhoudelijke expertise", "Innovatie"]
+    },
+    "operations-manager": {
+      name: "Operations Manager",
+      level: "Directeur niveau",
+      levelClass: "tag-brown",
+      summary: "Zorgt voor de soepele uitvoering van alle L&D-activiteiten, van logistiek tot leveranciersbeheer en budgetbewaking.",
+      tags: ["Budget tracking", "Logistiek", "Vendorbeheer"],
+      responsibilities: [
+        "Beheer de operationele L&D-begroting",
+        "Onderhandel en beheer contracten met leveranciers",
+        "Coördineer locatie- en faciliteitsplanning",
+        "Implementeer en verbeter operationele processen",
+        "Zorg voor compliance met inkoop- en beleidsregels"
+      ],
+      skills: ["Operationeel management", "Budget management", "Contractbeheer", "Procesoptimalisatie", "Probleemoplossing"]
+    },
+    "senior-ld-specialist": {
+      name: "Senior L&D Specialist",
+      level: "Manager niveau",
+      levelClass: "tag-green",
+      summary: "Voert diepgaande behoefteanalyses uit en evalueert de effectiviteit van programma's op basis van data en meetbare resultaten.",
+      tags: ["Data-gedreven", "Behoefteanalyse", "Evaluatie"],
+      responsibilities: [
+        "Voer leerbehoefteanalyses uit bij business units",
+        "Ontwerp en implementeer evaluatieframeworks (bijv. Kirkpatrick)",
+        "Analyseer leerdata en rapporteer inzichten",
+        "Begeleid junior specialisten",
+        "Adviseer management over L&D-prioriteiten"
+      ],
+      skills: ["Onderzoeksmethodologie", "Data-analyse", "Kirkpatrick model", "Coaching", "Presentatievaardigheden"]
+    },
+    "lead-id": {
+      name: "Lead Instructional Designer",
+      level: "Manager niveau",
+      levelClass: "tag-green",
+      summary: "Leidt het inhoudsontwerp, stelt standaarden voor leermateriaal en zorgt voor wetenschappelijk onderbouwde, effectieve leerervaring.",
+      tags: ["Leerwetenschap", "Ontwerpmethodiek", "Standaarden"],
+      responsibilities: [
+        "Definieer en handhaaf inhoudsontwerp- en kwaliteitsstandaarden",
+        "Leid het team van Instructional Designers",
+        "Ontwikkel en beheer de instructional design toolkit",
+        "Evalueer en selecteer e-learningplatforms en -tools",
+        "Speel in op nieuwe leertechnologieën"
+      ],
+      skills: ["Instructional design", "ADDIE/SAM methodologie", "E-learning tools (Articulate, Rise)", "Teammanagement", "Leerwetenschappen"]
+    },
+    "program-manager": {
+      name: "Programma Manager",
+      level: "Manager niveau",
+      levelClass: "tag-green",
+      summary: "Bewaakt de planning, uitvoering en kwaliteitsborging van leertrajecten. Fungeert als de spil tussen content, logistiek en deelnemers.",
+      tags: ["Roadmaps", "Projectmanagement", "Leveringscoördinatie"],
+      responsibilities: [
+        "Beheer de programmakalender en mijlpaalplanning",
+        "Coördineer tussen trainers, deelnemers en operaties",
+        "Bewak de voortgang en kwaliteit van programma-uitvoering",
+        "Stel rapportages en statusupdates op",
+        "Beheer escalaties en risico's tijdig"
+      ],
+      skills: ["Projectmanagement", "Stakeholder communicatie", "Risicobeheersing", "Planning en prioritering", "MS Project / tools"]
+    },
+    "admin-support-manager": {
+      name: "Administratief Support Manager",
+      level: "Manager niveau",
+      levelClass: "tag-green",
+      summary: "Leidt het administratief ondersteuningsteam en zorgt voor een vlekkeloze deelnemerservaring van inschrijving tot certificering.",
+      tags: ["Service excellentie", "Scheduling", "Documentatiebeheer"],
+      responsibilities: [
+        "Beheer het team van administratief medewerkers",
+        "Coördineer de volledige deelnemerscyclus",
+        "Zorg voor accurate en tijdige documentatieverwerking",
+        "Implementeer serviceverbeteringen",
+        "Bewaak klanttevredenheid en volg op klachten"
+      ],
+      skills: ["People management", "Klantgerichtheid", "Administratieve systemen", "Kwaliteitsborging", "Communicatievaardigheden"]
+    },
+    "ld-specialists": {
+      name: "L&D Specialisten",
+      level: "Specialist & medewerker",
+      levelClass: "tag-gray",
+      summary: "Leveren trainingen en ondersteunen deelnemers tijdens het leerproces. Werken nauw samen met trainers en programmamanagers.",
+      tags: ["Facilitering", "Deelnemersondersteuning", "Training levering"],
+      responsibilities: [
+        "Faciliteer werkvormen en groepsoefeningen",
+        "Ondersteun deelnemers voor, tijdens en na de training",
+        "Bereid trainingsmateriaal en hulpmiddelen voor",
+        "Verzamel deelnemersfeedback en rapporteer bevindingen",
+        "Werk samen met trainers aan programmaverbetering"
+      ],
+      skills: ["Facilitering", "Communicatievaardigheden", "Organisatievermogen", "Deelnemersgericht denken", "Feedbackverwerking"]
+    },
+    "instructional-designers": {
+      name: "Instructional Designers",
+      level: "Specialist & medewerker",
+      levelClass: "tag-gray",
+      summary: "Ontwerpen en bouwen leerinhoud — van e-learningmodules en werkboeken tot interactieve scenario's.",
+      tags: ["Storyboards", "Contentcreatie", "E-learning"],
+      responsibilities: [
+        "Ontwerp leermodules op basis van analyse en doelstellingen",
+        "Maak storyboards en prototypes",
+        "Bouw e-learning content in tools zoals Articulate of Rise",
+        "Integreer feedbackrondes in het ontwerpproces",
+        "Documenteer ontwerpdecissies en beheer versies"
+      ],
+      skills: ["Instructional design", "Articulate 360 / Rise", "Storyboarding", "Grafisch ontwerp basics", "Samenwerking"]
+    },
+    "trainers": {
+      name: "Trainers / Facilitators",
+      level: "Specialist & medewerker",
+      levelClass: "tag-gray",
+      summary: "Leveren inspirerende en impactvolle trainingssessies, zowel op locatie als virtueel, gericht op leiderschapsontwikkeling.",
+      tags: ["Klassikaal & virtueel", "Programmalevering", "Executive coaching"],
+      responsibilities: [
+        "Faciliteer klassikale en online trainingsprogramma's",
+        "Pas content situationeel aan op basis van groepsdynamiek",
+        "Coach individuele deelnemers op verzoek",
+        "Draag bij aan de verbetering van programma's",
+        "Onderhoud pedagogische expertise en vakkennis"
+      ],
+      skills: ["Didactische vaardigheden", "Groepsdynamica", "Coaching", "Virtueel faciliteren", "Domeinexpertise"]
+    },
+    "logistics-coordinators": {
+      name: "Logistiek Coördinatoren",
+      level: "Specialist & medewerker",
+      levelClass: "tag-gray",
+      summary: "Coördineren alle praktische aspecten van trainingslocaties, catering, materiaal en deelnemerinformatie.",
+      tags: ["Evenementen", "Middelenbeheer", "Logistieke planning"],
+      responsibilities: [
+        "Boek ruimtes, catering en technologie voor evenementen",
+        "Beheer uitnodigingen, herinneringen en instructies",
+        "Coördineer materialen, kits en apparatuur",
+        "Ondersteun trainers met on-the-day logistiek",
+        "Evalueer leveranciersprestaties na afloop"
+      ],
+      skills: ["Evenementencoördinatie", "Prioritering en multitasking", "Communicatie", "Oog voor detail", "Leveranciersbeheer"]
+    }
+  };
+
+  // ===== FILTER GROUPS =====
+  const groups = {
+    leadership: ["clo", "ld-director", "program-director", "operations-manager"],
+    design:     ["lead-id", "instructional-designers", "senior-ld-specialist"],
+    delivery:   ["program-manager", "trainers", "ld-specialists"],
+    operations: ["operations-manager", "admin-support-manager", "logistics-coordinators"]
+  };
+
+  // ===== CONNECTOR DEFINITIONS =====
+  // [fromId, toId]
+  const connections = [
+    ["clo",              "ld-director"],
+    ["clo",              "program-director"],
+    ["clo",              "operations-manager"],
+    ["ld-director",      "senior-ld-specialist"],
+    ["program-director", "lead-id"],
+    ["program-director", "program-manager"],
+    ["operations-manager","admin-support-manager"],
+    ["senior-ld-specialist","ld-specialists"],
+    ["lead-id",           "instructional-designers"],
+    ["program-manager",   "trainers"],
+    ["admin-support-manager","logistics-coordinators"]
+  ];
+
+  // ===== DOM REFS =====
+  const nodes       = Array.from(document.querySelectorAll(".org-node"));
+  const svg         = document.getElementById("connector-svg");
+  const orgCanvas   = document.getElementById("org-canvas");
+  const emptyState  = document.getElementById("empty-state");
+  const roleContent = document.getElementById("role-content");
+  const roleNameEl  = document.getElementById("role-name");
+  const roleBadge   = document.getElementById("role-level-badge");
+  const roleSummary = document.getElementById("role-summary");
+  const roleTagsEl  = document.getElementById("role-tags");
+  const roleRespEl  = document.getElementById("role-responsibilities");
+  const roleSkillsEl= document.getElementById("role-skills");
+  const searchInput = document.getElementById("search-role");
+
+  // ===== DRAW CONNECTORS =====
+  function getNodeCenter(node) {
+    const canvasRect = orgCanvas.getBoundingClientRect();
+    const nodeRect   = node.getBoundingClientRect();
+    return {
+      x: nodeRect.left - canvasRect.left + nodeRect.width / 2,
+      y: nodeRect.top  - canvasRect.top  + nodeRect.height / 2,
+      top: nodeRect.top - canvasRect.top,
+      bottom: nodeRect.top - canvasRect.top + nodeRect.height
+    };
+  }
+
+  function drawConnectors() {
+    svg.innerHTML = "";
+    const defs = document.createElementNS("http://www.w3.org/2000/svg", "defs");
+    const marker = document.createElementNS("http://www.w3.org/2000/svg", "marker");
+    marker.setAttribute("id", "dot");
+    marker.setAttribute("markerWidth","4");
+    marker.setAttribute("markerHeight","4");
+    marker.setAttribute("refX","2");
+    marker.setAttribute("refY","2");
+    const circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+    circle.setAttribute("cx","2"); circle.setAttribute("cy","2"); circle.setAttribute("r","1.5");
+    circle.setAttribute("fill","#d4cfc4");
+    marker.appendChild(circle);
+    defs.appendChild(marker);
+    svg.appendChild(defs);
+
+    connections.forEach(([fromId, toId]) => {
+      const fromNode = nodes.find(n => n.dataset.id === fromId);
+      const toNode   = nodes.find(n => n.dataset.id === toId);
+      if (!fromNode || !toNode) return;
+
+      const from = getNodeCenter(fromNode);
+      const to   = getNodeCenter(toNode);
+
+      const x1 = from.x, y1 = from.bottom;
+      const x2 = to.x,   y2 = to.top;
+
+      const midY = (y1 + y2) / 2;
+      const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+      path.setAttribute("d", `M ${x1} ${y1} C ${x1} ${midY}, ${x2} ${midY}, ${x2} ${y2}`);
+      path.setAttribute("fill", "none");
+      path.setAttribute("stroke", "#d4cfc4");
+      path.setAttribute("stroke-width", "1.5");
+      path.setAttribute("marker-end", "url(#dot)");
+      svg.appendChild(path);
+    });
+  }
+
+  // ===== CLEAR ACTIVE =====
+  function clearActive() {
+    nodes.forEach(n => n.classList.remove("is-active"));
+  }
+
+  // ===== RENDER ROLE =====
+  function renderRole(id) {
+    const data = roleData[id];
+    if (!data) return;
+
+    clearActive();
+    const node = nodes.find(n => n.dataset.id === id);
+    if (node) { node.classList.add("is-active"); }
+
+    emptyState.style.display = "none";
+    roleContent.style.display = "block";
+    roleContent.classList.remove("fade-in");
+    void roleContent.offsetWidth;
+    roleContent.classList.add("fade-in");
+
+    roleNameEl.textContent = data.name;
+    roleBadge.textContent  = data.level;
+    roleBadge.className    = "role-level-badge " + data.levelClass;
+
+    roleSummary.textContent = data.summary;
+
+    roleTagsEl.innerHTML = "";
+    data.tags.forEach(tag => {
+      const span = document.createElement("span");
+      span.className = "chip";
+      span.textContent = tag;
+      roleTagsEl.appendChild(span);
+    });
+
+    roleRespEl.innerHTML = "";
+    data.responsibilities.forEach(r => {
+      const li = document.createElement("li");
+      li.textContent = r;
+      roleRespEl.appendChild(li);
+    });
+
+    roleSkillsEl.innerHTML = "";
+    data.skills.forEach(s => {
+      const li = document.createElement("li");
+      li.textContent = s;
+      roleSkillsEl.appendChild(li);
+    });
+  }
+
+  // ===== NODE CLICKS =====
+  nodes.forEach(node => {
+    node.addEventListener("click", () => renderRole(node.dataset.id));
+    node.addEventListener("keydown", e => {
+      if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault();
+        renderRole(node.dataset.id);
+      }
+    });
+  });
+
+  // ===== RESET =====
+  document.getElementById("btn-reset").addEventListener("click", () => {
+    clearActive();
+    searchInput.value = "";
+    nodes.forEach(n => { n.style.opacity = ""; });
+    document.querySelectorAll(".filter-pill").forEach(p => p.classList.remove("is-active"));
+    emptyState.style.display = "";
+    roleContent.style.display = "none";
+  });
+
+  // ===== QUICK ACTION BUTTONS =====
+  function highlightGroup(groupKey) {
+    clearActive();
+    const ids = groups[groupKey] || [];
+    nodes.forEach(n => {
+      n.style.opacity = ids.includes(n.dataset.id) ? "1" : "0.3";
+      if (ids.includes(n.dataset.id)) n.classList.add("is-active");
+    });
+  }
+
+  document.getElementById("btn-random").addEventListener("click", () => {
+    const ids = Object.keys(roleData);
+    renderRole(ids[Math.floor(Math.random() * ids.length)]);
+    nodes.forEach(n => { n.style.opacity = ""; });
+  });
+
+  document.getElementById("btn-leadership").addEventListener("click", () => highlightGroup("leadership"));
+  document.getElementById("btn-design").addEventListener("click", () => highlightGroup("design"));
+  document.getElementById("btn-ops").addEventListener("click", () => highlightGroup("operations"));
+
+  // Detail panel quick actions
+  document.getElementById("btn-random-detail").addEventListener("click", () => {
+    const ids = Object.keys(roleData);
+    renderRole(ids[Math.floor(Math.random() * ids.length)]);
+  });
+  document.getElementById("btn-leadership-detail").addEventListener("click", () => highlightGroup("leadership"));
+
+  // ===== FILTER PILLS =====
+  document.querySelectorAll(".filter-pill").forEach(pill => {
+    pill.addEventListener("click", () => {
+      const wasActive = pill.classList.contains("is-active");
+      document.querySelectorAll(".filter-pill").forEach(p => p.classList.remove("is-active"));
+      if (!wasActive) {
+        pill.classList.add("is-active");
+        highlightGroup(pill.dataset.filter);
+      } else {
+        clearActive();
+        nodes.forEach(n => { n.style.opacity = ""; });
+      }
+    });
+  });
+
+  // ===== SEARCH =====
+  searchInput.addEventListener("input", e => {
+    const term = e.target.value.trim().toLowerCase();
+    if (!term) {
+      nodes.forEach(n => { n.style.opacity = ""; });
+      return;
+    }
+    nodes.forEach(n => {
+      const data = roleData[n.dataset.id];
+      if (!data) return;
+      const haystack = [data.name, data.level, data.summary,
+        data.tags.join(" "), data.responsibilities.join(" "), data.skills.join(" ")
+      ].join(" ").toLowerCase();
+      n.style.opacity = haystack.includes(term) ? "1" : "0.2";
+    });
+  });
+
+  // ===== DRAW CONNECTORS ON LOAD AND RESIZE =====
+  function init() {
+    drawConnectors();
+    renderRole("clo");
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", init);
+  } else {
+    requestAnimationFrame(init);
+  }
+
+  let resizeTimer;
+  window.addEventListener("resize", () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(drawConnectors, 120);
+  });
+</script>
+</body>
+</html>

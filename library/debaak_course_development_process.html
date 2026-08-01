@@ -1,0 +1,879 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Course Development Process – De Baak Executive Learning</title>
+<style>
+  :root {
+    --blue:   #006B8F;
+    --green:  #3E7A56;
+    --yellow: #F5C842;
+    --stone:  #F5F0E8;
+    --dark:   #1C2B35;
+    --mid:    #4A6472;
+    --light-blue: #D6EDF5;
+    --light-green:#D8EDE1;
+    --light-yellow:#FDF5CC;
+    --white:  #FFFFFF;
+    --radius: 12px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+    background: var(--stone);
+    color: var(--dark);
+    min-height: 100vh;
+  }
+
+  /* ── HEADER ─────────────────────────────────────────── */
+  .header {
+    background: var(--blue);
+    color: white;
+    padding: 48px 40px 36px;
+    position: relative;
+    overflow: hidden;
+  }
+  .header::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0; width: 8px;
+    background: var(--yellow);
+  }
+  .header::after {
+    content: '';
+    position: absolute;
+    right: -60px; top: -60px;
+    width: 320px; height: 320px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.05);
+  }
+  .header-inner { max-width: 1200px; margin: 0 auto; padding-left: 24px; }
+  .logo-badge {
+    display: inline-block;
+    background: var(--yellow);
+    color: var(--dark);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 5px 12px;
+    border-radius: 4px;
+    margin-bottom: 16px;
+  }
+  .header h1 {
+    font-size: clamp(24px, 4vw, 44px);
+    font-weight: 700;
+    line-height: 1.15;
+    margin-bottom: 12px;
+  }
+  .header h1 span { color: var(--yellow); }
+  .header-subtitle {
+    font-size: 15px;
+    color: rgba(255,255,255,0.75);
+    max-width: 620px;
+    line-height: 1.6;
+  }
+  .phase-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 28px;
+  }
+  .phase-pill {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255,255,255,0.12);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 24px;
+    padding: 6px 14px;
+    font-size: 12.5px;
+    color: white;
+    cursor: pointer;
+    transition: background .2s;
+    text-decoration: none;
+  }
+  .phase-pill:hover { background: rgba(255,255,255,0.22); }
+  .phase-pill .dot {
+    width: 10px; height: 10px; border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  /* ── LEGEND ─────────────────────────────────────────── */
+  .legend {
+    background: white;
+    border-bottom: 1px solid rgba(0,0,0,0.08);
+    padding: 16px 40px;
+  }
+  .legend-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+  .legend-label { font-size: 12px; font-weight: 600; color: var(--mid); text-transform: uppercase; letter-spacing: 1px; }
+  .legend-item { display: flex; align-items: center; gap: 7px; font-size: 12.5px; color: var(--mid); }
+  .legend-icon {
+    width: 20px; height: 20px; border-radius: 4px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px; font-weight: 700; color: white;
+    flex-shrink: 0;
+  }
+
+  /* ── MAIN LAYOUT ─────────────────────────────────────── */
+  .main { max-width: 1200px; margin: 0 auto; padding: 36px 24px 60px; }
+
+  /* ── PHASE BLOCK ─────────────────────────────────────── */
+  .phase {
+    margin-bottom: 32px;
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+  }
+  .phase-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 22px 28px;
+    cursor: pointer;
+    user-select: none;
+    position: relative;
+  }
+  .phase-num {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    opacity: 0.7;
+  }
+  .phase-title {
+    font-size: clamp(17px, 2.5vw, 22px);
+    font-weight: 700;
+    flex: 1;
+  }
+  .phase-origin {
+    font-size: 12px;
+    opacity: 0.65;
+    font-style: italic;
+    white-space: nowrap;
+  }
+  .phase-toggle {
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.25);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px;
+    transition: transform .3s;
+    flex-shrink: 0;
+  }
+  .phase.open .phase-toggle { transform: rotate(180deg); }
+  .phase-body {
+    background: white;
+    display: none;
+    padding: 0;
+  }
+  .phase.open .phase-body { display: block; }
+
+  /* ── SUB-PROCESS GRID ─────────────────────────────────── */
+  .sub-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 0;
+    border-top: 1px solid rgba(0,0,0,0.06);
+  }
+  .sub-process {
+    padding: 0;
+    border-right: 1px solid rgba(0,0,0,0.06);
+    border-bottom: 1px solid rgba(0,0,0,0.06);
+  }
+  .sub-process:nth-child(n) { border-right: 1px solid rgba(0,0,0,0.06); }
+  .sub-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 18px 10px;
+    cursor: pointer;
+    user-select: none;
+  }
+  .sub-code {
+    font-size: 10px;
+    font-weight: 700;
+    color: var(--white);
+    padding: 2px 7px;
+    border-radius: 4px;
+    flex-shrink: 0;
+  }
+  .sub-title {
+    font-size: 13.5px;
+    font-weight: 700;
+    color: var(--dark);
+    line-height: 1.3;
+  }
+  .sub-chevron {
+    margin-left: auto;
+    font-size: 12px;
+    color: var(--mid);
+    transition: transform .25s;
+    flex-shrink: 0;
+  }
+  .sub-process.open .sub-chevron { transform: rotate(180deg); }
+  .sub-body {
+    display: none;
+    padding: 0 18px 14px;
+  }
+  .sub-process.open .sub-body { display: block; }
+  .sub-origin-tag {
+    display: inline-block;
+    font-size: 10px;
+    color: var(--mid);
+    background: var(--stone);
+    border-radius: 3px;
+    padding: 2px 7px;
+    margin-bottom: 10px;
+    font-style: italic;
+  }
+
+  /* ── STEP LIST ─────────────────────────────────────────── */
+  .steps { list-style: none; }
+  .step {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 7px 0;
+    border-bottom: 1px solid rgba(0,0,0,0.045);
+    font-size: 12.5px;
+    line-height: 1.45;
+    color: var(--dark);
+  }
+  .step:last-child { border-bottom: none; }
+  .step-badge {
+    flex-shrink: 0;
+    width: 22px; height: 22px;
+    border-radius: 50%;
+    font-size: 10px;
+    font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+    color: white;
+    margin-top: 1px;
+  }
+  .step-type {
+    flex-shrink: 0;
+    font-size: 9px;
+    font-weight: 600;
+    padding: 2px 5px;
+    border-radius: 3px;
+    margin-top: 3px;
+    letter-spacing: 0.3px;
+    text-transform: uppercase;
+  }
+  .type-manual   { background: #EEF4FF; color: #3557A7; }
+  .type-decision { background: #FFF8E1; color: #8A6000; }
+  .type-auto     { background: #E8F5E9; color: #2E7D32; }
+  .type-review   { background: #F3E5F5; color: #6A1B9A; }
+  .step-tool {
+    font-size: 10px;
+    color: var(--mid);
+    font-style: italic;
+  }
+
+  /* ── DECISION BANNER ─────────────────────────────────── */
+  .decision-banner {
+    display: flex;
+    gap: 8px;
+    padding: 10px 14px;
+    border-radius: 8px;
+    margin: 10px 0 4px;
+    font-size: 12px;
+    font-weight: 600;
+  }
+  .decision-go   { background: #E8F5E9; color: #2E7D32; border-left: 3px solid #4CAF50; }
+  .decision-nogo { background: #FFEBEE; color: #C62828; border-left: 3px solid #F44336; }
+
+  /* ── FLOW ARROW ──────────────────────────────────────── */
+  .flow-arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px;
+    font-size: 24px;
+    color: var(--mid);
+    opacity: 0.4;
+  }
+
+  /* ── OVERVIEW STRIP ──────────────────────────────────── */
+  .overview-strip {
+    display: flex;
+    align-items: stretch;
+    border-radius: var(--radius);
+    overflow: hidden;
+    margin-bottom: 36px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+  }
+  .ov-block {
+    flex: 1;
+    padding: 20px 16px;
+    text-align: center;
+    position: relative;
+  }
+  .ov-block::after {
+    content: '→';
+    position: absolute;
+    right: -8px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 18px;
+    color: rgba(0,0,0,0.2);
+    z-index: 1;
+  }
+  .ov-block:last-child::after { display: none; }
+  .ov-num { font-size: 11px; font-weight: 700; opacity: 0.7; margin-bottom: 4px; letter-spacing: 0.5px; }
+  .ov-label { font-size: 13px; font-weight: 700; line-height: 1.3; color: white; }
+
+  /* ── FOOTER ─────────────────────────────────────────── */
+  .footer {
+    background: var(--dark);
+    color: rgba(255,255,255,0.6);
+    text-align: center;
+    padding: 20px;
+    font-size: 12px;
+  }
+  .footer strong { color: var(--yellow); }
+
+  /* ── RESPONSIVE ─────────────────────────────────────── */
+  @media (max-width: 640px) {
+    .header { padding: 36px 20px 28px; }
+    .main { padding: 20px 12px 48px; }
+    .phase-header { padding: 18px 18px; }
+    .phase-origin { display: none; }
+    .legend { padding: 12px 16px; }
+    .ov-block { padding: 14px 10px; }
+    .ov-label { font-size: 11px; }
+    .overview-strip { flex-direction: column; }
+    .ov-block::after { content: '↓'; right: auto; left: 50%; top: auto; bottom: -10px; transform: translateX(-50%); }
+    .ov-block:last-child::after { display: none; }
+  }
+
+  /* Phase color schemes */
+  .phase-1 .phase-header { background: var(--blue); color: white; }
+  .phase-2 .phase-header { background: var(--green); color: white; }
+  .phase-3 .phase-header { background: #8B5E3C; color: white; }
+  .phase-4 .phase-header { background: #5C4899; color: white; }
+
+  .phase-1 .sub-code { background: var(--blue); }
+  .phase-2 .sub-code { background: var(--green); }
+  .phase-3 .sub-code { background: #8B5E3C; }
+  .phase-4 .sub-code { background: #5C4899; }
+
+  .phase-1 .step-badge { background: var(--blue); }
+  .phase-2 .step-badge { background: var(--green); }
+  .phase-3 .step-badge { background: #8B5E3C; }
+  .phase-4 .step-badge { background: #5C4899; }
+
+  .ov-1 { background: var(--blue); }
+  .ov-2 { background: var(--green); }
+  .ov-3 { background: #8B5E3C; }
+  .ov-4 { background: #5C4899; }
+
+  .dot-1 { background: var(--blue); }
+  .dot-2 { background: var(--green); }
+  .dot-3 { background: #8B5E3C; }
+  .dot-4 { background: #5C4899; }
+
+  .phase-1 .sub-header:hover { background: var(--light-blue); }
+  .phase-2 .sub-header:hover { background: var(--light-green); }
+  .phase-3 .sub-header:hover { background: #F5EDE5; }
+  .phase-4 .sub-header:hover { background: #EDE8F7; }
+</style>
+</head>
+<body>
+
+<!-- ═══════ HEADER ═══════ -->
+<header class="header">
+  <div class="header-inner">
+    <div class="logo-badge">De Baak · Leadership Development Since 1947</div>
+    <h1>Executive <span>Course Development</span><br>Process</h1>
+    <p class="header-subtitle">
+      A structured end-to-end process for designing, launching, and continuously improving executive learning programmes — adapted from our product development methodology.
+    </p>
+    <div class="phase-pills">
+      <a class="phase-pill" href="#phase-1"><span class="dot dot-1"></span>1.0 Research &amp; Learning Design</a>
+      <a class="phase-pill" href="#phase-2"><span class="dot dot-2"></span>2.0 Positioning &amp; Portfolio</a>
+      <a class="phase-pill" href="#phase-3"><span class="dot dot-3"></span>3.0 Cohort &amp; Delivery</a>
+      <a class="phase-pill" href="#phase-4"><span class="dot dot-4"></span>4.0 Participant Support &amp; Impact</a>
+    </div>
+  </div>
+</header>
+
+<!-- ═══════ LEGEND ═══════ -->
+<div class="legend">
+  <div class="legend-inner">
+    <span class="legend-label">Task types:</span>
+    <span class="legend-item"><span class="legend-icon" style="background:#3557A7">M</span> Manual</span>
+    <span class="legend-item"><span class="legend-icon" style="background:#8A6000">D</span> Decision</span>
+    <span class="legend-item"><span class="legend-icon" style="background:#2E7D32">A</span> Automated</span>
+    <span class="legend-item"><span class="legend-icon" style="background:#6A1B9A">R</span> Review</span>
+    <span class="legend-label" style="margin-left:16px">Click any phase or sub-process to expand</span>
+  </div>
+</div>
+
+<!-- ═══════ MAIN ═══════ -->
+<main class="main">
+
+  <!-- Overview strip -->
+  <div class="overview-strip">
+    <div class="ov-block ov-1">
+      <div class="ov-num">1.0</div>
+      <div class="ov-label">Research &amp;<br>Learning Design</div>
+    </div>
+    <div class="ov-block ov-2">
+      <div class="ov-num">2.0</div>
+      <div class="ov-label">Positioning &amp;<br>Portfolio Mgmt</div>
+    </div>
+    <div class="ov-block ov-3">
+      <div class="ov-num">3.0</div>
+      <div class="ov-label">Cohort &amp;<br>Delivery Mgmt</div>
+    </div>
+    <div class="ov-block ov-4">
+      <div class="ov-num">4.0</div>
+      <div class="ov-label">Participant Support<br>&amp; Impact</div>
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════════════════════════
+       PHASE 1 — RESEARCH & LEARNING DESIGN
+  ═════════════════════════════════════════════════════ -->
+  <div class="phase phase-1 open" id="phase-1">
+    <div class="phase-header" onclick="togglePhase(this)">
+      <span class="phase-num">PHASE 1.0</span>
+      <span class="phase-title">Research &amp; Learning Design</span>
+      <span class="phase-origin">← Onderzoek en ontwikkeling</span>
+      <span class="phase-toggle">▾</span>
+    </div>
+    <div class="phase-body">
+      <div class="sub-grid">
+
+        <!-- 1.1 -->
+        <div class="sub-process open">
+          <div class="sub-header" onclick="toggleSub(this)">
+            <span class="sub-code">1.1</span>
+            <span class="sub-title">Learning Needs Analysis</span>
+            <span class="sub-chevron">▾</span>
+          </div>
+          <div class="sub-body">
+            <span class="sub-origin-tag">← Product Research &amp; Validation</span>
+            <ul class="steps">
+              <li class="step"><span class="step-badge">1</span><div><div>Define learning strategy &amp; generate OKRs</div><div class="step-tool">GSheets / ClickUp</div></div><span class="step-type type-manual">M</span></li>
+              <li class="step"><span class="step-badge">2</span><div><div>Identify possible learning formats (in-person, online, hybrid, masterclass)</div></div><span class="step-type type-manual">M</span></li>
+              <li class="step"><span class="step-badge">3</span><div><div>Conduct stakeholder &amp; learner interviews (new / current / alumni)</div><div class="step-tool">GMeets / Teams</div></div><span class="step-type type-manual">M</span></li>
+              <li class="step"><span class="step-badge">4</span><div><div>Feasibility analysis — venue, faculty, production, software costs</div><div class="step-tool">Google Drive / ClickUp</div></div><span class="step-type type-manual">M</span></li>
+              <div class="decision-banner decision-go">✓ Go — proceed to prototype / pilot design</div>
+              <div class="decision-banner decision-nogo">✗ No-Go — idea does not proceed</div>
+              <li class="step"><span class="step-badge">5</span><div><div>Conduct risk assessment &amp; market gap analysis</div><div class="step-tool">Desk research / Helium tools</div></div><span class="step-type type-review">R</span></li>
+              <li class="step"><span class="step-badge">6</span><div><div>Select format for detailed financial modelling</div></div><span class="step-type type-decision">D</span></li>
+              <li class="step"><span class="step-badge">7</span><div><div>Perform financial analysis — break-even, ROI, pricing</div></div><span class="step-type type-manual">M</span></li>
+              <li class="step"><span class="step-badge">8</span><div><div>Get quick quotes from potential faculty &amp; external experts</div></div><span class="step-type type-manual">M</span></li>
+              <li class="step"><span class="step-badge">9</span><div><div>Update course details in Programme Tracker</div><div class="step-tool">ClickUp / GSheets</div></div><span class="step-type type-manual">M</span></li>
+              <li class="step"><span class="step-badge">10</span><div><div>Update learning plan for the next planning period</div><div class="step-tool">ClickUp / GSheets</div></div><span class="step-type type-auto">A</span></li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- 1.2 -->
+        <div class="sub-process">
+          <div class="sub-header" onclick="toggleSub(this)">
+            <span class="sub-code">1.2</span>
+            <span class="sub-title">Faculty &amp; Expert Sourcing</span>
+            <span class="sub-chevron">▾</span>
+          </div>
+          <div class="sub-body">
+            <span class="sub-origin-tag">← Product Sourcing</span>
+            <ul class="steps">
+              <li class="step"><span class="step-badge">1</span><div><div>Prepare faculty briefing &amp; profile request</div><div class="step-tool">Google Docs / Gmail</div></div><span class="step-type type-manual">M</span></li>
+              <li class="step"><span class="step-badge">2</span><div><div>Source established faculty, coaches &amp; thought leaders</div><div class="step-tool">LinkedIn / Faculty network</div></div><span class="step-type type-manual">M</span></li>
+              <li class="step"><span class="step-badge">3</span><div><div>Update tracker with potential faculty &amp; tag Programme Director</div><div class="step-tool">Gmail / ClickUp</div></div><span class="step-type type-manual">M</span></li>
+              <li class="step"><span class="step-badge">4</span><div><div>Request demo sessions or guest lectures</div></div><span class="step-type type-manual">M</span></li>
+              <li class="step"><span class="step-badge">5</span><div><div>Identify need for customisation or co-creation</div></div><span class="step-type type-decision">D</span></li>
+              <li class="step"><span class="step-badge">6</span><div><div>Select faculty based on proposals &amp; fit</div></div><span class="step-type type-review">R</span></li>
+              <li class="step"><span class="step-badge">7</span><div><div>Prepare initial faculty contract based on financial model</div><div class="step-tool">Gmail / GSheets / ClickUp</div></div><span class="step-type type-manual">M</span></li>
+              <li class="step"><span class="step-badge">8</span><div><div>Run pilot session — check quality &amp; fit with audience</div></div><span class="step-type type-review">R</span></li>
+              <li class="step"><span class="step-badge">9</span><div><div>Sign faculty agreement &amp; onboard to programme</div></div><span class="step-type type-manual">M</span></li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- 1.3 -->
+        <div class="sub-process">
+          <div class="sub-header" onclick="toggleSub(this)">
+            <span class="sub-code">1.3</span>
+            <span class="sub-title">Course Design &amp; Development</span>
+            <span class="sub-chevron">▾</span>
+          </div>
+          <div class="sub-body">
+            <span class="sub-origin-tag">← Product Development</span>
+            <ul class="steps">
+              <li class="step"><span class="step-badge">1</span><div><div>Conceptualise learning objectives, outcomes &amp; competency framework</div><div class="step-tool">ClickUp / GSheets</div></div><span class="step-type type-manual">M</span></li>
+              <li class="step"><span class="step-badge">2</span><div><div>Prepare programme design options &amp; curriculum drafts</div><div class="step-tool">ClickUp / Various design tools</div></div><span class="step-type type-manual">M</span></li>
+              <li class="step"><span class="step-badge">3</span><div><div>Finalise curriculum, session flow &amp; learning activities</div><div class="step-tool">ClickUp / GSheets</div></div><span class="step-type type-manual">M</span></li>
+              <li class="step"><span class="step-badge">4</span><div><div>Review &amp; finalise learning activities with co-design team</div></div><span class="step-type type-review">R</span></li>
+              <li class="step"><span class="step-badge">5</span><div><div>Apply feedback on course design from Learning Director</div></div><span class="step-type type-manual">M</span></li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- 1.4 -->
+        <div class="sub-process">
+          <div class="sub-header" onclick="toggleSub(this)">
+            <span class="sub-code">1.4</span>
+            <span class="sub-title">Programme Materials &amp; Branding</span>
+            <span class="sub-chevron">▾</span>
+          </div>
+          <div class="sub-body">
+            <span class="sub-origin-tag">← Product Packaging</span>
+            <ul class="steps">
+              <li class="step"><span class="step-badge">1</span><div><div>Develop participant workbooks, case studies &amp; pre-reads</div><div class="step-tool">Google Docs / Canva / InDesign</div></div><span class="step-type type-manual">M</span></li>
+              <li class="step"><span class="step-badge">2</span><div><div>Create branded slide decks &amp; digital learning assets</div><div class="step-tool">PowerPoint / Rise / Articulate</div></div><span class="step-type type-manual">M</span></li>
+              <li class="step"><span class="step-badge">3</span><div><div>Produce programme welcome video &amp; media content</div><div class="step-tool">Video production / Teams</div></div><span class="step-type type-manual">M</span></li>
+              <li class="step"><span class="step-badge">4</span><div><div>Review all materials against De Baak brand standards</div></div><span class="step-type type-review">R</span></li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- 1.5 -->
+        <div class="sub-process">
+          <div class="sub-header" onclick="toggleSub(this)">
+            <span class="sub-code">1.5</span>
+            <span class="sub-title">Course Sign-off &amp; Handover</span>
+            <span class="sub-chevron">▾</span>
+          </div>
+          <div class="sub-body">
+            <span class="sub-origin-tag">← Training Sign-off / Product Sign-off</span>
+            <ul class="steps">
+              <li class="step"><span class="step-badge">1</span><div><div>Compile final course folder with all assets</div><div class="step-tool">GSheets / ClickUp</div></div><span class="step-type type-manual">M</span></li>
+              <li class="step"><span class="step-badge">2</span><div><div>Finalise the 'Course Overview' document</div></div><span class="step-type type-manual">M</span></li>
+              <li class="step"><span class="step-badge">3</span><div><div>Conduct course handover meeting with delivery team</div><div class="step-tool">GMeets / GSheets / ClickUp</div></div><span class="step-type type-manual">M</span></li>
+              <li class="step"><span class="step-badge">4</span><div><div>Set up course in LMS / platform for programme launch</div><div class="step-tool">LMS / ClickUp</div></div><span class="step-type type-auto">A</span></li>
+            </ul>
+          </div>
+        </div>
+
+      </div><!-- /sub-grid -->
+    </div><!-- /phase-body -->
+  </div><!-- /phase-1 -->
+
+  <!-- ════════════════════════════════════════════════════
+       PHASE 2 — POSITIONING & PORTFOLIO MANAGEMENT
+  ═════════════════════════════════════════════════════ -->
+  <div class="phase phase-2" id="phase-2">
+    <div class="phase-header" onclick="togglePhase(this)">
+      <span class="phase-num">PHASE 2.0</span>
+      <span class="phase-title">Positioning &amp; Portfolio Management</span>
+      <span class="phase-origin">← Brand and Product Management</span>
+      <span class="phase-toggle">▾</span>
+    </div>
+    <div class="phase-body">
+      <div class="sub-grid">
+
+        <!-- 2.1 -->
+        <div class="sub-process">
+          <div class="sub-header" onclick="toggleSub(this)">
+            <span class="sub-code">2.1</span>
+            <span class="sub-title">Course Catalogue &amp; LMS Setup</span>
+            <span class="sub-chevron">▾</span>
+          </div>
+          <div class="sub-body">
+            <span class="sub-origin-tag">← Product Listing Preparation</span>
+            <ul class="steps">
+              <li class="step"><span class="step-badge">1</span><div><div>Analyse brand assets &amp; request content copy</div><div class="step-tool">LMS / Teams</div></div><span class="step-type type-manual">M</span></li>
+              <li class="step"><span class="step-badge">2</span><div><div>Review tone of voice for executive audience</div></div><span class="step-type type-review">R</span></li>
+              <li class="step"><span class="step-badge">3</span><div><div>Review brand assets for LMS / website storefront</div></div><span class="step-type type-review">R</span></li>
+              <li class="step"><span class="step-badge">4</span><div><div>Submit catalogue page content for review</div><div class="step-tool">Teams / LMS</div></div><span class="step-type type-manual">M</span></li>
+              <li class="step"><span class="step-badge">5</span><div><div>Review brand assets &amp; tone of voice alignment</div><div class="step-tool">LMS</div></div><span class="step-type type-review">R</span></li>
+              <li class="step"><span class="step-badge">6</span><div><div>Coordinate needed changes with designer / copywriter &amp; resubmit</div><div class="step-tool">LMS / Team 2.0</div></div><span class="step-type type-manual">M</span></li>
+              <li class="step"><span class="step-badge">7</span><div><div>Monitor publication status &amp; course activation</div></div><span class="step-type type-auto">A</span></li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- 2.2 -->
+        <div class="sub-process">
+          <div class="sub-header" onclick="toggleSub(this)">
+            <span class="sub-code">2.2</span>
+            <span class="sub-title">Enrolment &amp; Marketing Strategy</span>
+            <span class="sub-chevron">▾</span>
+          </div>
+          <div class="sub-body">
+            <span class="sub-origin-tag">← Product Marketing Strategies</span>
+            <ul class="steps">
+              <li class="step"><span class="step-badge">1</span><div><div>Identify &amp; set launch strategies, enrolment KPI targets</div><div class="step-tool">Various tools</div></div><span class="step-type type-manual">M</span></li>
+              <li class="step"><span class="step-badge">2</span><div><div>Review audience &amp; keyword research; submit to Marketing Manager</div><div class="step-tool">GSheets / ClickUp</div></div><span class="step-type type-manual">M</span></li>
+              <li class="step"><span class="step-badge">3</span><div><div>Review audience targeting list for use in campaigns</div><div class="step-tool">Team 2.0 Files</div></div><span class="step-type type-review">R</span></li>
+              <li class="step"><span class="step-badge">4</span><div><div>Set up paid (LinkedIn / Google Ads) campaigns with agency</div><div class="step-tool">Meeting / Agency</div></div><span class="step-type type-manual">M</span></li>
+              <li class="step"><span class="step-badge">5</span><div><div>Set up or revise organic / content marketing campaigns</div></div><span class="step-type type-manual">M</span></li>
+              <li class="step"><span class="step-badge">6</span><div><div>Review campaign set-up before go-live</div></div><span class="step-type type-review">R</span></li>
+              <li class="step"><span class="step-badge">7</span><div><div>Launch campaigns &amp; monitor enrolment performance</div></div><span class="step-type type-auto">A</span></li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- 2.3 -->
+        <div class="sub-process">
+          <div class="sub-header" onclick="toggleSub(this)">
+            <span class="sub-code">2.3</span>
+            <span class="sub-title">Campaign Monitoring</span>
+            <span class="sub-chevron">▾</span>
+          </div>
+          <div class="sub-body">
+            <span class="sub-origin-tag">← Marketing Strategies Monitoring</span>
+            <ul class="steps">
+              <li class="step"><span class="step-badge">1</span><div><div>Monitor &amp; analyse launch / campaign performance</div><div class="step-tool">Dynamics / Analytics</div></div><span class="step-type type-auto">A</span></li>
+              <li class="step"><span class="step-badge">2</span><div><div>Report findings during weekly team meeting</div><div class="step-tool">Team 2.0</div></div><span class="step-type type-manual">M</span></li>
+              <li class="step"><span class="step-badge">3</span><div><div>Review findings &amp; define actions needed</div></div><span class="step-type type-review">R</span></li>
+              <li class="step"><span class="step-badge">4</span><div><div>Apply adjustments to campaigns as necessary</div></div><span class="step-type type-manual">M</span></li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- 2.4 -->
+        <div class="sub-process">
+          <div class="sub-header" onclick="toggleSub(this)">
+            <span class="sub-code">2.4</span>
+            <span class="sub-title">Programme Performance</span>
+            <span class="sub-chevron">▾</span>
+          </div>
+          <div class="sub-body">
+            <span class="sub-origin-tag">← Product Performance</span>
+            <ul class="steps">
+              <li class="step"><span class="step-badge">1</span><div><div>Review performance metrics (NPS, fill rate, revenue)</div></div><span class="step-type type-review">R</span></li>
+              <li class="step"><span class="step-badge">2</span><div><div>Monitor newly launched programmes monthly</div><div class="step-tool">Dynamics (automated)</div></div><span class="step-type type-auto">A</span></li>
+              <li class="step"><span class="step-badge">3</span><div><div>Monitor matured / existing programmes on rolling basis</div></div><span class="step-type type-auto">A</span></li>
+              <li class="step"><span class="step-badge">4</span><div><div>Report flagged items at Monthly Performance Meeting</div></div><span class="step-type type-manual">M</span></li>
+              <li class="step"><span class="step-badge">5</span><div><div>Plan action &amp; strategy for findings</div><div class="step-tool">Team 2.0 / Backlog</div></div><span class="step-type type-manual">M</span></li>
+              <li class="step"><span class="step-badge">6</span><div><div>Apply adjustments &amp; optimisations to programme</div></div><span class="step-type type-manual">M</span></li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- 2.6 -->
+        <div class="sub-process">
+          <div class="sub-header" onclick="toggleSub(this)">
+            <span class="sub-code">2.6</span>
+            <span class="sub-title">Alumni &amp; Ambassador Activation</span>
+            <span class="sub-chevron">▾</span>
+          </div>
+          <div class="sub-body">
+            <span class="sub-origin-tag">← Influencer Marketing</span>
+            <ul class="steps">
+              <li class="step"><span class="step-badge">1</span><div><div>Identify potential alumni ambassadors &amp; thought leaders</div></div><span class="step-type type-manual">M</span></li>
+              <li class="step"><span class="step-badge">2</span><div><div>Gather ambassador info &amp; initiate contact</div><div class="step-tool">LinkedIn / Email / ClickUp</div></div><span class="step-type type-manual">M</span></li>
+              <li class="step"><span class="step-badge">3</span><div><div>Consolidate ambassador proposals &amp; submit for review</div></div><span class="step-type type-manual">M</span></li>
+              <li class="step"><span class="step-badge">4</span><div><div>Review ambassador offer &amp; alignment</div><div class="step-tool">ClickUp</div></div><span class="step-type type-review">R</span></li>
+              <li class="step"><span class="step-badge">5</span><div><div>Confirm ambassador deal &amp; arrange co-branded content</div><div class="step-tool">Gmail / Teams</div></div><span class="step-type type-manual">M</span></li>
+              <li class="step"><span class="step-badge">6</span><div><div>Monitor ambassador channel &amp; programme performance</div><div class="step-tool">Social Media / ClickUp</div></div><span class="step-type type-auto">A</span></li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div><!-- /phase-2 -->
+
+  <!-- ════════════════════════════════════════════════════
+       PHASE 3 — COHORT & DELIVERY MANAGEMENT
+  ═════════════════════════════════════════════════════ -->
+  <div class="phase phase-3" id="phase-3">
+    <div class="phase-header" onclick="togglePhase(this)">
+      <span class="phase-num">PHASE 3.0</span>
+      <span class="phase-title">Cohort &amp; Delivery Management</span>
+      <span class="phase-origin">← Supply Chain Management</span>
+      <span class="phase-toggle">▾</span>
+    </div>
+    <div class="phase-body">
+      <div class="sub-grid">
+
+        <!-- 3.1 -->
+        <div class="sub-process">
+          <div class="sub-header" onclick="toggleSub(this)">
+            <span class="sub-code">3.1</span>
+            <span class="sub-title">Enrolment Forecasting</span>
+            <span class="sub-chevron">▾</span>
+          </div>
+          <div class="sub-body">
+            <span class="sub-origin-tag">← Forecasting &amp; Inventory</span>
+            <ul class="steps">
+              <li class="step"><span class="step-badge">1</span><div><div>Check enrolment, revenue &amp; capacity forecast for the quarter</div><div class="step-tool">Teams / GSheets</div></div><span class="step-type type-manual">M</span></li>
+              <li class="step"><span class="step-badge">2</span><div><div>Present, discuss &amp; finalise forecast with CEO &amp; Operations Manager</div><div class="step-tool">Teams 3.0</div></div><span class="step-type type-manual">M</span></li>
+              <li class="step"><span class="step-badge">3</span><div><div>Review &amp; approve forecast</div></div><span class="step-type type-decision">D</span></li>
+              <li class="step"><span class="step-badge">4</span><div><div>Adjust forecast based on discussion &amp; comments</div><div class="step-tool">Teams</div></div><span class="step-type type-manual">M</span></li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- 3.2 -->
+        <div class="sub-process">
+          <div class="sub-header" onclick="toggleSub(this)">
+            <span class="sub-code">3.2</span>
+            <span class="sub-title">Cohort Activation &amp; Registration</span>
+            <span class="sub-chevron">▾</span>
+          </div>
+          <div class="sub-body">
+            <span class="sub-origin-tag">← Order Placement &amp; Stock Transfer</span>
+            <ul class="steps">
+              <li class="step"><span class="step-badge">1</span><div><div>Determine minimum / maximum cohort numbers &amp; waitlist triggers</div></div><span class="step-type type-manual">M</span></li>
+              <li class="step"><span class="step-badge">2</span><div><div>Prepare &amp; arrange participant registration &amp; onboarding flow</div><div class="step-tool">LMS / ShipmentMakerPro equivalent</div></div><span class="step-type type-manual">M</span></li>
+              <li class="step"><span class="step-badge">3</span><div><div>Monitor enrolment numbers in real time</div><div class="step-tool">ClickUp / LMS</div></div><span class="step-type type-auto">A</span></li>
+              <li class="step"><span class="step-badge">4</span><div><div>Prepare cohort activation communications</div></div><span class="step-type type-manual">M</span></li>
+              <li class="step"><span class="step-badge">5</span><div><div>Receive confirmation from facilitators, coaches &amp; moderators</div></div><span class="step-type type-manual">M</span></li>
+              <li class="step"><span class="step-badge">6</span><div><div>Send cohort dossier to L&amp;D programme oversight</div><div class="step-tool">Gmail / Paypal / internal</div></div><span class="step-type type-manual">M</span></li>
+              <li class="step"><span class="step-badge">7</span><div><div>Send activation to project management; update tracker &amp; monitor</div></div><span class="step-type type-auto">A</span></li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- 3.3 -->
+        <div class="sub-process">
+          <div class="sub-header" onclick="toggleSub(this)">
+            <span class="sub-code">3.3</span>
+            <span class="sub-title">Venue &amp; Event Logistics</span>
+            <span class="sub-chevron">▾</span>
+          </div>
+          <div class="sub-body">
+            <span class="sub-origin-tag">← Shipping &amp; Logistics</span>
+            <ul class="steps">
+              <li class="step"><span class="step-badge">1</span><div><div>Monitor progress of programme logistics execution</div><div class="step-tool">Teams</div></div><span class="step-type type-auto">A</span></li>
+              <li class="step"><span class="step-badge">2</span><div><div>Run quality check on logistics readiness</div></div><span class="step-type type-review">R</span></li>
+              <li class="step"><span class="step-badge">3</span><div><div>Receive logistics quality report &amp; post for review</div></div><span class="step-type type-manual">M</span></li>
+              <li class="step"><span class="step-badge">4</span><div><div>Review logistics report &amp; approve programme kick-off</div></div><span class="step-type type-review">R</span></li>
+              <li class="step"><span class="step-badge">5</span><div><div>Coordinate with venue / catering / AV &amp; arrange access</div></div><span class="step-type type-manual">M</span></li>
+              <li class="step"><span class="step-badge">6</span><div><div>Monitor programme delivery on the day</div></div><span class="step-type type-manual">M</span></li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- 3.4 -->
+        <div class="sub-process">
+          <div class="sub-header" onclick="toggleSub(this)">
+            <span class="sub-code">3.4</span>
+            <span class="sub-title">Capacity &amp; Fill Rate Management</span>
+            <span class="sub-chevron">▾</span>
+          </div>
+          <div class="sub-body">
+            <span class="sub-origin-tag">← FBA / Inventory Maintenance</span>
+            <ul class="steps">
+              <li class="step"><span class="step-badge">1</span><div><div>Monitor occupancy &amp; fill rate per programme cohort</div><div class="step-tool">LMS / Seller Central equivalent</div></div><span class="step-type type-auto">A</span></li>
+              <li class="step"><span class="step-badge">2</span><div><div>Strategise on improving fill rate — promotions, partnerships, timing</div></div><span class="step-type type-manual">M</span></li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div><!-- /phase-3 -->
+
+  <!-- ════════════════════════════════════════════════════
+       PHASE 4 — PARTICIPANT SUPPORT & IMPACT
+  ═════════════════════════════════════════════════════ -->
+  <div class="phase phase-4" id="phase-4">
+    <div class="phase-header" onclick="togglePhase(this)">
+      <span class="phase-num">PHASE 4.0</span>
+      <span class="phase-title">Participant Support &amp; Impact</span>
+      <span class="phase-origin">← Product and Customer Support</span>
+      <span class="phase-toggle">▾</span>
+    </div>
+    <div class="phase-body">
+      <div class="sub-grid">
+
+        <!-- 4.1 -->
+        <div class="sub-process">
+          <div class="sub-header" onclick="toggleSub(this)">
+            <span class="sub-code">4.1</span>
+            <span class="sub-title">Participant Service</span>
+            <span class="sub-chevron">▾</span>
+          </div>
+          <div class="sub-body">
+            <span class="sub-origin-tag">← Customer Service (daily task)</span>
+            <ul class="steps">
+              <li class="step"><span class="step-badge">1</span><div><div>Check messages &amp; emails from participants</div></div><span class="step-type type-manual">M</span></li>
+              <li class="step"><span class="step-badge">2</span><div><div>Assess participant communication — is it a concern, question, or positive?</div></div><span class="step-type type-decision">D</span></li>
+              <li class="step"><span class="step-badge">3</span><div><div>Check enrolment &amp; participation status in LMS</div></div><span class="step-type type-manual">M</span></li>
+              <li class="step"><span class="step-badge">4</span><div><div>Respond using FAQ template for the specific programme</div></div><span class="step-type type-manual">M</span></li>
+            </ul>
+            <div style="margin-top:10px;font-size:11px;color:var(--mid);font-style:italic;">Target: respond to participants within 24 hours</div>
+          </div>
+        </div>
+
+        <!-- 4.2 -->
+        <div class="sub-process">
+          <div class="sub-header" onclick="toggleSub(this)">
+            <span class="sub-code">4.2</span>
+            <span class="sub-title">Transfers &amp; Cancellations</span>
+            <span class="sub-chevron">▾</span>
+          </div>
+          <div class="sub-body">
+            <span class="sub-origin-tag">← Refunds &amp; Replacements</span>
+            <ul class="steps">
+              <li class="step"><span class="step-badge">1</span><div><div>Respond to participant with resolution options</div></div><span class="step-type type-manual">M</span></li>
+              <li class="step"><span class="step-badge">2</span><div><div>Process transfer to another cohort, cancellation, or refund</div></div><span class="step-type type-manual">M</span></li>
+              <li class="step"><span class="step-badge">3</span><div><div>Inform participant that action has been processed &amp; confirmed</div></div><span class="step-type type-manual">M</span></li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- 4.4 -->
+        <div class="sub-process">
+          <div class="sub-header" onclick="toggleSub(this)">
+            <span class="sub-code">4.4</span>
+            <span class="sub-title">Feedback, NPS &amp; Continuous Improvement</span>
+            <span class="sub-chevron">▾</span>
+          </div>
+          <div class="sub-body">
+            <span class="sub-origin-tag">← Product Review / Trainer Feedback</span>
+            <ul class="steps">
+              <li class="step"><span class="step-badge">1</span><div><div>Check &amp; review participant feedback forms &amp; NPS scores</div></div><span class="step-type type-manual">M</span></li>
+              <li class="step"><span class="step-badge">2</span><div><div>Flag &amp; request removal of inappropriate or incorrect reviews</div></div><span class="step-type type-manual">M</span></li>
+              <li class="step"><span class="step-badge">3</span><div><div>Monitor status &amp; update Feedback Monitoring tracker</div></div><span class="step-type type-auto">A</span></li>
+              <li class="step"><span class="step-badge">4</span><div><div>Assess &amp; summarise participant feedback per programme</div></div><span class="step-type type-review">R</span></li>
+              <li class="step"><span class="step-badge">5</span><div><div>Discuss issues encountered &amp; improvement actions in weekly review</div></div><span class="step-type type-manual">M</span></li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div><!-- /phase-4 -->
+
+</main>
+
+<!-- ═══════ FOOTER ═══════ -->
+<footer class="footer">
+  <strong>De Baak</strong> · Executive Learning Process Framework · Adapted from product development methodology
+</footer>
+
+<script>
+  function togglePhase(header) {
+    const phase = header.closest('.phase');
+    phase.classList.toggle('open');
+  }
+  function toggleSub(header) {
+    const sub = header.closest('.sub-process');
+    sub.classList.toggle('open');
+  }
+
+  // Smooth scroll for phase pills
+  document.querySelectorAll('.phase-pill').forEach(pill => {
+    pill.addEventListener('click', e => {
+      e.preventDefault();
+      const target = document.querySelector(pill.getAttribute('href'));
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        // Auto-open the phase
+        if (!target.classList.contains('open')) {
+          target.classList.add('open');
+        }
+      }
+    });
+  });
+</script>
+</body>
+</html>

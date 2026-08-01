@@ -1,0 +1,1411 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Webpagina's bewerken — Praktijkgids voor beginners</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --seaside-blue: #005ADC;
+            --seaside-blue-dark: #0047b0;
+            --seaside-blue-light: #3380e6;
+            --de-horst-green: #00A555;
+            --de-horst-green-dark: #008f47;
+            --baken-yellow: #FFE100;
+            --alabaster: #F5F5EB;
+            --white: #ffffff;
+            --charcoal: #2d2d2d;
+            --mid-gray: #5a5a5a;
+            --light-gray: #8a8a8a;
+            --light-taupe: #d4cfc4;
+            --warn-red: #c44545;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: var(--alabaster);
+            color: var(--charcoal);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 32px;
+        }
+
+        /* Progress */
+        .progress-bar {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 4px;
+            background: var(--light-taupe);
+            z-index: 1000;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            background: var(--seaside-blue);
+            width: 0%;
+            transition: width 0.1s ease;
+        }
+
+        /* Table of contents nav */
+        .toc-nav {
+            position: fixed;
+            top: 50%;
+            right: 24px;
+            transform: translateY(-50%);
+            z-index: 900;
+            background: var(--white);
+            border-radius: 12px;
+            padding: 14px 10px;
+            box-shadow: 0 4px 16px rgba(0, 90, 220, 0.1);
+            border: 1px solid var(--light-taupe);
+        }
+
+        .toc-nav a {
+            display: block;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--light-taupe);
+            margin: 8px 0;
+            transition: background 0.3s ease, transform 0.3s ease;
+            cursor: pointer;
+        }
+
+        .toc-nav a:hover,
+        .toc-nav a.active {
+            background: var(--seaside-blue);
+            transform: scale(1.3);
+        }
+
+        @media (max-width: 900px) {
+            .toc-nav { display: none; }
+        }
+
+        /* Hero */
+        .hero {
+            min-height: 90vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 96px 32px 64px;
+            position: relative;
+            background:
+                radial-gradient(circle at 15% 20%, rgba(0, 90, 220, 0.06) 0%, transparent 40%),
+                radial-gradient(circle at 85% 80%, rgba(0, 165, 85, 0.05) 0%, transparent 40%);
+        }
+
+        .hero-content {
+            max-width: 960px;
+            position: relative;
+            z-index: 2;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--seaside-blue) 0%, var(--seaside-blue-light) 100%);
+            color: var(--white);
+            font-weight: 700;
+            font-size: 13px;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            padding: 10px 24px;
+            border-radius: 999px;
+            margin-bottom: 32px;
+        }
+
+        h1 {
+            font-family: Arial, sans-serif;
+            font-weight: 900;
+            font-size: clamp(38px, 6vw, 72px);
+            color: var(--seaside-blue);
+            margin-bottom: 24px;
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+        }
+
+        .hero-contour {
+            color: transparent;
+            -webkit-text-stroke: 2px var(--seaside-blue);
+        }
+
+        .subtitle {
+            font-size: clamp(17px, 2.3vw, 24px);
+            color: var(--mid-gray);
+            margin-bottom: 40px;
+            line-height: 1.5;
+        }
+
+        .descriptor {
+            font-size: 13px;
+            color: var(--seaside-blue);
+            font-weight: 600;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+        }
+
+        .scroll-indicator {
+            margin-top: 56px;
+            font-size: 12px;
+            color: var(--mid-gray);
+            animation: bounce 2s infinite;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+
+        .scroll-indicator::after {
+            content: "↓";
+            display: block;
+            font-size: 22px;
+            margin-top: 8px;
+            color: var(--seaside-blue);
+        }
+
+        .baken-triangle {
+            position: absolute;
+            width: 0; height: 0;
+            opacity: 0.15;
+            z-index: 1;
+        }
+
+        .baken-triangle.top-right {
+            top: 80px;
+            right: 80px;
+            border-left: 35px solid transparent;
+            border-right: 35px solid transparent;
+            border-bottom: 60px solid var(--de-horst-green);
+            transform: rotate(15deg);
+        }
+
+        .baken-triangle.bottom-left {
+            bottom: 60px;
+            left: 60px;
+            border-left: 28px solid transparent;
+            border-right: 28px solid transparent;
+            border-bottom: 48px solid var(--seaside-blue);
+            transform: rotate(-160deg);
+        }
+
+        /* Section base */
+        section {
+            padding: 88px 0;
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .section-label {
+            display: block;
+            text-align: center;
+            font-size: 13px;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--de-horst-green);
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        h2 {
+            font-family: Arial, sans-serif;
+            font-weight: 900;
+            font-size: clamp(30px, 4.8vw, 48px);
+            color: var(--seaside-blue);
+            margin-bottom: 24px;
+            text-align: center;
+            line-height: 1.15;
+            letter-spacing: -0.01em;
+        }
+
+        .section-intro {
+            max-width: 720px;
+            margin: 0 auto 56px;
+            text-align: center;
+            font-size: 17px;
+            color: var(--mid-gray);
+            line-height: 1.7;
+        }
+
+        /* Tool cards */
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .tool-card {
+            background: var(--white);
+            padding: 32px;
+            border-radius: 16px;
+            border: 1px solid var(--light-taupe);
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+        }
+
+        .tool-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 8px 28px rgba(0, 90, 220, 0.12);
+            border-color: var(--seaside-blue);
+        }
+
+        .tool-tag {
+            display: inline-block;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            padding: 4px 10px;
+            border-radius: 4px;
+            margin-bottom: 14px;
+        }
+
+        .tool-tag.essential {
+            background: rgba(0, 90, 220, 0.1);
+            color: var(--seaside-blue);
+        }
+
+        .tool-tag.optional {
+            background: rgba(0, 165, 85, 0.1);
+            color: var(--de-horst-green-dark);
+        }
+
+        .tool-name {
+            font-weight: 900;
+            font-size: 22px;
+            color: var(--charcoal);
+            margin-bottom: 8px;
+        }
+
+        .tool-platform {
+            font-size: 13px;
+            color: var(--light-gray);
+            margin-bottom: 14px;
+            font-style: italic;
+        }
+
+        .tool-desc {
+            font-size: 15px;
+            color: var(--mid-gray);
+            line-height: 1.6;
+            margin-bottom: 14px;
+        }
+
+        .tool-url {
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            color: var(--seaside-blue);
+            font-weight: 700;
+            word-break: break-all;
+        }
+
+        /* File types */
+        .filetypes-wrapper {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .filetype-row {
+            display: grid;
+            grid-template-columns: 140px 1fr;
+            gap: 32px;
+            align-items: center;
+            padding: 28px 0;
+            border-bottom: 1px solid var(--light-taupe);
+        }
+
+        .filetype-row:last-child {
+            border-bottom: none;
+        }
+
+        .filetype-ext {
+            font-family: 'Courier New', monospace;
+            font-weight: 900;
+            font-size: 28px;
+            color: var(--seaside-blue);
+            text-align: center;
+            padding: 16px;
+            background: var(--white);
+            border-radius: 12px;
+            border: 1px solid var(--light-taupe);
+        }
+
+        .filetype-row:nth-child(even) .filetype-ext {
+            color: var(--de-horst-green-dark);
+        }
+
+        .filetype-info h3 {
+            font-weight: 900;
+            font-size: 20px;
+            color: var(--charcoal);
+            margin-bottom: 6px;
+        }
+
+        .filetype-info p {
+            font-size: 15px;
+            color: var(--mid-gray);
+            line-height: 1.6;
+        }
+
+        /* Editing lesson */
+        .lesson-wrapper {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .lesson-block {
+            background: var(--white);
+            border-radius: 16px;
+            padding: 40px;
+            margin-bottom: 24px;
+            border: 1px solid var(--light-taupe);
+        }
+
+        .lesson-block h3 {
+            font-weight: 900;
+            font-size: 22px;
+            color: var(--seaside-blue);
+            margin-bottom: 12px;
+        }
+
+        .lesson-block p {
+            font-size: 16px;
+            color: var(--mid-gray);
+            margin-bottom: 16px;
+            line-height: 1.7;
+        }
+
+        .lesson-block p strong {
+            color: var(--charcoal);
+        }
+
+        .code-pair {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-top: 20px;
+        }
+
+        @media (max-width: 700px) {
+            .code-pair { grid-template-columns: 1fr; }
+        }
+
+        .code-panel {
+            background: var(--alabaster);
+            border-radius: 10px;
+            padding: 20px;
+            border-left: 3px solid var(--seaside-blue);
+        }
+
+        .code-panel.after {
+            border-left-color: var(--de-horst-green);
+        }
+
+        .code-panel-label {
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--seaside-blue);
+            margin-bottom: 10px;
+        }
+
+        .code-panel.after .code-panel-label {
+            color: var(--de-horst-green-dark);
+        }
+
+        .code-snippet {
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            color: var(--charcoal);
+            line-height: 1.7;
+            white-space: pre-wrap;
+            word-break: break-word;
+        }
+
+        .code-snippet .tag { color: var(--seaside-blue); }
+        .code-snippet .attr { color: var(--de-horst-green-dark); }
+        .code-snippet .str { color: #b85c00; }
+        .code-snippet .comment { color: var(--light-gray); font-style: italic; }
+        .code-snippet .highlight {
+            background: rgba(255, 225, 0, 0.4);
+            padding: 1px 2px;
+            border-radius: 2px;
+        }
+
+        .tag-reference {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            margin-top: 24px;
+        }
+
+        .tag-ref {
+            background: var(--alabaster);
+            padding: 16px 20px;
+            border-radius: 10px;
+        }
+
+        .tag-ref code {
+            display: block;
+            font-family: 'Courier New', monospace;
+            font-weight: 700;
+            font-size: 15px;
+            color: var(--seaside-blue);
+            margin-bottom: 4px;
+        }
+
+        .tag-ref span {
+            font-size: 13px;
+            color: var(--mid-gray);
+        }
+
+        /* Warning / Tip boxes */
+        .callout {
+            padding: 20px 24px;
+            border-radius: 10px;
+            margin-top: 20px;
+            display: flex;
+            gap: 16px;
+            align-items: flex-start;
+        }
+
+        .callout-tip {
+            background: rgba(0, 165, 85, 0.08);
+            border-left: 3px solid var(--de-horst-green);
+        }
+
+        .callout-warn {
+            background: rgba(255, 225, 0, 0.15);
+            border-left: 3px solid var(--baken-yellow);
+        }
+
+        .callout-mark {
+            flex-shrink: 0;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            font-size: 16px;
+            color: var(--white);
+        }
+
+        .callout-tip .callout-mark { background: var(--de-horst-green); }
+        .callout-warn .callout-mark { background: #d4a70a; }
+
+        .callout-body {
+            flex: 1;
+            font-size: 15px;
+            color: var(--charcoal);
+            line-height: 1.6;
+        }
+
+        .callout-body strong {
+            display: block;
+            margin-bottom: 4px;
+            font-size: 14px;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+        }
+
+        .callout-tip .callout-body strong { color: var(--de-horst-green-dark); }
+        .callout-warn .callout-body strong { color: #8a6a00; }
+
+        /* Image workflow */
+        .img-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+            max-width: 1100px;
+            margin: 40px auto 0;
+        }
+
+        .img-step {
+            background: var(--white);
+            border-radius: 14px;
+            padding: 28px;
+            border: 1px solid var(--light-taupe);
+            text-align: center;
+            position: relative;
+        }
+
+        .img-step-num {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--seaside-blue);
+            color: var(--white);
+            font-weight: 900;
+            font-size: 18px;
+            line-height: 40px;
+            margin-bottom: 14px;
+        }
+
+        .img-step h4 {
+            font-weight: 900;
+            font-size: 17px;
+            color: var(--charcoal);
+            margin-bottom: 8px;
+        }
+
+        .img-step p {
+            font-size: 14px;
+            color: var(--mid-gray);
+            line-height: 1.5;
+        }
+
+        .format-table {
+            max-width: 900px;
+            margin: 40px auto 0;
+            background: var(--white);
+            border-radius: 14px;
+            overflow: hidden;
+            border: 1px solid var(--light-taupe);
+        }
+
+        .format-table table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .format-table thead {
+            background: var(--seaside-blue);
+            color: var(--white);
+        }
+
+        .format-table th {
+            padding: 16px 20px;
+            text-align: left;
+            font-weight: 900;
+            font-size: 12px;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        .format-table td {
+            padding: 14px 20px;
+            border-bottom: 1px solid var(--light-taupe);
+            font-size: 14px;
+            color: var(--charcoal);
+            vertical-align: top;
+        }
+
+        .format-table tr:last-child td { border-bottom: none; }
+        .format-table tr:hover { background: var(--alabaster); }
+
+        .format-table td:first-child {
+            font-weight: 700;
+            color: var(--seaside-blue);
+            font-family: 'Courier New', monospace;
+        }
+
+        /* Publishing flow */
+        .publish-flow {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: grid;
+            gap: 20px;
+        }
+
+        .publish-step {
+            background: var(--white);
+            border-radius: 14px;
+            padding: 28px 32px;
+            border: 1px solid var(--light-taupe);
+            display: grid;
+            grid-template-columns: 56px 1fr;
+            gap: 24px;
+            align-items: center;
+            transition: transform 0.3s ease;
+        }
+
+        .publish-step:hover {
+            transform: translateX(4px);
+        }
+
+        .publish-num {
+            width: 56px;
+            height: 56px;
+            border-radius: 14px;
+            background: linear-gradient(135deg, var(--seaside-blue), var(--seaside-blue-light));
+            color: var(--white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            font-size: 22px;
+        }
+
+        .publish-text h4 {
+            font-weight: 900;
+            font-size: 19px;
+            color: var(--charcoal);
+            margin-bottom: 4px;
+        }
+
+        .publish-text p {
+            font-size: 15px;
+            color: var(--mid-gray);
+            line-height: 1.5;
+        }
+
+        /* Problems accordion */
+        .problems-wrapper {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .problem {
+            background: var(--white);
+            border-radius: 12px;
+            margin-bottom: 12px;
+            border: 1px solid var(--light-taupe);
+            overflow: hidden;
+            transition: box-shadow 0.3s ease;
+        }
+
+        .problem:hover {
+            box-shadow: 0 4px 16px rgba(0, 90, 220, 0.08);
+        }
+
+        .problem-header {
+            padding: 22px 28px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            transition: background 0.3s ease;
+        }
+
+        .problem-header:hover {
+            background: var(--alabaster);
+        }
+
+        .problem-q {
+            font-weight: 700;
+            font-size: 17px;
+            color: var(--charcoal);
+            flex: 1;
+        }
+
+        .problem-toggle {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: var(--seaside-blue);
+            color: var(--white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            font-size: 16px;
+            flex-shrink: 0;
+            transition: transform 0.3s ease;
+        }
+
+        .problem.open .problem-toggle {
+            transform: rotate(45deg);
+        }
+
+        .problem-body {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease;
+        }
+
+        .problem.open .problem-body {
+            max-height: 500px;
+        }
+
+        .problem-body-inner {
+            padding: 0 28px 24px;
+            font-size: 15px;
+            color: var(--mid-gray);
+            line-height: 1.7;
+        }
+
+        .problem-body-inner strong {
+            color: var(--de-horst-green-dark);
+        }
+
+        .problem-body-inner code {
+            background: var(--alabaster);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            color: var(--seaside-blue);
+        }
+
+        /* Closing */
+        .closing {
+            text-align: center;
+            padding: 72px 32px;
+            background: linear-gradient(135deg, rgba(0, 90, 220, 0.06) 0%, rgba(0, 165, 85, 0.06) 100%);
+            border-radius: 16px;
+            margin: 40px auto;
+            max-width: 1100px;
+        }
+
+        .closing h3 {
+            font-weight: 900;
+            font-size: clamp(22px, 3.2vw, 32px);
+            color: var(--seaside-blue);
+            line-height: 1.3;
+            margin-bottom: 16px;
+        }
+
+        .closing p {
+            font-size: 16px;
+            color: var(--mid-gray);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 56px 32px 40px;
+            margin-top: 64px;
+            border-top: 1px solid var(--light-taupe);
+        }
+
+        .footer-logo {
+            font-weight: 900;
+            font-size: 28px;
+            color: var(--seaside-blue);
+            margin-bottom: 12px;
+            letter-spacing: -0.02em;
+        }
+
+        .footer-logo .de {
+            color: transparent;
+            -webkit-text-stroke: 1.5px var(--seaside-blue);
+        }
+
+        .footer-tagline {
+            font-size: 12px;
+            color: var(--mid-gray);
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container { padding: 0 20px; }
+            section { padding: 60px 0; }
+            .lesson-block { padding: 28px 24px; }
+            .filetype-row {
+                grid-template-columns: 1fr;
+                gap: 16px;
+                text-align: center;
+            }
+            .filetype-ext { max-width: 140px; margin: 0 auto; }
+            .publish-step { padding: 22px; grid-template-columns: 48px 1fr; gap: 16px; }
+            .publish-num { width: 48px; height: 48px; font-size: 20px; }
+            .baken-triangle { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Progress -->
+    <div class="progress-bar">
+        <div class="progress-bar-fill" id="progressBar"></div>
+    </div>
+
+    <!-- Table of contents dots -->
+    <nav class="toc-nav" aria-label="Inhoudsopgave">
+        <a href="#tools" data-target="tools" title="Gereedschap"></a>
+        <a href="#bestanden" data-target="bestanden" title="Bestanden"></a>
+        <a href="#tekst" data-target="tekst" title="Tekst bewerken"></a>
+        <a href="#afbeeldingen" data-target="afbeeldingen" title="Afbeeldingen"></a>
+        <a href="#pdfs" data-target="pdfs" title="PDF's"></a>
+        <a href="#publiceren" data-target="publiceren" title="Publiceren"></a>
+        <a href="#problemen" data-target="problemen" title="Problemen"></a>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="baken-triangle top-right"></div>
+        <div class="baken-triangle bottom-left"></div>
+        <div class="hero-content">
+            <div class="hero-badge">Praktijkgids · Voor beginners</div>
+            <h1>Je webpagina's<br>bewerken<span class="hero-contour"> zonder </span>stress</h1>
+            <p class="subtitle">Tekst aanpassen, afbeeldingen vervangen, PDF's vernieuwen — en je wijzigingen online zetten. Alles wat je nodig hebt om je mini-sites zelfstandig te onderhouden.</p>
+            <p class="descriptor">Tekst · Afbeeldingen · PDF's · Publiceren</p>
+            <div class="scroll-indicator">Scroll om te beginnen</div>
+        </div>
+    </section>
+
+    <!-- TOOLS -->
+    <section id="tools">
+        <div class="container">
+            <span class="section-label">Deel 1 — Gereedschap klaarzetten</span>
+            <h2>Wat heb je nodig?</h2>
+            <p class="section-intro">Drie tools die allemaal gratis zijn. GitHub Desktop heb je al staan. De andere twee installeer je één keer en dan heb je alles wat nodig is.</p>
+            <div class="tools-grid">
+
+                <div class="tool-card">
+                    <span class="tool-tag essential">Essentieel</span>
+                    <div class="tool-name">Een tekst-editor</div>
+                    <div class="tool-platform">Aanbevolen: VS Code (Windows · macOS · Linux)</div>
+                    <p class="tool-desc">Hiermee open je de HTML-bestanden en pas je tekst aan. VS Code toont de code mooi gekleurd, waardoor fouten makkelijker op te sporen zijn.</p>
+                    <div class="tool-url">code.visualstudio.com</div>
+                </div>
+
+                <div class="tool-card">
+                    <span class="tool-tag essential">Essentieel</span>
+                    <div class="tool-name">GitHub Desktop</div>
+                    <div class="tool-platform">Windows · macOS</div>
+                    <p class="tool-desc">Hiermee stuur je je wijzigingen naar de live website. Dit heb je al geïnstalleerd uit de vorige tutorial.</p>
+                    <div class="tool-url">desktop.github.com</div>
+                </div>
+
+                <div class="tool-card">
+                    <span class="tool-tag optional">Optioneel</span>
+                    <div class="tool-name">Een browser</div>
+                    <div class="tool-platform">Chrome, Firefox of Safari</div>
+                    <p class="tool-desc">Om je pagina te bekijken vóórdat je publiceert: dubbelklik op het HTML-bestand op je computer. Zo zie je meteen of alles goed oogt.</p>
+                    <div class="tool-url">Al geïnstalleerd</div>
+                </div>
+
+                <div class="tool-card">
+                    <span class="tool-tag optional">Optioneel</span>
+                    <div class="tool-name">Squoosh</div>
+                    <div class="tool-platform">Werkt in de browser — geen installatie</div>
+                    <p class="tool-desc">Verkleint afbeeldingen zonder zichtbaar kwaliteitsverlies. Essentieel om je site snel te houden. Gewoon bestand erin slepen.</p>
+                    <div class="tool-url">squoosh.app</div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- FILE TYPES -->
+    <section id="bestanden">
+        <div class="container">
+            <span class="section-label">Deel 2 — De bestanden begrijpen</span>
+            <h2>Wat doet elk bestand?</h2>
+            <p class="section-intro">Voordat je gaat bewerken: weten wat elk type bestand doet, voorkomt veel verwarring. Dit is de rolverdeling binnen je mini-site.</p>
+            <div class="filetypes-wrapper">
+
+                <div class="filetype-row">
+                    <div class="filetype-ext">.html</div>
+                    <div class="filetype-info">
+                        <h3>De inhoud en structuur</h3>
+                        <p>Hier staat alle tekst, koppen, knoppen en links. Dit is het bestand dat je het vaakst zult openen. Denk aan <em>index.html</em> als "de pagina zelf".</p>
+                    </div>
+                </div>
+
+                <div class="filetype-row">
+                    <div class="filetype-ext">.css</div>
+                    <div class="filetype-info">
+                        <h3>Hoe het eruitziet</h3>
+                        <p>Kleuren, lettertypen, afstanden, kaders — alles visueel. In onze infographics staat de CSS meestal ingebed in het HTML-bestand zelf, bovenaan tussen <em>&lt;style&gt;</em> tags.</p>
+                    </div>
+                </div>
+
+                <div class="filetype-row">
+                    <div class="filetype-ext">.js</div>
+                    <div class="filetype-info">
+                        <h3>Wat er beweegt of reageert</h3>
+                        <p>Uitklapbare secties, hover-effecten, de progressiebalk bovenaan. Meestal hoef je hier niets aan te doen — laat dit staan zoals het is.</p>
+                    </div>
+                </div>
+
+                <div class="filetype-row">
+                    <div class="filetype-ext">.jpg · .png</div>
+                    <div class="filetype-info">
+                        <h3>De afbeeldingen</h3>
+                        <p>Staan in <em>assets/images/</em>. Vervangen doe je door simpelweg een bestand met dezelfde naam in dezelfde map te zetten.</p>
+                    </div>
+                </div>
+
+                <div class="filetype-row">
+                    <div class="filetype-ext">.pdf</div>
+                    <div class="filetype-info">
+                        <h3>Downloadbare documenten</h3>
+                        <p>Staan in <em>assets/pdfs/</em>. Bezoekers kunnen deze openen of downloaden via een link in je pagina.</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- EDITING TEXT -->
+    <section id="tekst">
+        <div class="container">
+            <span class="section-label">Deel 3 — Tekst aanpassen</span>
+            <h2>Tekst bewerken</h2>
+            <p class="section-intro">Tekst staat altijd tussen twee <em>tags</em> — de haakjes met een woord erin. De tag vertelt de browser wat de tekst is: een kop, een alinea, een link. Jouw taak: de tekst ertussen wijzigen, de tags laten staan.</p>
+
+            <div class="lesson-wrapper">
+
+                <div class="lesson-block">
+                    <h3>De regel van de tags</h3>
+                    <p>Elke stuk tekst in een webpagina zit tussen een <strong>open-tag</strong> en een <strong>sluit-tag</strong>. De sluit-tag heeft een schuine streep erin. Daartussen staat de tekst die je mag aanpassen.</p>
+                    <div class="code-pair">
+                        <div class="code-panel">
+                            <div class="code-panel-label">Voor</div>
+<div class="code-snippet"><span class="tag">&lt;h1&gt;</span>Welkom op onze pagina<span class="tag">&lt;/h1&gt;</span>
+
+<span class="tag">&lt;p&gt;</span>Dit is de oude tekst.<span class="tag">&lt;/p&gt;</span></div>
+                        </div>
+                        <div class="code-panel after">
+                            <div class="code-panel-label">Na</div>
+<div class="code-snippet"><span class="tag">&lt;h1&gt;</span><span class="highlight">Welkom bij De Baak</span><span class="tag">&lt;/h1&gt;</span>
+
+<span class="tag">&lt;p&gt;</span><span class="highlight">Dit is de nieuwe tekst.</span><span class="tag">&lt;/p&gt;</span></div>
+                        </div>
+                    </div>
+                    <div class="callout callout-warn">
+                        <div class="callout-mark">!</div>
+                        <div class="callout-body">
+                            <strong>Belangrijk</strong>
+                            Raak de haakjes <code style="background:var(--white);padding:1px 5px;border-radius:3px;font-family:'Courier New',monospace;">&lt; &gt;</code> niet aan. Als je per ongeluk een haakje verwijdert, raakt de pagina "in de war" en zul je het even moeten terugzetten.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="lesson-block">
+                    <h3>De tags die je het vaakst tegenkomt</h3>
+                    <p>Je hoeft geen programmeur te zijn. Deze zes herken je steeds. Meer dan dit heb je zelden nodig.</p>
+                    <div class="tag-reference">
+                        <div class="tag-ref"><code>&lt;h1&gt;</code><span>Hoofdtitel van de pagina</span></div>
+                        <div class="tag-ref"><code>&lt;h2&gt;</code><span>Sectiekop</span></div>
+                        <div class="tag-ref"><code>&lt;h3&gt;</code><span>Subkop</span></div>
+                        <div class="tag-ref"><code>&lt;p&gt;</code><span>Paragraaf / alinea</span></div>
+                        <div class="tag-ref"><code>&lt;li&gt;</code><span>Item in een lijst</span></div>
+                        <div class="tag-ref"><code>&lt;strong&gt;</code><span>Vetgedrukt voor nadruk</span></div>
+                    </div>
+                </div>
+
+                <div class="lesson-block">
+                    <h3>Een link aanpassen</h3>
+                    <p>Links zien er iets anders uit. De zichtbare tekst staat tussen de tags, en de bestemming staat tussen de aanhalingstekens in <strong>href</strong>.</p>
+                    <div class="code-pair">
+                        <div class="code-panel">
+                            <div class="code-panel-label">Voor</div>
+<div class="code-snippet"><span class="tag">&lt;a</span> <span class="attr">href</span>=<span class="str">"https://oude-site.nl"</span><span class="tag">&gt;</span>Oude link tekst<span class="tag">&lt;/a&gt;</span></div>
+                        </div>
+                        <div class="code-panel after">
+                            <div class="code-panel-label">Na</div>
+<div class="code-snippet"><span class="tag">&lt;a</span> <span class="attr">href</span>=<span class="str">"<span class="highlight">https://debaak.nl</span>"</span><span class="tag">&gt;</span><span class="highlight">Bezoek De Baak</span><span class="tag">&lt;/a&gt;</span></div>
+                        </div>
+                    </div>
+                    <div class="callout callout-tip">
+                        <div class="callout-mark">✓</div>
+                        <div class="callout-body">
+                            <strong>Werkvolgorde</strong>
+                            Maak altijd een kopie van het HTML-bestand voordat je grote wijzigingen maakt. Noem de kopie bijvoorbeeld <code style="background:var(--white);padding:1px 5px;border-radius:3px;font-family:'Courier New',monospace;">index-backup.html</code>. Gaat er iets mis? Dan heb je altijd een werkende versie om naar terug te keren.
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- IMAGES -->
+    <section id="afbeeldingen">
+        <div class="container">
+            <span class="section-label">Deel 4 — Afbeeldingen</span>
+            <h2>Afbeeldingen vervangen en toevoegen</h2>
+            <p class="section-intro">Werk je met bestaande afbeeldingen, dan is het vervangen kinderspel. Wil je een nieuwe afbeelding toevoegen, dan komt er één regel code bij. Beide scenario's hieronder.</p>
+
+            <div class="lesson-wrapper">
+
+                <div class="lesson-block">
+                    <h3>Scenario A — Een bestaande afbeelding vervangen</h3>
+                    <p>De snelste route: gebruik precies dezelfde bestandsnaam als de oude afbeelding. Dan hoef je in de HTML helemaal niets te wijzigen.</p>
+                    <div class="img-steps">
+                        <div class="img-step">
+                            <div class="img-step-num">1</div>
+                            <h4>Zoek de oude naam</h4>
+                            <p>Bijvoorbeeld <em>screenshot.png</em> in de map <em>assets/images/</em></p>
+                        </div>
+                        <div class="img-step">
+                            <div class="img-step-num">2</div>
+                            <h4>Hernoem je nieuwe bestand</h4>
+                            <p>Geef je nieuwe afbeelding exact dezelfde naam</p>
+                        </div>
+                        <div class="img-step">
+                            <div class="img-step-num">3</div>
+                            <h4>Zet er overheen</h4>
+                            <p>Sleep naar de map, bevestig "vervangen"</p>
+                        </div>
+                        <div class="img-step">
+                            <div class="img-step-num">4</div>
+                            <h4>Publiceer</h4>
+                            <p>Commit en push — klaar</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="lesson-block">
+                    <h3>Scenario B — Een nieuwe afbeelding toevoegen</h3>
+                    <p>Twee stappen: het bestand in de map zetten, en in de HTML vertellen waar de afbeelding moet komen.</p>
+                    <div class="code-pair">
+                        <div class="code-panel">
+                            <div class="code-panel-label">In de map zetten</div>
+<div class="code-snippet">project-a/
+└── assets/
+    └── images/
+        ├── screenshot.png
+        └── <span class="highlight">team-foto.jpg</span>  <span class="comment">← nieuw</span></div>
+                        </div>
+                        <div class="code-panel after">
+                            <div class="code-panel-label">In de HTML</div>
+<div class="code-snippet"><span class="tag">&lt;img</span> <span class="attr">src</span>=<span class="str">"<span class="highlight">assets/images/team-foto.jpg</span>"</span>
+     <span class="attr">alt</span>=<span class="str">"Ons team op De Horst"</span><span class="tag">&gt;</span></div>
+                        </div>
+                    </div>
+                    <div class="callout callout-tip">
+                        <div class="callout-mark">✓</div>
+                        <div class="callout-body">
+                            <strong>Vul altijd alt-tekst in</strong>
+                            De <code style="background:var(--white);padding:1px 5px;border-radius:3px;font-family:'Courier New',monospace;">alt=""</code> is geen extraatje. Mensen met een schermlezer horen deze tekst voorgelezen, en zoekmachines gebruiken hem ook. Schrijf kort wat er op de afbeelding staat.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="lesson-block">
+                    <h3>Welk bestandsformaat kies je?</h3>
+                    <p>Kies bewust. Een verkeerd formaat maakt je pagina onnodig traag of je afbeelding lelijk.</p>
+                    <div class="format-table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Formaat</th>
+                                    <th>Gebruik voor</th>
+                                    <th>Tip</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>.jpg</td>
+                                    <td>Foto's met veel kleurvariatie</td>
+                                    <td>Beste keuze voor portretten, landschappen, sfeerbeelden</td>
+                                </tr>
+                                <tr>
+                                    <td>.png</td>
+                                    <td>Logo's, iconen, screenshots met tekst</td>
+                                    <td>Ondersteunt transparante achtergrond</td>
+                                </tr>
+                                <tr>
+                                    <td>.webp</td>
+                                    <td>Alles — moderne allesdoener</td>
+                                    <td>Kleiner dan jpg én png, zelfde kwaliteit</td>
+                                </tr>
+                                <tr>
+                                    <td>.svg</td>
+                                    <td>Logo's en simpele illustraties</td>
+                                    <td>Altijd scherp, onafhankelijk van grootte</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="callout callout-warn">
+                        <div class="callout-mark">!</div>
+                        <div class="callout-body">
+                            <strong>Comprimeer voor je uploadt</strong>
+                            Foto's uit je telefoon zijn vaak 3-8 MB. Dat is veel te veel voor een webpagina. Sleep ze eerst door <em>squoosh.app</em> — meestal kun je ze 80-90% kleiner maken zonder zichtbaar kwaliteitsverlies.
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- PDFs -->
+    <section id="pdfs">
+        <div class="container">
+            <span class="section-label">Deel 5 — PDF's</span>
+            <h2>PDF's bijwerken</h2>
+            <p class="section-intro">PDF's werken bijna identiek aan afbeeldingen: bestand in de map, en een link in de HTML die er naartoe wijst.</p>
+
+            <div class="lesson-wrapper">
+                <div class="lesson-block">
+                    <h3>Een nieuwe PDF toevoegen</h3>
+                    <p>Zet je PDF in <strong>assets/pdfs/</strong> en voeg een link toe in je HTML. Het <em>target="_blank"</em> zorgt dat de PDF in een nieuw tabblad opent — zo verliest de bezoeker je pagina niet.</p>
+                    <div class="code-pair">
+                        <div class="code-panel">
+                            <div class="code-panel-label">In de map zetten</div>
+<div class="code-snippet">project-a/
+└── assets/
+    └── pdfs/
+        ├── handout-a1.pdf
+        └── <span class="highlight">werkboek-2026.pdf</span></div>
+                        </div>
+                        <div class="code-panel after">
+                            <div class="code-panel-label">Link in de HTML</div>
+<div class="code-snippet"><span class="tag">&lt;a</span> <span class="attr">href</span>=<span class="str">"assets/pdfs/werkboek-2026.pdf"</span>
+   <span class="attr">target</span>=<span class="str">"_blank"</span><span class="tag">&gt;</span>
+  Download het werkboek
+<span class="tag">&lt;/a&gt;</span></div>
+                        </div>
+                    </div>
+                    <div class="callout callout-tip">
+                        <div class="callout-mark">✓</div>
+                        <div class="callout-body">
+                            <strong>Gebruik eenvoudige bestandsnamen</strong>
+                            Geen spaties, geen hoofdletters, geen speciale tekens zoals <em>é, ü, &amp;</em> of <em>#</em>. Gebruik streepjes: <code style="background:var(--white);padding:1px 5px;border-radius:3px;font-family:'Courier New',monospace;">werkboek-2026.pdf</code> in plaats van <code style="background:var(--white);padding:1px 5px;border-radius:3px;font-family:'Courier New',monospace;">Werkboek 2026.pdf</code>.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PUBLISHING -->
+    <section id="publiceren">
+        <div class="container">
+            <span class="section-label">Deel 6 — Live zetten</span>
+            <h2>Je wijzigingen publiceren</h2>
+            <p class="section-intro">Alle bewerkingen die je hebt gemaakt staan nu op je computer. Deze vier stappen zetten ze op de live website. Pages werkt automatisch bij — meestal binnen een minuut.</p>
+
+            <div class="publish-flow">
+
+                <div class="publish-step">
+                    <div class="publish-num">1</div>
+                    <div class="publish-text">
+                        <h4>Sla op in je editor</h4>
+                        <p>In VS Code: <strong>Ctrl+S</strong> (Windows) of <strong>Cmd+S</strong> (Mac). Een bestand met een rond bolletje in het tabblad betekent: nog niet opgeslagen.</p>
+                    </div>
+                </div>
+
+                <div class="publish-step">
+                    <div class="publish-num">2</div>
+                    <div class="publish-text">
+                        <h4>Open GitHub Desktop</h4>
+                        <p>Je ziet links alle bestanden die je hebt aangepast. Rechts verschijnen de exacte regels: groen = toegevoegd, rood = verwijderd. Neem een seconde om te checken of dit klopt.</p>
+                    </div>
+                </div>
+
+                <div class="publish-step">
+                    <div class="publish-num">3</div>
+                    <div class="publish-text">
+                        <h4>Schrijf een commit-boodschap</h4>
+                        <p>Onderin: een kort zinnetje dat uitlegt wat je hebt gedaan. Bijvoorbeeld <em>"Team-foto vervangen op project-a"</em>. Klik op <strong>Commit to main</strong>.</p>
+                    </div>
+                </div>
+
+                <div class="publish-step">
+                    <div class="publish-num">4</div>
+                    <div class="publish-text">
+                        <h4>Push naar GitHub</h4>
+                        <p>Bovenin: klik op <strong>Push origin</strong>. Binnen 1-2 minuten staan je wijzigingen live. Ververs je website in de browser (<strong>Ctrl+F5</strong> of <strong>Cmd+Shift+R</strong>) om het resultaat te zien.</p>
+                    </div>
+                </div>
+
+            </div>
+
+            <div style="max-width: 1000px; margin: 40px auto 0;">
+                <div class="callout callout-tip">
+                    <div class="callout-mark">✓</div>
+                    <div class="callout-body">
+                        <strong>Vaste gewoonte</strong>
+                        Maak kleine commits in plaats van één grote. Pas je drie dingen aan? Maak dan drie commits met elk een duidelijke boodschap. Gaat er iets fout, dan weet je precies waar je moet terugdraaien.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PROBLEMS -->
+    <section id="problemen">
+        <div class="container">
+            <span class="section-label">Deel 7 — Als het niet werkt</span>
+            <h2>Veelvoorkomende problemen</h2>
+            <p class="section-intro">Klik op een vraag om de oplossing te zien. Negen van de tien problemen staan hieronder beschreven.</p>
+            <div class="problems-wrapper">
+
+                <div class="problem">
+                    <div class="problem-header">
+                        <div class="problem-q">Mijn wijzigingen zijn niet zichtbaar op de website</div>
+                        <div class="problem-toggle">+</div>
+                    </div>
+                    <div class="problem-body">
+                        <div class="problem-body-inner">
+                            <strong>Eerste check:</strong> heb je op <em>Push origin</em> geklikt na de commit? Een commit blijft lokaal totdat je pusht.<br><br>
+                            <strong>Tweede check:</strong> ververs de pagina hard met <code>Ctrl+F5</code> (Windows) of <code>Cmd+Shift+R</code> (Mac). Je browser bewaart soms een oude versie.<br><br>
+                            <strong>Derde check:</strong> geef het een minuut of twee. GitHub Pages is niet direct — publicatie duurt gemiddeld 30-90 seconden.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="problem">
+                    <div class="problem-header">
+                        <div class="problem-q">Mijn afbeelding is gebroken (rood kruis of niets te zien)</div>
+                        <div class="problem-toggle">+</div>
+                    </div>
+                    <div class="problem-body">
+                        <div class="problem-body-inner">
+                            <strong>Hoofdletters zijn belangrijk.</strong> <code>Foto.jpg</code> is niet hetzelfde als <code>foto.jpg</code>. Op GitHub Pages is het bestandssysteem hoofdlettergevoelig, ook al is dat op jouw computer misschien niet zo.<br><br>
+                            <strong>Controleer het pad.</strong> Staat het bestand daadwerkelijk in <code>assets/images/</code>? En klopt de spelling in je HTML <code>src=""</code> exact met de bestandsnaam?<br><br>
+                            <strong>Geen spaties in bestandsnamen.</strong> Zet streepjes: <code>team-foto.jpg</code> werkt, <code>team foto.jpg</code> geeft problemen.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="problem">
+                    <div class="problem-header">
+                        <div class="problem-q">De opmaak ziet er plotseling vreemd uit</div>
+                        <div class="problem-toggle">+</div>
+                    </div>
+                    <div class="problem-body">
+                        <div class="problem-body-inner">
+                            Meestal is er per ongeluk een <code>&lt;</code> of <code>&gt;</code> weggehaald, of een sluit-tag verdwenen. Open GitHub Desktop en kijk naar de rood gemarkeerde regels — daar staat wat er verwijderd is. Zet het terug.<br><br>
+                            <strong>Nog geen push gedaan?</strong> Dan kun je altijd de laatste opgeslagen versie terugzetten via <em>Discard changes</em> in GitHub Desktop. Je verliest dan je wijzigingen, maar de pagina werkt weer.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="problem">
+                    <div class="problem-header">
+                        <div class="problem-q">GitHub Desktop geeft een conflict-melding</div>
+                        <div class="problem-toggle">+</div>
+                    </div>
+                    <div class="problem-body">
+                        <div class="problem-body-inner">
+                            Dit gebeurt als er elders (bijvoorbeeld via github.com) ook wijzigingen zijn gemaakt. Klik eerst op <strong>Fetch origin</strong> bovenin, dan <strong>Pull origin</strong>. Dat haalt de nieuwste versie op.<br><br>
+                            Werk je alleen op één computer? Dan kom je dit zelden tegen. Maar als je meerdere apparaten gebruikt, maak er dan een gewoonte van om elke sessie met een <strong>Fetch origin</strong> te beginnen.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="problem">
+                    <div class="problem-header">
+                        <div class="problem-q">De PDF-link werkt niet</div>
+                        <div class="problem-toggle">+</div>
+                    </div>
+                    <div class="problem-body">
+                        <div class="problem-body-inner">
+                            <strong>Is de PDF daadwerkelijk gepusht?</strong> Open GitHub Desktop en controleer of het bestand in de laatste push zat. PDF's zijn groter dan tekst, dus soms vergeet je ze te committen.<br><br>
+                            <strong>Klopt de padverwijzing?</strong> Vanuit <code>project-a/index.html</code> linken naar een PDF wordt <code>assets/pdfs/bestand.pdf</code>, niet <code>/assets/pdfs/bestand.pdf</code>. Die eerste schuine streep breekt de link.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="problem">
+                    <div class="problem-header">
+                        <div class="problem-q">Ik weet niet zeker of ik het juiste bestand bewerk</div>
+                        <div class="problem-toggle">+</div>
+                    </div>
+                    <div class="problem-body">
+                        <div class="problem-body-inner">
+                            Kijk naar het pad bovenin je editor. Werk je aan <code>project-a/index.html</code>, dan moeten je wijzigingen verschijnen op <code>https://gebruikersnaam.github.io/learning-lab/project-a/</code>.<br><br>
+                            <strong>Verkeerde mini-site?</strong> Sluit het bestand zonder op te slaan (of klik op "Don't save"), navigeer naar de juiste map en open het juiste bestand.
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="closing">
+                <h3>Oefening baart kunst — maar minder dan je denkt</h3>
+                <p>De eerste paar keer voelt het spannend. Na drie of vier rondes bewerken, committen en pushen is het een vaste gewoonte. En weet: alles is terug te draaien. Er bestaat niets dat je niet kunt herstellen.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-logo"><span class="de">de</span> baak</div>
+        <div class="footer-tagline">Training · Ontwikkeling · Leiderschap · Sinds 1947</div>
+    </footer>
+
+    <script>
+        // Scroll reveal
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -80px 0px' });
+
+        document.querySelectorAll('section').forEach(s => observer.observe(s));
+
+        // Progress bar
+        window.addEventListener('scroll', () => {
+            const h = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const pct = (window.scrollY / h) * 100;
+            document.getElementById('progressBar').style.width = pct + '%';
+        });
+
+        // TOC dots - highlight active section
+        const tocLinks = document.querySelectorAll('.toc-nav a');
+        const sections = Array.from(document.querySelectorAll('section[id]'));
+
+        tocLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const target = document.getElementById(link.dataset.target);
+                if (target) target.scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+
+        window.addEventListener('scroll', () => {
+            const scrollPos = window.scrollY + 200;
+            let activeId = null;
+            sections.forEach(sec => {
+                if (sec.offsetTop <= scrollPos) activeId = sec.id;
+            });
+            tocLinks.forEach(link => {
+                link.classList.toggle('active', link.dataset.target === activeId);
+            });
+        });
+
+        // Problems accordion
+        document.querySelectorAll('.problem-header').forEach(header => {
+            header.addEventListener('click', () => {
+                const problem = header.parentElement;
+                const isOpen = problem.classList.contains('open');
+                document.querySelectorAll('.problem').forEach(p => p.classList.remove('open'));
+                if (!isOpen) problem.classList.add('open');
+            });
+        });
+    </script>
+
+</body>
+</html>

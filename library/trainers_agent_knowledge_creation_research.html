@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>De Baak · AI Research Stack for Trainers</title>
+    <style>
+        /* ----- RESET & BASE (De Baak Huisstijl v2.0) ----- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #005ADC;
+            --secondary: #00A555;
+            --accent: #FFE100;
+            --bg: #F5F5EB;
+            --text: #1A1A2E;
+            --shadow: 0 12px 24px -8px rgba(0, 0, 0, 0.12), 0 4px 8px -2px rgba(0, 0, 0, 0.02);
+            --radius-card: 16px;
+            --touch-min: 44px;
+        }
+
+        body {
+            background-color: var(--bg);
+            font-family: Arial, Helvetica, sans-serif;
+            color: var(--text);
+            line-height: 1.4;
+            padding: 2rem 1.5rem;
+        }
+
+        /* main container – max width with soft rounding */
+        .debaak-container {
+            max-width: 1280px;
+            margin: 0 auto;
+            background-color: var(--bg);
+        }
+
+        /* header area */
+        .infographic-header {
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .infographic-header h1 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            letter-spacing: -0.3px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            margin-bottom: 0.5rem;
+        }
+
+        .infographic-header p {
+            font-size: 1.1rem;
+            color: #2d3e50;
+            max-width: 680px;
+            margin: 0.5rem auto 0;
+        }
+
+        /* ----- DOT LEGEND (Key) ----- */
+        .dot-legend {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1.8rem;
+            margin: 1.5rem 0 1rem;
+            padding: 0.75rem 1rem;
+            background: rgba(0, 90, 220, 0.04);
+            border-radius: 60px;
+            backdrop-filter: blur(2px);
+        }
+
+        .legend-item {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            background: white;
+            padding: 6px 16px 6px 12px;
+            border-radius: 40px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        .legend-dot {
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            display: inline-block;
+        }
+
+        .legend-dot.primary { background-color: var(--primary); }
+        .legend-dot.secondary { background-color: var(--secondary); }
+        .legend-dot.accent { background-color: var(--accent); }
+
+        /* ----- TABS (touch friendly) ----- */
+        .tabs-nav {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 0.5rem;
+            margin: 2rem 0 1.8rem;
+            border-bottom: 2px solid #e0e4dc;
+            padding-bottom: 0.25rem;
+        }
+
+        .tab-btn {
+            background: transparent;
+            border: none;
+            font-family: Arial, sans-serif;
+            font-weight: 700;
+            font-size: 1.05rem;
+            padding: 0.9rem 1.6rem;
+            margin: 0 0.15rem;
+            cursor: pointer;
+            border-radius: 60px;
+            transition: all 0.2s ease;
+            color: #3a4b5e;
+            min-height: var(--touch-min);
+            background-color: white;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+        }
+
+        .tab-btn.active {
+            background-color: var(--primary);
+            color: white;
+            box-shadow: var(--shadow);
+        }
+
+        .tab-btn:hover:not(.active) {
+            background-color: #e9f0fe;
+            color: var(--primary);
+        }
+
+        /* tab content panels */
+        .tab-panel {
+            display: none;
+            animation: fade 0.25s ease;
+        }
+
+        .tab-panel.active-panel {
+            display: block;
+        }
+
+        @keyframes fade {
+            from { opacity: 0; transform: translateY(5px);}
+            to { opacity: 1; transform: translateY(0);}
+        }
+
+        /* 2‑column grid for cards (responsive) */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.8rem;
+            margin: 1rem 0 2rem;
+        }
+
+        /* card styling */
+        .info-card {
+            background: white;
+            border-radius: var(--radius-card);
+            box-shadow: var(--shadow);
+            transition: transform 0.2s, box-shadow 0.2s;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            border-top: 4px solid;
+        }
+
+        /* each card will get dynamic top border class (primary/secondary/accent) */
+        .info-card.primary-border { border-top-color: var(--primary); }
+        .info-card.secondary-border { border-top-color: var(--secondary); }
+        .info-card.accent-border { border-top-color: var(--accent); }
+
+        .info-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 20px 30px -12px rgba(0,0,0,0.15);
+        }
+
+        .card-content {
+            padding: 1.6rem 1.5rem 1.8rem;
+        }
+
+        .card-icon {
+            font-size: 2.3rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .card-title {
+            font-size: 1.35rem;
+            font-weight: 800;
+            margin-bottom: 0.75rem;
+            letter-spacing: -0.2px;
+            color: #0a2b3e;
+        }
+
+        .card-desc {
+            font-size: 0.9rem;
+            line-height: 1.45;
+            color: #2c3e44;
+            margin-bottom: 1rem;
+        }
+
+        .feature-list {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .feature-list li {
+            font-size: 0.85rem;
+            padding: 0.4rem 0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border-bottom: 1px solid #f0f2ea;
+        }
+
+        .feature-list li::before {
+            content: "✓";
+            color: var(--secondary);
+            font-weight: bold;
+            font-size: 1rem;
+        }
+
+        /* footer styling */
+        .site-footer {
+            background-color: var(--primary);
+            color: white;
+            border-radius: 28px 28px 24px 24px;
+            margin-top: 3rem;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+
+        .footer-content {
+            padding: 2rem 2rem 1.5rem;
+            text-align: center;
+        }
+
+        .footer-content p {
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+            opacity: 0.9;
+        }
+
+        .footer-content strong {
+            font-weight: 800;
+        }
+
+        /* gradient bar: green-yellow-green */
+        .gradient-bar {
+            height: 8px;
+            width: 100%;
+            background: linear-gradient(90deg, var(--secondary) 0%, var(--accent) 50%, var(--secondary) 100%);
+        }
+
+        /* responsiveness: mobile stack */
+        @media (max-width: 768px) {
+            body {
+                padding: 1rem;
+            }
+            .cards-grid {
+                grid-template-columns: 1fr;
+                gap: 1.2rem;
+            }
+            .tab-btn {
+                padding: 0.7rem 1.2rem;
+                font-size: 0.9rem;
+                min-width: 100px;
+            }
+            .dot-legend {
+                gap: 0.8rem;
+            }
+            .legend-item {
+                font-size: 0.75rem;
+                padding: 4px 12px;
+            }
+            .card-title {
+                font-size: 1.2rem;
+            }
+        }
+
+        /* extra spacing & accessibility touch */
+        .tab-btn, .legend-item {
+            touch-action: manipulation;
+        }
+    </style>
+</head>
+<body>
+<div class="debaak-container">
+    <div class="infographic-header">
+        <h1>🧠 AI Research Stack · Trainers' Lab</h1>
+        <p>For L&D professionals & corporate trainers — turn external sources into actionable training knowledge</p>
+    </div>
+
+    <!-- DOT LEGEND (exactly as required) -->
+    <div class="dot-legend">
+        <div class="legend-item"><span class="legend-dot primary"></span> <span>Fast discovery agent</span></div>
+        <div class="legend-item"><span class="legend-dot secondary"></span> <span>Deep‑analysis engine</span></div>
+        <div class="legend-item"><span class="legend-dot accent"></span> <span>Publishing & wiki memory</span></div>
+    </div>
+
+    <!-- TABS NAVIGATION (3 tabs) -->
+    <div class="tabs-nav" role="tablist" aria-label="Research stack tabs">
+        <button class="tab-btn active" data-tab="tab1" role="tab" aria-selected="true">🔎 Quick Scan</button>
+        <button class="tab-btn" data-tab="tab2" role="tab" aria-selected="false">🧠 Deep Research</button>
+        <button class="tab-btn" data-tab="tab3" role="tab" aria-selected="false">📦 Wiki & Publish</button>
+    </div>
+
+    <!-- TAB 1: Quick Scan (Perplexity-style) - 2 cards, using primary and secondary borders -->
+    <div id="tab1" class="tab-panel active-panel" role="tabpanel">
+        <div class="cards-grid">
+            <!-- Card 1: primary border -->
+            <div class="info-card primary-border">
+                <div class="card-content">
+                    <div class="card-icon">⚡🐕</div>
+                    <div class="card-title">Real‑time agentic search</div>
+                    <div class="card-desc">Perplexity‑style “Model Council” · Fetches live papers & news in under 4 minutes.</div>
+                    <ul class="feature-list">
+                        <li>Cited answers with inline sources</li>
+                        <li>Academic mode filters peer‑reviewed</li>
+                        <li>Balanced & pro search presets</li>
+                    </ul>
+                </div>
+            </div>
+            <!-- Card 2: secondary border -->
+            <div class="info-card secondary-border">
+                <div class="card-content">
+                    <div class="card-icon">📊🏷️</div>
+                    <div class="card-title">Gap & trend analysis</div>
+                    <div class="card-desc">Weekly research missions: identify contradictions, new frameworks, and emerging L&D metrics.</div>
+                    <ul class="feature-list">
+                        <li>Domain filtering (journals / trusted sources)</li>
+                        <li>Export to markdown → raw/wiki folder</li>
+                        <li>Contradiction flagging for quality review</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- TAB 2: Deep Research (Gemini 2.0 style) - 2 cards: accent & primary borders -->
+    <div id="tab2" class="tab-panel" role="tabpanel">
+        <div class="cards-grid">
+            <!-- Card 1: accent border -->
+            <div class="info-card accent-border">
+                <div class="card-content">
+                    <div class="card-icon">🐘📚</div>
+                    <div class="card-title">Deep Research Max</div>
+                    <div class="card-desc">20–60 min autonomous reasoning · reads 100+ sources, generates structured multi‑page reports.</div>
+                    <ul class="feature-list">
+                        <li>MMLU 95.1 expert‑level synthesis</li>
+                        <li>93% citations from official/trusted domains</li>
+                        <li>Out‑of‑the‑box MCP support (wiki reading)</li>
+                    </ul>
+                </div>
+            </div>
+            <!-- Card 2: primary border -->
+            <div class="info-card primary-border">
+                <div class="card-content">
+                    <div class="card-icon">🧠📈</div>
+                    <div class="card-title">Knowledge gap mapping</div>
+                    <div class="card-desc">Batch overnight research: compare new findings with existing wiki memory to detect missing evidence.</div>
+                    <ul class="feature-list">
+                        <li>Automatic contradiction alerts</li>
+                        <li>Confidence scoring (low/medium/high)</li>
+                        <li>Export to immutable raw/ folder</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- TAB 3: Wiki & Publish (Claude + Karpathy wiki) - 2 cards: secondary & accent borders -->
+    <div id="tab3" class="tab-panel" role="tabpanel">
+        <div class="cards-grid">
+            <!-- Card 1: secondary border -->
+            <div class="info-card secondary-border">
+                <div class="card-content">
+                    <div class="card-icon">🏗️📝</div>
+                    <div class="card-title">Karpathy Wiki orchestration</div>
+                    <div class="card-desc">/wiki:ingest · /wiki:query · persistent memory box. Never starts from zero.</div>
+                    <ul class="feature-list">
+                        <li>Auto cross‑referencing [[wikilinks]]</li>
+                        <li>Index.md + audit log (append‑only)</li>
+                        <li>BM25 + hybrid search on‑device</li>
+                    </ul>
+                </div>
+            </div>
+            <!-- Card 2: accent border -->
+            <div class="info-card accent-border">
+                <div class="card-content">
+                    <div class="card-icon">🎓📎</div>
+                    <div class="card-title">Training content factory</div>
+                    <div class="card-desc">From wiki to SCORM‑ready modules, slides & quiz drafts. Ready for LMS.</div>
+                    <ul class="feature-list">
+                        <li>Script‑to‑slide conversion (PPTX structure)</li>
+                        <li>Scenario‑based quiz generation</li>
+                        <li>Export with citation traceability</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER with gradient bottom bar (green-yellow-green) -->
+    <footer class="site-footer">
+        <div class="footer-content">
+            <p>⚡ <strong>De Baak Huisstijl v2.0</strong> · AI‑augmented research workflow for corporate learning</p>
+            <p>📅 Weekly rhythm: Perplexity (gaps) → Gemini Deep Research → Claude Wiki ingestion → published training brief</p>
+            <p style="font-size:0.8rem; margin-top:0.75rem;">© Research & Learning Lab · no external libraries · fully responsive</p>
+        </div>
+        <div class="gradient-bar"></div>
+    </footer>
+</div>
+
+<!-- pure vanilla JS: tab switching -->
+<script>
+    (function() {
+        // get all tab buttons and panel elements
+        const tabBtns = document.querySelectorAll('.tab-btn');
+        const panels = document.querySelectorAll('.tab-panel');
+
+        function activateTab(tabId) {
+            // first: deactivate all panels
+            panels.forEach(panel => {
+                panel.classList.remove('active-panel');
+                panel.setAttribute('aria-hidden', 'true');
+            });
+            // deactivate all buttons
+            tabBtns.forEach(btn => {
+                btn.classList.remove('active');
+                btn.setAttribute('aria-selected', 'false');
+            });
+            // activate current panel
+            const activePanel = document.getElementById(tabId);
+            if (activePanel) {
+                activePanel.classList.add('active-panel');
+                activePanel.setAttribute('aria-hidden', 'false');
+            }
+            // activate current button
+            const correspondingBtn = Array.from(tabBtns).find(btn => btn.getAttribute('data-tab') === tabId);
+            if (correspondingBtn) {
+                correspondingBtn.classList.add('active');
+                correspondingBtn.setAttribute('aria-selected', 'true');
+            }
+        }
+
+        // event listeners for each tab (touch & click)
+        tabBtns.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const tabId = btn.getAttribute('data-tab');
+                if (tabId) {
+                    activateTab(tabId);
+                }
+            });
+            // ensure minimum touch area: already set in CSS
+        });
+
+        // optional: set initial active ARIA (already done but ensure consistency)
+        const activeButton = document.querySelector('.tab-btn.active');
+        if (activeButton && activeButton.getAttribute('data-tab')) {
+            const defaultTab = activeButton.getAttribute('data-tab');
+            document.querySelectorAll('.tab-panel').forEach(panel => panel.classList.remove('active-panel'));
+            const defaultPanel = document.getElementById(defaultTab);
+            if(defaultPanel) defaultPanel.classList.add('active-panel');
+        }
+    })();
+</script>
+
+<!-- MT brief (Methodology brief) inside HTML comment as requested -->
+<!-- 
+  MT brief (Methodology brief) - De Baak AI Research Stack for L&D professionals
+  ===========================================================================
+  Objective: Deliver an interactive, brand‑compliant infographic (huisstijl v2.0)
+  that explains how trainers can use a three‑agent AI stack (Perplexity, Gemini, Claude)
+  connected to a Karpathy‑style wiki for external source research and content publishing.
+
+  Design decisions:
+  - Tabs structure: 3 distinct phases (quick discovery, deep synthesis, wiki + publishing)
+  - Dot legend: uses primary, secondary, accent to map agent roles → reduces cognitive load (ELI5)
+  - 2‑column card grid: white cards with 4px top border (primary/secondary/accent) improves scannability.
+  - Mobile: cards stack, touch targets ≥44px (tab buttons + legend items)
+  - Typography: Arial only, strict brand variables (#005ADC, #00A555, #FFE100, #F5F5EB, #1A1A2E)
+  - Footer: primary background + green‑yellow‑green gradient bar reinforcing academic/business trust.
+  - No external libraries / vanilla JS ensures fast loading and full control over accessibility.
+  
+  Outcome: trainers receive a reusable asset that visually maps research automation,
+  external source ingestion, and wiki‑based compounding knowledge for weekly/monthly updates.
+-->
+</body>
+</html>

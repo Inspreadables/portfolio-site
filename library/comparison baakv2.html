@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>De Baak Strategic Evolution: From Training to Authority Network</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- 
+    Palette Selection: "Brilliant Blues & Vibrant Accents"
+    Primary Blue: #2563EB
+    Teal Accent: #0D9488
+    Rose Accent: #E11D48
+    Amber Accent: #D97706
+    Dark Slate: #0F172A
+    -->
+    <style>
+        :root {
+            --primary: #2563EB;
+            --secondary: #0D9488;
+            --accent-rose: #E11D48;
+            --accent-amber: #D97706;
+            --dark: #0F172A;
+        }
+
+        body {
+            background-color: #F1F5F9;
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            color: var(--dark);
+        }
+
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 100%;
+            margin-left: auto;
+            margin-right: auto;
+            height: 350px;
+            max-height: 400px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 1.25rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
+            border: 1px solid #E2E8F0;
+        }
+
+        .gradient-bg {
+            background: linear-gradient(135deg, #0F172A 0%, #1E293B 100%);
+        }
+
+        .highlight-text {
+            color: var(--primary);
+            font-weight: 800;
+        }
+
+        /* Flow Diagram Styling (No SVG) */
+        .flow-step {
+            padding: 1rem;
+            border: 2px solid var(--primary);
+            border-radius: 0.75rem;
+            text-align: center;
+            background: white;
+            position: relative;
+            z-index: 10;
+        }
+
+        .flow-arrow {
+            width: 2px;
+            height: 40px;
+            background: var(--primary);
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .flow-arrow::after {
+            content: '▼';
+            position: absolute;
+            bottom: -8px;
+            left: -6px;
+            color: var(--primary);
+            font-size: 12px;
+        }
+
+        /* Table custom styling */
+        .comparison-table th {
+            text-align: left;
+            padding: 1rem;
+            background: #F8FAFC;
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .comparison-table td {
+            padding: 1rem;
+            border-top: 1px solid #E2E8F0;
+        }
+    </style>
+</head>
+<body>
+
+    <!--
+    Narrative Plan:
+    1. Introduction: Analyzing De Baak's current status (Physical campuses, 300 trainers, high-trust B2B).
+    2. Comparison: How De Baak fits into the "Spectrum of Authority" vs. Substack/Patreon.
+    3. The Evolution Strategy: Shifting from "Selling Sessions" to "Licensing Leaders."
+    4. Revenue Transformation: A Chart.js comparison of current vs. potential revenue diversification.
+    5. The Scalability Paradox: How 300 trainers become 300 thought-leader "nodes."
+    6. Prognosis: The financial impact of adopting an IP-led "Authority Network" model.
+    -->
+
+    <header class="gradient-bg text-white py-24 px-6 text-center">
+        <div class="max-w-5xl mx-auto">
+            <h1 class="text-4xl md:text-6xl font-black mb-6 tracking-tight">
+                De Baak <span class="text-blue-500">2.0</span>: The Authority Multiplier
+            </h1>
+            <p class="text-xl text-slate-300 font-medium max-w-2xl mx-auto">
+                Evolving from a Dutch training institute into a global "Platform for Thought Leaders" using the IP-driven models of DYL and School of Life.
+            </p>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-6 py-12 -mt-12">
+
+        <!-- Section 1: Strategic Context -->
+        <section id="context" class="mb-20">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <div class="card p-8 lg:col-span-2">
+                    <h2 class="text-2xl font-bold mb-4">The Current Asset Base</h2>
+                    <p class="text-slate-600 leading-relaxed mb-6">
+                        De Baak currently operates as a high-trust **Educational Institution**. With 300+ trainers and deep roots in the Dutch leadership market, they possess the "Authority" that platforms like Substack lack, but they are limited by the **Scalability Paradox**—revenue is tied to human hours and physical locations.
+                    </p>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                        <div class="text-center p-4 bg-slate-50 rounded-xl">
+                            <span class="block text-2xl font-bold text-blue-600">300+</span>
+                            <span class="text-[10px] font-bold text-slate-400 uppercase">Expert Trainers</span>
+                        </div>
+                        <div class="text-center p-4 bg-slate-50 rounded-xl">
+                            <span class="block text-2xl font-bold text-teal-600">B2B</span>
+                            <span class="text-[10px] font-bold text-slate-400 uppercase">Market Focus</span>
+                        </div>
+                        <div class="text-center p-4 bg-slate-50 rounded-xl">
+                            <span class="block text-2xl font-bold text-rose-600">High</span>
+                            <span class="text-[10px] font-bold text-slate-400 uppercase">Brand Trust</span>
+                        </div>
+                        <div class="text-center p-4 bg-slate-50 rounded-xl">
+                            <span class="block text-2xl font-bold text-amber-600">Hybrid</span>
+                            <span class="text-[10px] font-bold text-slate-400 uppercase">Delivery Model</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="card p-8 bg-blue-600 text-white flex flex-col justify-center">
+                    <h3 class="text-xl font-bold mb-2">The Mission</h3>
+                    <p class="text-blue-100 text-sm italic">
+                        "To transform De Baak from a provider of workshops into a decentralized network of thought-leader nodes, capturing the global scalability of DYL with the community resilience of Patreon."
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 2: Competitive Positioning Radar -->
+        <section id="radar" class="mb-20">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold mb-4">Strategic Competitive Positioning</h2>
+                <p class="text-slate-600 max-w-2xl mx-auto">
+                    Comparing De Baak's potential evolution against the "Authority Platforms" (Substack/Patreon) and "Content Authorities" (DYL/SoL/Commune).
+                </p>
+            </div>
+            <div class="card p-8">
+                <div class="chart-container" style="height: 500px; max-height: 550px;">
+                    <canvas id="debaakRadarChart"></canvas>
+                </div>
+                <div class="mt-8 grid grid-cols-1 md:grid-cols-2 gap-8 text-sm text-slate-600">
+                    <p><strong>De Baak (Current):</strong> High in brand authority and unit margin, but low in tech scalability. Revenue is centralized.</p>
+                    <p><strong>De Baak (Evolution):</strong> By adopting the **Patreon model** for its 300 trainers, it builds a massive decentralized community while maintaining high unit margins through **IP Licensing (DYL style)**.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3: The Evolutionary Framework -->
+        <section id="framework" class="mb-20">
+            <h2 class="text-3xl font-bold text-center mb-12">The "Trainer-to-Authority" Value Chain</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                <div>
+                    <h3 class="text-xl font-bold mb-6">Transitioning the Model</h3>
+                    <div class="space-y-4">
+                        <div class="flow-step">
+                            <span class="font-bold text-blue-600">Phase 1: The Substack for Trainers</span>
+                            <p class="text-xs text-slate-500 mt-1">Allow 300 trainers to launch internal newsletters/pods. De Baak acts as the "Discovery Platform" capturing 10% of their private client work.</p>
+                        </div>
+                        <div class="flow-arrow"></div>
+                        <div class="flow-step">
+                            <span class="font-bold text-teal-600">Phase 2: IP Productization (SoL Style)</span>
+                            <p class="text-xs text-slate-500 mt-1">Convert trainer methodologies into proprietary tools, apps, and journals. Sell physical goods that reflect the brand's "Human Side" philosophy.</p>
+                        </div>
+                        <div class="flow-arrow"></div>
+                        <div class="flow-step">
+                            <span class="font-bold text-rose-600">Phase 3: Certification Scaling (DYL Style)</span>
+                            <p class="text-xs text-slate-500 mt-1">Certify external coaches in "The De Baak Method." Revenue shifts from teaching leaders to teaching the teachers of leaders.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="card p-8">
+                    <h3 class="text-lg font-bold mb-6 text-center">Projected Revenue Transformation</h3>
+                    <div class="chart-container">
+                        <canvas id="revenueShiftChart"></canvas>
+                    </div>
+                    <p class="mt-6 text-xs text-slate-500 leading-relaxed">
+                        Currently, De Baak relies heavily on <strong>Session Fees</strong>. The evolution introduces <strong>Recurring Subscriptions</strong> (Commune model) and <strong>Licensing Revenue</strong> (DYL model), providing high-margin stability that is disconnected from the trainer's physical time.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 4: Market Prognosis -->
+        <section id="prognosis" class="mb-20">
+            <h2 class="text-3xl font-bold text-center mb-12">Comparative Market Outlook (2025-2030)</h2>
+            <div class="overflow-x-auto card">
+                <table class="w-full comparison-table">
+                    <thead>
+                        <tr>
+                            <th>Model Component</th>
+                            <th>Traditional Provider</th>
+                            <th>The "De Baak" Evolution</th>
+                            <th>Strategic Benefit</th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-sm">
+                        <tr>
+                            <td class="font-bold">Unit of Sale</td>
+                            <td>Hourly/Day Workshop</td>
+                            <td>Certified License / Subscription</td>
+                            <td class="text-blue-600">Higher Margin; No Time-Cap</td>
+                        </tr>
+                        <tr>
+                            <td class="font-bold">Content Asset</td>
+                            <td>Proprietary but Static</td>
+                            <td>Dynamic Creator-Led IP</td>
+                            <td class="text-teal-600">Rapid Innovation via Network</td>
+                        </tr>
+                        <tr>
+                            <td class="font-bold">Scale Driver</td>
+                            <td>More Classrooms/Trainers</td>
+                            <td>More "Node" Visibility</td>
+                            <td class="text-rose-600">Zero Marginal Cost Expansion</td>
+                        </tr>
+                        <tr>
+                            <td class="font-bold">User LTV</td>
+                            <td>One-off Engagement</td>
+                            <td>Lifelong Membership (Commune style)</td>
+                            <td class="text-amber-600">Predictable Cash Flow</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Final Summary Card -->
+        <section id="summary" class="mb-24">
+            <div class="card p-12 bg-slate-900 text-white text-center">
+                <h2 class="text-3xl font-bold mb-4 text-blue-400">The "Authority Network" Opportunity</h2>
+                <p class="text-slate-400 mb-8 max-w-2xl mx-auto">
+                    By decentralizing its 300 experts into individual thought-leaders, De Baak creates a "Substack of Leadership"—a marketplace where the institution provides the high-trust platform while the trainers provide the high-scale content.
+                </p>
+                <div class="flex flex-wrap justify-center gap-6">
+                    <div class="px-6 py-2 border border-slate-700 rounded-full text-xs font-bold uppercase tracking-widest">Scalable IP</div>
+                    <div class="px-6 py-2 border border-slate-700 rounded-full text-xs font-bold uppercase tracking-widest">Network Effects</div>
+                    <div class="px-6 py-2 border border-slate-700 rounded-full text-xs font-bold uppercase tracking-widest">Global Reach</div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-white border-t border-slate-200 py-12 text-center text-slate-400">
+        <p class="text-xs uppercase font-bold tracking-widest mb-2">Strategy & Analytics Report: De Baak Evolution</p>
+        <p class="text-[10px]">Produced by Deep Research Analytics. Powered by Canvas/Tailwind/Chart.js. NO SVG OR MERMAID USED.</p>
+    </footer>
+
+    <script>
+        // Label Wrapping Utility (16-char limit)
+        const wrapLabel = (label) => {
+            if (typeof label !== 'string') return label;
+            if (label.length <= 16) return label;
+            const words = label.split(' ');
+            const lines = [];
+            let currentLine = '';
+            words.forEach(word => {
+                if ((currentLine + word).length > 16) {
+                    lines.push(currentLine.trim());
+                    currentLine = word + ' ';
+                } else {
+                    currentLine += word + ' ';
+                }
+            });
+            lines.push(currentLine.trim());
+            return lines;
+        };
+
+        // Standard Tooltip Configuration
+        const tooltipOptions = {
+            plugins: {
+                tooltip: {
+                    callbacks: {
+                        title: function(tooltipItems) {
+                            const item = tooltipItems[0];
+                            let label = item.chart.data.labels[item.dataIndex];
+                            return Array.isArray(label) ? label.join(' ') : label;
+                        }
+                    }
+                }
+            }
+        };
+
+        // Chart 1: Radar Chart (Model Comparison)
+        const radarCtx = document.getElementById('debaakRadarChart').getContext('2d');
+        new Chart(radarCtx, {
+            type: 'radar',
+            data: {
+                labels: ['Tech Scalability', 'Brand Opinion', 'Unit Margin', 'Node Visibility', 'Recurring Revenue'].map(l => wrapLabel(l)),
+                datasets: [
+                    {
+                        label: 'De Baak (Current)',
+                        data: [30, 80, 70, 40, 20],
+                        borderColor: '#2563EB',
+                        backgroundColor: 'rgba(37, 99, 235, 0.2)',
+                        pointBackgroundColor: '#2563EB'
+                    },
+                    {
+                        label: 'De Baak (Evolution)',
+                        data: [85, 95, 90, 95, 80],
+                        borderColor: '#E11D48',
+                        backgroundColor: 'rgba(225, 29, 72, 0.2)',
+                        pointBackgroundColor: '#E11D48'
+                    },
+                    {
+                        label: 'School of Life',
+                        data: [60, 95, 85, 70, 50],
+                        borderColor: '#0D9488',
+                        backgroundColor: 'rgba(13, 148, 136, 0.2)',
+                        pointBackgroundColor: '#0D9488'
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    r: {
+                        beginAtZero: true,
+                        max: 100,
+                        ticks: { display: false }
+                    }
+                },
+                ...tooltipOptions
+            }
+        });
+
+        // Chart 2: Stacked Bar (Revenue Shift)
+        const revenueCtx = document.getElementById('revenueShiftChart').getContext('2d');
+        new Chart(revenueCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Current State', 'Phase 1: Platform', 'Phase 2: IP Sales', 'Phase 3: License'].map(l => wrapLabel(l)),
+                datasets: [
+                    {
+                        label: 'Session Fees',
+                        data: [90, 60, 40, 20],
+                        backgroundColor: '#2563EB'
+                    },
+                    {
+                        label: 'Subscriptions',
+                        data: [5, 20, 30, 30],
+                        backgroundColor: '#0D9488'
+                    },
+                    {
+                        label: 'IP / Licensing',
+                        data: [5, 20, 30, 50],
+                        backgroundColor: '#D97706'
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    x: { stacked: true },
+                    y: { stacked: true, max: 100, title: { display: true, text: 'Total Revenue Share (%)' } }
+                },
+                ...tooltipOptions
+            }
+        });
+    </script>
+</body>
+</html>
+
+</immersive>
+
+### Key Findings & Evolutionary Path for De Baak
+
+1.  **The Scalability Paradox:** Currently, De Baak's growth is linear—to earn more, they must hire more trainers or fill more seats. By adopting the **Designing Your Life (DYL)** model, they can shift to a **Licensing Model**. The 300 trainers shouldn't just be employees; they should be certified practitioners of "The De Baak Method" who pay a royalty to use the brand's tools and platform.
+2.  **Trainer as "Node":** Inspired by **Substack**, De Baak can provide the infrastructure (Discovery, Payment, CMS) for its trainers to build their own sub-communities. This creates a "hub-and-spoke" model where De Baak captures a percentage of the value generated by its "stars" without having to manage their every session.
+3.  **From Education to Ecosystem:** Following the **School of Life** example, De Baak can move beyond workshops into "Life Tools." This includes proprietary apps for leadership tracking, physical journals, and B2B subscription portals (Commune model).
+4.  **Market Capture Prognosis:** By 2030, a traditional training institute risks being commoditized by AI-driven coaching. However, an **Authority Network** that provides human-verified certification and high-trust IP (like De Baak) becomes more valuable as a "Quality Filter" in a noisy market.
+
+*Note: This report utilized the fallback model `gemini-2.5-flash-image-preview` for technical visualization design within the Canvas environment.*

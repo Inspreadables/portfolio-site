@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>De Baak · Security Infographic</title>
+  <style>
+    /* ----- DE BAAK HUISSTIJL v2.0 ----- */
+    :root {
+      --primary: #005ADC;      /* Seaside Blauw – dominant */
+      --secondary: #00A555;    /* De Horst Groen – ondersteunend */
+      --accent: #FFE100;       /* Geel – accent (max 10%) */
+      --bg: #F5F5EB;           /* Alabaster – paginabackground */
+      --text: #1A1A2E;         /* donkere tekst */
+      --border-light: #D6E4FA;
+      --shadow: 0 4px 20px rgba(0,90,220,0.12);
+      --radius: 16px;
+      --font: Arial, Helvetica, sans-serif;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+      font-weight: 400;
+    }
+
+    /* container */
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 32px;
+    }
+
+    /* ----- HERO (kleine, subtiele hero) ----- */
+    .hero {
+      text-align: center;
+      padding: 48px 0 24px 0;
+    }
+    .hero h1 {
+      font-size: 36px;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 8px;
+    }
+    .hero p {
+      font-size: 18px;
+      color: var(--text);
+      opacity: 0.8;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+    .accent-label {
+      color: var(--accent);
+      font-weight: bold;
+      background: rgba(0,90,220,0.08);
+      display: inline-block;
+      padding: 0 8px;
+      border-radius: 40px;
+      font-size: 14px;
+    }
+
+    /* ----- DOT LEGEND (3 stippen met betekenis) ----- */
+    .legend {
+      display: flex;
+      justify-content: center;
+      gap: 32px;
+      margin: 24px 0 32px 0;
+      flex-wrap: wrap;
+    }
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 14px;
+      font-weight: bold;
+    }
+    .dot {
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      display: inline-block;
+    }
+    .dot.primary { background: var(--primary); box-shadow: 0 0 0 2px rgba(0,90,220,0.2); }
+    .dot.secondary { background: var(--secondary); }
+    .dot.accent { background: var(--accent); }
+
+    /* ----- TABS (grote knoppen, touch ≥44px) ----- */
+    .tab-bar {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 40px;
+      border-bottom: 2px solid var(--border-light);
+      padding-bottom: 0;
+    }
+    .tab-btn {
+      background: transparent;
+      border: none;
+      font-family: var(--font);
+      font-weight: 700;
+      font-size: 18px;
+      padding: 12px 28px;
+      margin-bottom: -2px;
+      cursor: pointer;
+      color: var(--text);
+      opacity: 0.7;
+      transition: all 0.2s ease;
+      border-radius: 40px 40px 0 0;
+      min-height: 52px;  /* ≥44px touch target */
+      letter-spacing: 0.3px;
+    }
+    .tab-btn:hover {
+      opacity: 1;
+      background: rgba(0,90,220,0.05);
+    }
+    .tab-btn.active {
+      opacity: 1;
+      color: var(--primary);
+      border-bottom: 3px solid var(--primary);
+      background: rgba(0,90,220,0.03);
+    }
+
+    /* Tab panels */
+    .tab-pane {
+      display: none;
+      animation: fadeIn 0.25s ease;
+    }
+    .tab-pane.active-pane {
+      display: block;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px);}
+      to { opacity: 1; transform: translateY(0);}
+    }
+
+    /* 2‑kolommen grid (cards) */
+    .card-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+      margin: 16px 0 48px 0;
+    }
+
+    /* Kaartstyling exact volgens spec */
+    .card {
+      background: white;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 28px 24px;
+      transition: transform 0.2s ease, box-shadow 0.2s;
+      border-top: 4px solid var(--primary); /* fallback, overschrijft per kaart */
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+    .card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 12px 28px rgba(0,90,220,0.18);
+    }
+    /* border kleuren via modifiers */
+    .card.border-primary { border-top-color: var(--primary); }
+    .card.border-secondary { border-top-color: var(--secondary); }
+    .card.border-accent { border-top-color: var(--accent); }
+
+    .card h3 {
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 16px;
+      color: var(--primary);
+    }
+    .card.border-secondary h3 { color: var(--secondary); }
+    .card.border-accent h3 { color: #b27f00; } /* donkerder geel voor leesbaarheid */
+    .card p {
+      font-size: 16px;
+      line-height: 1.5;
+      margin-bottom: 20px;
+      color: #2d3a4b;
+      flex: 1;
+    }
+    .card ul {
+      padding-left: 20px;
+      margin-top: 8px;
+    }
+    .card li {
+      margin-bottom: 8px;
+      font-size: 14px;
+    }
+    .badge-icon {
+      display: inline-block;
+      background: rgba(0,90,220,0.1);
+      border-radius: 40px;
+      padding: 4px 12px;
+      font-size: 12px;
+      font-weight: bold;
+      color: var(--primary);
+      margin-bottom: 16px;
+      width: fit-content;
+    }
+
+    /* ----- FOOTER (blauw met gradient bar) ----- */
+    .footer {
+      background: var(--primary);
+      color: white;
+      margin-top: 64px;
+      position: relative;
+      padding: 48px 32px 32px;
+    }
+    .footer .gradient-bar {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 6px;
+      background: linear-gradient(90deg, var(--secondary), var(--accent), var(--secondary));
+    }
+    .footer-content {
+      max-width: 1280px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .footer-text {
+      font-size: 14px;
+      opacity: 0.9;
+    }
+    .footer-tagline {
+      font-size: 12px;
+      opacity: 0.7;
+      letter-spacing: 0.3px;
+    }
+    .footer small {
+      font-size: 12px;
+    }
+
+    /* ----- RESPONSIVE (max-width 768px) ----- */
+    @media (max-width: 768px) {
+      .container {
+        padding: 0 20px;
+      }
+      .hero h1 {
+        font-size: 28px;
+      }
+      .card-grid {
+        grid-template-columns: 1fr;  /* stack */
+        gap: 24px;
+      }
+      .tab-btn {
+        padding: 10px 18px;
+        font-size: 16px;
+        min-height: 48px;
+      }
+      .legend {
+        gap: 20px;
+      }
+      .card {
+        padding: 20px;
+      }
+      .footer-content {
+        flex-direction: column;
+        text-align: center;
+      }
+    }
+
+    /* extra: touch targets & accessibility */
+    button, .tab-btn, .legend-item {
+      cursor: pointer;
+      user-select: none;
+    }
+    a, button {
+      touch-action: manipulation;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <div class="hero">
+    <h1>🔍 Security & AI Monitoring</h1>
+    <p>Audit GitHub code · Wireshark netwerkbewaking · Prompt injectie detectie <span class="accent-label">De Baak veiligheidsaanpak</span></p>
+  </div>
+
+  <!-- Legenda met gekleurde stippen -->
+  <div class="legend">
+    <div class="legend-item"><span class="dot primary"></span> Code & Secrets Scan</div>
+    <div class="legend-item"><span class="dot secondary"></span> Netwerk & Sniffer</div>
+    <div class="legend-item"><span class="dot accent"></span> LLM / Prompt Defence</div>
+  </div>
+
+  <!-- Tab navigatie (3 tabs) -->
+  <div class="tab-bar" role="tablist" aria-label="Security maatregelen">
+    <button class="tab-btn active" data-tab="tab1" role="tab" aria-selected="true">📦 Code Audit</button>
+    <button class="tab-btn" data-tab="tab2" role="tab" aria-selected="false">🌐 Wireshark & Network</button>
+    <button class="tab-btn" data-tab="tab3" role="tab" aria-selected="false">🤖 Prompt Injection</button>
+  </div>
+
+  <!-- TAB 1: Code Audit -->
+  <div id="tab1" class="tab-pane active-pane">
+    <div class="card-grid">
+      <!-- kaart 1: primaire border (blauw) -->
+      <div class="card border-primary">
+        <div class="badge-icon">🔎 gitleaks + trivy</div>
+        <h3>Statische code scan</h3>
+        <p>Gebruik <strong>gitleaks</strong> en <strong>trivy</strong> om geheime sleutels, API tokens en kwetsbare bibliotheken op te sporen. Automatiseer wekelijks via cron.</p>
+        <ul>
+          <li>🔐 Detectie van hardcoded wachtwoorden</li>
+          <li>📦 SBOM & vulnerability scanning (HIGH/CRITICAL)</li>
+          <li>⚙️ Integreer in CI/CD pipeline</li>
+        </ul>
+      </div>
+      <!-- kaart 2: secundaire border (groen) -->
+      <div class="card border-secondary">
+        <div class="badge-icon">🧹 GitHub Actions</div>
+        <h3>Secret scanning + SBOM</h3>
+        <p>Configureer GitHub Advanced Security of gratis workflows. Gebruik <code>trivy fs . --severity HIGH</code> en rapporteer naar teams.</p>
+        <ul>
+          <li>🔄 Automatische alerts per pull request</li>
+          <li>📄 Rapporten in Markdown / Confluence</li>
+          <li>⏱️ 15 minuten wekelijks onderhoud</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- TAB 2: Wireshark & Netwerk monitoring -->
+  <div id="tab2" class="tab-pane">
+    <div class="card-grid">
+      <div class="card border-primary">
+        <div class="badge-icon">📡 tshark + ngrep</div>
+        <h3>Wireshark automatisering</h3>
+        <p>Capture live verkeer met <code>tshark -i wlan0</code>, filter op ongebruikelijke DNS-requests of HTTP zonder TLS.</p>
+        <ul>
+          <li>🔍 Filter: <code>dns.qry.name contains "malicious"</code></li>
+          <li>📈 CPU‑light monitoring via cron elke 15 min</li>
+          <li>🛡️ Detectie van beaconing / C2 verkeer</li>
+        </ul>
+      </div>
+      <div class="card border-secondary">
+        <div class="badge-icon">🖧 Netwerk segmentatie</div>
+        <h3>Affordabele NIDS</h3>
+        <p>Snort + Zeek (Bro) lokaal draaien op een Raspberry Pi of oude laptop. Genereer alerts bij verdachte patronen.</p>
+        <ul>
+          <li>📦 Rule sets: Emerging Threats (gratis)</li>
+          <li>📨 Mail alert via <code>mutt</code> of ntfy</li>
+          <li>💰 Budget €0 – €10 per maand</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- TAB 3: Prompt injectie detectie (LLM security) -->
+  <div id="tab3" class="tab-pane">
+    <div class="card-grid">
+      <div class="card border-accent">
+        <div class="badge-icon">⚠️ Prompt injection scanner</div>
+        <h3>Claude / Gemini Pro analyse</h3>
+        <p>Gebruik LLM’s om verdachte prompts te reviewen. Zoek in code naar patronen zoals <code>ignore previous instructions</code> of system prompt override.</p>
+        <ul>
+          <li>🧪 <strong>grep</strong> commando's: <code>grep -inr "system.*prompt"</code></li>
+          <li>🤝 Vraag Claude: "Is deze prompt kwetsbaar voor injectie?"</li>
+          <li>📋 Output logs + richtlijnen voor veilige prompts</li>
+        </ul>
+      </div>
+      <div class="card border-primary">
+        <div class="badge-icon">🛡️ Preventie & guardrails</div>
+        <h3>LLM Firewall strategie</h3>
+        <p>Implementeer <strong>input sanitization</strong> en <strong>delimiters</strong>. Gebruik Perplexity Pro om actuele aanvalstechnieken te volgen.</p>
+        <ul>
+          <li>✅ Weekly threat intelligence update</li>
+          <li>🔁 Automatische test suite (adversarial prompts)</li>
+          <li>🧠 Bewustwording voor developers</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="gradient-bar"></div>
+  <div class="footer-content">
+    <div class="footer-text">
+      <strong>De Baak</strong> · Training · Ontwikkeling · Leiderschap · Sinds 1947
+    </div>
+    <div class="footer-tagline">
+      Veilig innoveren met zero‑trust principes | debaak.nl/security
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Tab functionality: pure vanilla JS
+  (function() {
+    const tabButtons = document.querySelectorAll('.tab-btn');
+    const panes = {
+      tab1: document.getElementById('tab1'),
+      tab2: document.getElementById('tab2'),
+      tab3: document.getElementById('tab3')
+    };
+
+    function activateTab(tabId) {
+      // Verberg alle panes
+      Object.values(panes).forEach(pane => {
+        if (pane) pane.classList.remove('active-pane');
+      });
+      // Toon geselecteerde pane
+      if (panes[tabId]) {
+        panes[tabId].classList.add('active-pane');
+      }
+      // Update button states & aria attributes
+      tabButtons.forEach(btn => {
+        const btnTab = btn.getAttribute('data-tab');
+        if (btnTab === tabId) {
+          btn.classList.add('active');
+          btn.setAttribute('aria-selected', 'true');
+        } else {
+          btn.classList.remove('active');
+          btn.setAttribute('aria-selected', 'false');
+        }
+      });
+    }
+
+    // Voeg event listeners toe aan elke tabknop
+    tabButtons.forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const tabId = btn.getAttribute('data-tab');
+        if (tabId && panes[tabId]) {
+          activateTab(tabId);
+        }
+      });
+      // Toetsenbordtoegankelijkheid: Enter of spatie
+      btn.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          btn.click();
+        }
+      });
+      btn.setAttribute('role', 'tab');
+    });
+
+    // Stel initieel active pane correct in (tab1 zichtbaar)
+    // Zorg dat tab1 actief is (fallback)
+    const currentActive = document.querySelector('.tab-btn.active');
+    if (currentActive) {
+      const defaultTab = currentActive.getAttribute('data-tab');
+      if (defaultTab) activateTab(defaultTab);
+    } else {
+      activateTab('tab1');
+    }
+  })();
+</script>
+</body>
+</html>

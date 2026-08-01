@@ -1,0 +1,918 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Publicatie Portfolio · De Baak</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --p:   #005ADC;
+      --pd:  #003A8C;
+      --pm:  #0044B0;
+      --s:   #00A555;
+      --a:   #FFE100;
+      --bg:  #F5F5EB;
+      --fg:  #1A1A2E;
+      --mu:  #4A5568;
+      --su:  #A0AEC0;
+      --bo:  #D6E4FA;
+      --r:   12px;
+      --rl:  16px;
+      --sh:  0 4px 20px rgba(0,90,220,.12);
+      --shl: 0 8px 32px rgba(0,90,220,.18);
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 16px;
+      line-height: 1.65;
+      color: var(--fg);
+      background: var(--bg);
+    }
+
+    /* ── Topbar ────────────────────────────────────── */
+    .topbar {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(245,245,235,.96);
+      backdrop-filter: blur(8px) saturate(140%);
+      -webkit-backdrop-filter: blur(8px) saturate(140%);
+      border-bottom: 1px solid var(--bo);
+    }
+    .topbar-in {
+      max-width: 1320px; margin: 0 auto;
+      padding: 13px 28px;
+      display: flex; gap: 12px; align-items: center; flex-wrap: wrap;
+    }
+    .brand { font: 900 21px/1 Arial; color: var(--p); letter-spacing: -.5px; }
+    .brand-sub {
+      font-size: 10px; font-weight: 700;
+      letter-spacing: .14em; text-transform: uppercase;
+      color: var(--mu); margin-left: 4px;
+    }
+    .search { flex: 1; max-width: 520px; margin-left: auto; position: relative; }
+    .search input {
+      width: 100%;
+      padding: 10px 14px 10px 38px;
+      border: 1px solid var(--bo); border-radius: var(--r);
+      background: #fff;
+      font: 14px/1.3 Arial; color: var(--fg);
+      transition: border-color .15s, box-shadow .15s;
+    }
+    .search input:focus {
+      outline: none; border-color: var(--p);
+      box-shadow: 0 0 0 3px rgba(0,90,220,.13);
+    }
+    .search-icon {
+      position: absolute; left: 12px; top: 50%;
+      transform: translateY(-50%);
+      color: var(--su); pointer-events: none;
+    }
+    .conn-dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: var(--su); flex-shrink: 0;
+      transition: background .3s;
+    }
+    .conn-dot.ok  { background: var(--s); }
+    .conn-dot.err { background: #e53e3e; }
+
+    .btn {
+      padding: 10px 18px; border-radius: var(--r); border: none;
+      font: 700 13px/1 Arial; cursor: pointer;
+      transition: all .18s; white-space: nowrap; text-decoration: none;
+    }
+    .btn-p  { background: var(--p); color: #fff; }
+    .btn-p:hover { background: var(--pm); transform: translateY(-1px); }
+    .btn-g  { background: transparent; color: var(--p); border: 1.5px solid var(--p); }
+    .btn-g:hover { background: rgba(0,90,220,.06); }
+    .btn-sm { padding: 7px 13px; font-size: 12px; }
+    .btn-del { color: #c0392b !important; border-color: #c0392b !important; }
+    .btn-del:hover { background: rgba(192,57,43,.07) !important; }
+
+    /* ── Hero ─────────────────────────────────────── */
+    .hero {
+      position: relative; overflow: hidden;
+      background: linear-gradient(150deg, #005ADC 0%, #0044B0 45%, #003A8C 100%);
+      color: #fff;
+    }
+    .hero::before {
+      content: ''; position: absolute; inset: -30%;
+      background: radial-gradient(circle, rgba(255,255,255,.07) 1px, transparent 1px);
+      background-size: 40px 40px; opacity: .4; pointer-events: none;
+    }
+    .hero::after {
+      content: ''; position: absolute; bottom: 0; right: 0;
+      width: 0; height: 0; border-style: solid;
+      border-width: 0 0 320px 320px;
+      border-color: transparent transparent rgba(255,255,255,.07) transparent;
+      pointer-events: none;
+    }
+    .hero-in {
+      max-width: 1320px; margin: 0 auto;
+      padding: 80px 28px 100px;
+      position: relative; z-index: 1;
+    }
+    .eyebrow {
+      display: inline-block;
+      font-size: 11px; font-weight: 700;
+      letter-spacing: .16em; text-transform: uppercase;
+      background: rgba(255,225,0,.14);
+      border: 1px solid rgba(255,225,0,.4);
+      border-radius: 999px; padding: 5px 18px;
+      margin-bottom: 22px; color: var(--a);
+    }
+    .hero h1 {
+      font-size: clamp(36px, 5vw, 60px);
+      font-weight: 900; line-height: 1.04;
+      max-width: 860px; color: #fff;
+    }
+    .hero-lead {
+      font-size: 17px; margin-top: 16px;
+      max-width: 660px; line-height: 1.65;
+      color: rgba(255,255,255,.88);
+    }
+    .hero-hr {
+      width: 56px; height: 3px;
+      background: linear-gradient(90deg, var(--a), var(--s));
+      border: none; border-radius: 2px; margin-top: 24px;
+    }
+    .hero-stats { display: flex; gap: 36px; margin-top: 42px; flex-wrap: wrap; }
+    .stat .n { font-size: 44px; font-weight: 900; line-height: 1; color: var(--a); }
+    .stat .l {
+      font-size: 11px; font-weight: 700;
+      letter-spacing: .14em; text-transform: uppercase;
+      margin-top: 5px; opacity: .82;
+    }
+
+    /* ── Tag rail ─────────────────────────────────── */
+    #tagRail {
+      max-width: 1320px; margin: 0 auto;
+      padding: 22px 28px 4px;
+      display: flex; flex-wrap: wrap; gap: 8px; align-items: center;
+    }
+    .rail-lbl {
+      font-size: 10px; font-weight: 700;
+      letter-spacing: .14em; text-transform: uppercase;
+      color: var(--mu); margin-right: 4px;
+    }
+    .chip {
+      font-size: 12px; font-weight: 700;
+      padding: 5px 13px; border-radius: 999px;
+      background: #fff; border: 1px solid var(--bo);
+      color: var(--mu); cursor: pointer;
+      transition: all .14s; font-family: Arial;
+    }
+    .chip:hover { border-color: var(--p); color: var(--p); }
+    .chip.active { background: var(--p); border-color: var(--p); color: #fff; }
+    .chip-clear {
+      font-size: 11px; color: var(--su);
+      background: none; border: none; cursor: pointer;
+      text-decoration: underline; font-family: Arial; margin-left: 4px;
+    }
+
+    /* ── Main / families ──────────────────────────── */
+    main { max-width: 1320px; margin: 0 auto; padding: 64px 28px 120px; }
+
+    .family { margin-bottom: 88px; scroll-margin-top: 80px; }
+    .family.dimmed { opacity: .35; }
+
+    .fam-hd {
+      display: flex; align-items: flex-end;
+      justify-content: space-between; gap: 24px;
+      margin-bottom: 28px;
+      padding-bottom: 18px; border-bottom: 2px solid var(--bo);
+      position: relative;
+    }
+    .fam-hd::after {
+      content: ''; position: absolute;
+      left: 0; bottom: -2px; width: 76px; height: 2px;
+      background: var(--p);
+    }
+    .fam-pill {
+      display: inline-block; font-size: 10px; font-weight: 700;
+      letter-spacing: .14em; text-transform: uppercase;
+      color: var(--p); background: rgba(0,90,220,.08);
+      padding: 3px 11px; border-radius: 999px; margin-bottom: 9px;
+    }
+    .fam-hd h2 { font-size: 34px; color: var(--p); line-height: 1.1; }
+    .fam-desc  { font-size: 14px; color: var(--mu); margin-top: 7px; max-width: 600px; }
+    .fam-meta  { font-size: 12px; color: var(--su); white-space: nowrap; text-align: right; flex-shrink: 0; }
+    .fam-meta strong { color: var(--p); }
+
+    .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 26px; }
+    @media (max-width: 960px) { .grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 580px) { .grid { grid-template-columns: 1fr; } }
+
+    /* ── Tile ─────────────────────────────────────── */
+    .tile {
+      background: #fff; border-radius: var(--rl);
+      overflow: hidden; box-shadow: var(--sh);
+      border-top: 4px solid var(--p);
+      display: flex; flex-direction: column;
+      transition: transform .28s ease, box-shadow .28s ease;
+    }
+    .tile:hover { transform: translateY(-6px); box-shadow: var(--shl); }
+
+    .tile-thumb {
+      aspect-ratio: 4 / 3;
+      position: relative; overflow: hidden;
+      border-bottom: 1px solid var(--bo);
+      cursor: pointer;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      background: linear-gradient(135deg, #E8EEF9 0%, #D6E4FA 100%);
+    }
+    .tile-thumb::after {
+      content: ''; position: absolute; bottom: 0; right: 0;
+      width: 0; height: 0; border-style: solid;
+      border-width: 0 0 72px 72px;
+      border-color: transparent transparent rgba(0,90,220,.08) transparent;
+    }
+    .thumb-abbr {
+      font-size: 44px; font-weight: 900;
+      color: var(--p); letter-spacing: -2px; opacity: .35;
+    }
+    .thumb-lbl {
+      font-size: 9px; font-weight: 700;
+      letter-spacing: .2em; text-transform: uppercase;
+      color: var(--p); opacity: .6; margin-top: 4px;
+    }
+    .tile-badge {
+      position: absolute; top: 10px; left: 10px;
+      display: flex; align-items: center; gap: 5px;
+      background: rgba(255,255,255,.96);
+      padding: 4px 10px; border-radius: 999px;
+      font-size: 10px; font-weight: 700; letter-spacing: .06em;
+      box-shadow: 0 2px 6px rgba(0,90,220,.1); z-index: 2;
+    }
+    .badge-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+    .tile-badge.automated  { color: #007a3f; }
+    .tile-badge.automated  .badge-dot { background: var(--s); }
+    .tile-badge.inprogress { color: #7A6600; }
+    .tile-badge.inprogress .badge-dot { background: var(--a); }
+    .tile-badge.todo       { color: var(--mu); }
+    .tile-badge.todo       .badge-dot { background: var(--su); }
+
+    .tile-body { padding: 20px 22px 17px; flex: 1; display: flex; flex-direction: column; }
+    .tile-body h3 { font-size: 18px; color: var(--fg); font-weight: 700; margin-bottom: 6px; }
+    .tile-body h3 a { color: inherit; text-decoration: none; }
+    .tile-body h3 a:hover { color: var(--p); }
+    .tile-desc { font-size: 13px; color: var(--mu); line-height: 1.55; flex: 1; margin-bottom: 13px; }
+
+    .tile-tags { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 13px; }
+    .tile-tag {
+      font-size: 10px; font-weight: 700; letter-spacing: .06em;
+      color: var(--p); background: rgba(0,90,220,.07);
+      padding: 2px 8px; border-radius: 999px;
+      cursor: pointer; border: none; font-family: Arial;
+      transition: all .14s;
+    }
+    .tile-tag:hover { background: var(--p); color: #fff; }
+
+    .tile-links {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 5px;
+      padding-top: 11px; border-top: 1px solid var(--bo);
+    }
+    .tile-links a {
+      font-size: 11.5px; font-weight: 700; color: var(--p);
+      text-decoration: none; padding: 5px 7px; border-radius: 6px;
+      transition: background .14s; display: flex; align-items: center; gap: 3px;
+    }
+    .tile-links a:hover { background: rgba(0,90,220,.07); }
+    .tile-links a.empty { color: var(--su); font-weight: 400; font-style: italic; }
+    .tile-links a.empty:hover { color: var(--p); font-style: normal; background: rgba(0,90,220,.07); }
+
+    .tile-edit { margin-top: 8px; text-align: right; }
+    .tile-edit a { font-size: 10.5px; color: var(--su); text-decoration: underline; cursor: pointer; }
+
+    /* Add tile */
+    .tile-add {
+      background: rgba(255,255,255,.4);
+      border: 2px dashed #C0CAE8; border-radius: var(--rl);
+      display: flex; align-items: center; justify-content: center;
+      min-height: 300px; cursor: pointer;
+      color: var(--su); font-weight: 700; font-size: 14px;
+      transition: all .18s;
+    }
+    .tile-add:hover { border-color: var(--p); color: var(--p); background: rgba(0,90,220,.04); }
+
+    /* Add family */
+    .add-family {
+      display: flex; align-items: center; gap: 12px;
+      padding: 22px 28px;
+      border: 2px dashed #C0CAE8; border-radius: var(--rl);
+      background: rgba(255,255,255,.4);
+      color: var(--su); font-weight: 700; font-size: 14px;
+      cursor: pointer; width: 100%;
+      transition: all .18s; margin-top: 24px;
+      font-family: Arial;
+    }
+    .add-family:hover { border-color: var(--p); color: var(--p); background: rgba(0,90,220,.04); }
+
+    /* ── Footer ───────────────────────────────────── */
+    footer {
+      background: var(--p); color: #fff;
+      padding: 52px 28px 44px; position: relative; overflow: hidden;
+    }
+    footer::before {
+      content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 5px;
+      background: linear-gradient(90deg, var(--s) 0%, var(--a) 50%, var(--s) 100%);
+    }
+    footer::after {
+      content: ''; position: absolute; top: 0; right: 0;
+      width: 0; height: 0; border-style: solid;
+      border-width: 0 0 200px 200px;
+      border-color: transparent transparent rgba(255,255,255,.06) transparent;
+      pointer-events: none;
+    }
+    .foot-in {
+      max-width: 1320px; margin: 0 auto;
+      display: flex; justify-content: space-between;
+      align-items: center; flex-wrap: wrap; gap: 20px;
+      position: relative; z-index: 1;
+    }
+    .foot-name { font-size: 28px; font-weight: 900; }
+    .foot-sub  { font-size: 13px; opacity: .82; margin-top: 4px; }
+    .foot-meta { font-size: 12px; opacity: .65; text-align: right; }
+
+    /* ── Modals ───────────────────────────────────── */
+    .overlay {
+      position: fixed; inset: 0; z-index: 500;
+      background: rgba(26,26,46,.58);
+      display: flex; align-items: center;
+      justify-content: center; padding: 20px;
+      backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px);
+      opacity: 0; pointer-events: none;
+      transition: opacity .2s ease;
+    }
+    .overlay.open { opacity: 1; pointer-events: auto; }
+    .modal-box {
+      background: #fff; border-radius: 20px;
+      max-width: 560px; width: 100%;
+      max-height: 90vh; overflow: auto;
+      box-shadow: 0 24px 72px rgba(0,0,0,.28);
+      border-top: 6px solid var(--p);
+      transform: translateY(12px);
+      transition: transform .22s ease;
+    }
+    .overlay.open .modal-box { transform: translateY(0); }
+    .modal-hd {
+      padding: 24px 28px 8px;
+      display: flex; justify-content: space-between; align-items: flex-start;
+    }
+    .modal-hd h3 { font-size: 22px; color: var(--p); }
+    .modal-x { background: none; border: none; font-size: 26px; color: var(--su); cursor: pointer; line-height: 1; }
+    .modal-x:hover { color: var(--fg); }
+    .modal-body { padding: 10px 28px 20px; }
+    .modal-ft {
+      padding: 16px 28px 24px;
+      display: flex; gap: 10px; justify-content: flex-end;
+      border-top: 1px solid var(--bo);
+    }
+
+    .field { margin-bottom: 14px; }
+    .field label {
+      display: block; font-size: 10px; font-weight: 700;
+      letter-spacing: .14em; text-transform: uppercase;
+      color: var(--p); margin-bottom: 5px;
+    }
+    .field input, .field textarea, .field select {
+      width: 100%; padding: 10px 13px;
+      border: 1px solid var(--bo); border-radius: 10px;
+      font: 14px Arial; color: var(--fg);
+      transition: border-color .15s, box-shadow .15s;
+    }
+    .field input:focus, .field textarea:focus, .field select:focus {
+      outline: none; border-color: var(--p);
+      box-shadow: 0 0 0 3px rgba(0,90,220,.12);
+    }
+    .field textarea { min-height: 72px; resize: vertical; font-family: Arial; }
+    .field .hint { font-size: 11px; color: var(--su); margin-top: 3px; }
+    .field-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
+    /* ── Toast ────────────────────────────────────── */
+    #toast {
+      position: fixed; bottom: 28px; right: 28px; z-index: 600;
+      background: var(--fg); color: #fff;
+      padding: 11px 20px; border-radius: var(--r);
+      font-size: 13px; font-weight: 700;
+      box-shadow: 0 8px 24px rgba(0,0,0,.2);
+      max-width: 320px;
+      transform: translateY(80px); opacity: 0;
+      transition: transform .3s ease, opacity .3s ease;
+    }
+    #toast.show     { transform: translateY(0); opacity: 1; }
+    #toast.toast-ok  { background: var(--s); }
+    #toast.toast-err { background: #c0392b; }
+
+    /* ── States ───────────────────────────────────── */
+    .state-block { text-align: center; padding: 96px 24px; }
+    .state-block .ico { font-size: 52px; margin-bottom: 16px; }
+    .state-block h2 { font-size: 22px; font-weight: 700; margin-bottom: 8px; }
+    .state-block p { color: var(--mu); max-width: 480px; margin: 0 auto; }
+    .state-block code { font-size: 12px; color: #e53e3e; }
+
+    /* ── Print ────────────────────────────────────── */
+    @media print {
+      .topbar, .overlay, #toast { display: none !important; }
+      body { background: #fff; }
+    }
+  </style>
+</head>
+
+<body>
+
+<!-- ── Topbar ─────────────────────────────────────────────────────────────── -->
+<header class="topbar">
+  <div class="topbar-in">
+    <div>
+      <span class="brand">De Baak</span>
+      <span class="brand-sub">Publicatie Portfolio</span>
+    </div>
+    <div class="search">
+      <svg class="search-icon" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+      </svg>
+      <input id="searchInput" type="search" placeholder="Zoek op titel, tag of familie…">
+    </div>
+    <div class="conn-dot" id="connDot" title="Verbindingsstatus"></div>
+    <button class="btn btn-g" onclick="openAddFamily()">+ Familie</button>
+    <button class="btn btn-p" onclick="openAddPage()">+ Publicatie</button>
+  </div>
+</header>
+
+<!-- ── Hero ──────────────────────────────────────────────────────────────── -->
+<section class="hero">
+  <div class="hero-in">
+    <span class="eyebrow">Interne portfolio · live gedeeld</span>
+    <h1>Welke publicaties zijn er, en wat is al geautomatiseerd?</h1>
+    <p class="hero-lead">Een overzicht van alle publicatieformats van De Baak. Per familie zie je voorbeelduitwerkingen, status en snelle links — zodat iedereen in één oogopslag ziet waar het staat.</p>
+    <hr class="hero-hr">
+    <div class="hero-stats" id="heroStats">
+      <div class="stat"><div class="n">—</div><div class="l">Laden…</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Tag rail ──────────────────────────────────────────────────────────── -->
+<div id="tagRail"></div>
+
+<!-- ── Main ──────────────────────────────────────────────────────────────── -->
+<main id="mainRoot">
+  <div class="state-block" id="loadingScreen">
+    <div class="ico">⏳</div>
+    <h2>Portfolio laden…</h2>
+    <p>Verbinding maken met de gedeelde database.</p>
+  </div>
+</main>
+
+<!-- ── Footer ────────────────────────────────────────────────────────────── -->
+<footer>
+  <div class="foot-in">
+    <div>
+      <div class="foot-name">De Baak</div>
+      <div class="foot-sub">training · ontwikkeling · leiderschap · sinds 1947</div>
+    </div>
+    <div class="foot-meta">Publicatie Portfolio · debaak.nl · © 2026</div>
+  </div>
+</footer>
+
+<!-- ── Modal: Publicatie ──────────────────────────────────────────────────── -->
+<div class="overlay" id="ovPage" onclick="overlayClick(event,'ovPage')">
+  <div class="modal-box">
+    <div class="modal-hd">
+      <h3 id="mpTitle">Publicatie toevoegen</h3>
+      <button class="modal-x" onclick="closeModal('ovPage')">×</button>
+    </div>
+    <div class="modal-body">
+      <input type="hidden" id="pageId">
+      <div class="field-2">
+        <div class="field"><label>Familie</label><select id="pageFamily"></select></div>
+        <div class="field"><label>Status</label>
+          <select id="pageStatus">
+            <option value="automated">Geautomatiseerd</option>
+            <option value="inprogress">In ontwikkeling</option>
+            <option value="todo">Nog niet</option>
+          </select>
+        </div>
+      </div>
+      <div class="field"><label>Titel</label><input id="pageTitle" placeholder="Bijv. BRS Rollenspel handout"></div>
+      <div class="field"><label>Omschrijving</label><textarea id="pageDesc" placeholder="Wat is dit, voor wie, wanneer in te zetten?"></textarea></div>
+      <div class="field"><label>Tags (komma-gescheiden)</label><input id="pageTags" placeholder="rollenspel, verandering, leiderschap"></div>
+      <div class="field">
+        <label>Detailpagina URL (optioneel)</label>
+        <input id="pageDetail" placeholder="https://…">
+        <div class="hint">Laat leeg als er nog geen detailpagina is.</div>
+      </div>
+      <div class="field">
+        <label>4 Links</label>
+        <div class="field-2" style="margin-bottom:6px"><input id="l1L" placeholder="Label 1"><input id="l1U" placeholder="URL 1"></div>
+        <div class="field-2" style="margin-bottom:6px"><input id="l2L" placeholder="Label 2"><input id="l2U" placeholder="URL 2"></div>
+        <div class="field-2" style="margin-bottom:6px"><input id="l3L" placeholder="Label 3"><input id="l3U" placeholder="URL 3"></div>
+        <div class="field-2"><input id="l4L" placeholder="Label 4"><input id="l4U" placeholder="URL 4"></div>
+      </div>
+    </div>
+    <div class="modal-ft">
+      <button class="btn btn-g btn-sm btn-del" id="delPageBtn" onclick="deletePage()" style="display:none;margin-right:auto">Verwijderen</button>
+      <button class="btn btn-g btn-sm" onclick="closeModal('ovPage')">Annuleer</button>
+      <button class="btn btn-p btn-sm" onclick="savePage()">Opslaan</button>
+    </div>
+  </div>
+</div>
+
+<!-- ── Modal: Familie ─────────────────────────────────────────────────────── -->
+<div class="overlay" id="ovFamily" onclick="overlayClick(event,'ovFamily')">
+  <div class="modal-box">
+    <div class="modal-hd">
+      <h3 id="mfTitle">Familie toevoegen</h3>
+      <button class="modal-x" onclick="closeModal('ovFamily')">×</button>
+    </div>
+    <div class="modal-body">
+      <input type="hidden" id="familyId">
+      <div class="field"><label>Naam</label><input id="familyName" placeholder="Bijv. Presentatie"></div>
+      <div class="field"><label>Omschrijving</label><textarea id="familyDesc" placeholder="Waar staat deze familie voor?"></textarea></div>
+    </div>
+    <div class="modal-ft">
+      <button class="btn btn-g btn-sm btn-del" id="delFamBtn" onclick="deleteFamily()" style="display:none;margin-right:auto">Verwijderen</button>
+      <button class="btn btn-g btn-sm" onclick="closeModal('ovFamily')">Annuleer</button>
+      <button class="btn btn-p btn-sm" onclick="saveFamily()">Opslaan</button>
+    </div>
+  </div>
+</div>
+
+<!-- ── Toast ──────────────────────────────────────────────────────────────── -->
+<div id="toast"></div>
+
+<!-- ── Supabase + App ─────────────────────────────────────────────────────── -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+<script>
+
+// ════════════════════════════════════════════════════════════════════════════
+//  ★  CONFIGURATIE
+//  Vervang de twee waarden hieronder met jouw eigen Supabase project.
+//  Ga naar https://supabase.com → jouw project → Settings → API
+// ════════════════════════════════════════════════════════════════════════════
+const SUPABASE_URL = 'https://JOUW-PROJECT-ID.supabase.co';
+const SUPABASE_KEY = 'JOUW-ANON-PUBLIC-KEY';
+// ════════════════════════════════════════════════════════════════════════════
+
+const STATUS_LABEL = {
+  automated:  'Geautomatiseerd',
+  inprogress: 'In ontwikkeling',
+  todo:       'Nog niet'
+};
+
+// ── State ─────────────────────────────────────────────────────────────────────
+let families   = [];
+let pages      = [];
+let activeTags = new Set();
+let searchQ    = '';
+
+// ── Supabase client ───────────────────────────────────────────────────────────
+const db = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+// ── Utilities ─────────────────────────────────────────────────────────────────
+function esc(s)  { return String(s||'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+function escA(s) { return String(s||'').replace(/"/g,'&quot;'); }
+
+let _t;
+function toast(msg, type='ok') {
+  const el = document.getElementById('toast');
+  el.textContent = msg;
+  el.className = 'show toast-' + type;
+  clearTimeout(_t);
+  _t = setTimeout(() => el.className = '', 2800);
+}
+
+function setConn(state) {
+  const d = document.getElementById('connDot');
+  d.className = 'conn-dot' + (state === 'ok' ? ' ok' : state === 'err' ? ' err' : '');
+  d.title = state === 'ok' ? 'Verbonden · real-time actief' : state === 'err' ? 'Verbindingsfout' : 'Verbinden…';
+}
+
+// ── Data ──────────────────────────────────────────────────────────────────────
+async function loadData() {
+  const [r1, r2] = await Promise.all([
+    db.from('families').select('*').order('sort_order', { ascending: true }),
+    db.from('pages').select('*').order('created_at', { ascending: true })
+  ]);
+  if (r1.error || r2.error) {
+    const msg = (r1.error || r2.error).message;
+    document.getElementById('mainRoot').innerHTML = `
+      <div class="state-block">
+        <div class="ico">⚠️</div>
+        <h2>Kan database niet bereiken</h2>
+        <p>Controleer of SUPABASE_URL en SUPABASE_KEY correct zijn ingevuld in index.html.<br><br>
+        <code>${esc(msg)}</code></p>
+      </div>`;
+    setConn('err');
+    return false;
+  }
+  families = r1.data || [];
+  pages    = r2.data || [];
+  setConn('ok');
+  return true;
+}
+
+// ── Real-time ─────────────────────────────────────────────────────────────────
+db.channel('portfolio')
+  .on('postgres_changes', { event: '*', schema: 'public', table: 'families' }, async () => {
+    await loadData(); render();
+  })
+  .on('postgres_changes', { event: '*', schema: 'public', table: 'pages' }, async () => {
+    await loadData(); render();
+  })
+  .subscribe(s => {
+    if (s === 'SUBSCRIBED')    setConn('ok');
+    if (s === 'CHANNEL_ERROR') setConn('err');
+  });
+
+// ── Rendering ─────────────────────────────────────────────────────────────────
+function pageMatches(p) {
+  if (searchQ) {
+    const q   = searchQ.toLowerCase();
+    const fam = families.find(f => f.id === p.family_id) || {};
+    const hay = [p.title, p.description, (p.tags||[]).join(' '), fam.name].join(' ').toLowerCase();
+    if (!hay.includes(q)) return false;
+  }
+  if (activeTags.size) {
+    const pt = new Set(p.tags || []);
+    for (const t of activeTags) if (!pt.has(t)) return false;
+  }
+  return true;
+}
+
+function render() {
+  renderStats();
+  renderTagRail();
+  renderFamilies();
+}
+
+function renderStats() {
+  const auto = pages.filter(p => p.status === 'automated').length;
+  const prog = pages.filter(p => p.status === 'inprogress').length;
+  document.getElementById('heroStats').innerHTML = `
+    <div class="stat"><div class="n">${families.length}</div><div class="l">Families</div></div>
+    <div class="stat"><div class="n">${pages.length}</div><div class="l">Publicaties</div></div>
+    <div class="stat"><div class="n">${auto}</div><div class="l">Geautomatiseerd</div></div>
+    <div class="stat"><div class="n">${prog}</div><div class="l">In ontwikkeling</div></div>
+  `;
+}
+
+function renderTagRail() {
+  const map = new Map();
+  pages.forEach(p => (p.tags||[]).forEach(t => map.set(t, (map.get(t)||0)+1)));
+  const sorted = [...map.entries()].sort((a,b) => b[1]-a[1]);
+  let html = `<span class="rail-lbl">Filter op tag</span>`;
+  sorted.forEach(([t,n]) => {
+    html += `<button class="chip${activeTags.has(t)?' active':''}" onclick="toggleTag('${escA(t)}')">#${esc(t)} <span style="opacity:.5">·${n}</span></button>`;
+  });
+  if (activeTags.size || searchQ)
+    html += `<button class="chip-clear" onclick="clearFilters()">filters wissen</button>`;
+  document.getElementById('tagRail').innerHTML = html;
+}
+
+function renderFamilies() {
+  const root = document.getElementById('mainRoot');
+  root.innerHTML = '';
+
+  if (families.length === 0) {
+    root.innerHTML = `<div class="state-block"><div class="ico">📂</div><h2>Nog geen families</h2><p>Klik op <strong>+ Familie</strong> om te beginnen.</p></div>`;
+    return;
+  }
+
+  families.forEach(fam => {
+    const famPages  = pages.filter(p => p.family_id === fam.id);
+    const autoCount = famPages.filter(p => p.status === 'automated').length;
+    const visible   = famPages.filter(pageMatches);
+    const dimmed    = (activeTags.size || searchQ) && visible.length === 0;
+
+    const sec = document.createElement('section');
+    sec.className = 'family' + (dimmed ? ' dimmed' : '');
+    sec.id = 'fam-' + fam.id;
+    sec.innerHTML = `
+      <div class="fam-hd">
+        <div>
+          <div><span class="fam-pill">Familie</span></div>
+          <h2>${esc(fam.name)}</h2>
+          <p class="fam-desc">${esc(fam.description||'')}</p>
+        </div>
+        <div class="fam-meta">
+          <strong>${autoCount}</strong> / ${famPages.length} geautomatiseerd<br>
+          <a href="#" onclick="editFamily('${escA(fam.id)}');return false"
+             style="color:var(--su);text-decoration:underline;font-size:11px">bewerk familie</a>
+        </div>
+      </div>
+      <div class="grid" id="grid-${esc(fam.id)}"></div>
+    `;
+    root.appendChild(sec);
+
+    const grid   = sec.querySelector('.grid');
+    const toShow = (activeTags.size || searchQ) ? visible : famPages;
+    toShow.forEach(p => grid.appendChild(renderTile(p)));
+
+    const addEl = document.createElement('div');
+    addEl.className = 'tile-add';
+    addEl.innerHTML = '<div style="text-align:center"><div style="font-size:28px;font-weight:400;margin-bottom:5px">+</div>Publicatie toevoegen</div>';
+    addEl.onclick = () => openAddPage(fam.id);
+    grid.appendChild(addEl);
+  });
+
+  const addFam = document.createElement('button');
+  addFam.className = 'add-family';
+  addFam.innerHTML = '<span style="font-size:22px;font-weight:400">+</span> Nieuwe familie toevoegen';
+  addFam.onclick = openAddFamily;
+  root.appendChild(addFam);
+}
+
+function renderTile(p) {
+  const fam   = families.find(f => f.id === p.family_id) || {};
+  const abbr  = (fam.name||'??').slice(0,2).toUpperCase();
+  const links = [...(p.links||[]), ...Array(4).fill({label:'',url:''})].slice(0,4);
+
+  const linksHtml = links.map((l,i) =>
+    l.label && l.url
+      ? `<a href="${escA(l.url)}" target="_blank" rel="noopener">${esc(l.label)} →</a>`
+      : `<a class="empty" href="#" onclick="editPage('${escA(p.id)}');return false">+ Link ${i+1}</a>`
+  ).join('');
+
+  const tagsHtml = (p.tags||[]).map(t =>
+    `<button class="tile-tag" onclick="toggleTag('${escA(t)}');event.stopPropagation()">#${esc(t)}</button>`
+  ).join('');
+
+  const titleHtml = p.detail_url
+    ? `<a href="${escA(p.detail_url)}" target="_blank" rel="noopener">${esc(p.title)} <span style="font-size:12px;color:var(--p)">→</span></a>`
+    : esc(p.title);
+
+  const el = document.createElement('article');
+  el.className = 'tile';
+  el.innerHTML = `
+    <div class="tile-thumb"
+         onclick="${p.detail_url ? `window.open('${escA(p.detail_url)}','_blank')` : `editPage('${escA(p.id)}')`}">
+      <div class="tile-badge ${esc(p.status)}">
+        <div class="badge-dot"></div>
+        ${esc(STATUS_LABEL[p.status]||p.status)}
+      </div>
+      <div class="thumb-abbr">${esc(abbr)}</div>
+      <div class="thumb-lbl">${esc(fam.name||'')}</div>
+    </div>
+    <div class="tile-body">
+      <h3>${titleHtml}</h3>
+      <p class="tile-desc">${esc(p.description||'')}</p>
+      <div class="tile-tags">${tagsHtml}</div>
+      <div class="tile-links">${linksHtml}</div>
+      <div class="tile-edit">
+        <a href="#" onclick="editPage('${escA(p.id)}');return false">bewerk</a>
+      </div>
+    </div>
+  `;
+  return el;
+}
+
+// ── Filters ───────────────────────────────────────────────────────────────────
+function toggleTag(t) {
+  if (activeTags.has(t)) activeTags.delete(t); else activeTags.add(t);
+  render();
+}
+function clearFilters() {
+  activeTags.clear(); searchQ = '';
+  document.getElementById('searchInput').value = '';
+  render();
+}
+document.getElementById('searchInput').addEventListener('input', e => {
+  searchQ = e.target.value.trim(); render();
+});
+
+// ── Modal helpers ─────────────────────────────────────────────────────────────
+function openModal(id)  { document.getElementById(id).classList.add('open');    document.body.style.overflow = 'hidden'; }
+function closeModal(id) { document.getElementById(id).classList.remove('open'); document.body.style.overflow = ''; }
+function overlayClick(e, id) { if (e.target === document.getElementById(id)) closeModal(id); }
+
+// ── Publicatie CRUD ───────────────────────────────────────────────────────────
+function populateFamilySelect(sel) {
+  document.getElementById('pageFamily').innerHTML =
+    families.map(f => `<option value="${escA(f.id)}"${f.id===sel?' selected':''}>${esc(f.name)}</option>`).join('');
+}
+
+function openAddPage(presetFamilyId) {
+  document.getElementById('mpTitle').textContent = 'Publicatie toevoegen';
+  document.getElementById('delPageBtn').style.display = 'none';
+  document.getElementById('pageId').value = '';
+  populateFamilySelect(presetFamilyId || (families[0]||{}).id);
+  ['pageTitle','pageDesc','pageTags','pageDetail',
+   'l1L','l1U','l2L','l2U','l3L','l3U','l4L','l4U'].forEach(id => {
+    document.getElementById(id).value = '';
+  });
+  document.getElementById('pageStatus').value = 'todo';
+  openModal('ovPage');
+}
+
+function editPage(id) {
+  const p = pages.find(x => x.id === id);
+  if (!p) return;
+  document.getElementById('mpTitle').textContent = 'Publicatie bewerken';
+  document.getElementById('delPageBtn').style.display = 'inline-block';
+  document.getElementById('pageId').value      = id;
+  populateFamilySelect(p.family_id);
+  document.getElementById('pageTitle').value   = p.title || '';
+  document.getElementById('pageDesc').value    = p.description || '';
+  document.getElementById('pageTags').value    = (p.tags||[]).join(', ');
+  document.getElementById('pageDetail').value  = p.detail_url || '';
+  document.getElementById('pageStatus').value  = p.status || 'todo';
+  const L = p.links || [];
+  [1,2,3,4].forEach(i => {
+    document.getElementById('l'+i+'L').value = L[i-1]?.label || '';
+    document.getElementById('l'+i+'U').value = L[i-1]?.url   || '';
+  });
+  openModal('ovPage');
+}
+
+async function savePage() {
+  const id = document.getElementById('pageId').value || ('p-' + Date.now());
+  const payload = {
+    id,
+    family_id:   document.getElementById('pageFamily').value,
+    title:       document.getElementById('pageTitle').value.trim() || 'Zonder titel',
+    description: document.getElementById('pageDesc').value.trim(),
+    status:      document.getElementById('pageStatus').value,
+    tags:        document.getElementById('pageTags').value.split(',').map(s=>s.trim()).filter(Boolean),
+    detail_url:  document.getElementById('pageDetail').value.trim(),
+    links:       [1,2,3,4].map(i => ({
+      label: document.getElementById('l'+i+'L').value.trim(),
+      url:   document.getElementById('l'+i+'U').value.trim()
+    }))
+  };
+  const { error } = await db.from('pages').upsert(payload);
+  if (error) { toast('Fout: ' + error.message, 'err'); return; }
+  closeModal('ovPage');
+  toast('✓ Publicatie opgeslagen');
+}
+
+async function deletePage() {
+  const id = document.getElementById('pageId').value;
+  if (!id || !confirm('Publicatie verwijderen? Dit kan niet ongedaan worden gemaakt.')) return;
+  const { error } = await db.from('pages').delete().eq('id', id);
+  if (error) { toast('Fout: ' + error.message, 'err'); return; }
+  closeModal('ovPage');
+  toast('Publicatie verwijderd');
+}
+
+// ── Familie CRUD ──────────────────────────────────────────────────────────────
+function openAddFamily() {
+  document.getElementById('mfTitle').textContent = 'Familie toevoegen';
+  document.getElementById('familyId').value   = '';
+  document.getElementById('familyName').value = '';
+  document.getElementById('familyDesc').value = '';
+  document.getElementById('delFamBtn').style.display = 'none';
+  openModal('ovFamily');
+}
+
+function editFamily(id) {
+  const f = families.find(x => x.id === id);
+  if (!f) return;
+  document.getElementById('mfTitle').textContent  = 'Familie bewerken';
+  document.getElementById('familyId').value       = id;
+  document.getElementById('familyName').value     = f.name;
+  document.getElementById('familyDesc').value     = f.description || '';
+  document.getElementById('delFamBtn').style.display = 'inline-block';
+  openModal('ovFamily');
+}
+
+async function saveFamily() {
+  const name = document.getElementById('familyName').value.trim() || 'Nieuwe familie';
+  const id   = document.getElementById('familyId').value
+    || name.toLowerCase().replace(/\s+/g,'-').replace(/[^a-z0-9-]/g,'') + '-' + Date.now();
+  const payload = {
+    id, name,
+    description: document.getElementById('familyDesc').value.trim(),
+    sort_order:  families.length
+  };
+  const { error } = await db.from('families').upsert(payload);
+  if (error) { toast('Fout: ' + error.message, 'err'); return; }
+  closeModal('ovFamily');
+  toast('✓ Familie opgeslagen');
+}
+
+async function deleteFamily() {
+  const id = document.getElementById('familyId').value;
+  if (!id || !confirm('Familie verwijderen? Alle publicaties hierin worden ook verwijderd.')) return;
+  const { error } = await db.from('families').delete().eq('id', id);
+  if (error) { toast('Fout: ' + error.message, 'err'); return; }
+  closeModal('ovFamily');
+  toast('Familie verwijderd');
+}
+
+// ── Init ──────────────────────────────────────────────────────────────────────
+(async () => {
+  const ok = await loadData();
+  if (ok) {
+    document.getElementById('loadingScreen')?.remove();
+    render();
+  }
+})();
+
+</script>
+</body>
+</html>

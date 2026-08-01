@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>De Baak · Sandbox Agent Infographic</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --primary: #005ADC;
+      --secondary: #00A555;
+      --accent: #FFE100;
+      --bg: #F5F5EB;
+      --text: #1A1A2E;
+      --shadow: 0 8px 20px rgba(0, 0, 0, 0.08), 0 2px 4px rgba(0, 0, 0, 0.02);
+      --card-radius: 16px;
+      --touch-min: 44px;
+    }
+
+    body {
+      background-color: var(--bg);
+      font-family: Arial, Helvetica, sans-serif;
+      color: var(--text);
+      line-height: 1.4;
+      padding: 24px 20px 0 20px;
+    }
+
+    /* main container */
+    .infographic-container {
+      max-width: 1280px;
+      margin: 0 auto;
+      background: var(--bg);
+      border-radius: 32px;
+    }
+
+    /* header & legend */
+    .hero {
+      text-align: center;
+      margin-bottom: 32px;
+    }
+
+    .hero h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+
+    .hero .sub {
+      font-size: 1rem;
+      color: #3a3a5e;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    /* dot legend */
+    .legend {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 24px;
+      margin: 24px 0 20px 0;
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+    .dot {
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      display: inline-block;
+    }
+
+    .dot-primary { background-color: var(--primary); }
+    .dot-secondary { background-color: var(--secondary); }
+    .dot-accent { background-color: var(--accent); }
+
+    /* tabs navigation */
+    .tabs-nav {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 32px;
+      border-bottom: 1px solid #e2e2d6;
+      padding-bottom: 12px;
+    }
+
+    .tab-btn {
+      background: transparent;
+      border: none;
+      font-family: Arial, sans-serif;
+      font-weight: 700;
+      font-size: 1.1rem;
+      padding: 12px 28px;
+      min-height: var(--touch-min);
+      cursor: pointer;
+      border-radius: 48px;
+      transition: all 0.2s ease;
+      color: #4a4a60;
+      background-color: #ffffffcc;
+      backdrop-filter: blur(2px);
+    }
+
+    .tab-btn.active {
+      background-color: var(--primary);
+      color: white;
+      box-shadow: 0 2px 8px rgba(0,90,220,0.25);
+    }
+
+    .tab-btn:hover:not(.active) {
+      background-color: #e9e9df;
+      color: var(--text);
+    }
+
+    /* tab content */
+    .tab-pane {
+      display: none;
+      animation: fade 0.25s ease;
+    }
+
+    .tab-pane.active-pane {
+      display: block;
+    }
+
+    @keyframes fade {
+      from { opacity: 0; transform: translateY(6px);}
+      to { opacity: 1; transform: translateY(0);}
+    }
+
+    /* card grid: 2 columns */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+      margin-bottom: 48px;
+    }
+
+    /* card styling */
+    .card {
+      background: white;
+      border-radius: var(--card-radius);
+      box-shadow: var(--shadow);
+      padding: 24px 20px;
+      transition: transform 0.2s, box-shadow 0.2s;
+      border-top: 4px solid;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 16px 28px rgba(0,0,0,0.1);
+    }
+
+    .card h3 {
+      font-size: 1.4rem;
+      margin-bottom: 12px;
+      font-weight: 700;
+    }
+
+    .card p {
+      font-size: 0.95rem;
+      line-height: 1.45;
+      color: #2d2d44;
+      margin-bottom: 16px;
+      flex: 1;
+    }
+
+    .card-badge {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: bold;
+      padding: 4px 12px;
+      background: #efefef;
+      border-radius: 30px;
+      margin-top: 8px;
+      align-self: flex-start;
+    }
+
+    /* border top colors for cards (assigned per card) */
+    .card.primary-border { border-top-color: var(--primary); }
+    .card.secondary-border { border-top-color: var(--secondary); }
+    .card.accent-border { border-top-color: var(--accent); }
+
+    /* footer */
+    .footer {
+      background-color: var(--primary);
+      color: white;
+      border-radius: 28px 28px 0 0;
+      margin-top: 24px;
+      padding: 32px 24px 24px 24px;
+      position: relative;
+      text-align: center;
+    }
+
+    .footer-content {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .footer p {
+      font-size: 0.9rem;
+      margin: 8px 0;
+      opacity: 0.9;
+    }
+
+    .footer strong {
+      font-weight: 800;
+    }
+
+    .gradient-bar {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 8px;
+      background: linear-gradient(90deg, var(--secondary) 0%, var(--accent) 50%, var(--secondary) 100%);
+      border-radius: 0 0 28px 28px;
+    }
+
+    /* responsive: mobile stacking */
+    @media (max-width: 768px) {
+      body {
+        padding: 16px 12px 0 12px;
+      }
+
+      .card-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+
+      .tab-btn {
+        padding: 10px 20px;
+        font-size: 1rem;
+      }
+
+      .hero h1 {
+        font-size: 1.6rem;
+      }
+
+      .card {
+        padding: 20px 16px;
+      }
+    }
+
+    /* touch targets */
+    .tab-btn, .legend-item {
+      min-height: var(--touch-min);
+    }
+
+    /* extra spacing */
+    .cost-badge {
+      background: #1A2C3E;
+      color: #FFE100;
+      border-radius: 40px;
+      padding: 4px 14px;
+      font-weight: bold;
+      display: inline-block;
+      font-size: 0.8rem;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+<div class="infographic-container">
+  <div class="hero">
+    <h1>🤖 Universal Sandbox Agent</h1>
+    <div class="sub">Veilig & voordelig AI-ontwikkelen · De Baak methode</div>
+  </div>
+
+  <!-- Dot legend (uitleg rollen) -->
+  <div class="legend">
+    <div class="legend-item"><span class="dot dot-primary"></span> 🛡️ GUARD – Data bewaker</div>
+    <div class="legend-item"><span class="dot dot-secondary"></span> 📈 IMPROVE – Slimme leraar</div>
+    <div class="legend-item"><span class="dot dot-accent"></span> 📋 ORCHESTRATE – Stappenplanner</div>
+  </div>
+
+  <!-- Tabs navigatie -->
+  <div class="tabs-nav">
+    <button class="tab-btn active" data-tab="tab1">🛡️ Guard</button>
+    <button class="tab-btn" data-tab="tab2">📈 Improve</button>
+    <button class="tab-btn" data-tab="tab3">📋 Orchestrate</button>
+  </div>
+
+  <!-- Tab 1: Guard -->
+  <div id="tab1" class="tab-pane active-pane">
+    <div class="card-grid">
+      <div class="card primary-border">
+        <h3>🔒 Data classificatie</h3>
+        <p>Agent checkt of input L0/L1 (synthetisch) is. Bij L2/L3 data of tokens: <strong>direct STOP</strong> en waarschuwing. Alleen veilige content passeert.</p>
+        <span class="card-badge">✅ zero risk sandbox</span>
+      </div>
+      <div class="card secondary-border">
+        <h3>⚠️ Real‑time blokkade</h3>
+        <p>Echte paden, API keys, of klantnamen? Agent breekt af en geeft hersteladvies. Zo blijft Perplexity Enterprise Pro vrij van lekken.</p>
+        <span class="card-badge">🛑 breach preventie</span>
+      </div>
+      <div class="card accent-border">
+        <h3>🧪 Alleen synthetische data</h3>
+        <p>Guard forceert gebruik van nep-voorbeelden (L0) tijdens sandbox. Geen echte trainingcontent, wél volledige logica testen.</p>
+        <span class="card-badge">💸 kosteloos oefenen</span>
+      </div>
+      <div class="card primary-border">
+        <h3>📜 Audit trail</h3>
+        <p>Iedere guard-actie wordt gelogd. Management krijgt inzicht in welke data is geweigerd en waarom. Compliance vriendelijk.</p>
+        <span class="card-badge">🔍 volledige transparantie</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tab 2: Improve -->
+  <div id="tab2" class="tab-pane">
+    <div class="card-grid">
+      <div class="card secondary-border">
+        <h3>📈 Adaptive skeletons</h3>
+        <p>Leert van onduidelijke stappen. Past instructies en voorbeelden aan op basis van jouw feedback tijdens de sandbox.</p>
+        <span class="card-badge">🔄 iteratief slimmer</span>
+      </div>
+      <div class="card primary-border">
+        <h3>⚡ Foutanalyse</h3>
+        <p>Bij elke gemiste guard of mislukte test stelt Improve concrete verbeteringen voor. Geen herhaling van dezelfde valkuilen.</p>
+        <span class="card-badge">🧠 leert van fouten</span>
+      </div>
+      <div class="card accent-border">
+        <h3>📦 Optimale skeletons</h3>
+        <p>Genereert kant-en-klare space instructies voor orchestrator, Baakiedoc, Baakieprint (read-only) en HTML.</p>
+        <span class="card-badge">⚙️ ready-to-plak</span>
+      </div>
+      <div class="card secondary-border">
+        <h3>📊 KPI dashboard</h3>
+        <p>Toont bespaarde tijd en kosten. Na 2u sandbox dalen Perplexity maanden van 4 naar 1. Gemiddelde besparing: €120.</p>
+        <span class="card-badge">📉 ROI zichtbaar</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tab 3: Orchestrate -->
+  <div id="tab3" class="tab-pane">
+    <div class="card-grid">
+      <div class="card accent-border">
+        <h3>📋 Stappenplanner</h3>
+        <p>Houdt checklist bij: van orchestrator logica tot backup review. Geeft altijd de volgende actie in juiste volgorde.</p>
+        <span class="card-badge">✅ nooit verdwalen</span>
+      </div>
+      <div class="card primary-border">
+        <h3>⏱️ Fase-indeling</h3>
+        <p>Fase 1: Orchestrator (30min) → Fase 2: Space instructies (30min) → Fase 3: Drift + backup (50min). Compleet in 2 uur.</p>
+        <span class="card-badge">⚡ snelle time-to-live</span>
+      </div>
+      <div class="card secondary-border">
+        <h3>📦 Export naar Perplexity</h3>
+        <p>Zodra alle tests slagen, bundelt Orchestrate het eindpakket: gevalideerde instructies + exacte volgorde voor Perplexity Enterprise Pro.</p>
+        <span class="card-badge">🚀 1 dag live</span>
+      </div>
+      <div class="card accent-border">
+        <h3>🔄 Herhaalbaar proces</h3>
+        <p>Elk teamlid gebruikt dezelfde agent. Standaard workflow: sandbox (DeepSeek) → export → productie (Perplexity). Altijd consistent.</p>
+        <span class="card-badge">🏢 schaalbaar voor MT</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Kosten & voordelen sectie (extra overzicht) -->
+  <div style="background: #ffffffd9; border-radius: 24px; padding: 20px; margin: 16px 0 0 0; box-shadow: var(--shadow);">
+    <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 16px;">
+      <div style="flex:1; min-width: 180px;">
+        <span style="font-weight:800; color: var(--primary);">💰 Zonder Sandbox Agent</span>
+        <p style="margin-top: 8px; font-size:0.85rem;">Perplexity Ent. Pro: 2-4 maanden → €80-€160<br>Datalek risico: 🟡 middelhoog</p>
+      </div>
+      <div style="font-size: 2rem; color: var(--secondary);">→</div>
+      <div style="flex:1; min-width: 180px;">
+        <span style="font-weight:800; color: var(--secondary);">🌱 Met Sandbox Agent</span>
+        <p style="margin-top: 8px; font-size:0.85rem;">2u sandbox (€0) + 1 dag Enterprise Pro (€34-40)<br>Datalek risico: 🟢 laag (agent blokkeert)</p>
+      </div>
+    </div>
+    <div style="margin-top: 20px; background: #ecf7ef; border-radius: 40px; padding: 8px 16px; text-align: center;">
+      <span class="cost-badge">📉 Besparing: €40 – €120</span>
+      <span class="cost-badge" style="margin-left: 12px;">⏱️ Tijdwinst: 2-4 weken</span>
+    </div>
+  </div>
+
+  <!-- Footer met gradient bar -->
+  <div class="footer">
+    <div class="footer-content">
+      <p><strong>De Baak · Sandbox first, always</strong></p>
+      <p>Activeer de Universal Sandbox Agent met "<strong>Activeer Universal Sandbox Agent</strong>" in DeepSeek.<br>
+      Daarna alleen gevalideerde instructies exporteren naar Perplexity Enterprise Pro.</p>
+      <p style="font-size:0.75rem; margin-top: 16px;">© 2026 De Baak — Huisstijl v2.0 | Veilig innoveren met AI</p>
+    </div>
+    <div class="gradient-bar"></div>
+  </div>
+</div>
+
+<script>
+  // Tab switching logic
+  const tabBtns = document.querySelectorAll('.tab-btn');
+  const panes = document.querySelectorAll('.tab-pane');
+
+  function switchTab(tabId) {
+    // Deactivate all panes
+    panes.forEach(pane => {
+      pane.classList.remove('active-pane');
+    });
+    // Activate selected pane
+    const activePane = document.getElementById(tabId);
+    if (activePane) activePane.classList.add('active-pane');
+
+    // Update button active styles
+    tabBtns.forEach(btn => {
+      btn.classList.remove('active');
+      if (btn.getAttribute('data-tab') === tabId) {
+        btn.classList.add('active');
+      }
+    });
+  }
+
+  tabBtns.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      const tabId = btn.getAttribute('data-tab');
+      if (tabId) switchTab(tabId);
+    });
+  });
+
+  // Optional: ensure that first tab is active by default
+  // (already handled by HTML classes, but safe double-check)
+  if (!document.querySelector('.tab-pane.active-pane')) {
+    switchTab('tab1');
+  }
+</script>
+</body>
+</html>

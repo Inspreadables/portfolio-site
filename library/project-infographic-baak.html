@@ -1,0 +1,1290 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Knowledge Automation — De Baak</title>
+<link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400&family=Source+Sans+3:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════════
+   DE BAAK DESIGN SYSTEM
+   Teal · Brown · Green · Cream
+   "Training, ontwikkeling, leiderschap sinds 1947"
+   ═══════════════════════════════════════════ */
+
+:root {
+  /* Primair */
+  --teal: #5a8f8f;
+  --teal-deep: #3d6b6b;
+  --teal-light: #7db3b3;
+  --teal-wash: #e8f0f0;
+  --teal-ghost: #f2f7f7;
+
+  /* Secundair */
+  --brown: #8b6f47;
+  --brown-deep: #6d5636;
+  --brown-light: #b89b6a;
+  --brown-wash: #f3ede3;
+
+  /* Tertiair */
+  --green: #4a7c59;
+  --green-deep: #375d43;
+  --green-light: #6fa37e;
+  --green-wash: #e9f2ec;
+
+  /* Foundations */
+  --cream: #f5f3ef;
+  --cream-warm: #f0ece4;
+  --parchment: #faf8f5;
+  --ink: #2c2c2c;
+  --ink-soft: #4a4a4a;
+  --ink-muted: #7a7a7a;
+  --border: #e2ddd4;
+  --card: #ffffff;
+  --shadow-sm: 0 1px 8px rgba(90,143,143,0.06);
+  --shadow: 0 2px 20px rgba(90,143,143,0.08);
+  --shadow-lift: 0 8px 32px rgba(90,143,143,0.12);
+  --radius: 12px;
+  --radius-lg: 20px;
+}
+
+*,*::before,*::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Source Sans 3', 'Segoe UI', sans-serif;
+  background: var(--cream);
+  color: var(--ink);
+  line-height: 1.75;
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ═══════════════════════════════════════════
+   SCROLL PROGRESS
+   ═══════════════════════════════════════════ */
+.progress-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--teal), var(--green), var(--brown));
+  width: 0%;
+  z-index: 1000;
+  transition: width 0.1s linear;
+}
+
+/* ═══════════════════════════════════════════
+   HERO
+   ═══════════════════════════════════════════ */
+.hero {
+  position: relative;
+  background: linear-gradient(175deg, var(--teal-deep) 0%, var(--teal) 40%, var(--teal-light) 100%);
+  color: var(--parchment);
+  padding: 100px 32px 120px;
+  text-align: center;
+  overflow: hidden;
+}
+
+/* Organic leaf pattern overlay */
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 600px 400px at 15% 80%, rgba(74,124,89,0.25) 0%, transparent 70%),
+    radial-gradient(ellipse 500px 500px at 85% 20%, rgba(139,111,71,0.15) 0%, transparent 70%),
+    radial-gradient(circle 300px at 50% 50%, rgba(255,255,255,0.03) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+/* Soft wave bottom */
+.hero::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  right: 0;
+  height: 80px;
+  background: var(--cream);
+  clip-path: ellipse(60% 100% at 50% 100%);
+}
+
+.hero-inner {
+  position: relative;
+  z-index: 1;
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.hero-eyebrow {
+  font-family: 'Source Sans 3', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: rgba(245,243,239,0.6);
+  margin-bottom: 24px;
+  animation: fadeIn 1s ease-out;
+}
+
+.hero h1 {
+  font-family: 'Merriweather', Georgia, serif;
+  font-size: clamp(1.8rem, 4.5vw, 2.8rem);
+  font-weight: 700;
+  line-height: 1.3;
+  margin-bottom: 16px;
+  animation: fadeIn 1s ease-out 0.2s both;
+}
+
+.hero-sub {
+  font-size: 1.05rem;
+  font-weight: 300;
+  line-height: 1.8;
+  opacity: 0.8;
+  max-width: 560px;
+  margin: 0 auto;
+  animation: fadeIn 1s ease-out 0.4s both;
+}
+
+/* Decorative botanical circles */
+.hero-deco {
+  position: absolute;
+  border-radius: 50%;
+  border: 1px solid rgba(245,243,239,0.08);
+}
+.hero-deco-1 { width: 400px; height: 400px; top: -120px; right: -100px; }
+.hero-deco-2 { width: 250px; height: 250px; bottom: 40px; left: -60px; }
+.hero-deco-3 { width: 180px; height: 180px; top: 30%; left: 10%; border-color: rgba(245,243,239,0.04); }
+
+/* ═══════════════════════════════════════════
+   STATS RIBBON
+   ═══════════════════════════════════════════ */
+.stats-ribbon {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  max-width: 860px;
+  margin: -56px auto 0;
+  position: relative;
+  z-index: 2;
+  background: var(--card);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+
+.stat-cell {
+  padding: 28px 16px;
+  text-align: center;
+  border-right: 1px solid var(--border);
+  transition: background 0.3s ease;
+}
+.stat-cell:last-child { border-right: none; }
+.stat-cell:hover { background: var(--teal-ghost); }
+
+.stat-value {
+  font-family: 'Merriweather', serif;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--teal);
+  line-height: 1;
+}
+
+.stat-label {
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  margin-top: 6px;
+}
+
+/* ═══════════════════════════════════════════
+   LAYOUT
+   ═══════════════════════════════════════════ */
+.container {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 0 28px;
+}
+
+.section {
+  padding: 72px 0;
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.section.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Section headers */
+.section-head {
+  margin-bottom: 40px;
+}
+
+.section-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--teal);
+  margin-bottom: 12px;
+}
+
+.section-tag::before {
+  content: '';
+  width: 24px;
+  height: 2px;
+  background: var(--teal);
+  border-radius: 1px;
+}
+
+.section-head h2 {
+  font-family: 'Merriweather', serif;
+  font-size: clamp(1.4rem, 3vw, 1.9rem);
+  font-weight: 700;
+  color: var(--ink);
+  line-height: 1.35;
+}
+
+.section-head p {
+  font-size: 0.95rem;
+  color: var(--ink-muted);
+  margin-top: 8px;
+  max-width: 600px;
+  line-height: 1.7;
+}
+
+/* Divider */
+.divider {
+  border: none;
+  height: 1px;
+  background: var(--border);
+  margin: 0;
+}
+
+/* ═══════════════════════════════════════════
+   PIPELINE — Vertical Flow
+   ═══════════════════════════════════════════ */
+.pipeline {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.pipe-step {
+  display: grid;
+  grid-template-columns: 56px 1fr;
+  gap: 20px;
+}
+
+.pipe-track {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.pipe-node {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Merriweather', serif;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--parchment);
+  flex-shrink: 0;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.pipe-stem {
+  width: 2px;
+  flex: 1;
+  min-height: 16px;
+  background: var(--border);
+}
+
+.pipe-card {
+  background: var(--card);
+  border-radius: var(--radius);
+  padding: 28px 28px 24px;
+  margin-bottom: 12px;
+  box-shadow: var(--shadow-sm);
+  border-left: 3px solid transparent;
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+.pipe-card:hover {
+  box-shadow: var(--shadow-lift);
+  transform: translateX(4px);
+}
+
+.pipe-card h3 {
+  font-family: 'Merriweather', serif;
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.pipe-card p {
+  font-size: 0.88rem;
+  color: var(--ink-soft);
+  line-height: 1.75;
+}
+
+.pipe-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 14px;
+}
+
+.pipe-tag {
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  padding: 4px 14px;
+  border-radius: 100px;
+}
+
+/* Step colors */
+.step-teal .pipe-node { background: var(--teal); }
+.step-teal .pipe-card { border-left-color: var(--teal); }
+.step-teal .pipe-card h3 { color: var(--teal-deep); }
+.step-teal .pipe-tag { background: var(--teal-wash); color: var(--teal-deep); }
+
+.step-brown .pipe-node { background: var(--brown); }
+.step-brown .pipe-card { border-left-color: var(--brown); }
+.step-brown .pipe-card h3 { color: var(--brown-deep); }
+.step-brown .pipe-tag { background: var(--brown-wash); color: var(--brown-deep); }
+
+.step-green .pipe-node { background: var(--green); }
+.step-green .pipe-card { border-left-color: var(--green); }
+.step-green .pipe-card h3 { color: var(--green-deep); }
+.step-green .pipe-tag { background: var(--green-wash); color: var(--green-deep); }
+
+.step-accent .pipe-node { background: var(--brown-light); }
+.step-accent .pipe-card { border-left-color: var(--brown-light); }
+.step-accent .pipe-card h3 { color: var(--brown); }
+.step-accent .pipe-tag { background: var(--brown-wash); color: var(--brown-deep); }
+
+/* ═══════════════════════════════════════════
+   CONTENT LIBRARY GRID
+   ═══════════════════════════════════════════ */
+.lib-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.lib-card {
+  background: var(--card);
+  border-radius: var(--radius);
+  padding: 28px 24px;
+  box-shadow: var(--shadow-sm);
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.lib-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lift);
+}
+
+/* Top accent bar */
+.lib-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+}
+.lib-card:nth-child(1)::before { background: var(--teal); }
+.lib-card:nth-child(2)::before { background: var(--brown); }
+.lib-card:nth-child(3)::before { background: var(--green); }
+.lib-card:nth-child(4)::before { background: var(--teal-light); }
+.lib-card:nth-child(5)::before { background: var(--brown-light); }
+.lib-card:nth-child(6)::before { background: var(--green-light); }
+
+.lib-count {
+  font-family: 'Merriweather', serif;
+  font-size: 2.2rem;
+  font-weight: 900;
+  line-height: 1;
+  margin-bottom: 4px;
+}
+.lib-card:nth-child(1) .lib-count { color: var(--teal); }
+.lib-card:nth-child(2) .lib-count { color: var(--brown); }
+.lib-card:nth-child(3) .lib-count { color: var(--green); }
+.lib-card:nth-child(4) .lib-count { color: var(--teal-light); }
+.lib-card:nth-child(5) .lib-count { color: var(--brown-light); }
+.lib-card:nth-child(6) .lib-count { color: var(--green-light); }
+
+.lib-name {
+  font-family: 'Merriweather', serif;
+  font-size: 0.85rem;
+  font-weight: 700;
+  margin-bottom: 6px;
+  color: var(--ink);
+}
+
+.lib-desc {
+  font-size: 0.78rem;
+  color: var(--ink-muted);
+  line-height: 1.6;
+}
+
+/* ═══════════════════════════════════════════
+   WEEKLY CYCLE — Horizontal
+   ═══════════════════════════════════════════ */
+.cycle-wrap {
+  background: var(--card);
+  border-radius: var(--radius-lg);
+  padding: 44px 36px;
+  box-shadow: var(--shadow);
+}
+
+.cycle-header {
+  text-align: center;
+  margin-bottom: 36px;
+}
+.cycle-header h3 {
+  font-family: 'Merriweather', serif;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--ink);
+}
+.cycle-header p {
+  font-size: 0.82rem;
+  color: var(--ink-muted);
+  margin-top: 4px;
+}
+
+.cycle-track {
+  position: relative;
+}
+
+/* Connection line */
+.cycle-track::before {
+  content: '';
+  position: absolute;
+  top: 28px;
+  left: 32px;
+  right: 32px;
+  height: 2px;
+  background: linear-gradient(90deg, var(--teal), var(--green), var(--brown), var(--teal-light));
+  border-radius: 1px;
+}
+
+.cycle-steps {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  position: relative;
+}
+
+.cycle-step {
+  text-align: center;
+}
+
+.cycle-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 14px;
+  font-size: 1.3rem;
+  position: relative;
+  z-index: 1;
+  box-shadow: var(--shadow-sm);
+}
+
+.cycle-step:nth-child(1) .cycle-icon { background: var(--teal-wash); border: 2px solid var(--teal); }
+.cycle-step:nth-child(2) .cycle-icon { background: var(--green-wash); border: 2px solid var(--green); }
+.cycle-step:nth-child(3) .cycle-icon { background: var(--brown-wash); border: 2px solid var(--brown); }
+.cycle-step:nth-child(4) .cycle-icon { background: var(--teal-ghost); border: 2px solid var(--teal-light); }
+
+.cycle-step h4 {
+  font-family: 'Merriweather', serif;
+  font-size: 0.82rem;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.cycle-step p {
+  font-size: 0.75rem;
+  color: var(--ink-muted);
+  line-height: 1.55;
+}
+
+/* ═══════════════════════════════════════════
+   TOOL STACK
+   ═══════════════════════════════════════════ */
+.tools-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+.tool-card {
+  background: var(--card);
+  border-radius: var(--radius);
+  padding: 24px;
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.tool-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow);
+}
+
+.tool-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  flex-shrink: 0;
+}
+
+.tool-card:nth-child(1) .tool-icon { background: var(--teal-wash); }
+.tool-card:nth-child(2) .tool-icon { background: var(--green-wash); }
+.tool-card:nth-child(3) .tool-icon { background: var(--brown-wash); }
+.tool-card:nth-child(4) .tool-icon { background: var(--teal-ghost); }
+.tool-card:nth-child(5) .tool-icon { background: var(--green-wash); }
+.tool-card:nth-child(6) .tool-icon { background: var(--brown-wash); }
+
+.tool-info h4 {
+  font-family: 'Merriweather', serif;
+  font-size: 0.92rem;
+  font-weight: 700;
+  margin-bottom: 2px;
+}
+
+.tool-role {
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--teal);
+  margin-bottom: 4px;
+}
+
+.tool-info p {
+  font-size: 0.8rem;
+  color: var(--ink-muted);
+  line-height: 1.6;
+}
+
+/* ═══════════════════════════════════════════
+   INSIGHTS — Quote-style cards
+   ═══════════════════════════════════════════ */
+.insights-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 20px;
+}
+
+.insight-card {
+  background: var(--teal-deep);
+  color: var(--parchment);
+  border-radius: var(--radius);
+  padding: 32px 28px;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s ease;
+}
+.insight-card:hover { transform: translateY(-3px); }
+
+.insight-card:nth-child(2) { background: var(--green-deep); }
+.insight-card:nth-child(3) { background: var(--brown-deep); }
+
+/* Quote mark decoration */
+.insight-card::before {
+  content: '"';
+  font-family: 'Merriweather', serif;
+  font-size: 6rem;
+  position: absolute;
+  top: -16px;
+  right: 16px;
+  opacity: 0.08;
+  line-height: 1;
+}
+
+.insight-label {
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  opacity: 0.5;
+  margin-bottom: 12px;
+}
+
+.insight-card h4 {
+  font-family: 'Merriweather', serif;
+  font-size: 1.05rem;
+  font-weight: 700;
+  line-height: 1.4;
+  margin-bottom: 10px;
+}
+
+.insight-card p {
+  font-size: 0.82rem;
+  line-height: 1.7;
+  opacity: 0.8;
+}
+
+/* ═══════════════════════════════════════════
+   TAGGING TAXONOMY
+   ═══════════════════════════════════════════ */
+.taxonomy-wrap {
+  background: var(--card);
+  border-radius: var(--radius-lg);
+  padding: 40px 36px;
+  box-shadow: var(--shadow);
+}
+
+.tax-levels {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  margin-bottom: 28px;
+}
+
+.tax-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  border-radius: 100px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  transition: transform 0.2s ease;
+  cursor: default;
+}
+.tax-pill:hover { transform: scale(1.06); }
+
+.tax-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.tax-pill:nth-child(1) { background: var(--teal-wash); color: var(--teal-deep); }
+.tax-pill:nth-child(1) .tax-dot { background: var(--teal); }
+.tax-pill:nth-child(2) { background: var(--brown-wash); color: var(--brown-deep); }
+.tax-pill:nth-child(2) .tax-dot { background: var(--brown); }
+.tax-pill:nth-child(3) { background: var(--green-wash); color: var(--green-deep); }
+.tax-pill:nth-child(3) .tax-dot { background: var(--green); }
+.tax-pill:nth-child(4) { background: var(--teal-ghost); color: var(--teal-deep); }
+.tax-pill:nth-child(4) .tax-dot { background: var(--teal-light); }
+.tax-pill:nth-child(5) { background: var(--brown-wash); color: var(--brown); }
+.tax-pill:nth-child(5) .tax-dot { background: var(--brown-light); }
+.tax-pill:nth-child(6) { background: var(--green-wash); color: var(--green); }
+.tax-pill:nth-child(6) .tax-dot { background: var(--green-light); }
+.tax-pill:nth-child(7) { background: #f5f0f5; color: #6b5070; }
+.tax-pill:nth-child(7) .tax-dot { background: #8b6f90; }
+
+.tax-example {
+  background: var(--cream);
+  border-radius: var(--radius);
+  padding: 20px 24px;
+  text-align: center;
+}
+
+.tax-example p {
+  font-size: 0.78rem;
+  color: var(--ink-muted);
+  margin-bottom: 10px;
+  font-weight: 500;
+}
+
+.tax-path {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  justify-content: center;
+}
+
+.tax-path span {
+  font-size: 0.7rem;
+  font-weight: 600;
+  padding: 4px 14px;
+  border-radius: 6px;
+  background: var(--teal-deep);
+  color: var(--parchment);
+}
+
+/* ═══════════════════════════════════════════
+   ACCORDION — Success Factors
+   ═══════════════════════════════════════════ */
+.accordion { margin-top: 8px; }
+
+.acc-item {
+  border-bottom: 1px solid var(--border);
+}
+
+.acc-trigger {
+  width: 100%;
+  background: none;
+  border: none;
+  padding: 20px 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  font-family: 'Merriweather', serif;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--ink);
+  text-align: left;
+  transition: color 0.2s ease;
+}
+.acc-trigger:hover { color: var(--teal); }
+
+.acc-arrow {
+  font-size: 1.2rem;
+  color: var(--teal);
+  transition: transform 0.3s ease;
+  flex-shrink: 0;
+  margin-left: 16px;
+}
+
+.acc-item.open .acc-arrow {
+  transform: rotate(180deg);
+}
+
+.acc-body {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease;
+}
+
+.acc-item.open .acc-body {
+  max-height: 400px;
+}
+
+.acc-content {
+  padding: 0 0 24px;
+  font-size: 0.88rem;
+  color: var(--ink-soft);
+  line-height: 1.8;
+}
+
+/* ═══════════════════════════════════════════
+   FOOTER
+   ═══════════════════════════════════════════ */
+.footer {
+  text-align: center;
+  padding: 48px 28px 64px;
+  border-top: 1px solid var(--border);
+  margin-top: 20px;
+}
+
+.footer-brand {
+  font-family: 'Merriweather', serif;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--teal);
+  margin-bottom: 4px;
+}
+
+.footer p {
+  font-size: 0.75rem;
+  color: var(--ink-muted);
+  line-height: 1.7;
+}
+
+/* ═══════════════════════════════════════════
+   ANIMATIONS
+   ═══════════════════════════════════════════ */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ═══════════════════════════════════════════
+   RESPONSIVE
+   ═══════════════════════════════════════════ */
+@media (max-width: 768px) {
+  .hero { padding: 72px 24px 100px; }
+
+  .stats-ribbon {
+    grid-template-columns: repeat(2, 1fr);
+    margin: -44px 16px 0;
+    border-radius: var(--radius);
+  }
+  .stat-cell:nth-child(odd) { border-right: 1px solid var(--border); }
+  .stat-cell:nth-child(even) { border-right: none; }
+  .stat-cell:nth-child(n+3) { border-top: 1px solid var(--border); }
+
+  .container { padding: 0 20px; }
+  .section { padding: 56px 0; }
+
+  .lib-grid { grid-template-columns: repeat(2, 1fr); }
+  .tools-grid { grid-template-columns: 1fr; }
+
+  .cycle-track::before { display: none; }
+  .cycle-steps { grid-template-columns: repeat(2, 1fr); gap: 24px; }
+
+  .pipe-step { grid-template-columns: 44px 1fr; gap: 14px; }
+  .pipe-node { width: 36px; height: 36px; font-size: 0.75rem; }
+  .pipe-card { padding: 22px; }
+
+  .cycle-wrap { padding: 32px 24px; }
+  .taxonomy-wrap { padding: 32px 24px; }
+}
+
+@media (max-width: 480px) {
+  .stats-ribbon { grid-template-columns: 1fr 1fr; }
+
+  .lib-grid { grid-template-columns: 1fr; }
+  .insights-grid { grid-template-columns: 1fr; }
+  .cycle-steps { grid-template-columns: 1fr; }
+
+  .tax-pill { font-size: 0.7rem; padding: 8px 14px; }
+  .tax-path span { font-size: 0.65rem; padding: 3px 10px; }
+}
+
+@media print {
+  .progress-bar { display: none; }
+  .hero { background: var(--teal) !important; padding: 40px 24px 60px; }
+  .hero::after { display: none; }
+  .section { opacity: 1 !important; transform: none !important; padding: 32px 0; }
+  .pipe-card:hover, .lib-card:hover, .tool-card:hover { transform: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- Scroll Progress -->
+<div class="progress-bar" id="progress"></div>
+
+<!-- ═══ HERO ═══ -->
+<header class="hero">
+  <div class="hero-deco hero-deco-1"></div>
+  <div class="hero-deco hero-deco-2"></div>
+  <div class="hero-deco hero-deco-3"></div>
+  <div class="hero-inner">
+    <div class="hero-eyebrow">Projectoverzicht</div>
+    <h1>Knowledge Automation &amp; Content Intelligence</h1>
+    <p class="hero-sub">Geautomatiseerde research pipelines, content library management en wekelijkse executive intelligence — verenigd in één project.</p>
+  </div>
+</header>
+
+<!-- ═══ STATS ═══ -->
+<div class="stats-ribbon">
+  <div class="stat-cell">
+    <div class="stat-value">1.126</div>
+    <div class="stat-label">Documenten</div>
+  </div>
+  <div class="stat-cell">
+    <div class="stat-value">30</div>
+    <div class="stat-label">Categorieën</div>
+  </div>
+  <div class="stat-cell">
+    <div class="stat-value">7</div>
+    <div class="stat-label">Tag Niveaus</div>
+  </div>
+  <div class="stat-cell">
+    <div class="stat-value">5</div>
+    <div class="stat-label">Pipelines</div>
+  </div>
+  <div class="stat-cell">
+    <div class="stat-value">60/40</div>
+    <div class="stat-label">EN / NL</div>
+  </div>
+</div>
+
+<main class="container">
+
+  <!-- ═══ SECTION 1: PIPELINE ═══ -->
+  <section class="section" id="pipeline">
+    <div class="section-head">
+      <div class="section-tag">01 — Architectuur</div>
+      <h2>Research Automation Pipeline</h2>
+      <p>Sequentiële keten: elke tool doet waar die het beste in is.</p>
+    </div>
+
+    <div class="pipeline">
+      <div class="pipe-step step-teal">
+        <div class="pipe-track">
+          <div class="pipe-node">1</div>
+          <div class="pipe-stem"></div>
+        </div>
+        <div class="pipe-card">
+          <h3>Trigger</h3>
+          <p>Wekelijks gepland via Zapier, of handmatig geactiveerd wanneer een nieuw onderwerp op de contentkalender verschijnt of een CRM-entry binnenkomt.</p>
+          <div class="pipe-tags">
+            <span class="pipe-tag">Zapier</span>
+            <span class="pipe-tag">Schedule</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="pipe-step step-green">
+        <div class="pipe-track">
+          <div class="pipe-node">2</div>
+          <div class="pipe-stem"></div>
+        </div>
+        <div class="pipe-card">
+          <h3>Research &amp; Discovery</h3>
+          <p>Perplexity voert brede landschapsscans uit en verzamelt real-time data. Deep Research leest autonoom honderden bronnen en exporteert naar PDF.</p>
+          <div class="pipe-tags">
+            <span class="pipe-tag">Perplexity</span>
+            <span class="pipe-tag">Deep Research</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="pipe-step step-brown">
+        <div class="pipe-track">
+          <div class="pipe-node">3</div>
+          <div class="pipe-stem"></div>
+        </div>
+        <div class="pipe-card">
+          <h3>Analyse &amp; Synthese</h3>
+          <p>Claude API structureert bevindingen tot gepolijste rapporten — multi-document synthese, trendanalyse en executive summaries met concrete aanbevelingen.</p>
+          <div class="pipe-tags">
+            <span class="pipe-tag">Claude API</span>
+            <span class="pipe-tag">Analyse</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="pipe-step step-accent">
+        <div class="pipe-track">
+          <div class="pipe-node">4</div>
+        </div>
+        <div class="pipe-card">
+          <h3>Publiceren &amp; Leveren</h3>
+          <p>Output landt automatisch in Google Docs, Notion, e-mail of Slack — opgemaakt, voorzien van tijdstempel en klaar voor review door stakeholders.</p>
+          <div class="pipe-tags">
+            <span class="pipe-tag">Google Docs</span>
+            <span class="pipe-tag">Notion</span>
+            <span class="pipe-tag">Slack</span>
+            <span class="pipe-tag">E-mail</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- ═══ SECTION 2: CONTENT LIBRARY ═══ -->
+  <section class="section" id="library">
+    <div class="section-head">
+      <div class="section-tag">02 — Bibliotheek</div>
+      <h2>Content Library Overzicht</h2>
+      <p>1.126 documenten gecategoriseerd in 30 onderwerpen met 7-niveau tagging.</p>
+    </div>
+
+    <div class="lib-grid">
+      <div class="lib-card">
+        <div class="lib-count">89</div>
+        <div class="lib-name">Learning &amp; Development</div>
+        <div class="lib-desc">Trainingsplannen, competentiemodellen, strategisch L&amp;D, onboarding</div>
+      </div>
+      <div class="lib-card">
+        <div class="lib-count">52</div>
+        <div class="lib-name">Community Management</div>
+        <div class="lib-desc">BTC-materialen, engagement strategieën, social learning, KPI's</div>
+      </div>
+      <div class="lib-card">
+        <div class="lib-count">52</div>
+        <div class="lib-name">Research &amp; Methodologie</div>
+        <div class="lib-desc">Expert opinions, benchmarking, best practices, marktonderzoek</div>
+      </div>
+      <div class="lib-card">
+        <div class="lib-count">46</div>
+        <div class="lib-name">Templates &amp; Frameworks</div>
+        <div class="lib-desc">Herbruikbare tools, WBS, projectcharters, planningssjablonen</div>
+      </div>
+      <div class="lib-card">
+        <div class="lib-count">44</div>
+        <div class="lib-name">Executive Education</div>
+        <div class="lib-desc">Coaching, programma-evaluatie, instellingen, maatwerk programma's</div>
+      </div>
+      <div class="lib-card">
+        <div class="lib-count">843</div>
+        <div class="lib-name">25+ Overige Categorieën</div>
+        <div class="lib-desc">AI &amp; tech, LMS, coaching, redactie, QA, organisatieontwikkeling</div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- ═══ SECTION 3: WEEKLY CYCLE ═══ -->
+  <section class="section" id="cyclus">
+    <div class="section-head">
+      <div class="section-tag">03 — Ritme</div>
+      <h2>Wekelijkse Update Cyclus</h2>
+      <p>Elke week automatisch: scannen, analyseren, updaten, rapporteren.</p>
+    </div>
+
+    <div class="cycle-wrap">
+      <div class="cycle-header">
+        <h3>Elke Maandag, Automatisch</h3>
+        <p>Trigger → Research → Synthese → Executive Summary</p>
+      </div>
+      <div class="cycle-track">
+        <div class="cycle-steps">
+          <div class="cycle-step">
+            <div class="cycle-icon">📋</div>
+            <h4>Scan &amp; Verzamel</h4>
+            <p>Perplexity scant op nieuwe ontwikkelingen binnen kernthema's en concurrenten</p>
+          </div>
+          <div class="cycle-step">
+            <div class="cycle-icon">🔍</div>
+            <h4>Analyseer</h4>
+            <p>Claude synthetiseert bevindingen, vergelijkt met master file, signaleert wat nieuw is</p>
+          </div>
+          <div class="cycle-step">
+            <div class="cycle-icon">📄</div>
+            <h4>Update Master</h4>
+            <p>Master projectbestand wordt bijgewerkt met laatste inzichten, getagd en getimestampt</p>
+          </div>
+          <div class="cycle-step">
+            <div class="cycle-icon">📊</div>
+            <h4>Exec Summary</h4>
+            <p>Responsive HTML executive summary geleverd voor snelle stakeholder review</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- ═══ SECTION 4: TOOL STACK ═══ -->
+  <section class="section" id="tools">
+    <div class="section-head">
+      <div class="section-tag">04 — Tooling</div>
+      <h2>Tool Stack</h2>
+      <p>Elke tool heeft een specifieke rol in de keten.</p>
+    </div>
+
+    <div class="tools-grid">
+      <div class="tool-card">
+        <div class="tool-icon">⚡</div>
+        <div class="tool-info">
+          <h4>Zapier</h4>
+          <div class="tool-role">Orchestratie</div>
+          <p>Triggers, planning, MCP-integratie en verbinding van alle pipeline-stappen</p>
+        </div>
+      </div>
+      <div class="tool-card">
+        <div class="tool-icon">🔎</div>
+        <div class="tool-info">
+          <h4>Perplexity</h4>
+          <div class="tool-role">Research Laag</div>
+          <p>Real-time webonderzoek, bronvermeldingen, brede scans, Deep Research</p>
+        </div>
+      </div>
+      <div class="tool-card">
+        <div class="tool-icon">🧠</div>
+        <div class="tool-info">
+          <h4>Claude API</h4>
+          <div class="tool-role">Analyse Engine</div>
+          <p>Multi-doc synthese, gestructureerde rapporten, executive summaries</p>
+        </div>
+      </div>
+      <div class="tool-card">
+        <div class="tool-icon">📝</div>
+        <div class="tool-info">
+          <h4>Google Docs</h4>
+          <div class="tool-role">Master File</div>
+          <p>Levend masterdocument, versiegeschiedenis, gezamenlijke review</p>
+        </div>
+      </div>
+      <div class="tool-card">
+        <div class="tool-icon">🗂️</div>
+        <div class="tool-info">
+          <h4>Notion</h4>
+          <div class="tool-role">Kennisbank</div>
+          <p>Gestructureerde opslag, database-weergaven, tagging, kruisverwijzingen</p>
+        </div>
+      </div>
+      <div class="tool-card">
+        <div class="tool-icon">💬</div>
+        <div class="tool-info">
+          <h4>Slack / E-mail</h4>
+          <div class="tool-role">Distributie</div>
+          <p>Notificaties, digests, stakeholder-leveringen, snelle reviewlinks</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- ═══ SECTION 5: KEY INSIGHTS ═══ -->
+  <section class="section" id="inzichten">
+    <div class="section-head">
+      <div class="section-tag">05 — Inzichten</div>
+      <h2>Belangrijkste Projectinzichten</h2>
+    </div>
+
+    <div class="insights-grid">
+      <div class="insight-card">
+        <div class="insight-label">Inzicht 01</div>
+        <h4>Sequentieel wint van single-tool</h4>
+        <p>Experts bevelen unaniem aan om Perplexity → Claude te ketenen in plaats van op één tool te vertrouwen. Elke tool blinkt uit in een andere fase van het onderzoeksproces.</p>
+      </div>
+      <div class="insight-card">
+        <div class="insight-label">Inzicht 02</div>
+        <h4>Hiërarchisch taggen schaalt</h4>
+        <p>Een 7-niveau tagsysteem (domein, functie, formaat, doelgroep, status, taal, organisatie) presteert veel beter dan platte categorisering bij bibliotheken van 1.000+ documenten.</p>
+      </div>
+      <div class="insight-card">
+        <div class="insight-label">Inzicht 03</div>
+        <h4>Automatisering ≠ autopilot</h4>
+        <p>Geplande pipelines profiteren nog steeds van menselijke review. De beste workflow bevat een goedkeuringsstap vóór publicatie naar stakeholders.</p>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- ═══ SECTION 6: TAGGING ═══ -->
+  <section class="section" id="tagging">
+    <div class="section-head">
+      <div class="section-tag">06 — Taxonomie</div>
+      <h2>7-Niveau Tagging Systeem</h2>
+      <p>Van breed domein tot specifieke organisatie — elke laag verfijnt de vindbaarheid.</p>
+    </div>
+
+    <div class="taxonomy-wrap">
+      <div class="tax-levels">
+        <div class="tax-pill"><span class="tax-dot"></span> L1: Domein</div>
+        <div class="tax-pill"><span class="tax-dot"></span> L2: Functie</div>
+        <div class="tax-pill"><span class="tax-dot"></span> L3: Formaat</div>
+        <div class="tax-pill"><span class="tax-dot"></span> L4: Doelgroep</div>
+        <div class="tax-pill"><span class="tax-dot"></span> L5: Status</div>
+        <div class="tax-pill"><span class="tax-dot"></span> L6: Taal</div>
+        <div class="tax-pill"><span class="tax-dot"></span> L7: Organisatie</div>
+      </div>
+      <div class="tax-example">
+        <p>Voorbeeld tagpad:</p>
+        <div class="tax-path">
+          <span>#learning</span>
+          <span>#strategy</span>
+          <span>#template</span>
+          <span>#executive</span>
+          <span>#best-practices</span>
+          <span>#english</span>
+          <span>#baak</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- ═══ SECTION 7: SUCCESS FACTORS ═══ -->
+  <section class="section" id="factoren">
+    <div class="section-head">
+      <div class="section-tag">07 — Succesfactoren</div>
+      <h2>Succesfactoren &amp; Aandachtspunten</h2>
+    </div>
+
+    <div class="accordion">
+      <div class="acc-item">
+        <button class="acc-trigger" onclick="toggleAcc(this)">
+          Heldere architectuurbeslissingen vooraf nemen
+          <span class="acc-arrow">▾</span>
+        </button>
+        <div class="acc-body">
+          <div class="acc-content">De keuze voor een sequentiële pipeline (Perplexity → Claude) in plaats van een enkele tool was bepalend voor de kwaliteit van de output. Door elke tool in te zetten voor zijn sterkte — Perplexity voor real-time research, Claude voor diepe analyse — ontstaat een robuuster en betrouwbaarder resultaat dan met één generalist-tool.</div>
+        </div>
+      </div>
+      <div class="acc-item">
+        <button class="acc-trigger" onclick="toggleAcc(this)">
+          Menselijke review inbouwen als kwaliteitswaarborg
+          <span class="acc-arrow">▾</span>
+        </button>
+        <div class="acc-body">
+          <div class="acc-content">Volledig geautomatiseerde publicatie naar stakeholders verhoogt het risico op onjuistheden of irrelevante content. Een korte review-stap voordat de output gedeeld wordt, combineert het snelheidsvoordeel van automatisering met de betrouwbaarheid van menselijk oordeel.</div>
+        </div>
+      </div>
+      <div class="acc-item">
+        <button class="acc-trigger" onclick="toggleAcc(this)">
+          Taxonomie consistent toepassen vanaf dag één
+          <span class="acc-arrow">▾</span>
+        </button>
+        <div class="acc-body">
+          <div class="acc-content">Het 7-niveau tagsysteem werkt alleen als het consequent wordt toegepast op alle nieuwe documenten. Achterstallig taggen van een grote bibliotheek is exponentieel lastiger dan taggen bij creatie. Begin strikt, versoepel pas als het systeem bewezen is.</div>
+        </div>
+      </div>
+      <div class="acc-item">
+        <button class="acc-trigger" onclick="toggleAcc(this)">
+          Iteratief opbouwen, niet alles tegelijk lanceren
+          <span class="acc-arrow">▾</span>
+        </button>
+        <div class="acc-body">
+          <div class="acc-content">Start met de competitive intelligence pipeline als pilot, valideer de kwaliteit en het ritme, en breid daarna pas uit naar de andere vier pipelines. Elke pipeline levert inzichten op die de volgende verbeteren — batchmatig lanceren mist dat leereffect.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ═══ FOOTER ═══ -->
+<footer class="footer">
+  <div class="footer-brand">De Baak</div>
+  <p>Knowledge Automation &amp; Content Intelligence<br>
+  Training, ontwikkeling, leiderschap sinds 1947</p>
+</footer>
+
+<!-- ═══ SCRIPTS ═══ -->
+<script>
+// Scroll progress bar
+window.addEventListener('scroll', () => {
+  const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+  const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+  const scrolled = (winScroll / height) * 100;
+  document.getElementById('progress').style.width = scrolled + '%';
+});
+
+// Scroll reveal for sections
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+document.querySelectorAll('.section').forEach(el => observer.observe(el));
+
+// Accordion toggle
+function toggleAcc(trigger) {
+  const item = trigger.parentElement;
+  const wasOpen = item.classList.contains('open');
+  // Close all
+  document.querySelectorAll('.acc-item').forEach(i => i.classList.remove('open'));
+  // Open clicked if it wasn't open
+  if (!wasOpen) item.classList.add('open');
+}
+</script>
+
+</body>
+</html>

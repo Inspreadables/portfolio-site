@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>De Baak · Leiderschapsinfographic</title>
+    <style>
+        /* ----- DE BAAK HUISSTIJL v2.0 ----- */
+        :root {
+            --primary: #005ADC;
+            --secondary: #00A555;
+            --accent: #FFE100;
+            --bg: #F5F5EB;
+            --text: #1A1A2E;
+            --shadow: 0 12px 24px -12px rgba(0, 0, 0, 0.12), 0 4px 8px -4px rgba(0, 0, 0, 0.04);
+            --card-radius: 16px;
+            --touch-min: 44px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg);
+            font-family: Arial, sans-serif;
+            color: var(--text);
+            line-height: 1.4;
+            scroll-behavior: smooth;
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem 1rem 1.5rem;
+        }
+
+        /* HEADER */
+        .infographic-header {
+            margin-bottom: 2rem;
+        }
+
+        .infographic-header h1 {
+            font-size: clamp(1.8rem, 5vw, 2.6rem);
+            font-weight: 700;
+            letter-spacing: -0.01em;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 80%);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            margin-bottom: 0.5rem;
+        }
+
+        .badge-debaak {
+            display: inline-block;
+            background: white;
+            border-left: 4px solid var(--primary);
+            padding: 0.4rem 1rem;
+            border-radius: 40px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--primary);
+            margin-top: 0.5rem;
+            box-shadow: var(--shadow);
+        }
+
+        /* TABS + LEGEND rij */
+        .tabs-legend-wrapper {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: flex-end;
+            gap: 1rem;
+            margin: 1.5rem 0 1.8rem 0;
+            border-bottom: 2px solid rgba(0, 90, 220, 0.15);
+            padding-bottom: 0.75rem;
+        }
+
+        .tab-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .tab-btn {
+            background: transparent;
+            border: none;
+            font-family: Arial, sans-serif;
+            font-weight: 700;
+            font-size: 1rem;
+            padding: 0.7rem 1.6rem;
+            min-height: var(--touch-min);
+            min-width: 110px;
+            border-radius: 60px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            color: var(--text);
+            background-color: white;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+            border: 1px solid #e2e2dc;
+        }
+
+        .tab-btn.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+            box-shadow: 0 6px 12px -8px rgba(0, 90, 220, 0.4);
+        }
+
+        /* DOT LEGEND */
+        .dot-legend {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.2rem;
+            background: rgba(255,255,245,0.7);
+            padding: 0.5rem 1rem;
+            border-radius: 48px;
+            backdrop-filter: blur(2px);
+        }
+
+        .legend-item {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .legend-dot {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            display: inline-block;
+        }
+
+        .dot-primary { background-color: var(--primary); }
+        .dot-secondary { background-color: var(--secondary); }
+        .dot-accent { background-color: var(--accent); }
+
+        /* TAB PANELS */
+        .tab-panel {
+            display: none;
+            animation: fade 0.2s ease;
+        }
+
+        .tab-panel.active-panel {
+            display: block;
+        }
+
+        @keyframes fade {
+            from { opacity: 0; transform: translateY(6px);}
+            to { opacity: 1; transform: translateY(0);}
+        }
+
+        /* 2‑COLUMN CARD GRID */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.8rem;
+        }
+
+        /* CARD STYLES */
+        .card {
+            background: white;
+            border-radius: var(--card-radius);
+            box-shadow: var(--shadow);
+            padding: 1.5rem 1.2rem 1.2rem 1.2rem;
+            transition: transform 0.2s, box-shadow 0.2s;
+            border-top: 4px solid transparent;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 20px 28px -12px rgba(0,0,0,0.18);
+        }
+
+        /* border-top kleuren via modifiers */
+        .card-primary {
+            border-top-color: var(--primary);
+        }
+        .card-secondary {
+            border-top-color: var(--secondary);
+        }
+        .card-accent {
+            border-top-color: var(--accent);
+        }
+
+        .card-icon {
+            font-size: 2rem;
+            margin-bottom: 0.75rem;
+        }
+        .card-title {
+            font-size: 1.35rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            letter-spacing: -0.2px;
+        }
+        .card-stats {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--primary);
+            background: #eef3fc;
+            display: inline-block;
+            padding: 0.2rem 0.6rem;
+            border-radius: 30px;
+            margin: 0.6rem 0 0.5rem 0;
+        }
+        .card-desc {
+            font-size: 0.9rem;
+            color: #2f3b4c;
+            line-height: 1.4;
+            flex: 1;
+        }
+        .card-tag {
+            font-size: 0.7rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            margin-top: 1rem;
+            letter-spacing: 0.5px;
+            color: #5a6878;
+            border-top: 1px dashed #e5e7e0;
+            padding-top: 0.7rem;
+        }
+
+        /* FOOTER */
+        .footer {
+            background-color: var(--primary);
+            color: white;
+            margin-top: 3.5rem;
+            width: 100%;
+        }
+        .footer-content {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem 1rem 1.5rem;
+            text-align: center;
+        }
+        .footer p {
+            font-size: 0.9rem;
+            margin: 0.3rem 0;
+            opacity: 0.9;
+        }
+        .gradient-bar {
+            height: 6px;
+            background: linear-gradient(90deg, var(--secondary) 0%, var(--accent) 45%, var(--secondary) 100%);
+            width: 100%;
+        }
+
+        /* RESPONSIVE (MOBILE FIRST) */
+        @media (max-width: 768px) {
+            .container {
+                padding: 1.2rem;
+            }
+            .card-grid {
+                grid-template-columns: 1fr;
+                gap: 1.2rem;
+            }
+            .tabs-legend-wrapper {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .tab-buttons {
+                justify-content: center;
+            }
+            .dot-legend {
+                justify-content: center;
+            }
+            .tab-btn {
+                min-width: 100px;
+                padding: 0.6rem 1rem;
+                font-size: 0.9rem;
+            }
+            .card {
+                padding: 1.2rem;
+            }
+            .card-title {
+                font-size: 1.2rem;
+            }
+        }
+
+        /* extra touch optimizations */
+        button, .tab-btn, .legend-item {
+            cursor: pointer;
+            user-select: none;
+        }
+        .tab-btn:active {
+            transform: scale(0.97);
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="infographic-header">
+        <h1>📈 Leiderschap in transitie<br> <span style="font-size:0.8em;">datagestuurd & mensgericht</span></h1>
+        <div class="badge-debaak">DE BAAK · INFOGRAFIE v2.0</div>
+    </div>
+
+    <!-- TABS + LEGEND (dot legend volgens huisstijl) -->
+    <div class="tabs-legend-wrapper">
+        <div class="tab-buttons" role="tablist" aria-label="Infographic thema's">
+            <button class="tab-btn active" data-tab="tab1" id="tab1btn">🧭 Strategie & Visie</button>
+            <button class="tab-btn" data-tab="tab2" id="tab2btn">🤝 Cultuur & Betrokkenheid</button>
+            <button class="tab-btn" data-tab="tab3" id="tab3btn">⚡ Ontwikkeling & Resultaat</button>
+        </div>
+        <div class="dot-legend" aria-label="Kleuren legenda">
+            <div class="legend-item"><span class="legend-dot dot-primary"></span> Blauw · Strategisch kompas</div>
+            <div class="legend-item"><span class="legend-dot dot-secondary"></span> Groen · Duurzaam presteren</div>
+            <div class="legend-item"><span class="legend-dot dot-accent"></span> Geel · Vernieuwing & creativiteit</div>
+        </div>
+    </div>
+
+    <!-- TAB 1 - Strategie & Visie -->
+    <div id="tab1" class="tab-panel active-panel">
+        <div class="card-grid">
+            <!-- kaart 1 - primary -->
+            <div class="card card-primary">
+                <div class="card-icon">🎯</div>
+                <div class="card-title">Toekomstbestendige koers</div>
+                <div class="card-stats">+42% wendbaarheid</div>
+                <div class="card-desc">Integreer scenario planning met realtime data. Organisaties die strategische anticipatie omarmen groeien 2,5× sneller.</div>
+                <div class="card-tag">#strategisch kompas</div>
+            </div>
+            <!-- kaart 2 - secondary -->
+            <div class="card card-secondary">
+                <div class="card-icon">🌿</div>
+                <div class="card-title">Waardecreatie & ESG</div>
+                <div class="card-stats">68% investeerders eisen</div>
+                <div class="card-desc">Duurzaam leiderschap versterkt langetermijnwaarde. Maak ESG onderdeel van de kernstrategie.</div>
+                <div class="card-tag">#duurzaam presteren</div>
+            </div>
+            <!-- kaart 3 - accent -->
+            <div class="card card-accent">
+                <div class="card-icon">💡</div>
+                <div class="card-title">Adaptieve strategie</div>
+                <div class="card-stats">real-time pivotkracht</div>
+                <div class="card-desc">Van starre jaarplannen naar wendbare squadbased strategie. Verhoog veerkracht met 33%.</div>
+                <div class="card-tag">#vernieuwing</div>
+            </div>
+            <!-- kaart 4 - primary -->
+            <div class="card card-primary">
+                <div class="card-icon">🏛️</div>
+                <div class="card-title">Governance & eigenaarschap</div>
+                <div class="card-stats">risicoreductie −27%</div>
+                <div class="card-desc">Verdeel verantwoordelijkheid over zelforganiserende teams. Transparante dashboards versterken vertrouwen.</div>
+                <div class="card-tag">#strategisch kompas</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- TAB 2 - Cultuur & Betrokkenheid -->
+    <div id="tab2" class="tab-panel">
+        <div class="card-grid">
+            <div class="card card-primary">
+                <div class="card-icon">🧠</div>
+                <div class="card-title">Psychologische veiligheid</div>
+                <div class="card-stats">+76% leerbereidheid</div>
+                <div class="card-desc">Basis voor innovatie: teams met hoge veiligheid scoren 2× hoger op gedeeld leren.</div>
+                <div class="card-tag">#strategisch kompas</div>
+            </div>
+            <div class="card card-secondary">
+                <div class="card-icon">🤲</div>
+                <div class="card-title">Feedback & groei</div>
+                <div class="card-stats">wekelijks ritme</div>
+                <div class="card-desc">Continue feedbackcultuur in plaats van jaarlijkse gesprekken. Verhoogt medewerkerstevredenheid met 44%.</div>
+                <div class="card-tag">#duurzaam presteren</div>
+            </div>
+            <div class="card card-accent">
+                <div class="card-icon">🌈</div>
+                <div class="card-title">Inclusief leiderschap</div>
+                <div class="card-stats">+58% innovatiekracht</div>
+                <div class="card-desc">Diverse teams genereren 19% meer omzet. Creëer veilige ruimtes voor elk perspectief.</div>
+                <div class="card-tag">#vernieuwing</div>
+            </div>
+            <div class="card card-primary">
+                <div class="card-icon">🔁</div>
+                <div class="card-title">Teamdynamiek & vertrouwen</div>
+                <div class="card-stats">snelheid besluitvorming +31%</div>
+                <div class="card-desc">Sociale veiligheid versnelt actie. Vertrouwensbasis leidt tot hogere eigenaarschap.</div>
+                <div class="card-tag">#strategisch kompas</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- TAB 3 - Ontwikkeling & Resultaat -->
+    <div id="tab3" class="tab-panel">
+        <div class="card-grid">
+            <div class="card card-primary">
+                <div class="card-icon">📚</div>
+                <div class="card-title">Leeragenda & microlearning</div>
+                <div class="card-stats">66% betere retentie</div>
+                <div class="card-desc">Ontwikkel ‘learning in the flow of work’. Gepersonaliseerde paden verdubbelen leerimpact.</div>
+                <div class="card-tag">#strategisch kompas</div>
+            </div>
+            <div class="card card-secondary">
+                <div class="card-icon">⛰️</div>
+                <div class="card-title">Mentale weerbaarheid</div>
+                <div class="card-stats">burnout risico −39%</div>
+                <div class="card-desc">Investeren in mentale veerkracht loont: productievere teams, lager verzuim.</div>
+                <div class="card-tag">#duurzaam presteren</div>
+            </div>
+            <div class="card card-accent">
+                <div class="card-icon">🎯</div>
+                <div class="card-title">Prestatiecoaching & OKR’s</div>
+                <div class="card-stats">doelrealisatie +48%</div>
+                <div class="card-desc">Koppel individuele groei aan organisatiedoelen. Coachende leidersstijl verhoogt betrokkenheid.</div>
+                <div class="card-tag">#vernieuwing</div>
+            </div>
+            <div class="card card-primary">
+                <div class="card-icon">🚀</div>
+                <div class="card-title">Innovatiekracht & experimenten</div>
+                <div class="card-stats">time-to-market −28%</div>
+                <div class="card-desc">Creëer een ‘veilige faalruimte’. Leiders die experimenteren versnellen transformatie.</div>
+                <div class="card-tag">#strategisch kompas</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- FOOTER met gradient bar (groen-geel-groen) -->
+<footer class="footer">
+    <div class="footer-content">
+        <p>© De Baak · Leiderschapsontwikkeling voor de toekomst</p>
+        <p>📐 Datagedreven inzichten · Strategische vernieuwing · Mensgerichte groei</p>
+        <p style="font-size:0.75rem; margin-top:0.8rem;">Volg onze actuele kennisagenda · Baak Huisstijl v2.0</p>
+    </div>
+    <div class="gradient-bar" aria-hidden="true"></div>
+</footer>
+
+<script>
+    (function() {
+        // Tab functionaliteit: schakel tussen tab1, tab2, tab3
+        const tabButtons = document.querySelectorAll('.tab-btn');
+        const panels = document.querySelectorAll('.tab-panel');
+
+        function switchTab(activeTabId) {
+            // verberg alle panelen en verwijder active class
+            panels.forEach(panel => {
+                panel.classList.remove('active-panel');
+            });
+            // toon juiste paneel
+            const activePanel = document.getElementById(activeTabId);
+            if (activePanel) {
+                activePanel.classList.add('active-panel');
+            }
+            // update button styling
+            tabButtons.forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.getAttribute('data-tab') === activeTabId) {
+                    btn.classList.add('active');
+                }
+            });
+        }
+
+        // voeg event listeners toe aan alle tab-knoppen
+        tabButtons.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const tabId = btn.getAttribute('data-tab');
+                if (tabId) {
+                    switchTab(tabId);
+                }
+                // zorg dat de knop focus behoudt en aanraakdoel ≥44px
+                btn.blur(); // optioneel, blijft visueel active
+            });
+            // touch/click oppervlak is al minimaal 44px door padding
+        });
+
+        // zorg dat de eerste tab actief is (standaard)
+        const initialActiveTab = document.querySelector('.tab-btn.active');
+        if (!initialActiveTab || initialActiveTab.getAttribute('data-tab') !== 'tab1') {
+            switchTab('tab1');
+        }
+
+        // extra: voor responsive eventueel hoogte correctie bij laden
+        window.addEventListener('resize', () => { /* houd grid intact */ });
+    })();
+</script>
+</body>
+</html>

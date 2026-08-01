@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<!-- saved from url=(0096)file:///C:/Users/arijj/baakie-orchestrator/spaces/baakieprint/output/baakie-eli5-2026-05-28.html -->
+<html lang="nl"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Baakie-orchestrator — uitgelegd alsof je 5 bent</title>
+<meta name="description" content="ELI5: hoe één dirigent, vier helpers en een nachtelijke robot zorgen dat trainingscontent nooit kwijtraakt.">
+<style>
+  /* ============================================================
+     De Baak — huisstijl v0.7 tokens
+     (gesynct met DeBaak_Visual_Design_Guidelines_v2-2.pdf)
+     ============================================================ */
+  :root{
+    --seaside-blue:#005ADC;
+    --seaside-blue-dark:#003A8C;
+    --seaside-blue-mid:#0044B0;
+    --blue-tussentint:#0077C8;
+    --seaside-tint:rgba(0,90,220,0.08);
+    --horst-green:#00A555;
+    --horst-green-dark:#008040;
+    --baken-yellow:#FFE100;
+    --alabaster:#F5F5EB;
+    --alabaster-dark:#E8EEF9;
+    --zebra-blue:#F0F5FF;
+    --white:#FFFFFF;
+    --charcoal:#1A1A2E;
+    --grey-mid:#4A5568;
+    --grey-light:#A0AEC0;
+    --border-taupe:rgba(0,90,220,0.15);
+    --border-solid:#D6E4FA;
+    --hero-gradient:linear-gradient(135deg,#005ADC 0%,#003A8C 100%);
+    --accent-bar:linear-gradient(90deg,#00A555 0%,#FFE100 50%,#00A555 100%);
+    --shadow-rest:0 8px 30px rgba(0,90,220,0.12);
+    --shadow-hover:0 12px 40px rgba(0,90,220,0.18);
+  }
+
+  *,*::before,*::after{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;
+    font-family:Arial,Helvetica,sans-serif;
+    font-size:16px;font-weight:400;line-height:1.7;
+    color:var(--charcoal);background:var(--white);
+    -webkit-font-smoothing:antialiased;
+  }
+  .container{max-width:1200px;margin:0 auto;padding:0 2rem}
+
+  /* ---------- NAV ---------- */
+  nav{
+    position:sticky;top:0;z-index:50;
+    height:56px;background:var(--white);
+    border-bottom:1px solid var(--border-taupe);
+    display:flex;align-items:center;
+  }
+  nav::after{
+    content:"";position:absolute;left:0;right:0;bottom:-4px;
+    height:4px;background:var(--accent-bar);pointer-events:none;
+  }
+  nav .container{display:flex;align-items:center;justify-content:space-between;width:100%}
+  .logo{display:inline-flex;align-items:baseline;gap:0.25rem;text-decoration:none}
+  .logo .de{
+    color:transparent;-webkit-text-stroke:1.8px var(--seaside-blue);
+    font-weight:400;font-size:1.4rem;
+  }
+  .logo .baak{color:var(--seaside-blue);font-weight:900;font-size:1.4rem}
+  .nav-meta{font-size:0.8rem;color:var(--grey-mid);font-weight:400}
+
+  /* ---------- HERO ---------- */
+  .hero{
+    position:relative;overflow:hidden;
+    background:var(--hero-gradient);color:var(--white);
+    padding:120px 0 100px;
+  }
+  .hero::before{
+    content:"";position:absolute;top:0;right:0;
+    border-style:solid;border-width:0 260px 260px 0;
+    border-color:transparent rgba(255,255,255,0.08) transparent transparent;
+    pointer-events:none;
+  }
+  .hero::after{
+    content:"";position:absolute;bottom:0;left:0;right:0;height:6px;
+    background:var(--accent-bar);pointer-events:none;
+  }
+  .hero .container{position:relative;z-index:1;text-align:center}
+  .eyebrow{
+    display:inline-block;
+    background:rgba(255,225,0,0.12);color:var(--baken-yellow);
+    border:1px solid rgba(255,225,0,0.35);
+    padding:6px 18px;border-radius:100px;
+    font-weight:700;font-size:11px;letter-spacing:0.16em;
+    text-transform:uppercase;margin-bottom:1.25rem;
+  }
+  .hero h1{
+    margin:0 auto 1rem;max-width:900px;
+    font-weight:900;font-size:clamp(2.2rem,5vw,3.8rem);
+    line-height:1.1;color:var(--white);
+  }
+  .hero h1 .yellow{color:var(--baken-yellow)}
+  .hero-rule{
+    width:56px;height:3px;border-radius:2px;
+    background:linear-gradient(90deg,#FFE100 0%,#00A555 100%);
+    margin:32px auto 36px;
+  }
+  .hero p{
+    max-width:680px;margin:0 auto;
+    font-size:1.15rem;color:rgba(255,255,255,0.88);
+  }
+
+  /* ---------- SECTIONS ---------- */
+  section.band{padding:96px 0;position:relative;overflow:hidden}
+  section.band.even{background:var(--alabaster)}
+  section.band.odd{background:var(--white)}
+  section.band.first{padding-top:120px}
+
+  .section-label{
+    display:block;font-weight:700;font-size:0.75rem;letter-spacing:1px;
+    text-transform:uppercase;color:var(--horst-green);
+    margin-bottom:0.75rem;
+  }
+  .section-title{
+    position:relative;margin:0 0 1.25rem;
+    font-weight:900;font-size:clamp(1.6rem,3vw,2.4rem);
+    line-height:1.15;color:var(--seaside-blue);
+  }
+  .section-title::after{
+    content:"";display:block;
+    width:48px;height:3px;border-radius:2px;
+    background:var(--horst-green);margin-top:20px;
+  }
+  .section-desc{
+    max-width:640px;color:var(--grey-mid);
+    margin:0 0 3rem;font-size:1.05rem;
+  }
+
+  /* ---------- ELI5 KID BLOCK ---------- */
+  .kid{
+    background:var(--white);
+    border-left:4px solid var(--baken-yellow);
+    border-radius:8px;
+    padding:1.5rem 1.75rem;
+    box-shadow:var(--shadow-rest);
+    font-size:1.05rem;color:var(--charcoal);
+    margin-bottom:2rem;
+  }
+  .kid strong{color:var(--seaside-blue)}
+
+  /* ---------- CARDS ---------- */
+  .grid{
+    display:grid;gap:1.5rem;
+    grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  }
+  .card{
+    position:relative;background:var(--white);
+    border-radius:16px;padding:1.75rem;
+    box-shadow:var(--shadow-rest);
+    transition:transform 0.3s ease,box-shadow 0.3s ease;
+    overflow:hidden;
+  }
+  .card::before{
+    content:"";position:absolute;top:0;left:0;right:0;height:4px;
+    background:var(--seaside-blue);
+  }
+  .card.alt::before{background:var(--horst-green)}
+  .card:hover{transform:translateY(-6px);box-shadow:var(--shadow-hover)}
+  .card .icon{font-size:2.25rem;line-height:1;display:block;margin-bottom:0.75rem}
+  .card h3{margin:0 0 0.5rem;font-weight:900;font-size:1.2rem;color:var(--charcoal)}
+  .card .role-tag{
+    display:inline-block;font-size:0.7rem;font-weight:700;letter-spacing:0.4px;
+    text-transform:uppercase;padding:0.2rem 0.6rem;border-radius:9999px;
+    background:var(--seaside-tint);color:var(--seaside-blue);
+    margin-bottom:0.75rem;
+  }
+  .card.alt .role-tag{background:rgba(0,165,85,0.10);color:var(--horst-green-dark)}
+  .card p{margin:0 0 0.75rem;color:var(--grey-mid);font-size:0.95rem;line-height:1.65}
+  .card .kid-line{
+    margin-top:1rem;padding-top:1rem;
+    border-top:1px solid var(--border-taupe);
+    font-size:0.88rem;color:var(--charcoal);font-style:italic;
+  }
+
+  /* ---------- FLOW ---------- */
+  .flow{
+    display:grid;gap:1rem;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  }
+  .flow-step{
+    position:relative;background:var(--white);
+    border-radius:8px;border:1px solid var(--border-taupe);
+    padding:1.25rem;
+  }
+  .flow-step .num{
+    display:inline-flex;align-items:center;justify-content:center;
+    width:36px;height:36px;border-radius:50%;
+    background:var(--seaside-blue);color:var(--white);
+    font-weight:900;font-size:1rem;margin-bottom:0.75rem;
+  }
+  .flow-step h4{margin:0 0 0.4rem;font-weight:900;font-size:1rem;color:var(--charcoal)}
+  .flow-step p{margin:0;font-size:0.9rem;color:var(--grey-mid);line-height:1.55}
+  .flow-step.green .num{background:var(--horst-green)}
+  .flow-step.yellow .num{background:var(--baken-yellow);color:var(--charcoal)}
+
+  /* ---------- ROBOT TIMELINE ---------- */
+  .timeline{
+    list-style:none;padding:0;margin:0;
+    border-left:3px solid var(--border-taupe);
+    margin-left:1rem;
+  }
+  .timeline li{
+    position:relative;padding:0.5rem 0 1.25rem 2rem;
+    color:var(--charcoal);
+  }
+  .timeline li::before{
+    content:"";position:absolute;left:-9px;top:1rem;
+    width:15px;height:15px;border-radius:50%;
+    background:var(--seaside-blue);
+    border:3px solid var(--white);
+    box-shadow:0 0 0 1px var(--seaside-blue);
+  }
+  .timeline li .time{
+    display:inline-block;
+    font-weight:900;color:var(--seaside-blue);
+    font-size:0.95rem;margin-right:0.5rem;
+    min-width:60px;
+  }
+  .timeline li .what{color:var(--grey-mid)}
+
+  /* ---------- STAT CARDS ---------- */
+  .stat-grid{
+    display:grid;gap:1.5rem;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  }
+  .stat{
+    background:var(--white);border-radius:16px;
+    padding:2rem 1.75rem;box-shadow:var(--shadow-rest);
+    border-left:4px solid var(--baken-yellow);
+  }
+  .stat .num{
+    font-weight:900;font-size:3rem;line-height:1;
+    color:var(--seaside-blue);margin-bottom:0.4rem;
+  }
+  .stat .label{font-weight:700;font-size:0.9rem;color:var(--charcoal);margin-bottom:0.4rem}
+  .stat .desc{font-size:0.82rem;color:var(--grey-mid);line-height:1.55}
+
+  /* ---------- BIG STATUS ---------- */
+  .status-row{
+    display:grid;gap:1rem;
+    grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+    margin-bottom:2rem;
+  }
+  .status{
+    background:var(--white);border-radius:8px;
+    padding:1rem 1.25rem;
+    border:1px solid var(--border-taupe);
+    display:flex;align-items:center;gap:0.75rem;
+  }
+  .status .dot{
+    width:12px;height:12px;border-radius:50%;
+    background:var(--horst-green);
+    box-shadow:0 0 0 3px rgba(0,165,85,0.25);
+    flex-shrink:0;
+  }
+  .status .name{font-weight:700;color:var(--charcoal);font-size:0.95rem}
+  .status .role{display:block;font-weight:400;color:var(--grey-mid);font-size:0.8rem}
+
+  /* ---------- HIGHLIGHT BLOCK ---------- */
+  .pitch{
+    background:var(--seaside-blue);color:var(--white);
+    border-radius:16px;padding:2.5rem 2rem;
+    text-align:center;position:relative;overflow:hidden;
+  }
+  .pitch::after{
+    content:"";position:absolute;bottom:0;left:0;right:0;height:6px;
+    background:var(--accent-bar);
+  }
+  .pitch h3{
+    margin:0 0 1rem;font-weight:900;
+    font-size:clamp(1.4rem,2.5vw,1.9rem);color:var(--white);
+  }
+  .pitch p{
+    max-width:720px;margin:0 auto;
+    font-size:1.1rem;color:rgba(255,255,255,0.92);
+  }
+  .pitch .yellow{color:var(--baken-yellow);font-weight:700}
+
+  /* ---------- FOOTER ---------- */
+  footer{
+    position:relative;
+    background:var(--seaside-blue);color:var(--white);
+    padding:48px 0 40px;
+  }
+  footer::before{
+    content:"";position:absolute;top:0;left:0;right:0;height:6px;
+    background:var(--accent-bar);
+  }
+  footer .container{text-align:center}
+  .footer-logo{display:inline-flex;align-items:baseline;gap:0.3rem;margin-bottom:1rem}
+  .footer-logo .de{
+    color:transparent;-webkit-text-stroke:2px rgba(255,255,255,0.8);
+    font-weight:400;font-size:1.6rem;
+  }
+  .footer-logo .baak{color:var(--white);font-weight:900;font-size:1.6rem}
+  .descriptor{
+    color:rgba(255,255,255,0.65);
+    font-size:0.85rem;font-weight:600;letter-spacing:0.4px;
+    margin:0;
+  }
+
+  /* ---------- RESPONSIVE ---------- */
+  @media (max-width:768px){
+    .container{padding:0 1.25rem}
+    section.band{padding:60px 0}
+    section.band.first{padding-top:80px}
+    .hero{padding:80px 0 70px}
+    .hero::before{border-width:0 160px 160px 0}
+    .timeline li .time{display:block;margin-bottom:0.25rem}
+  }
+  @media (max-width:480px){
+    .nav-meta{display:none}
+    .kid{padding:1.25rem}
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="container">
+    <a class="logo" href="file:///C:/Users/arijj/baakie-orchestrator/spaces/baakieprint/output/baakie-eli5-2026-05-28.html#top" aria-label="De Baak">
+      <span class="de">de</span><span class="baak">baak</span>
+    </a>
+    <span class="nav-meta">ELI5 · 28 mei 2026</span>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="hero" id="top">
+  <div class="container">
+    <span class="eyebrow">Wat dit oplevert</span>
+    <h1>Vier assistenten voor jouw <span class="yellow">content‑redactieproces</span> — op een fractie van de kosten.</h1>
+    <div class="hero-rule" aria-hidden="true"></div>
+    <p>Een document manager, een L&amp;D-assistent, een redactie-assistent en een visueel ontwerp-assistent. Alles agent-onafhankelijk opgeslagen op GitHub. Jouw data blijft op het platform.</p>
+  </div>
+</header>
+
+<!-- WAT WE HEBBEN -->
+<section class="band even first">
+  <div class="container">
+    <span class="section-label">Wat we hebben gebouwd</span>
+    <h2 class="section-title">Vier assistenten, één bibliotheek</h2>
+    <p class="section-desc">Geen pilot, geen prototype — een werkend content-redactieproces dat van losse content een vindbare, getoetste, gepubliceerde en herbruikbare kennisbibliotheek maakt.</p>
+
+    <div class="status-row">
+      <div class="status">
+        <span class="dot" aria-hidden="true"></span>
+        <span>
+          <span class="name">Document manager</span>
+          <span class="role">Naamgeving + GitHub-opslag</span>
+        </span>
+      </div>
+      <div class="status">
+        <span class="dot" aria-hidden="true"></span>
+        <span>
+          <span class="name">L&amp;D-assistent</span>
+          <span class="role">Kwaliteit + auteursrecht</span>
+        </span>
+      </div>
+      <div class="status">
+        <span class="dot" aria-hidden="true"></span>
+        <span>
+          <span class="name">Redactie-assistent</span>
+          <span class="role">Tekstverbetering</span>
+        </span>
+      </div>
+      <div class="status">
+        <span class="dot" aria-hidden="true"></span>
+        <span>
+          <span class="name">Visueel ontwerp-assistent</span>
+          <span class="role">Live training + LMS</span>
+        </span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DE 4 ASSISTENTEN -->
+<section class="band odd">
+  <div class="container">
+    <span class="section-label">De vier assistenten</span>
+    <h2 class="section-title">Wat elke assistent oplevert</h2>
+    <p class="section-desc">Vier rollen, één werkend proces. Van losse content naar een doorzoekbare, getoetste en publicatie-klare kennisbibliotheek.</p>
+
+    <div class="grid">
+      <article class="card">
+        <span class="icon" aria-hidden="true">🗂️</span>
+        <span class="role-tag">Document manager</span>
+        <h3>Naamgeving + automatisch archief</h3>
+        <p>Geeft elk document een eenduidige, vindbare naam volgens de bibliotheekconventie. Slaat tegelijk de prompt, de publicatie én de AI-instructie automatisch op in GitHub.</p>
+        <p class="kid-line">Resultaat: de hele flow is agent-onafhankelijk en in één keer over te zetten naar een ander platform.</p>
+      </article>
+      <article class="card alt">
+        <span class="icon" aria-hidden="true">🎓</span>
+        <span class="role-tag">L&amp;D-assistent</span>
+        <h3>Kwaliteit, auteursrecht en onderzoek</h3>
+        <p>Toetst auteursrecht, relevantie, onderzoeksmethodiek, en de status van het model én aanliggende modellen. Levert tevens een onderzoeksadvies om het auteursrecht van die modellen te verwerven.</p>
+        <p class="kid-line">Resultaat: content waarvan je weet dat hij klopt, recent is, en juridisch te gebruiken.</p>
+      </article>
+      <article class="card">
+        <span class="icon" aria-hidden="true">✍️</span>
+        <span class="role-tag">Redactie-assistent</span>
+        <h3>Tekstverbetering</h3>
+        <p>Werkt teksten redactioneel bij — toon, helderheid, structuur en taalniveau. Houdt rekening met de doelgroep van de training.</p>
+        <p class="kid-line">Resultaat: leesbare, consistente teksten zonder een redacteur per training te vragen.</p>
+      </article>
+      <article class="card alt">
+        <span class="icon" aria-hidden="true">🎨</span>
+        <span class="role-tag">Visueel ontwerp-assistent</span>
+        <h3>Publicaties voor training + LMS</h3>
+        <p>Produceert in één klik de publicaties voor de live training (interactieve presentaties op A4 en elk schermformaat, werkboeken, handouts) én voor het learning management systeem.</p>
+        <p class="kid-line">Resultaat: print en LMS uit één bron — altijd hetzelfde verhaal, altijd huisstijl.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- OUTPUT -->
+<section class="band even">
+  <div class="container">
+    <span class="section-label">Wat eruit komt</span>
+    <h2 class="section-title">Van één bron naar elk formaat</h2>
+    <p class="section-desc">Eén keer redigeren, één keer publiceren — en het systeem levert automatisch alle formaten waar de organisatie mee werkt.</p>
+
+    <div class="flow">
+      <div class="flow-step">
+        <span class="num">1</span>
+        <h4>Interactieve presentaties</h4>
+        <p>Responsief op A4 én elk schermformaat. Trainer en deelnemer zien dezelfde bron, in het formaat dat past.</p>
+      </div>
+      <div class="flow-step green">
+        <span class="num">2</span>
+        <h4>Werkboeken &amp; handouts</h4>
+        <p>Print-klaar, op huisstijl, met dezelfde inhoud als de live training. Geen drift tussen scherm en papier.</p>
+      </div>
+      <div class="flow-step">
+        <span class="num">3</span>
+        <h4>LMS-publicaties</h4>
+        <p>Direct publiceerbaar in het learning management systeem. Geen handmatige conversie meer.</p>
+      </div>
+      <div class="flow-step yellow">
+        <span class="num">4</span>
+        <h4>Doorzoekbare bibliotheek</h4>
+        <p>Content én prompts gekoppeld en doorzoekbaar — terugvindbaar, herbruikbaar, en altijd traceerbaar.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AGENT-ONAFHANKELIJK -->
+<section class="band odd">
+  <div class="container">
+    <span class="section-label">Agent-onafhankelijk</span>
+    <h2 class="section-title">Niet vastgeklonken aan één AI-platform</h2>
+    <p class="section-desc">Drie dingen worden automatisch op GitHub vastgelegd, zodat de hele flow morgen op een ander systeem kan draaien zonder verlies van werk of kennis.</p>
+
+    <div class="grid">
+      <article class="card">
+        <span class="icon" aria-hidden="true">📝</span>
+        <span class="role-tag">Opgeslagen</span>
+        <h3>De prompts</h3>
+        <p>Elke vraag die tot een publicatie leidt, gekoppeld aan die publicatie. Doorzoekbaar, herbruikbaar, vergelijkbaar over tijd.</p>
+      </article>
+      <article class="card alt">
+        <span class="icon" aria-hidden="true">📚</span>
+        <span class="role-tag">Opgeslagen</span>
+        <h3>De publicaties</h3>
+        <p>Alle eindproducten (presentaties, werkboeken, handouts, LMS-content) op één centrale, versiebeheerde plek.</p>
+      </article>
+      <article class="card">
+        <span class="icon" aria-hidden="true">⚙️</span>
+        <span class="role-tag">Opgeslagen</span>
+        <h3>De AI-instructies</h3>
+        <p>De rollen en regels van elke assistent worden meegearchiveerd. Andere AI? Andere leverancier? De flow gaat mee.</p>
+      </article>
+      <article class="card alt">
+        <span class="icon" aria-hidden="true">🔒</span>
+        <span class="role-tag">Soevereiniteit</span>
+        <h3>Data blijft op het platform</h3>
+        <p>De content verlaat het gekozen AI-platform niet — geen externe verwerking, geen extra dataverwerker, geen GDPR-headache.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- WAT HET KOST -->
+<section class="band even">
+  <div class="container">
+    <span class="section-label">Wat het kost</span>
+    <h2 class="section-title">Fractie van de kosten</h2>
+    <p class="section-desc">Geen extra abonnementen, geen externe verwerkers, geen vendor lock-in. De infrastructuur die we al hadden — slimmer ingezet.</p>
+
+    <div class="stat-grid">
+      <div class="stat">
+        <div class="num">€0</div>
+        <div class="label">Extra kosten per maand</div>
+        <div class="desc">Bestaand AI-abonnement, bestaande GitHub, bestaande infrastructuur.</div>
+      </div>
+      <div class="stat">
+        <div class="num">1&nbsp;klik</div>
+        <div class="label">Van content naar publicatie</div>
+        <div class="desc">Live training-formaten + LMS-content tegelijk uit één bron.</div>
+      </div>
+      <div class="stat">
+        <div class="num">100%</div>
+        <div class="label">Data blijft op platform</div>
+        <div class="desc">Geen externe verwerkers, geen lekkende exports — GDPR-veilig.</div>
+      </div>
+      <div class="stat">
+        <div class="num">0&nbsp;dagen</div>
+        <div class="label">Overzetbaarheid</div>
+        <div class="desc">Prompts, publicaties én AI-instructies op GitHub — verhuizen kan direct.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATUS -->
+<section class="band odd">
+  <div class="container">
+    <span class="section-label">De status nu</span>
+    <h2 class="section-title">Het werkt, het is getest</h2>
+    <p class="section-desc">Geen plan meer — gebouwd, getest, en klaar voor productie. De vier assistenten draaien dagelijks; de GitHub-archieven worden bij elke publicatie automatisch bijgewerkt.</p>
+
+    <div class="grid">
+      <article class="card">
+        <span class="icon" aria-hidden="true">🟢</span>
+        <span class="role-tag">Live</span>
+        <h3>Alle vier assistenten draaien</h3>
+        <p>Document manager, L&amp;D-assistent, redactie- en visueel ontwerp-assistent staan dagelijks klaar voor productieopdrachten.</p>
+      </article>
+      <article class="card alt">
+        <span class="icon" aria-hidden="true">📊</span>
+        <span class="role-tag">Getest</span>
+        <h3>7 van de 7 testen geslaagd</h3>
+        <p>Naamgeving, kwaliteit, redactie, publicatie naar print én LMS, prompt-archivering en herstel uit GitHub — alles werkt zoals het hoort.</p>
+      </article>
+      <article class="card">
+        <span class="icon" aria-hidden="true">📖</span>
+        <span class="role-tag">Overdraagbaar</span>
+        <h3>Iemand anders kan ermee werken</h3>
+        <p>1-pager herstelprocedure, deze uitleg en een videotutorial. Nieuwe medewerker is in 15 minuten ingewerkt.</p>
+      </article>
+      <article class="card alt">
+        <span class="icon" aria-hidden="true">🚀</span>
+        <span class="role-tag">Klaar voor productie</span>
+        <h3>Morgen starten kan</h3>
+        <p>Eerste echte training: LAP. Daarna evalueren over een maand. Daarna uitrollen naar alle 30+ trainingen.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- PITCH -->
+<section class="band even">
+  <div class="container">
+    <div class="pitch">
+      <h3>Eén minuut samenvatting</h3>
+      <p>
+        Vier assistenten leveren een werkend content-redactieproces:
+        <span class="yellow">naamgeving, kwaliteit, redactie en visueel ontwerp</span> —
+        met publicaties voor live training én LMS uit één bron.
+        Prompts, publicaties en AI-instructies worden automatisch op GitHub bewaard,
+        zodat de flow agent-onafhankelijk is en jouw data het platform niet verlaat.
+        <span class="yellow">Een fractie van de kosten. Klaar voor productie.</span>
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-logo">
+      <span class="de">de</span><span class="baak">baak</span>
+    </div>
+    <p class="descriptor">Training · Ontwikkeling · Leiderschap · Sinds 1947</p>
+  </div>
+</footer>
+
+
+
+</body></html>

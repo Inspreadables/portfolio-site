@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>De Baak · Huisstijl Infographic</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* CSS variables – De Baak huisstijl v2.0 */
+        :root {
+            --primary: #005ADC;
+            --secondary: #00A555;
+            --accent: #FFE100;
+            --bg: #F5F5EB;
+            --text: #1A1A2E;
+            --shadow: 0 12px 24px -8px rgba(0, 0, 0, 0.1), 0 4px 8px rgba(0, 0, 0, 0.02);
+            --card-radius: 16px;
+            --transition: all 0.2s ease;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.5;
+            padding: 1.5rem;
+        }
+
+        .infographic-container {
+            max-width: 1280px;
+            margin: 0 auto;
+            background: transparent;
+        }
+
+        /* header / title */
+        .brand-header {
+            margin-bottom: 2rem;
+        }
+        .brand-header h1 {
+            font-size: 1.9rem;
+            font-weight: 700;
+            letter-spacing: -0.3px;
+            color: var(--primary);
+            margin-bottom: 0.3rem;
+        }
+        .brand-header p {
+            font-size: 1rem;
+            color: #3a3a4e;
+            max-width: 680px;
+        }
+
+        /* dot legend */
+        .dot-legend {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.8rem;
+            background: white;
+            padding: 0.9rem 1.5rem;
+            border-radius: 60px;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+            border: 1px solid #e8e8dc;
+            justify-content: center;
+        }
+        .legend-item {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+        .legend-dot {
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            display: inline-block;
+        }
+        .legend-dot.primary-dot { background-color: var(--primary); }
+        .legend-dot.secondary-dot { background-color: var(--secondary); }
+        .legend-dot.accent-dot { background-color: var(--accent); }
+        .legend-text {
+            color: var(--text);
+        }
+
+        /* tabs styling – touch targets >=44px */
+        .tabs {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+            border-bottom: 2px solid #e2e2d4;
+            padding-bottom: 0.25rem;
+        }
+        .tab-btn {
+            background: transparent;
+            border: none;
+            font-size: 1rem;
+            font-weight: 600;
+            font-family: Arial, sans-serif;
+            padding: 0.75rem 1.5rem;
+            min-height: 48px;         /* touch target ≥44px */
+            cursor: pointer;
+            color: #5a5a6e;
+            transition: var(--transition);
+            border-radius: 40px;
+            margin-bottom: 0.2rem;
+        }
+        .tab-btn:hover {
+            background-color: rgba(0, 90, 220, 0.08);
+            color: var(--primary);
+        }
+        .tab-btn.active {
+            background-color: var(--primary);
+            color: white;
+            box-shadow: 0 2px 8px rgba(0,90,220,0.2);
+        }
+
+        /* 2-column card grid */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.8rem;
+        }
+
+        /* card style */
+        .card {
+            background: white;
+            border-radius: var(--card-radius);
+            box-shadow: var(--shadow);
+            padding: 1.6rem 1.5rem;
+            transition: transform 0.2s, box-shadow 0.2s;
+            border-top: 4px solid;
+            display: flex;
+            flex-direction: column;
+        }
+        .card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 20px 28px -12px rgba(0, 0, 0, 0.12);
+        }
+        .card-primary {
+            border-top-color: var(--primary);
+        }
+        .card-secondary {
+            border-top-color: var(--secondary);
+        }
+        .card-accent {
+            border-top-color: var(--accent);
+        }
+        .card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 0.6rem;
+            font-weight: 700;
+            letter-spacing: -0.2px;
+        }
+        .card-metric {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: var(--primary);
+            margin: 0.5rem 0 0.2rem;
+            line-height: 1.2;
+        }
+        .card p {
+            color: #2c2c3a;
+            font-size: 0.95rem;
+            margin: 0.5rem 0 0.25rem;
+        }
+        .card-tag {
+            margin-top: 0.8rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: #6b6b7e;
+        }
+
+        /* tab panes */
+        .tab-pane {
+            display: none;
+            animation: fade 0.25s ease;
+        }
+        .tab-pane.active-pane {
+            display: block;
+        }
+        @keyframes fade {
+            from { opacity: 0; transform: translateY(6px);}
+            to { opacity: 1; transform: translateY(0);}
+        }
+
+        /* footer styling */
+        .site-footer {
+            background-color: var(--primary);
+            color: white;
+            margin-top: 3.5rem;
+            border-radius: 24px 24px 0 0;
+            position: relative;
+            overflow: hidden;
+        }
+        .footer-content {
+            padding: 2rem 2rem 1.5rem 2rem;
+            text-align: center;
+        }
+        .footer-content p {
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+        .gradient-bottom-bar {
+            height: 6px;
+            background: linear-gradient(90deg, var(--secondary) 0%, var(--accent) 50%, var(--secondary) 100%);
+            width: 100%;
+        }
+
+        /* responsive: mobile stacking */
+        @media (max-width: 768px) {
+            body {
+                padding: 1rem;
+            }
+            .cards-grid {
+                grid-template-columns: 1fr;
+                gap: 1.2rem;
+            }
+            .tab-btn {
+                padding: 0.6rem 1.2rem;
+                min-height: 44px;
+                font-size: 0.9rem;
+            }
+            .dot-legend {
+                border-radius: 28px;
+                gap: 1rem;
+                padding: 0.7rem 1rem;
+            }
+            .legend-item {
+                font-size: 0.8rem;
+            }
+            .card h3 {
+                font-size: 1.25rem;
+            }
+            .brand-header h1 {
+                font-size: 1.7rem;
+            }
+        }
+
+        /* extra tiny adjustments */
+        @media (max-width: 480px) {
+            .tabs {
+                justify-content: center;
+            }
+            .legend-item {
+                flex: 0 0 auto;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="infographic-container">
+    <div class="brand-header">
+        <h1>De Baak · Ontwikkeling in context</h1>
+        <p>Visie op leiderschap, groei en organisatieimpact – volgens huisstijl v2.0</p>
+    </div>
+
+    <!-- dot legend -->
+    <div class="dot-legend">
+        <div class="legend-item"><span class="legend-dot primary-dot"></span><span class="legend-text">Strategie & leiderschap</span></div>
+        <div class="legend-item"><span class="legend-dot secondary-dot"></span><span class="legend-text">Duurzame groei & resultaten</span></div>
+        <div class="legend-item"><span class="legend-dot accent-dot"></span><span class="legend-text">Innovatie & verbinding</span></div>
+    </div>
+
+    <!-- tabs navigation -->
+    <div class="tabs" role="tablist" aria-label="Infographic thema's">
+        <button class="tab-btn active" data-tab="tab1" id="tab1Btn">📈 Leiderschap</button>
+        <button class="tab-btn" data-tab="tab2" id="tab2Btn">🌱 Persoonlijke groei</button>
+        <button class="tab-btn" data-tab="tab3" id="tab3Btn">🏢 Organisatie impact</button>
+    </div>
+
+    <!-- Tab pane 1: Leiderschap & innovatie -->
+    <div id="tab1" class="tab-pane active-pane">
+        <div class="cards-grid">
+            <div class="card card-primary">
+                <h3>Strategische wendbaarheid</h3>
+                <div class="card-metric">+38%</div>
+                <p>Toename in adaptief vermogen na De Baak trajecten (2024).</p>
+                <div class="card-tag">Kernprogramma · leiderschap</div>
+            </div>
+            <div class="card card-secondary">
+                <h3>Teamperformance</h3>
+                <div class="card-metric">92%</div>
+                <p>Van de teams rapporteren hogere samenwerking en resultaat.</p>
+                <div class="card-tag">GROEI · DUURZAAM</div>
+            </div>
+            <div class="card card-accent">
+                <h3>Digitale transformatie</h3>
+                <div class="card-metric">4.7/5</div>
+                <p>Waardering voor onze changemanagement modules.</p>
+                <div class="card-tag">INNOVATIE · ACCELERATOR</div>
+            </div>
+            <div class="card card-primary">
+                <h3>Besluitvaardigheid</h3>
+                <div class="card-metric">270°</div>
+                <p>360-feedback toont significante vooruitgang in leiderschapsrollen.</p>
+                <div class="card-tag">PRIMARY · EXECUTIVE</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tab pane 2: Persoonlijke groei -->
+    <div id="tab2" class="tab-pane">
+        <div class="cards-grid">
+            <div class="card card-secondary">
+                <h3>Zelfbewust leiderschap</h3>
+                <div class="card-metric">86%</div>
+                <p>Deelnemers voelen meer regie over eigen ontwikkeling.</p>
+                <div class="card-tag">SECUNDAIR · MINDSET</div>
+            </div>
+            <div class="card card-accent">
+                <h3>Netwerkwaarde</h3>
+                <div class="card-metric">1.200+</div>
+                <p>Nieuwe connecties en intervisiegroepen gevormd in 2025.</p>
+                <div class="card-tag">ACCENT · VERBINDING</div>
+            </div>
+            <div class="card card-primary">
+                <h3>Coaching impact</h3>
+                <div class="card-metric">92%</div>
+                <p>Zegt dat individuele coaching leidde tot carrièrestap.</p>
+                <div class="card-tag">PRIMARY · PERSOONLIJK</div>
+            </div>
+            <div class="card card-secondary">
+                <h3>Leeragenda op maat</h3>
+                <div class="card-metric">100%</div>
+                <p>Van de deelnemers beveelt het maatwerktraject aan.</p>
+                <div class="card-tag">GROEI · TRAJECTEN</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tab pane 3: Organisatie impact -->
+    <div id="tab3" class="tab-pane">
+        <div class="cards-grid">
+            <div class="card card-accent">
+                <h3>Veranderkracht</h3>
+                <div class="card-metric">+54%</div>
+                <p>Stijging in adoptie van nieuwe werkwijzen binnen 6 maanden.</p>
+                <div class="card-tag">ACCENT · TRANSITIE</div>
+            </div>
+            <div class="card card-primary">
+                <h3>Retentie & betrokkenheid</h3>
+                <div class="card-metric">73%</div>
+                <p>Minder verloop bij medewerkers die De Baak volgden.</p>
+                <div class="card-tag">PRIMARY · CULTUUR</div>
+            </div>
+            <div class="card card-secondary">
+                <h3>ESG & duurzame groei</h3>
+                <div class="card-metric">A−</div>
+                <p>ESG-rijpheidsclassificatie na leiderschapsprogramma’s.</p>
+                <div class="card-tag">SECUNDAIR · IMPACT</div>
+            </div>
+            <div class="card card-accent">
+                <h3>Innovatiekracht teams</h3>
+                <div class="card-metric">3.2x</div>
+                <p>Meer vernieuwende initiatieven gestart binnen afdelingen.</p>
+                <div class="card-tag">ACCENT · CREATIVITEIT</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- footer with gradient bottom bar -->
+    <footer class="site-footer">
+        <div class="footer-content">
+            <p>© 2026 De Baak · Management & Leiderschapsontwikkeling</p>
+            <p>Huisstijl v2.0 – Professioneel, toegankelijk, resultaatgericht</p>
+        </div>
+        <div class="gradient-bottom-bar" aria-hidden="true"></div>
+    </footer>
+</div>
+
+<script>
+    (function() {
+        // tab switching logic with accessibility & touch
+        const tabButtons = document.querySelectorAll('.tab-btn');
+        const panes = document.querySelectorAll('.tab-pane');
+
+        function activateTab(tabId) {
+            // deactivate all panes
+            panes.forEach(pane => {
+                pane.classList.remove('active-pane');
+            });
+            // deactivate all tab buttons
+            tabButtons.forEach(btn => {
+                btn.classList.remove('active');
+                btn.setAttribute('aria-selected', 'false');
+            });
+            // activate current pane
+            const activePane = document.getElementById(tabId);
+            if (activePane) {
+                activePane.classList.add('active-pane');
+            }
+            // activate clicked tab button
+            const correspondingBtn = document.querySelector(`.tab-btn[data-tab="${tabId}"]`);
+            if (correspondingBtn) {
+                correspondingBtn.classList.add('active');
+                correspondingBtn.setAttribute('aria-selected', 'true');
+            }
+        }
+
+        tabButtons.forEach(button => {
+            button.addEventListener('click', (e) => {
+                const tabId = button.getAttribute('data-tab');
+                if (tabId) {
+                    activateTab(tabId);
+                }
+                // optional: update URL? not needed but solid
+                e.preventDefault();
+            });
+            button.setAttribute('role', 'tab');
+            button.setAttribute('aria-selected', button.classList.contains('active') ? 'true' : 'false');
+        });
+
+        // ensure initial active tab sync (tab1)
+        const initialActive = document.querySelector('.tab-btn.active');
+        if (!initialActive || initialActive.getAttribute('data-tab') !== 'tab1') {
+            activateTab('tab1');
+        } else {
+            // double-check pane visibility
+            const activeTabId = initialActive.getAttribute('data-tab');
+            if (activeTabId) {
+                panes.forEach(pane => pane.classList.remove('active-pane'));
+                const targetPane = document.getElementById(activeTabId);
+                if (targetPane) targetPane.classList.add('active-pane');
+            }
+        }
+
+        // make sure responsive + touch targets are fine (CSS ensures min-height)
+        // also handle keydown for better keyboard accessibility (optional)
+        tabButtons.forEach(btn => {
+            btn.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    btn.click();
+                }
+            });
+        });
+    })();
+</script>
+</body>
+</html>

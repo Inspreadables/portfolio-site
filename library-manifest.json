@@ -1,0 +1,462 @@
+{
+  "pages": [
+    {
+      "id": "mt-briefing",
+      "file": "mt-briefing.html",
+      "title": "MT-Briefing \u2014 Competitive Positioning De Baak",
+      "description": "Een uitgehold middenveld \u2014 drie wegen vooruit. Strategische herpositionering van De Baak in de markt voor leiderschapsontwikkeling.",
+      "category": "strategie-positionering"
+    },
+    {
+      "id": "mt-briefing-v2",
+      "file": "MT_briefing_competitive_positioning.html",
+      "title": "MT-Briefing \u2014 Competitive Positioning De Baak (v2)",
+      "description": "Aanvullende versie van de MT-briefing over competitieve positionering.",
+      "category": "strategie-positionering"
+    },
+    {
+      "id": "kennishub-uit-het-midden",
+      "file": "De Baak Kennishub #U2014 Uit het midden, naar de toekomst.html",
+      "title": "De Baak Kennishub \u2014 Uit het midden, naar de toekomst",
+      "description": "Strategische visie: hoe De Baak van middenmotor naar CEO-level co-creatie groeit.",
+      "category": "strategie-positionering"
+    },
+    {
+      "id": "kennishub-uit-het-midden-v8",
+      "file": "mt_brief_ v8.0 _ strategische_herpositionering.html",
+      "title": "De Baak Kennishub \u2014 Uit het midden v8.0",
+      "description": "Versie 8.0 van de strategische herpositioneringspresentatie.",
+      "category": "strategie-positionering"
+    },
+    {
+      "id": "authority-network",
+      "file": "comparison baak.html",
+      "title": "De Baak Strategic Evolution: Authority Network",
+      "description": "De Baak 2.0 als Authority Multiplier \u2014 van trainingsorganisatie naar kennisnetwerk.",
+      "category": "strategie-positionering"
+    },
+    {
+      "id": "authority-network-v2",
+      "file": "comparison baakv2.html",
+      "title": "De Baak Strategic Evolution: Authority Network v2",
+      "description": "Herziene versie van de Authority Network strategiepresentatie.",
+      "category": "strategie-positionering"
+    },
+    {
+      "id": "top5-leadership-nl",
+      "file": "5 Best Leadership Training Companies in Netherlands for 2026.html",
+      "title": "5 Best Leadership Training Companies Netherlands 2026",
+      "description": "Benchmarkonderzoek: De Baak vergeleken met de top 5 leiderschapstrainers in Nederland.",
+      "category": "strategie-positionering"
+    },
+    {
+      "id": "horizon-insights",
+      "file": "baak_horizon_insights.html",
+      "title": "De Baak | Infographic Insights",
+      "description": "Data-driven foresight, strategie en impact \u2014 een horizonverkenning.",
+      "category": "strategie-positionering"
+    },
+    {
+      "id": "audit-infographic-2026",
+      "file": "Baakusp.html",
+      "title": "De Baak \u00b7 Audit Infographic 2026",
+      "description": "Website-audit van De Baak \u2014 april 2026. Inzicht in contentkwaliteit en digitale aanwezigheid.",
+      "category": "strategie-positionering"
+    },
+    {
+      "id": "platforms-vs-authorities",
+      "file": "comparison.html",
+      "title": "Business Model Analysis: Platforms vs. Authorities",
+      "description": "Vergelijking van Substack, Patreon, Designing Your Life, School of Life en Commune als businessmodellen.",
+      "category": "strategie-positionering"
+    },
+    {
+      "id": "executive-learning-reimagined",
+      "file": "De Baak Kennishub #U00b7 Executive Learning Reimagined.html",
+      "title": "De Baak Kennishub \u00b7 Executive Learning Reimagined",
+      "description": "Hoe de Kennishub executive learning heruitvindt via AI en community.",
+      "category": "kennismanagement-ai"
+    },
+    {
+      "id": "knowledge-factory-agent",
+      "file": "De Baak _ Knowledge Factory Agent.html",
+      "title": "De Baak | Knowledge Factory Agent",
+      "description": "Geautomatiseerd portfolio en projectintelligentie via Disco LMS, ClickUp en Claude.",
+      "category": "kennismanagement-ai"
+    },
+    {
+      "id": "knowledge-factory-pmo",
+      "file": "De Baak #U00b7 Knowledge Factory _ PMO.html",
+      "title": "De Baak \u00b7 Knowledge Factory | PMO Infographic",
+      "description": "AI-driven portfolio management gecombineerd met kenniscreatie en Karpathy-style retrieval.",
+      "category": "kennismanagement-ai"
+    },
+    {
+      "id": "knowledge-automation-old",
+      "file": "Knowledge Automation & Content Intelligence (old).html",
+      "title": "Knowledge Automation & Content Intelligence",
+      "description": "Het oorspronkelijke framework voor kennisautomatisering en contentintelligentie bij De Baak.",
+      "category": "kennismanagement-ai"
+    },
+    {
+      "id": "knowledge-automation-project",
+      "file": "project-infographic-baak.html",
+      "title": "Knowledge Automation \u2014 De Baak",
+      "description": "Projectinfographic: van content naar geautomatiseerde kennisdistributie.",
+      "category": "kennismanagement-ai"
+    },
+    {
+      "id": "knowledge-creation-pilot",
+      "file": "knowledge-creation-pilot-infographic.html",
+      "title": "Knowledge Creation Platform \u2014 Pilot Charter",
+      "description": "Business case en projectcharter voor het kenniscreatie platform als flagship pilot.",
+      "category": "kennismanagement-ai"
+    },
+    {
+      "id": "ai-second-brain",
+      "file": "De Baak _ AI Second Brain #U2013 Leeromgeving Infographic.html",
+      "title": "De Baak | AI Second Brain \u2013 Leeromgeving",
+      "description": "AI Tweede Brein workflow: Knowledge Agent \u00d7 Social Learning in \u00e9\u00e9n leeromgeving.",
+      "category": "kennismanagement-ai"
+    },
+    {
+      "id": "knowledge-assistant",
+      "file": "deepseek_html_20260602_255005.html",
+      "title": "De Baak \u00b7 Knowledge Assistant Infographic",
+      "description": "Infographic over de Knowledge Assistant in De Baak huisstijl.",
+      "category": "kennismanagement-ai"
+    },
+    {
+      "id": "knowledge-management-framework",
+      "file": "knowledge_management_infographic_debaak.html",
+      "title": "Knowledge Management Framework | Interactive Infographic",
+      "description": "Uitgebreid framework dat projectmanagement integreert met kenniscreatie, validatie en distributie.",
+      "category": "kennismanagement-ai"
+    },
+    {
+      "id": "ai-project-assistant",
+      "file": "knowledge_wiki.html",
+      "title": "De Baak \u00b7 AI Project Assistant",
+      "description": "Intelligente portfolio companion met real-time bottleneck detectie en persistent kennisregister.",
+      "category": "kennismanagement-ai"
+    },
+    {
+      "id": "ai-research-stack",
+      "file": "Research stack.html",
+      "title": "De Baak \u00b7 AI Research Stack Infographic",
+      "description": "Overzicht van de AI-toolstack voor learning professionals bij De Baak.",
+      "category": "kennismanagement-ai"
+    },
+    {
+      "id": "ai-research-stack-trainers",
+      "file": "trainers_agent_knowledge_creation_research.html",
+      "title": "De Baak \u00b7 AI Research Stack for Trainers",
+      "description": "AI Research Stack specifiek voor trainers \u2014 een lab-aanpak voor kenniscreatie.",
+      "category": "kennismanagement-ai"
+    },
+    {
+      "id": "ai-research-raw",
+      "file": "#AI research.html",
+      "title": "#AI research",
+      "description": "Ruwe research verzameling rond AI-toepassingen voor De Baak.",
+      "category": "kennismanagement-ai"
+    },
+    {
+      "id": "lerende-organisatie",
+      "file": "De Baak _ Lerende Organisatie Infographic.html",
+      "title": "De Baak | Lerende Organisatie Infographic",
+      "description": "MT Brief: Versnelling van De Baak als lerende organisatie.",
+      "category": "mt-briefings-pilots"
+    },
+    {
+      "id": "living-lab-pilot",
+      "file": "Living Lab Pilot Infographic (1).html",
+      "title": "Living Lab Pilot Infographic",
+      "description": "Gefaseerde, vrijwilligersgestuurde aanpak om communities te transformeren via leren.",
+      "category": "mt-briefings-pilots"
+    },
+    {
+      "id": "living-lab-amsterdam",
+      "file": "pilot-presentatie-nederlands.html",
+      "title": "Living Lab Pilot \u2014 Amsterdam 1077 VN",
+      "description": "Managementpresentatie voor de Living Lab pilot in Amsterdam. Ambitieus maar uitvoerbaar.",
+      "category": "mt-briefings-pilots"
+    },
+    {
+      "id": "executive-development-research",
+      "file": "Executive Development Research Initiative.html",
+      "title": "Executive Development Research Initiative",
+      "description": "Onderzoeksinitiatief voor executieve ontwikkeling als strategische pijler.",
+      "category": "mt-briefings-pilots"
+    },
+    {
+      "id": "social-learning-roadmap",
+      "file": "mt_brief_social learning_roadmap.html",
+      "title": "MT Brief: Social Learning Roadmap",
+      "description": "Baakie als intelligent orchestrator voor social learning workflows.",
+      "category": "mt-briefings-pilots"
+    },
+    {
+      "id": "rapid-prototyping-pilot",
+      "file": "mt_brief_pilot_rapid_prototyping.html",
+      "title": "MT Brief: Pilot Rapid Prototyping",
+      "description": "Design Thinking infographic voor de rapid prototyping pilot.",
+      "category": "mt-briefings-pilots"
+    },
+    {
+      "id": "projectmanagement-visie",
+      "file": "mt_brief_pilot_visie projectmanagement.html",
+      "title": "MT Brief: Pilot Projectmanagement Visie",
+      "description": "Scenarioplanning en lange termijn waardecreatie voor het projectmanagement pilot.",
+      "category": "mt-briefings-pilots"
+    },
+    {
+      "id": "pilots-overzicht",
+      "file": "mt_brief_pilots.html",
+      "title": "MT Brief: Pilots Overzicht",
+      "description": "Samenvattend overzicht van alle lopende pilots binnen De Baak Kennishub.",
+      "category": "mt-briefings-pilots"
+    },
+    {
+      "id": "ld-visie",
+      "file": "mt_brief_visield.html",
+      "title": "MT Brief: LD Visie",
+      "description": "Drie strategische pijlers voor L&D \u2014 huisstijl infographic v2.0.",
+      "category": "mt-briefings-pilots"
+    },
+    {
+      "id": "ld-orgchart-nl",
+      "file": "LD_OrgChart_DeBaak.html",
+      "title": "L&D Organisatiestructuur \u2014 De Baak",
+      "description": "Interactief organogram van de L&D afdeling met rollen, verantwoordelijkheden en kerncompetenties.",
+      "category": "ld-trainingsontwerp"
+    },
+    {
+      "id": "ld-orgchart-en",
+      "file": "L&D Org Chart.html",
+      "title": "L&D Department Interactive Org Chart (EN)",
+      "description": "Engelstalige versie van het interactieve L&D organogram.",
+      "category": "ld-trainingsontwerp"
+    },
+    {
+      "id": "course-development-process",
+      "file": "debaak_course_development_process.html",
+      "title": "Course Development Process \u2014 De Baak Executive Learning",
+      "description": "Stap-voor-stap proces voor het ontwikkelen van executive cursussen.",
+      "category": "ld-trainingsontwerp"
+    },
+    {
+      "id": "prompt-engineering-ld",
+      "file": "prompt-engineering-ld-handout.html",
+      "title": "Prompt Engineering voor L&D Professionals",
+      "description": "Praktische handout met de basisprincipes van prompt engineering specifiek voor L&D.",
+      "category": "ld-trainingsontwerp"
+    },
+    {
+      "id": "consultant-hr-partnership",
+      "file": "consultant-hr-partnership-infographic.html",
+      "title": "External L&D Consultant \u00d7 HR Partnership Guide",
+      "description": "Samenwerkinsgids voor externe L&D consultants en HR-partners.",
+      "category": "ld-trainingsontwerp"
+    },
+    {
+      "id": "disco-lms-decision-guide",
+      "file": "Disco LMS Decision Guide.html",
+      "title": "Disco LMS Implementation \u2014 Management Decision Guide",
+      "description": "Strategische roadmap voor student journey management via Disco LMS.",
+      "category": "ld-trainingsontwerp"
+    },
+    {
+      "id": "lms365-decision-guide",
+      "file": "LMS365 Implementation Decision Guide (1).html",
+      "title": "LMS365 Implementation Decision Guide",
+      "description": "Strategisch beslissingskader voor de implementatie van LMS365.",
+      "category": "ld-trainingsontwerp"
+    },
+    {
+      "id": "bewijs-praktijkmodellen",
+      "file": "Bewijs en Praktijkmodellen.html",
+      "title": "Bewijs en Praktijkmodellen",
+      "description": "Overzicht van evidence-based modellen en praktijktheorie\u00ebn voor leren.",
+      "category": "ld-trainingsontwerp"
+    },
+    {
+      "id": "audit-educatieve-content",
+      "file": "Audit Educatieve Content.html",
+      "title": "Audit Educatieve Content",
+      "description": "Template voor kwaliteitsaudit van educatieve content via evidence-based criteria.",
+      "category": "ld-trainingsontwerp"
+    },
+    {
+      "id": "evaluating-coaching-quality",
+      "file": "PRFO_debaak_coaching_infographic.html",
+      "title": "Evaluating Executive Coaching Quality \u2014 De Baak",
+      "description": "Framework voor het evalueren van de kwaliteit van executive coaching.",
+      "category": "ld-trainingsontwerp"
+    },
+    {
+      "id": "bateson-logische-niveaus",
+      "file": "bateson_infographic.html",
+      "title": "Logische Niveaus van Bateson \u2014 De Baak",
+      "description": "Infographic van het Bateson-model: zes denkniveaus voor dieper inzicht in verandering.",
+      "category": "ld-trainingsontwerp"
+    },
+    {
+      "id": "document-management-fase1",
+      "file": "debaak-document-management-phase1.html",
+      "title": "De Baak \u00b7 Document Management Proces \u2013 Fase 1",
+      "description": "Fase 1 van het documentmanagement proces: naamgeving, opslag en categorisatie.",
+      "category": "document-management-werkproces"
+    },
+    {
+      "id": "baakie-orchestrator-eli5",
+      "file": "Baakie-documentmanagement_productie.html",
+      "title": "Baakie-orchestrator \u2014 uitgelegd alsof je 5 bent",
+      "description": "ELI5: hoe \u00e9\u00e9n dirigent, vier helpers en een nachtelijke robot zorgen dat trainingscontent nooit kwijtraakt.",
+      "category": "document-management-werkproces"
+    },
+    {
+      "id": "content-to-infographic-workflow",
+      "file": "conversation-workflow-infographic.html",
+      "title": "Van Content naar Branded Infographic: Workflow",
+      "description": "Complete workflow van ruwe content naar een gepubliceerde infographic in De Baak huisstijl.",
+      "category": "document-management-werkproces"
+    },
+    {
+      "id": "github-cheatsheet",
+      "file": "github_cheatsheet.html",
+      "title": "Claude \u2192 GitHub Workflow \u2014 De Baak",
+      "description": "Cheatsheet: sessies en HTML-pagina's opslaan per project via Claude en GitHub.",
+      "category": "document-management-werkproces"
+    },
+    {
+      "id": "webpaginas-bewerken-gids",
+      "file": "webpaginas_bewerken_gids.html",
+      "title": "Webpagina's bewerken \u2014 Praktijkgids voor beginners",
+      "description": "Stap-voor-stap gids voor het bewerken van webpagina's zonder technische kennis.",
+      "category": "document-management-werkproces"
+    },
+    {
+      "id": "publicatie-portfolio-oud",
+      "file": "Publicatie Portfolio #U00b7 De Baak.html",
+      "title": "Publicatie Portfolio \u00b7 De Baak",
+      "description": "Overzicht van alle publicaties en wat er al geautomatiseerd is.",
+      "category": "document-management-werkproces"
+    },
+    {
+      "id": "ppm-projectmanagement-omgeving",
+      "file": "ppm-projectmanagement-omgeving.html",
+      "title": "Het PPM Project Management Omgeving",
+      "description": "Interactieve infographic over de PPM-omgeving voor project- en portfoliomanagement.",
+      "category": "document-management-werkproces"
+    },
+    {
+      "id": "ppm-paradise",
+      "file": "ppm-paradise-infographic_1.html",
+      "title": "Het PPM-paradijs \u2014 Interactieve Infographic",
+      "description": "Optimale omgeving voor succesvol project-, portfolio- en resourcemanagement.",
+      "category": "document-management-werkproces"
+    },
+    {
+      "id": "clickup-knowledge-management",
+      "file": "clickup_knowledge_management_infographic.html",
+      "title": "ClickUp Knowledge Management Framework",
+      "description": "Interactieve infographic van het ClickUp framework voor kennismanagement.",
+      "category": "document-management-werkproces"
+    },
+    {
+      "id": "kennishub-index",
+      "file": "index.html",
+      "title": "De Baak Kennishub Index",
+      "description": "Overzicht van alle infographics en briefings \u2014 strategie, werkmethode, research en governance.",
+      "category": "document-management-werkproces"
+    },
+    {
+      "id": "sandbox-agent-safety",
+      "file": "ict_brief_sandbox_safety_security.html",
+      "title": "De Baak \u00b7 Sandbox Agent Infographic",
+      "description": "Sandbox agent checkt input op L0/L1 veiligheid. Bij L2/L3 data: direct STOP.",
+      "category": "ai-tools-veiligheid"
+    },
+    {
+      "id": "security-infographic",
+      "file": "security.html",
+      "title": "De Baak \u00b7 Security Infographic",
+      "description": "Audit GitHub code, Wireshark netwerkbewaking en prompt injectie detectie.",
+      "category": "ai-tools-veiligheid"
+    },
+    {
+      "id": "ai-scrum-master",
+      "file": "werkmethode.html",
+      "title": "De Baak \u00b7 AI Scrum Master Infographic",
+      "description": "AI-gestuurd projectmanagement met continue verbetering en transparantie.",
+      "category": "ai-tools-veiligheid"
+    },
+    {
+      "id": "prompt-generator-v2",
+      "file": "debaak_prompt_gen_v2_officieel.html",
+      "title": "De Baak Prompt Generator v2",
+      "description": "Kies een format, vul details in, ontvang een kant-en-klare merkprompt voor De Baak.",
+      "category": "ai-tools-veiligheid"
+    },
+    {
+      "id": "inspreadables-infographic",
+      "file": "strategie.html",
+      "title": "De Baak \u00b7 Inspreadables Infographic",
+      "description": "Sociaal leervermogen, heldere architectuur en toekomstbestendig ontwerp in huisstijl v2.0.",
+      "category": "ai-tools-veiligheid"
+    },
+    {
+      "id": "social-learning-ai-agent",
+      "file": "social_learning_ai_agent.html",
+      "title": "Social Learning AI Agent",
+      "description": "Hoe De Baak de analoge voorsprong terugpakt via een social learning AI-agent.",
+      "category": "ai-tools-veiligheid"
+    },
+    {
+      "id": "ai-headshot-process",
+      "file": "AI_headshot_process.html",
+      "title": "De Baak \u00b7 AI Headshot Process & Cost Comparison",
+      "description": "Thuis professionele headshots maken met AI \u2014 vergelijking van methodes en kosten.",
+      "category": "headshots-media"
+    },
+    {
+      "id": "professional-headshots-home",
+      "file": "usercontent.html",
+      "title": "De Baak \u00b7 Professional Headshots at Home",
+      "description": "Praktische gids voor professionele headshots thuis met AI-ondersteuning.",
+      "category": "headshots-media"
+    },
+    {
+      "id": "adviesgespreksmodel",
+      "file": "Adviesgespreksmodel_Interactief.html",
+      "title": "Het Adviesgespreksmodel \u2014 De Baak",
+      "description": "Interactieve leidraad voor effectieve adviesgesprekken: profilering, opties en consequenties.",
+      "category": "overig"
+    },
+    {
+      "id": "substack-vs-patreon",
+      "file": "development business model substack pateron.html",
+      "title": "Creator Economy: Substack vs. Patreon",
+      "description": "Strategische vergelijking van Substack en Patreon als creator business models.",
+      "category": "overig"
+    },
+    {
+      "id": "dyl-vs-cal-newport",
+      "file": "Infographic Dyl Vs Cn.html",
+      "title": "Designing Your Life vs Cal Newport",
+      "description": "Vergelijking van twee invloedrijke methodes voor loopbaanontwikkeling en focus.",
+      "category": "overig"
+    }
+  ],
+  "categories": {
+    "strategie-positionering": "Strategie & Positionering",
+    "kennismanagement-ai": "Kennismanagement & AI",
+    "mt-briefings-pilots": "MT Briefings & Pilots",
+    "ld-trainingsontwerp": "L&D & Trainingsontwerp",
+    "document-management-werkproces": "Document Management & Werkproces",
+    "ai-tools-veiligheid": "AI Tools & Veiligheid",
+    "headshots-media": "Headshots & Media",
+    "overig": "Overig"
+  }
+}

@@ -1,0 +1,952 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>De Baak · Document Management Proces – Fase 1</title>
+  <style>
+    /* =============================================
+       DE BAAK OFFICIËLE HUISSTIJL v1.0
+       Seaside Blauw #005ADC | De Horst Groen #00A555 | Baken Geel #FFE100
+       Alabaster #F5F5EB | Charcoal #2d2d2d
+       ENIG TOEGESTAAN FONT: ARIAL
+    ============================================= */
+
+    :root {
+      --seaside-blue: #005ADC;
+      --seaside-blue-dark: #0047b0;
+      --seaside-blue-light: #3380e6;
+      --seaside-blue-subtle: rgba(0,90,220,0.08);
+      --horst-green: #00A555;
+      --horst-green-dark: #008f47;
+      --baken-yellow: #FFE100;
+      --alabaster: #F5F5EB;
+      --white: #ffffff;
+      --charcoal: #2d2d2d;
+      --grey-mid: #5a5a5a;
+      --grey-light: #8a8a8a;
+      --border-taupe: #d4cfc4;
+      --shadow-card: 0 8px 30px rgba(0,90,220,0.12);
+      --shadow-hover: 0 12px 40px rgba(0,90,220,0.18);
+      --radius-card: 16px;
+      --radius-sm: 8px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: var(--alabaster);
+      color: var(--charcoal);
+      line-height: 1.7;
+      font-size: 16px;
+    }
+
+    /* ── PROGRESS BAR ── */
+    #progress-bar {
+      position: fixed;
+      top: 0; left: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--seaside-blue), var(--seaside-blue-light));
+      width: 0%;
+      z-index: 100;
+      transition: width 0.1s linear;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky;
+      top: 0;
+      background: var(--white);
+      border-bottom: 1px solid var(--border-taupe);
+      z-index: 50;
+      padding: 0 2rem;
+    }
+    .nav-inner {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 56px;
+    }
+    .nav-logo {
+      font-family: Arial, sans-serif;
+      font-size: 1.2rem;
+      font-weight: 400;
+      display: flex;
+      align-items: baseline;
+      gap: 0.25rem;
+    }
+    .nav-logo .de {
+      color: transparent;
+      -webkit-text-stroke: 1.8px var(--seaside-blue);
+      font-weight: 400;
+    }
+    .nav-logo .baak {
+      color: var(--seaside-blue);
+      font-weight: 900;
+    }
+    .nav-links {
+      display: flex;
+      gap: 1.5rem;
+      list-style: none;
+    }
+    .nav-links a {
+      font-family: Arial, sans-serif;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--grey-mid);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--seaside-blue); }
+    @media (max-width: 768px) { .nav-links { display: none; } }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative;
+      overflow: hidden;
+      background: var(--white);
+      padding: 96px 2rem 80px;
+      text-align: center;
+    }
+    .hero .baken-tr {
+      position: absolute;
+      top: 0; right: 0;
+      width: 0; height: 0;
+      border-style: solid;
+      border-width: 0 260px 260px 0;
+      border-color: transparent var(--seaside-blue) transparent transparent;
+      opacity: 0.10;
+      pointer-events: none;
+    }
+    .hero .baken-bl {
+      position: absolute;
+      bottom: 0; left: 0;
+      width: 0; height: 0;
+      border-style: solid;
+      border-width: 180px 0 0 180px;
+      border-color: transparent transparent transparent var(--horst-green);
+      opacity: 0.10;
+      pointer-events: none;
+    }
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: linear-gradient(135deg, var(--seaside-blue), var(--seaside-blue-light));
+      color: var(--white);
+      font-family: Arial, sans-serif;
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      padding: 0.4rem 1rem;
+      border-radius: 9999px;
+      margin-bottom: 1.5rem;
+    }
+    .hero-badge::before {
+      content: '';
+      display: inline-block;
+      width: 6px; height: 6px;
+      background: var(--baken-yellow);
+      border-radius: 50%;
+    }
+    .hero h1 {
+      font-family: Arial, sans-serif;
+      font-weight: 900;
+      font-size: clamp(2.2rem, 5vw, 3.8rem);
+      color: var(--seaside-blue);
+      line-height: 1.1;
+      margin-bottom: 1.2rem;
+      max-width: 760px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .hero h1 .de {
+      color: transparent;
+      -webkit-text-stroke: 2.5px var(--seaside-blue);
+      font-weight: 400;
+    }
+    .hero-sub {
+      font-size: 1.15rem;
+      color: var(--grey-mid);
+      max-width: 580px;
+      margin: 0 auto 1.8rem;
+      line-height: 1.65;
+    }
+    .descriptor {
+      font-family: Arial, sans-serif;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--seaside-blue);
+      letter-spacing: 0.4px;
+    }
+
+    /* ── CONTAINER ── */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    /* ── SECTION ── */
+    section {
+      padding: 80px 2rem;
+    }
+    section:nth-child(even) {
+      background: var(--white);
+    }
+    .section-label {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      color: var(--horst-green);
+      text-transform: uppercase;
+      margin-bottom: 0.6rem;
+    }
+    .section-title {
+      font-family: Arial, sans-serif;
+      font-weight: 900;
+      font-size: clamp(1.6rem, 3vw, 2.4rem);
+      color: var(--seaside-blue);
+      line-height: 1.15;
+      margin-bottom: 0.8rem;
+    }
+    .section-desc {
+      color: var(--grey-mid);
+      font-size: 1rem;
+      max-width: 600px;
+      margin-bottom: 3rem;
+    }
+
+    /* ── STAT CARDS ── */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    @media (max-width: 1024px) { .stats-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 768px) { .stats-grid { grid-template-columns: 1fr; } }
+
+    .stat-card {
+      background: var(--white);
+      border-radius: var(--radius-card);
+      padding: 2rem;
+      box-shadow: var(--shadow-card);
+      border-top: 4px solid var(--seaside-blue);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      opacity: 0;
+      transform: translateY(24px);
+    }
+    .stat-card.visible {
+      animation: fadeUp 0.5s ease forwards;
+    }
+    .stat-card:hover {
+      transform: translateY(-8px);
+      box-shadow: var(--shadow-hover);
+    }
+    .stat-card:nth-child(2) { border-top-color: var(--horst-green); }
+    .stat-card:nth-child(3) { border-top-color: var(--seaside-blue); }
+    .stat-card:nth-child(4) { border-top-color: var(--horst-green); }
+
+    .stat-number {
+      font-family: Arial, sans-serif;
+      font-weight: 900;
+      font-size: 3rem;
+      line-height: 1;
+      color: var(--seaside-blue);
+      margin-bottom: 0.4rem;
+    }
+    .stat-card:nth-child(2) .stat-number,
+    .stat-card:nth-child(4) .stat-number { color: var(--horst-green); }
+
+    .stat-label {
+      font-weight: 700;
+      font-size: 0.9rem;
+      color: var(--charcoal);
+      margin-bottom: 0.3rem;
+    }
+    .stat-desc {
+      font-size: 0.82rem;
+      color: var(--grey-light);
+    }
+
+    /* ── PHASE STEPS ── */
+    .steps-wrapper {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .step-item {
+      display: grid;
+      grid-template-columns: 80px 1fr;
+      gap: 2rem;
+      margin-bottom: 2rem;
+      align-items: start;
+      opacity: 0;
+      transform: translateX(-20px);
+    }
+    .step-item.visible { animation: fadeLeft 0.5s ease forwards; }
+
+    .step-num {
+      width: 80px; height: 80px;
+      background: linear-gradient(135deg, var(--seaside-blue), var(--seaside-blue-light));
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: Arial, sans-serif;
+      font-weight: 900;
+      font-size: 1.8rem;
+      color: var(--white);
+      flex-shrink: 0;
+      box-shadow: 0 4px 16px rgba(0,90,220,0.25);
+    }
+    .step-card {
+      background: var(--white);
+      border-radius: var(--radius-card);
+      padding: 2rem 2rem 2rem 2rem;
+      box-shadow: var(--shadow-card);
+      transition: box-shadow 0.3s ease;
+    }
+    .step-card:hover { box-shadow: var(--shadow-hover); }
+    .step-card h3 {
+      font-family: Arial, sans-serif;
+      font-weight: 900;
+      font-size: 1.25rem;
+      color: var(--seaside-blue);
+      margin-bottom: 0.6rem;
+    }
+    .step-card p {
+      color: var(--grey-mid);
+      font-size: 0.95rem;
+      margin-bottom: 1rem;
+    }
+    .step-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+    .tag {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 0.3rem 0.7rem;
+      border-radius: 9999px;
+      border: 1.5px solid var(--seaside-blue);
+      color: var(--seaside-blue);
+      background: var(--seaside-blue-subtle);
+    }
+    .tag.green {
+      border-color: var(--horst-green);
+      color: var(--horst-green);
+      background: rgba(0,165,85,0.07);
+    }
+
+    @media (max-width: 600px) {
+      .step-item { grid-template-columns: 56px 1fr; gap: 1rem; }
+      .step-num { width: 56px; height: 56px; font-size: 1.3rem; }
+    }
+
+    /* ── NAMING CONVENTIONS TABLE ── */
+    .table-wrap {
+      max-width: 1200px;
+      margin: 0 auto;
+      overflow-x: auto;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: var(--white);
+      border-radius: var(--radius-card);
+      overflow: hidden;
+      box-shadow: var(--shadow-card);
+      font-size: 0.9rem;
+    }
+    thead {
+      background: linear-gradient(135deg, var(--seaside-blue), var(--seaside-blue-light));
+      color: var(--white);
+    }
+    thead th {
+      padding: 1rem 1.2rem;
+      text-align: left;
+      font-weight: 700;
+      font-size: 0.85rem;
+      letter-spacing: 0.3px;
+    }
+    tbody tr {
+      border-bottom: 1px solid var(--border-taupe);
+      transition: background 0.2s;
+    }
+    tbody tr:last-child { border-bottom: none; }
+    tbody tr:hover { background: var(--seaside-blue-subtle); }
+    td {
+      padding: 0.9rem 1.2rem;
+      color: var(--charcoal);
+      vertical-align: top;
+    }
+    td:first-child { font-weight: 700; color: var(--seaside-blue); }
+    .code-cell {
+      font-family: monospace;
+      font-size: 0.82rem;
+      background: var(--alabaster);
+      padding: 0.25rem 0.5rem;
+      border-radius: 4px;
+      color: var(--charcoal);
+      display: inline-block;
+    }
+    .ex-good {
+      display: block;
+      color: var(--horst-green);
+      font-size: 0.82rem;
+      margin-top: 0.25rem;
+      font-weight: 700;
+    }
+    .ex-bad {
+      display: block;
+      color: #dc2626;
+      font-size: 0.82rem;
+      margin-top: 0.2rem;
+      text-decoration: line-through;
+    }
+
+    /* ── FOLDER STRUCTURE ── */
+    .folder-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    @media (max-width: 900px) { .folder-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 600px) { .folder-grid { grid-template-columns: 1fr; } }
+
+    .folder-card {
+      background: var(--white);
+      border-radius: var(--radius-card);
+      padding: 1.8rem;
+      box-shadow: var(--shadow-card);
+      border-left: 5px solid var(--seaside-blue);
+      opacity: 0;
+      transform: translateY(20px);
+      transition: box-shadow 0.3s, transform 0.3s;
+    }
+    .folder-card.visible { animation: fadeUp 0.5s ease forwards; }
+    .folder-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-hover); }
+    .folder-card:nth-child(even) { border-left-color: var(--horst-green); }
+
+    .folder-icon {
+      font-size: 2rem;
+      margin-bottom: 0.8rem;
+    }
+    .folder-card h4 {
+      font-weight: 900;
+      font-size: 1rem;
+      color: var(--seaside-blue);
+      margin-bottom: 0.5rem;
+    }
+    .folder-card:nth-child(even) h4 { color: var(--horst-green); }
+    .folder-card ul {
+      list-style: none;
+      padding: 0;
+    }
+    .folder-card li {
+      font-size: 0.85rem;
+      color: var(--grey-mid);
+      padding: 0.25rem 0;
+      padding-left: 1rem;
+      position: relative;
+      border-bottom: 1px solid var(--border-taupe);
+    }
+    .folder-card li:last-child { border-bottom: none; }
+    .folder-card li::before {
+      content: '›';
+      position: absolute;
+      left: 0;
+      color: var(--seaside-blue);
+      font-weight: 900;
+    }
+    .folder-card:nth-child(even) li::before { color: var(--horst-green); }
+
+    /* ── CALLOUT BOX (Baken Geel – spaarzaam!) ── */
+    .callout-yellow {
+      background: var(--white);
+      border-left: 4px solid var(--baken-yellow);
+      border-radius: var(--radius-sm);
+      padding: 1.2rem 1.5rem;
+      margin: 2rem auto;
+      max-width: 1200px;
+      box-shadow: 0 2px 12px rgba(255,225,0,0.15);
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+    }
+    .callout-yellow .icon { font-size: 1.4rem; flex-shrink: 0; }
+    .callout-yellow p { font-size: 0.92rem; color: var(--charcoal); line-height: 1.6; }
+    .callout-yellow strong { color: var(--seaside-blue); }
+
+    /* ── CHECKLIST ── */
+    .checklist-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    @media (max-width: 768px) { .checklist-grid { grid-template-columns: 1fr; } }
+
+    .check-item {
+      display: flex;
+      gap: 0.9rem;
+      background: var(--white);
+      border-radius: var(--radius-sm);
+      padding: 1rem 1.2rem;
+      box-shadow: 0 2px 10px rgba(0,90,220,0.08);
+      align-items: flex-start;
+      opacity: 0;
+      transform: translateY(16px);
+    }
+    .check-item.visible { animation: fadeUp 0.4s ease forwards; }
+    .check-box {
+      width: 22px; height: 22px;
+      border: 2px solid var(--seaside-blue);
+      border-radius: 4px;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 2px;
+    }
+    .check-box.done { background: var(--horst-green); border-color: var(--horst-green); }
+    .check-box.done::after { content: '✓'; color: white; font-size: 0.75rem; font-weight: 900; }
+    .check-text strong { display: block; font-size: 0.9rem; color: var(--charcoal); margin-bottom: 0.2rem; }
+    .check-text span { font-size: 0.8rem; color: var(--grey-light); }
+
+    /* ── METADATA TABLE ── */
+    .meta-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    @media (max-width: 768px) { .meta-grid { grid-template-columns: 1fr; } }
+    .meta-card {
+      background: var(--white);
+      border-radius: var(--radius-card);
+      padding: 1.8rem;
+      box-shadow: var(--shadow-card);
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    .meta-card.visible { animation: fadeUp 0.5s ease forwards; }
+    .meta-card h4 {
+      font-weight: 900;
+      font-size: 0.95rem;
+      color: var(--seaside-blue);
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .meta-card h4 .dot {
+      width: 8px; height: 8px;
+      background: var(--horst-green);
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .meta-field {
+      display: flex;
+      justify-content: space-between;
+      padding: 0.5rem 0;
+      border-bottom: 1px solid var(--border-taupe);
+      font-size: 0.85rem;
+    }
+    .meta-field:last-child { border-bottom: none; }
+    .meta-field-name { color: var(--grey-mid); font-weight: 700; }
+    .meta-field-val { color: var(--charcoal); text-align: right; max-width: 60%; }
+
+    /* ── TIMELINE ── */
+    .timeline {
+      max-width: 900px;
+      margin: 0 auto;
+      position: relative;
+    }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 36px;
+      top: 0; bottom: 0;
+      width: 3px;
+      background: linear-gradient(180deg, var(--seaside-blue), var(--horst-green));
+      border-radius: 3px;
+    }
+    .tl-item {
+      display: flex;
+      gap: 2rem;
+      margin-bottom: 2.5rem;
+      position: relative;
+      opacity: 0;
+      transform: translateX(-16px);
+    }
+    .tl-item.visible { animation: fadeLeft 0.5s ease forwards; }
+    .tl-dot {
+      width: 72px; height: 72px;
+      background: var(--white);
+      border: 3px solid var(--seaside-blue);
+      border-radius: 50%;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+      box-shadow: 0 4px 12px rgba(0,90,220,0.15);
+      position: relative;
+      z-index: 1;
+    }
+    .tl-item:nth-child(even) .tl-dot { border-color: var(--horst-green); }
+    .tl-content {
+      padding-top: 0.8rem;
+      flex: 1;
+    }
+    .tl-week {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--grey-light);
+      letter-spacing: 0.5px;
+      margin-bottom: 0.3rem;
+      text-transform: uppercase;
+    }
+    .tl-content h4 {
+      font-weight: 900;
+      font-size: 1.1rem;
+      color: var(--seaside-blue);
+      margin-bottom: 0.4rem;
+    }
+    .tl-item:nth-child(even) .tl-content h4 { color: var(--horst-green); }
+    .tl-content p { font-size: 0.9rem; color: var(--grey-mid); }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--seaside-blue);
+      color: var(--white);
+      padding: 60px 2rem 48px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    footer .baken-tr {
+      position: absolute;
+      top: 0; right: 0;
+      width: 0; height: 0;
+      border-style: solid;
+      border-width: 0 160px 160px 0;
+      border-color: transparent rgba(255,255,255,0.06) transparent transparent;
+      pointer-events: none;
+    }
+    .footer-logo {
+      font-family: Arial, sans-serif;
+      font-size: 2rem;
+      display: inline-flex;
+      align-items: baseline;
+      gap: 0.3rem;
+      margin-bottom: 0.8rem;
+    }
+    .footer-logo .de {
+      color: transparent;
+      -webkit-text-stroke: 2px rgba(255,255,255,0.8);
+      font-weight: 400;
+    }
+    .footer-logo .baak {
+      color: var(--white);
+      font-weight: 900;
+    }
+    .footer-desc {
+      font-size: 0.85rem;
+      color: rgba(255,255,255,0.65);
+      letter-spacing: 0.4px;
+      margin-bottom: 1.5rem;
+    }
+    footer p {
+      font-size: 0.8rem;
+      color: rgba(255,255,255,0.45);
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeLeft {
+      from { opacity: 0; transform: translateX(-20px); }
+      to   { opacity: 1; transform: translateX(0); }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Progress Bar -->
+<div id="progress-bar"></div>
+
+<!-- Navigation -->
+<nav>
+  <div class="nav-inner">
+    <div class="nav-logo">
+      <span class="de">de</span><span class="baak">baak</span>
+    </div>
+    <ul class="nav-links">
+      <li><a href="#overzicht">Overzicht</a></li>
+      <li><a href="#stappen">Stappen</a></li>
+      <li><a href="#planning">Planning</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- Hero -->
+<div class="hero" id="top">
+  <div class="baken-tr"></div>
+  <div class="baken-bl"></div>
+  <div class="hero-badge">Document Management · Fase 1</div>
+  <h1>Document Management<br>Proces <span style="color:var(--horst-green)">Fase 1</span></h1>
+  <p class="hero-sub">
+    Fundament voor gestructureerd documentbeheer binnen <span class="de" style="color:transparent;-webkit-text-stroke:1.5px var(--seaside-blue);font-weight:400;">de</span><strong style="color:var(--seaside-blue)">baak</strong> — inventarisatie, naamgeving, mappenstructuur en metadata-standaarden.
+  </p>
+  <div class="descriptor">Training · Ontwikkeling · Leiderschap · Sinds 1947</div>
+</div>
+
+<!-- Section: Stats -->
+<section id="overzicht" style="background:var(--alabaster);">
+  <div class="container">
+    <span class="section-label">Fase 1 – Overzicht</span>
+    <h2 class="section-title">Waarom een sterk fundament?</h2>
+    <p class="section-desc">Fase 1 legt de basis voor alle toekomstige documentworkflows door orde, consistentie en vindbaarheid te waarborgen.</p>
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-number">3</div>
+        <div class="stat-label">Kernstappen</div>
+        <div class="stat-desc">Van inventarisatie tot live-gaan met de nieuwe structuur</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">80%</div>
+        <div class="stat-label">Tijdsbesparing</div>
+        <div class="stat-desc">Minder zoektijd door consistente naamgeving en structuur</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">1</div>
+        <div class="stat-label">Centrale locatie</div>
+        <div class="stat-desc">Eén bron van waarheid voor alle documentatie</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">100%</div>
+        <div class="stat-label">Team-adoptie doel</div>
+        <div class="stat-desc">Alle medewerkers volgen dezelfde afspraken na fase 1</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Section: Stappen -->
+<section id="stappen" style="background:var(--white);">
+  <div class="container">
+    <span class="section-label">Aanpak</span>
+    <h2 class="section-title">De 3 stappen van Fase 1</h2>
+    <p class="section-desc">Een gefaseerde aanpak zorgt voor gecontroleerde invoering zonder verstoring van lopende processen.</p>
+    <div class="steps-wrapper">
+
+      <div class="step-item">
+        <div class="step-num">1</div>
+        <div class="step-card">
+          <h3>Inventarisatie & Analyse</h3>
+          <p>Breng alle bestaande documenten, mappen en opslaglocaties in kaart. Identificeer duplicaten, verouderde bestanden en ontbrekende categorieën. Betrek eigenaren per afdeling.</p>
+          <div class="step-tags">
+            <span class="tag">Audit</span>
+            <span class="tag">Stakeholder interviews</span>
+            <span class="tag green">Quick wins</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="step-item">
+        <div class="step-num">2</div>
+        <div class="step-card">
+          <h3>Naamgevingsconventies Definiëren</h3>
+
+          <!-- Structuur banner -->
+          <div style="background:var(--seaside-blue);border-radius:10px;padding:1rem 1.2rem;margin-bottom:1.2rem;">
+            <div style="font-size:0.72rem;font-weight:700;color:rgba(255,255,255,0.65);letter-spacing:0.6px;text-transform:uppercase;margin-bottom:0.4rem;">Structuur</div>
+            <div style="font-family:monospace;font-size:0.95rem;color:var(--white);font-weight:700;word-break:break-all;line-height:1.5;">
+              afkortingtraining + 3-cijferig ID + functie-activiteit + model-onderwerp_ + modulepositie<span style="color:var(--baken-yellow);">.</span>bestandstype
+            </div>
+          </div>
+
+          <!-- Voorbeeld -->
+          <div style="display:flex;align-items:center;gap:0.7rem;background:rgba(0,165,85,0.08);border:1.5px solid var(--horst-green);border-radius:8px;padding:0.7rem 1rem;margin-bottom:1.3rem;">
+            <span style="font-size:1rem;">📄</span>
+            <div>
+              <div style="font-size:0.72rem;font-weight:700;color:var(--horst-green);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:0.2rem;">Voorbeeld</div>
+              <span style="font-family:monospace;font-size:0.95rem;font-weight:700;color:var(--charcoal);">PA-161_ho-in-ijsberg_m1p2.docx</span>
+            </div>
+          </div>
+
+          <!-- Elementen -->
+          <div style="font-size:0.78rem;font-weight:700;color:var(--grey-light);text-transform:uppercase;letter-spacing:0.6px;margin-bottom:0.6rem;">Belangrijkste elementen</div>
+          <div style="display:flex;flex-direction:column;gap:0.45rem;margin-bottom:1.2rem;">
+            <div style="display:flex;align-items:flex-start;gap:0.75rem;padding:0.55rem 0.8rem;background:var(--alabaster);border-radius:8px;">
+              <span style="color:var(--seaside-blue);font-weight:900;font-size:0.85rem;flex-shrink:0;margin-top:1px;">›</span>
+              <span style="font-size:0.87rem;color:var(--charcoal);"><strong style="color:var(--seaside-blue);">Afkorting training</strong> — volgens taglijst (bijv. PA)</span>
+            </div>
+            <div style="display:flex;align-items:flex-start;gap:0.75rem;padding:0.55rem 0.8rem;background:var(--alabaster);border-radius:8px;">
+              <span style="color:var(--seaside-blue);font-weight:900;font-size:0.85rem;flex-shrink:0;margin-top:1px;">›</span>
+              <span style="font-size:0.87rem;color:var(--charcoal);"><strong style="color:var(--seaside-blue);">3-cijferig training-ID</strong> — op basis van letterposities (bijv. 161)</span>
+            </div>
+            <div style="display:flex;align-items:flex-start;gap:0.75rem;padding:0.55rem 0.8rem;background:var(--alabaster);border-radius:8px;">
+              <span style="color:var(--seaside-blue);font-weight:900;font-size:0.85rem;flex-shrink:0;margin-top:1px;">›</span>
+              <span style="font-size:0.87rem;color:var(--charcoal);"><strong style="color:var(--seaside-blue);">Functie &amp; activiteit</strong> — pr, co, ho, enz. + LMS-activiteit (bijv. ho-in)</span>
+            </div>
+            <div style="display:flex;align-items:flex-start;gap:0.75rem;padding:0.55rem 0.8rem;background:var(--alabaster);border-radius:8px;">
+              <span style="color:var(--seaside-blue);font-weight:900;font-size:0.85rem;flex-shrink:0;margin-top:1px;">›</span>
+              <span style="font-size:0.87rem;color:var(--charcoal);"><strong style="color:var(--seaside-blue);">Model &amp; onderwerp</strong> — 1–4 woorden + module/positie mXpY (bijv. ijsberg_m1p2)</span>
+            </div>
+            <div style="display:flex;align-items:flex-start;gap:0.75rem;padding:0.55rem 0.8rem;background:var(--alabaster);border-radius:8px;">
+              <span style="color:var(--seaside-blue);font-weight:900;font-size:0.85rem;flex-shrink:0;margin-top:1px;">›</span>
+              <span style="font-size:0.87rem;color:var(--charcoal);"><strong style="color:var(--seaside-blue);">Bestandsvorm</strong> — docx, pdf, xlsx, jpg, png</span>
+            </div>
+          </div>
+
+          <div class="step-tags">
+            <span class="tag">Taglijst</span>
+            <span class="tag">LMS-activiteit</span>
+            <span class="tag green">Standaardisatie</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="step-item">
+        <div class="step-num">3</div>
+        <div class="step-card">
+          <h3>Migratie & Lancering</h3>
+          <p>Verplaats bestaande documenten naar de nieuwe structuur. Voer een pilotperiode uit met een selecte groep gebruikers. Train alle medewerkers en communiceer de nieuwe werkwijze.</p>
+          <div class="step-tags">
+            <span class="tag">Migratie</span>
+            <span class="tag">Training</span>
+            <span class="tag green">Change management</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- Section: Checklist -->
+<section style="background:var(--white);">
+  <div class="container">
+    <span class="section-label">Gereedheid Check</span>
+    <h2 class="section-title">Fase 1 Gereedheidscheck</h2>
+    <p class="section-desc">Vink alle punten af voordat Fase 1 als afgerond wordt beschouwd.</p>
+    <div class="checklist-grid">
+      <div class="check-item"><div class="check-box done"></div><div class="check-text"><strong>Inventarisatie afgerond</strong><span>Alle bestaande documenten geïnventariseerd en gecategoriseerd</span></div></div>
+      <div class="check-item"><div class="check-box done"></div><div class="check-text"><strong>Naamgeving vastgesteld</strong><span>Conventies gedocumenteerd en gevalideerd met gebruikers</span></div></div>
+      <div class="check-item"><div class="check-box done"></div><div class="check-text"><strong>Mappenstructuur goedgekeurd</strong><span>Management en IT hebben structuur geaccordeerd</span></div></div>
+      <div class="check-item"><div class="check-box done"></div><div class="check-text"><strong>Metadataschema gereed</strong><span>Verplichte velden vastgesteld, formulieren aangemaakt</span></div></div>
+      <div class="check-item"><div class="check-box"></div><div class="check-text"><strong>Migratie uitgevoerd</strong><span>Bestaande documenten omgezet naar nieuwe structuur</span></div></div>
+      <div class="check-item"><div class="check-box"></div><div class="check-text"><strong>Pilot succesvol</strong><span>Testgroep heeft 2 weken gewerkt zonder blokkades</span></div></div>
+      <div class="check-item"><div class="check-box"></div><div class="check-text"><strong>Team getraind</strong><span>Alle medewerkers bijgewoond of e-learning afgerond</span></div></div>
+      <div class="check-item"><div class="check-box"></div><div class="check-text"><strong>Communicatie verstuurd</strong><span>Nieuwsbrief + handleiding beschikbaar voor alle teams</span></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- Section: Planning -->
+<section id="planning" style="background:var(--alabaster);">
+  <div class="container">
+    <span class="section-label">Implementatieplan</span>
+    <h2 class="section-title">Planning Fase 1 (8 weken)</h2>
+    <p class="section-desc">Realistisch tijdspad met duidelijke mijlpalen en verantwoordelijkheden per week.</p>
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="tl-dot">🔍</div>
+        <div class="tl-content">
+          <div class="tl-week">Week 1–2</div>
+          <h4>Inventarisatie & Analyse</h4>
+          <p>Interviews met afdelingshoofden, mapping van huidige situatie, identificatie van knelpunten en quick wins.</p>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot">📝</div>
+        <div class="tl-content">
+          <div class="tl-week">Week 3</div>
+          <h4>Naamgeving & Structuur Ontwerp</h4>
+          <p>Ontwikkeling naamgevingsconventies, ontwerp mappenstructuur v1.0, review met stakeholders.</p>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot">✅</div>
+        <div class="tl-content">
+          <div class="tl-week">Week 4</div>
+          <h4>Goedkeuring & Finalisering</h4>
+          <p>Management review, verwerking feedback, definitieve vastlegging in beleidsdocument, metadataschema finaliseren.</p>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot">🚀</div>
+        <div class="tl-content">
+          <div class="tl-week">Week 5–6</div>
+          <h4>Migratie & Pilotfase</h4>
+          <p>Technische implementatie nieuwe structuur, migratie documenten met prioriteit, pilotgroep start werkzaamheden.</p>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot">🎓</div>
+        <div class="tl-content">
+          <div class="tl-week">Week 7–8</div>
+          <h4>Training & Brede Uitrol</h4>
+          <p>Trainingssessies voor alle medewerkers, lancering e-learningmodule, FAQ-document en helpdesk beschikbaar.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <div class="baken-tr"></div>
+  <div class="footer-logo"><span class="de">de</span><span class="baak">baak</span></div>
+  <div class="footer-desc">Training · Ontwikkeling · Leiderschap · Sinds 1947</div>
+  <p>Document Management Proces – Fase 1 &nbsp;|&nbsp; Interne richtlijn &nbsp;|&nbsp; © De Baak</p>
+</footer>
+
+<script>
+  /* Progress bar */
+  window.addEventListener('scroll', () => {
+    const scrollTop = document.documentElement.scrollTop;
+    const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    const progress = (scrollTop / scrollHeight) * 100;
+    document.getElementById('progress-bar').style.width = progress + '%';
+  });
+
+  /* Intersection Observer – fade animations */
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        const delay = (entry.target.dataset.delay || 0);
+        setTimeout(() => {
+          entry.target.classList.add('visible');
+        }, delay);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+
+  document.querySelectorAll('.stat-card, .step-item, .folder-card, .check-item, .meta-card, .tl-item').forEach((el, i) => {
+    el.dataset.delay = (i % 4) * 100;
+    observer.observe(el);
+  });
+</script>
+</body>
+</html>

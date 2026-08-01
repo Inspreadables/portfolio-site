@@ -1,0 +1,949 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Living Lab Pilot Infographic</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+            background-color: #ffffff;
+            color: #1f2937;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            color: #0284c7;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            color: #64748b;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .philosophy {
+            background-color: #f1f5f9;
+            border-left: 5px solid #0284c7;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        .philosophy strong {
+            color: #0284c7;
+            font-size: 1.2rem;
+        }
+
+        /* Timeline Container */
+        .timeline {
+            position: relative;
+            margin-bottom: 60px;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background-color: #0284c7;
+            transform: translateX(-50%);
+        }
+
+        @media (max-width: 768px) {
+            .timeline::before {
+                left: 20px;
+            }
+        }
+
+        .timeline-item {
+            margin-bottom: 50px;
+            position: relative;
+        }
+
+        .timeline-item:nth-child(odd) .content {
+            margin-left: 0;
+            margin-right: auto;
+            width: calc(50% - 20px);
+            text-align: right;
+        }
+
+        .timeline-item:nth-child(even) .content {
+            margin-left: auto;
+            margin-right: 0;
+            width: calc(50% - 20px);
+            text-align: left;
+        }
+
+        @media (max-width: 768px) {
+            .timeline-item:nth-child(odd) .content,
+            .timeline-item:nth-child(even) .content {
+                width: calc(100% - 60px);
+                margin-left: 60px;
+                margin-right: 0;
+                text-align: left;
+            }
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: 50%;
+            top: 30px;
+            width: 20px;
+            height: 20px;
+            background-color: #0284c7;
+            border: 4px solid #ffffff;
+            border-radius: 50%;
+            transform: translateX(-50%);
+            z-index: 2;
+        }
+
+        @media (max-width: 768px) {
+            .timeline-dot {
+                left: 20px;
+            }
+        }
+
+        .content {
+            background-color: #f1f5f9;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+        }
+
+        .content:hover {
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.12);
+            transform: translateY(-4px);
+        }
+
+        .phase-badge {
+            display: inline-block;
+            background-color: #0284c7;
+            color: #ffffff;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        .content h3 {
+            color: #0284c7;
+            font-size: 1.3rem;
+            margin-bottom: 8px;
+        }
+
+        .content h4 {
+            color: #1f2937;
+            font-size: 1rem;
+            margin-top: 12px;
+            margin-bottom: 6px;
+        }
+
+        .content ul {
+            list-style: none;
+            margin: 10px 0 0 0;
+            font-size: 0.95rem;
+        }
+
+        .content li {
+            padding: 4px 0;
+            position: relative;
+            padding-left: 20px;
+        }
+
+        .content li::before {
+            content: '▸';
+            position: absolute;
+            left: 0;
+            color: #0284c7;
+            font-weight: bold;
+        }
+
+        /* Phase Sections */
+        .phase-section {
+            margin-bottom: 50px;
+        }
+
+        .phase-title {
+            background-color: #0284c7;
+            color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            font-size: 1.6rem;
+            font-weight: 600;
+        }
+
+        /* Key Metrics Cards */
+        .metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .metric-card {
+            background-color: #f1f5f9;
+            padding: 20px;
+            border-radius: 8px;
+            border-top: 4px solid #0284c7;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .metric-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 8px 16px rgba(2, 132, 199, 0.15);
+        }
+
+        .metric-number {
+            font-size: 2.2rem;
+            color: #0284c7;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .metric-label {
+            color: #64748b;
+            font-size: 0.95rem;
+            font-weight: 500;
+        }
+
+        /* Action Cards */
+        .actions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .action-card {
+            background-color: #ffffff;
+            border: 2px solid #f1f5f9;
+            padding: 20px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .action-card:hover {
+            border-color: #0284c7;
+            box-shadow: 0 6px 12px rgba(2, 132, 199, 0.1);
+        }
+
+        .action-number {
+            display: inline-block;
+            background-color: #0284c7;
+            color: #ffffff;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 36px;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .action-card h4 {
+            color: #0284c7;
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+        }
+
+        .action-card p {
+            color: #64748b;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        /* Volunteer Pipeline */
+        .pipeline {
+            background-color: #f1f5f9;
+            padding: 30px;
+            border-radius: 8px;
+            margin-bottom: 40px;
+        }
+
+        .pipeline h3 {
+            color: #0284c7;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .pipeline-stages {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            align-items: center;
+        }
+
+        .pipeline-stage {
+            background-color: #ffffff;
+            padding: 15px;
+            border-radius: 6px;
+            border-left: 4px solid #0284c7;
+            text-align: center;
+        }
+
+        .pipeline-stage strong {
+            color: #0284c7;
+            display: block;
+            font-size: 1.3rem;
+            margin-bottom: 4px;
+        }
+
+        .pipeline-stage span {
+            color: #64748b;
+            font-size: 0.9rem;
+        }
+
+        .arrow {
+            text-align: center;
+            color: #0284c7;
+            font-size: 1.5rem;
+            display: none;
+        }
+
+        @media (min-width: 769px) {
+            .arrow {
+                display: block;
+            }
+        }
+
+        /* Footer */
+        .footer {
+            background-color: #f1f5f9;
+            padding: 30px;
+            border-radius: 8px;
+            text-align: center;
+            color: #64748b;
+            font-size: 0.95rem;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.8rem;
+            }
+
+            .timeline::before {
+                display: none;
+            }
+
+            .phase-title {
+                font-size: 1.3rem;
+            }
+
+            .content h3 {
+                font-size: 1.1rem;
+            }
+
+            .metrics {
+                grid-template-columns: 1fr;
+            }
+
+            .actions-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>Living Lab Pilot</h1>
+            <p>A phased, volunteer-driven approach to transforming communities through learning and demonstration</p>
+        </div>
+
+        <!-- Philosophy -->
+        <div class="philosophy">
+            <strong>Core Philosophy: "Show, don't tell"</strong>
+            <p>Generate tangible results that peers can see, touch, and taste, then let success attract resources rather than seeking permission first.</p>
+        </div>
+
+        <!-- Volunteer Pipeline -->
+        <div class="pipeline">
+            <h3>Volunteer Growth Trajectory</h3>
+            <div class="pipeline-stages">
+                <div class="pipeline-stage">
+                    <strong>8-15</strong>
+                    <span>Core Team<br>(Month 1)</span>
+                </div>
+                <div class="arrow">→</div>
+                <div class="pipeline-stage">
+                    <strong>30-40</strong>
+                    <span>Active Base<br>(Month 4)</span>
+                </div>
+                <div class="arrow">→</div>
+                <div class="pipeline-stage">
+                    <strong>40-50</strong>
+                    <span>Multi-Site<br>(Month 6)</span>
+                </div>
+                <div class="arrow">→</div>
+                <div class="pipeline-stage">
+                    <strong>100+</strong>
+                    <span>Distributed<br>(Month 12)</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Phase 0: Foundation Building -->
+        <div class="phase-section">
+            <div class="phase-title">Phase 0: Foundation Building (Months 1-2)</div>
+            
+            <div class="metrics">
+                <div class="metric-card">
+                    <div class="metric-number">8-15</div>
+                    <div class="metric-label">Core Volunteers</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-number">4-6</div>
+                    <div class="metric-label">Hours/Week Commitment</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-number">6</div>
+                    <div class="metric-label">Month Minimum Duration</div>
+                </div>
+            </div>
+
+            <div class="actions-grid">
+                <div class="action-card">
+                    <div class="action-number">1</div>
+                    <h4>Secure Core Team</h4>
+                    <p>Recruit 8-15 volunteers with diverse skills: subject experts, communicators, makers, connectors, and enthusiastic learners.</p>
+                </div>
+                <div class="action-card">
+                    <div class="action-number">2</div>
+                    <h4>Select Location & Subject</h4>
+                    <p>Choose high-visibility location and knowledge subject. Secure 1-2 year agreement with owner or municipality.</p>
+                </div>
+                <div class="action-card">
+                    <div class="action-number">3</div>
+                    <h4>Launch Social Strategy</h4>
+                    <p>Establish Instagram, WhatsApp, Wiki. Daily updates, weekly reflections, monthly videos. Target: 500 followers by Month 6.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Phase 1: Demonstration -->
+        <div class="phase-section">
+            <div class="phase-title">Phase 1: Demonstration (Months 2-4)</div>
+            
+            <div class="metrics">
+                <div class="metric-card">
+                    <div class="metric-number">20-30</div>
+                    <div class="metric-label">Build Day Participants</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-number">10-15</div>
+                    <div class="metric-label">Learning Modules</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-number">100-150</div>
+                    <div class="metric-label">Event Attendees</div>
+                </div>
+            </div>
+
+            <div class="actions-grid">
+                <div class="action-card">
+                    <div class="action-number">4</div>
+                    <h4>Collaborative Prep</h4>
+                    <p>Host 2 intensive build days with 20-30 volunteers. Site prep, infrastructure, guest expert sessions, potluck meals.</p>
+                </div>
+                <div class="action-card">
+                    <div class="action-number">5</div>
+                    <h4>Launch & Maintain</h4>
+                    <p>Establish weekly work sessions, monthly open houses, reflection rituals. Document all progress with photos and video.</p>
+                </div>
+                <div class="action-card">
+                    <div class="action-number">6</div>
+                    <h4>Showcase Event</h4>
+                    <p>Host prototype presentation with 100-150 attendees. Testimonials, results display, media outreach. Recruit next wave of volunteers.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Phase 2: Expand & Formalize -->
+        <div class="phase-section">
+            <div class="phase-title">Phase 2: Expand & Formalize (Months 5-8)</div>
+            
+            <div class="metrics">
+                <div class="metric-card">
+                    <div class="metric-number">2</div>
+                    <div class="metric-label">Active Hubs</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-number">40-50</div>
+                    <div class="metric-label">Active Volunteers</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-number">3-5</div>
+                    <div class="metric-label">Partnerships</div>
+                </div>
+            </div>
+
+            <div class="actions-grid">
+                <div class="action-card">
+                    <div class="action-number">7</div>
+                    <h4>Second Hub Launch</h4>
+                    <p>Leverage pilot success to establish Hub #2. Rapid replication using experienced volunteers and shared resources.</p>
+                </div>
+                <div class="action-card">
+                    <div class="action-number">8</div>
+                    <h4>Distributed Model</h4>
+                    <p>Create "Knowledge Champions" leadership. Monthly champion meetings, cross-site learning events, harvest swaps, volunteer exchanges.</p>
+                </div>
+                <div class="action-card">
+                    <div class="action-number">9</div>
+                    <h4>Stakeholder Outreach</h4>
+                    <p>Wave 1: Resource partners (businesses, universities). Wave 2: Training institutions. Wave 3: Funding partners (foundations, grants).</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Phase 3: Scale & Institutionalize -->
+        <div class="phase-section">
+            <div class="phase-title">Phase 3: Scale & Institutionalize (Months 9-12)</div>
+            
+            <div class="metrics">
+                <div class="metric-card">
+                    <div class="metric-number">10-15</div>
+                    <div class="metric-label">Adopted Hubs</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-number">€1,500-3K</div>
+                    <div class="metric-label">Monthly Revenue</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-number">3-5</div>
+                    <div class="metric-label">External Pilots</div>
+                </div>
+            </div>
+
+            <div class="actions-grid">
+                <div class="action-card">
+                    <div class="action-number">10</div>
+                    <h4>Adopt-a-Hub Program</h4>
+                    <p>Recruit 10-15 adapters from volunteers. Provide adoption kits, training workshops, ongoing support, monthly hub tours.</p>
+                </div>
+                <div class="action-card">
+                    <div class="action-number">11</div>
+                    <h4>Replication Toolkit</h4>
+                    <p>Create open-source toolkit: physical starter kit, digital guides, budget templates, legal documents, video library. Enable external scaling.</p>
+                </div>
+                <div class="action-card">
+                    <div class="action-number">12</div>
+                    <h4>Distribution System</h4>
+                    <p>Launch monthly market, subscription boxes, organization partnerships. Generate €1,500-3,000/month revenue. Establish financial sustainability.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Detailed Action Tabs -->
+        <div class="tabs-section">
+            <div class="tabs-header">
+                <h2>Detailed Action Descriptions</h2>
+                <p>Click on any action to explore detailed implementation guidance</p>
+            </div>
+            
+            <div class="tabs-container">
+                <div class="tabs-nav">
+                    <button class="tab-btn active" data-tab="action-1">Action 1</button>
+                    <button class="tab-btn" data-tab="action-2">Action 2</button>
+                    <button class="tab-btn" data-tab="action-3">Action 3</button>
+                    <button class="tab-btn" data-tab="action-4">Action 4</button>
+                    <button class="tab-btn" data-tab="action-5">Action 5</button>
+                    <button class="tab-btn" data-tab="action-6">Action 6</button>
+                    <button class="tab-btn" data-tab="action-7">Action 7</button>
+                    <button class="tab-btn" data-tab="action-8">Action 8</button>
+                    <button class="tab-btn" data-tab="action-9">Action 9</button>
+                    <button class="tab-btn" data-tab="action-10">Action 10</button>
+                    <button class="tab-btn" data-tab="action-11">Action 11</button>
+                    <button class="tab-btn" data-tab="action-12">Action 12</button>
+                </div>
+
+                <div class="tabs-content">
+                    <!-- Action 1 -->
+                    <div class="tab-content active" id="action-1">
+                        <h3>Action 1: Identify and Secure Core Volunteer Team</h3>
+                        <p><strong>Timeline:</strong> Week 1-3</p>
+                        <p><strong>Objective:</strong> Assemble 8-15 committed volunteers to serve as pilot project founders.</p>
+                        <h4>Recruitment Strategy:</h4>
+                        <ul>
+                            <li><strong>Hyperlocal outreach:</strong> 'Door-to-door' conversations in immediate surroundings. Target: 50-100 conversations</li>
+                            <li><strong>Community gathering infiltration:</strong> Attend existing formal and informal meetings without interfering</li>
+                            <li><strong>Digital activation:</strong> Create social media groups on Signal, WhatsApp, Instagram documenting journey from Day 1</li>
+                            <li><strong>Skill-based recruitment:</strong> Seek diverse capabilities (2-3 subject experts, 2-3 communicators, 2-3 practical makers, 2-3 connectors, 2-3 enthusiastic learners)</li>
+                        </ul>
+                        <h4>Selection Criteria:</h4>
+                        <ul>
+                            <li>Resident of learning community</li>
+                            <li>Available 4-6 hours/week for 6 months minimum</li>
+                            <li>Comfortable with public documentation (photos, videos, social sharing)</li>
+                            <li>Growth mindset: willing to learn, fail, adapt</li>
+                        </ul>
+                        <p><strong>Deliverable:</strong> Core team of 8-15 volunteers with signed commitment agreements. First team meeting scheduled (potluck dinner format to build social bonds)</p>
+                    </div>
+
+                    <!-- Action 2 -->
+                    <div class="tab-content" id="action-2">
+                        <h3>Action 2: Select Location and Knowledge Subject</h3>
+                        <p><strong>Timeline:</strong> Week 2-4</p>
+                        <p><strong>Objective:</strong> Identify knowledge subject and secure physical location for the pilot hub.</p>
+                        <h4>Knowledge Subject Selection Process:</h4>
+                        <ul>
+                            <li>Core volunteer team researches subject matter options</li>
+                            <li>Ideate 5-8 potential subject matter frames</li>
+                            <li>Collectively score each subject on 1-10 scale across criteria</li>
+                            <li>Top 2 frames: Search for existing experts to partner</li>
+                        </ul>
+                        <h4>Physical Location Selection Criteria (ranked by priority):</h4>
+                        <ul>
+                            <li><strong>Visibility:</strong> High traffic location with daily progress visibility</li>
+                            <li><strong>Size:</strong> Manageable for 5-10 volunteers, impressive enough to demonstrate potential</li>
+                            <li><strong>Accessibility:</strong> Easy entrance, no safety hazards, wheelchair-accessible paths</li>
+                            <li><strong>Location tenure:</strong> Willing owner/municipality contact for 1-2 year pilot agreement</li>
+                            <li><strong>Infrastructure:</strong> WiFi access or rainwater catchment feasibility</li>
+                        </ul>
+                        <p><strong>Deliverable:</strong> Secured physical location with formal or informal agreement. Subject matter expertise identified and preliminary expert contacts made.</p>
+                    </div>
+
+                    <!-- Action 3 -->
+                    <div class="tab-content" id="action-3">
+                        <h3>Action 3: Launch Social Learning Media Strategy</h3>
+                        <p><strong>Timeline:</strong> Week 3-4</p>
+                        <p><strong>Objective:</strong> Establish multi-channel documentation and community engagement system.</p>
+                        <h4>Digital Platforms:</h4>
+                        <ul>
+                            <li><strong>Instagram account (@project_name):</strong> Daily photos, Stories, Reels. Target: 100 followers by Month 2, 500 by Month 6</li>
+                            <li><strong>Social messaging:</strong> Signal, WhatsApp groups for volunteer coordination</li>
+                            <li><strong>Wiki:</strong> Public view access for plans, budgets, lessons learned, photos, videos</li>
+                        </ul>
+                        <h4>Content Strategy:</h4>
+                        <ul>
+                            <li><strong>Daily updates:</strong> Instagram Stories showing volunteer faces and progress shots</li>
+                            <li><strong>Weekly reflection posts:</strong> Longer narratives on learning outcomes with honest failure documentation</li>
+                            <li><strong>Monthly video summary:</strong> 3-5 min before/after transformation with volunteer testimonials</li>
+                            <li><strong>Monthly live Q&A sessions:</strong> Real-time peer engagement and answering questions</li>
+                        </ul>
+                        <h4>Offline Visibility:</h4>
+                        <ul>
+                            <li><strong>Site signage (€100-200):</strong> Large banner at location entrance with project info and join details</li>
+                            <li><strong>Flyer distribution (€50):</strong> A5 flyers to 200 nearest households inviting participation</li>
+                            <li><strong>Info board at site:</strong> Protected bulletin board with weekly updates, photos, activity calendar</li>
+                        </ul>
+                        <p><strong>Deliverable:</strong> Active social media presence (50+ posts/month), physical signage installed, 100+ peers aware within 4 weeks</p>
+                    </div>
+
+                    <!-- Action 4 -->
+                    <div class="tab-content" id="action-4">
+                        <h3>Action 4: Collaborative Knowledge Team Preparation</h3>
+                        <p><strong>Timeline:</strong> Month 2</p>
+                        <p><strong>Objective:</strong> Host intensive build days to establish infrastructure and learning modules.</p>
+                        <h4>Community Build Days (2 full weekdays, 10 am-4 pm):</h4>
+                        <ul>
+                            <li><strong>Week 1 - Site prep:</strong> Onboarding hybrid location with 20-30 participants</li>
+                            <li><strong>Week 2 - Infrastructure installation:</strong> Build knowledge hub infrastructure with hands-on learning</li>
+                        </ul>
+                        <h4>Learning Modules (Morning Sessions):</h4>
+                        <ul>
+                            <li>Knowledge development basics and research</li>
+                            <li>Media production and publication formats</li>
+                            <li>Document management and prompt engineering</li>
+                            <li>Tool safety and process management</li>
+                            <li>Guest speaker sessions with experienced experts</li>
+                        </ul>
+                        <h4>Hands-On Work (Afternoon Sessions):</h4>
+                        <ul>
+                            <li>Teams of 4-5 research knowledge and produce media (supervised)</li>
+                            <li>Infrastructure installation with different task areas</li>
+                        </ul>
+                        <h4>Community Building Elements:</h4>
+                        <ul>
+                            <li>Potluck lunch to build social bonds</li>
+                            <li>Time-lapse photography documentation</li>
+                            <li>Volunteer interviews capturing participation motivation</li>
+                        </ul>
+                        <p><strong>Deliverable:</strong> Fully functional hybrid learning product with 10-15 modules. 40+ volunteers participated. 50+ peers aware through documentation.</p>
+                    </div>
+
+                    <!-- Action 5 -->
+                    <div class="tab-content" id="action-5">
+                        <h3>Action 5: Research and Publishing Launch</h3>
+                        <p><strong>Timeline:</strong> Month 3</p>
+                        <p><strong>Objective:</strong> Establish operational knowledge hub with regular maintenance and community engagement.</p>
+                        <h4>Community Presentation Event:</h4>
+                        <ul>
+                            <li><strong>10-11 am:</strong> Kick-off ceremony - volunteers share vision and invite participation</li>
+                            <li><strong>11 am-1 pm:</strong> Research and publish formats led by experts (rotating every 20-30 minutes)</li>
+                            <li><strong>1-2 pm:</strong> Lunch with informal networking (community potluck or donated sandwiches)</li>
+                            <li><strong>2-3 pm:</strong> Maintenance training and weekly care signup</li>
+                        </ul>
+                        <h4>Knowledge Development Testing Strategy:</h4>
+                        <ul>
+                            <li><strong>Early wins (30-45 days):</strong> Update learning experiences with acquired knowledge</li>
+                            <li><strong>Medium-term (60-90 days):</strong> Design new learning experience module and test</li>
+                            <li><strong>Long-term experiments (90-120 days):</strong> Become thought leader in expertise area</li>
+                        </ul>
+                        <h4>Weekly Maintenance Routine:</h4>
+                        <ul>
+                            <li>2-hour research and publication maintenance sessions</li>
+                            <li>2-hour rapid prototyping for module design</li>
+                            <li>Volunteer coordination (rotating responsibilities)</li>
+                        </ul>
+                        <p><strong>Deliverable:</strong> Operational knowledge hub. 15-20 active weekly volunteers. Established maintenance rhythm. First new learning experience within 30-45 days.</p>
+                    </div>
+
+                    <!-- Action 6 -->
+                    <div class="tab-content" id="action-6">
+                        <h3>Action 6: Prototype Presentation Milestone Event</h3>
+                        <p><strong>Timeline:</strong> Month 4</p>
+                        <p><strong>Objective:</strong> Celebrate volunteer effort, demonstrate tangible results, recruit next wave, and generate stakeholder interest.</p>
+                        <h4>Event Program (3 hours):</h4>
+                        <ul>
+                            <li><strong>2-2:30 pm:</strong> Guided presentations in small rotating groups (8-10 people per 15 min slot)</li>
+                            <li><strong>2:30-3:30 pm:</strong> Product demonstration with hands-on testing</li>
+                            <li><strong>3:30-4 pm:</strong> Training demonstration showing implementation recipes</li>
+                            <li><strong>4-4:30 pm:</strong> Community discussion on learnings and next steps</li>
+                        </ul>
+                        <h4>Documentation Strategy:</h4>
+                        <ul>
+                            <li>High-quality photo and video content production</li>
+                            <li>Testimonial collection from 10-15 participants</li>
+                            <li>Quantitative metrics display: volunteer hours, participants, resource use</li>
+                            <li>Media outreach targeting local news outlets and bloggers</li>
+                        </ul>
+                        <h4>Stakeholder Engagement:</h4>
+                        <ul>
+                            <li>Casual invitation to organization representatives (no pressure)</li>
+                            <li>Professional documentation for stakeholder sharing</li>
+                            <li>Relationship building for future partnerships</li>
+                        </ul>
+                        <p><strong>Deliverable:</strong> Successful event with 100-150 attendees. New training module introduced. 20-30 new volunteer recruits. 1-2 media articles/posts. Documented proof of concept for stakeholder outreach.</p>
+                    </div>
+
+                    <!-- Action 7 -->
+                    <div class="tab-content" id="action-7">
+                        <h3>Action 7: Launch Second Knowledge Hub</h3>
+                        <p><strong>Timeline:</strong> Month 5</p>
+                        <p><strong>Objective:</strong> Expand model through organic growth and volunteer leadership.</p>
+                        <h4>Organic Growth Strategy:</h4>
+                        <ul>
+                            <li>Leverage pilot success to secure additional resources</li>
+                            <li>Ask expanded volunteer base (30-40 people) which knowledge hub to create next</li>
+                            <li>Select site using proximity and template from pilot</li>
+                            <li>Test different processes and formats for diversification</li>
+                        </ul>
+                        <h4>Rapid Replication Process:</h4>
+                        <ul>
+                            <li><strong>Two-day intensive blitz:</strong> Experienced volunteers lead newcomer teams</li>
+                            <li><strong>Shared resources:</strong> Borrow tools, share processes, use proven designs</li>
+                            <li><strong>Video documentation:</strong> Create "How we built a hub in 48 hours" tutorial for replication</li>
+                        </ul>
+                        <h4>Cost Efficiency:</h4>
+                        <ul>
+                            <li>Lower budget than Pilot 1 (€500-1,500) due to learning curve and material recycling</li>
+                            <li>Demonstrates replicability and scalability</li>
+                        </ul>
+                        <p><strong>Deliverable:</strong> Second functional hub operational within 4-6 weeks. 40-50 total active volunteers across 2 sites. Replication model proven.</p>
+                    </div>
+
+                    <!-- Action 8 -->
+                    <div class="tab-content" id="action-8">
+                        <h3>Action 8: Establish Distributed Learning Hub Model</h3>
+                        <p><strong>Timeline:</strong> Month 5-6</p>
+                        <p><strong>Objective:</strong> Transition from single hub to networked learning ecosystem.</p>
+                        <h4>Create "Knowledge Champions" Leadership Structure:</h4>
+                        <ul>
+                            <li>Each site has 2-3 Site Champions stepping into coordination roles</li>
+                            <li>Monthly Champions Meetings (rotating locations) for knowledge sharing</li>
+                            <li>Optional stipend (€50-100/month) for Champions recognizing time commitment</li>
+                        </ul>
+                        <h4>Cross-Site Learning Events:</h4>
+                        <ul>
+                            <li><strong>Monthly skill workshops:</strong> Rotating topics and locations (composting, seed saving, publication strategies, crop planning)</li>
+                            <li><strong>Harvest swaps:</strong> Sites exchange surplus produce and knowledge</li>
+                            <li><strong>Volunteer exchange days:</strong> Cross-pollinate knowledge between sites</li>
+                        </ul>
+                        <h4>Digital Platform Evolution:</h4>
+                        <ul>
+                            <li>"Lessons Learned" section documenting honest failures and solutions</li>
+                            <li>Video tutorial library (2-5 min how-to videos on key skills)</li>
+                            <li>Open-source replication toolkit (downloadable PDF guide)</li>
+                        </ul>
+                        <p><strong>Deliverable:</strong> Networked learning system with 2 active hubs. 40-50 volunteers. Monthly cross-site events. Public knowledge base. Scalable model demonstrated.</p>
+                    </div>
+
+                    <!-- Action 9 -->
+                    <div class="tab-content" id="action-9">
+                        <h3>Action 9: Initiate Stakeholder Engagement</h3>
+                        <p><strong>Timeline:</strong> Month 6-7</p>
+                        <p><strong>Objective:</strong> Approach institutions AFTER demonstrating viability (strategic timing).</p>
+                        <h4>Wave 1: Resource Partners (Month 6):</h4>
+                        <ul>
+                            <li><strong>Target:</strong> Businesses, universities, research institutions with low bureaucracy</li>
+                            <li><strong>Approach:</strong> Invitation-based casual visits. "Come see what we're building"</li>
+                            <li><strong>Ask:</strong> Small specific requests (donations, student internships, mentorship)</li>
+                        </ul>
+                        <h4>Wave 2: Training and Educational Institutions (Month 7):</h4>
+                        <ul>
+                            <li><strong>Target:</strong> Training organizations, coaches, trainers</li>
+                            <li><strong>Approach:</strong> Present completed pilot results (1-page professional brief)</li>
+                            <li><strong>Ask:</strong> Collaboration on platform to publish and monetize knowledge</li>
+                            <li><strong>Business models:</strong> Sell knowledge through Amazon/Udemy, Substack/Patreon, or product recommendations</li>
+                        </ul>
+                        <h4>Wave 3: Funding Partners (Month 8+):</h4>
+                        <ul>
+                            <li><strong>Target:</strong> Foundations, impact investors (ING, Triodos Bank), EU grants</li>
+                            <li><strong>Approach:</strong> Formal funding applications with pilot data</li>
+                            <li><strong>Ask:</strong> €20-50K for 3-year expansion plan (5-10 hubs, 100-150 volunteers)</li>
+                        </ul>
+                        <p><strong>Deliverable:</strong> 3-5 initial partnerships established. €5-15K secured in grants/donations. Municipal relationship building initiated. Positioned for major scaling.</p>
+                    </div>
+
+                    <!-- Action 10 -->
+                    <div class="tab-content" id="action-10">
+                        <h3>Action 10: Launch "Adopt-a-Hub" Program</h3>
+                        <p><strong>Timeline:</strong> Month 9</p>
+                        <p><strong>Objective:</strong> Enable external replication and distributed scaling beyond core team.</p>
+                        <h4>Program Implementation:</h4>
+                        <ul>
+                            <li>Recruit 10-15 adapters from expanded volunteer base and event attendees</li>
+                            <li>Provide adoption kits with processes, architecture, and instructions</li>
+                            <li>Host training workshop on hub setup, knowledge selection, municipal guidelines</li>
+                            <li>Offer ongoing support group for troubleshooting and problem-solving</li>
+                        </ul>
+                        <h4>Learning Documentation:</h4>
+                        <ul>
+                            <li>Video documentaries tracking each hub transformation (before → 1 month → 3 months → 6 months)</li>
+                            <li>Simple yield logging: views, trainings given, presentations delivered</li>
+                            <li>Neighbor feedback surveys on knowledge, connection, and community impact</li>
+                        </ul>
+                        <h4>Support Structure:</h4>
+                        <ul>
+                            <li>Monthly "hub tours" where adopters visit each other's hubs</li>
+                            <li>Expert advisory support group for peer troubleshooting</li>
+                            <li>Recognition and celebration of adopter achievements</li>
+                        </ul>
+                        <p><strong>Deliverable:</strong> 10-15 productive hubs managed by trained adapters. Ultra-low-cost (€500-1,500 budget). Distributed model proven. External scalability demonstrated.</p>
+                    </div>
+
+                    <!-- Action 11 -->
+                    <div class="tab-content" id="action-11">
+                        <h3>Action 11: Develop Replication Toolkit and Starter Kit</h3>
+                        <p><strong>Timeline:</strong> Month 10</p>
+                        <p><strong>Objective:</strong> Create open-source implementation package enabling independent external scaling.</p>
+                        <h4>Physical Starter Kit (for new sites):</h4>
+                        <ul>
+                            <li>Materials list with exact sources and retail locations</li>
+                            <li>Tool library inventory with minimum tools (15 items, €300 budget)</li>
+                            <li>Knowledge recommendations with proven successful formats</li>
+                        </ul>
+                        <h4>Digital Toolkit (freely downloadable):</h4>
+                        <ul>
+                            <li><strong>Step-by-step guide (20-30 pages):</strong> Week-by-week implementation timeline</li>
+                            <li><strong>Budget templates:</strong> Actual pilot costs, revenue tracking, volunteer hour valuation</li>
+                            <li><strong>Legal templates:</strong> Agreements, waivers, governance bylaws</li>
+                            <li><strong>Communication templates:</strong> Social media posts, flyers, press releases</li>
+                            <li><strong>Video library:</strong> 10-15 tutorials on all key skills</li>
+                        </ul>
+                        <h4>Distribution Strategy:</h4>
+                        <ul>
+                            <li>Host replication workshop for 5-10 organizations interested in model</li>
+                            <li>Submit toolkit to professional networks and academic groups</li>
+                            <li>Publish on GitHub (technical) and simple website (general public)</li>
+                        </ul>
+                        <p><strong>Deliverable:</strong> Complete replication toolkit published online. 50+ downloads. 3-5 neighborhoods express adaptation interest. Model scalability proven.</p>
+                    </div>
+
+                    <!-- Action 12 -->
+                    <div class="tab-content" id="action-12">
+                        <h3>Action 12: Launch Distribution System and Financial Sustainability</h3>
+                        <p><strong>Timeline:</strong> Month 11-12</p>
+                        <p><strong>Objective:</strong> Transition from production to sustainable business model ensuring long-term viability.</p>
+                        <h4>Monthly Knowledge Market (Ongoing):</h4>
+                        <ul>
+                            <li><strong>Product offering:</strong> Fresh knowledge outputs, publications, courses, applications, sensors, recommended products</li>
+                            <li><strong>Pricing model:</strong> Donation-based "pay what you can" (suggested €2-5 per item)</li>
+                            <li><strong>Staffing:</strong> 3-4 volunteers per market on rotating schedule</li>
+                            <li><strong>Scaling:</strong> Month 1 target 30-50 customers; Month 3 target 75-100 customers</li>
+                        </ul>
+                        <h4>Subscription Box Pilot (Month 12):</h4>
+                        <ul>
+                            <li><strong>Offering:</strong> Weekly curated knowledge upgrades and learning materials</li>
+                            <li><strong>Target:</strong> 20-30 subscribers</li>
+                            <li><strong>Revenue:</strong> €160-360/week = €640-1,440/month</li>
+                            <li><strong>Impact:</strong> Predictable income, customer loyalty, expansion capital</li>
+                        </ul>
+                        <h4>Organization Partnerships (Month 12):</h4>
+                        <ul>
+                            <li><strong>Target:</strong> 2-3 organizations interested in specific knowledge development</li>
+                            <li><strong>Offer:</strong> Regular delivery of curated knowledge and learning experiences</li>
+                            <li><strong>Revenue:</strong> €50-150/week per partner</li>
+                            <li><strong>Benefit:</strong> Premium pricing, consistent demand, strong marketing story</li>
+                        </ul>
+                        <h4>Financial Sustainability Targets:</h4>
+                        <ul>
+                            <li>€1,500-3,000/month revenue by end of Year 1</li>
+                            <li>Monthly market revenues: €300-600</li>
+                            <li>Subscription box revenues: €640-1,440</li>
+                            <li>Organization partnership revenues: €450-1,800</li>
+                        </ul>
+                        <p><strong>Deliverable:</strong> Operational knowledge distribution system generating sustainable revenue. Professional credibility demonstrated. Financial viability pathway established for Year 2+ expansion.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Success Indicators -->
+        <div class="footer">
+            <strong>Success = Tangible Impact Demonstrated → Resource Attraction → Organic Growth</strong><br>
+            <p style="margin-top: 15px;">The pilot prioritizes learning, transparency, and community engagement. Success is measured not just in deliverables, but in volunteer commitment, peer engagement, and the ability to replicate the model independently.</p>
+        </div>
+    </div>
+
+    <script>
+        // Tab functionality
+        const tabBtns = document.querySelectorAll('.tab-btn');
+        const tabContents = document.querySelectorAll('.tab-content');
+
+        tabBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Remove active class from all buttons and contents
+                tabBtns.forEach(b => b.classList.remove('active'));
+                tabContents.forEach(c => c.classList.remove('active'));
+
+                // Add active class to clicked button and corresponding content
+                btn.classList.add('active');
+                const tabId = btn.getAttribute('data-tab');
+                document.getElementById(tabId).classList.add('active');
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<!-- saved from url=(0083)file:///C:/Users/arijj/Desktop/0107presentations/deepseek_html_20260630_4f3c1b.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>De Baak | Knowledge Factory Agent</title>
+  <style>
+    /* ----- DE BAAK HUISSTIJL v2.0 – CSS VARIABLES ----- */
+    :root {
+      --primary: #005ADC;
+      --secondary: #00A555;
+      --accent: #FFE100;
+      --bg: #F5F5EB;
+      --text: #1A1A2E;
+      --shadow: 0 12px 28px -10px rgba(0, 0, 0, 0.08), 0 2px 6px rgba(0, 0, 0, 0.02);
+      --card-radius: 16px;
+      --touch-target: 44px;
+      --transition: all 0.2s ease;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background-color: var(--bg);
+      font-family: Arial, sans-serif;
+      color: var(--text);
+      line-height: 1.45;
+      padding: 2rem 1.5rem;
+    }
+
+    /* main container */
+    .infographic {
+      max-width: 1280px;
+      margin: 0 auto;
+    }
+
+    /* header / title */
+    .title-section {
+      margin-bottom: 2rem;
+    }
+    .title-section h1 {
+      font-size: 2.2rem;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 70%);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+      margin-bottom: 0.5rem;
+    }
+    .title-section p {
+      font-size: 1rem;
+      color: #3a3a4e;
+      border-left: 3px solid var(--accent);
+      padding-left: 1rem;
+      max-width: 700px;
+    }
+
+    /* ----- DOT LEGEND (primary / secondary / accent) ----- */
+    .dot-legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.8rem;
+      background: white;
+      padding: 0.8rem 1.5rem;
+      border-radius: 60px;
+      margin-bottom: 2rem;
+      box-shadow: var(--shadow);
+      align-items: center;
+      justify-content: flex-start;
+    }
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      min-height: var(--touch-target);
+      letter-spacing: 0.2px;
+    }
+    .dot {
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      display: inline-block;
+    }
+    .dot.primary { background-color: var(--primary); }
+    .dot.secondary { background-color: var(--secondary); }
+    .dot.accent { background-color: var(--accent); border: 1px solid rgba(0,0,0,0.08); }
+
+    /* ----- TABS (touch‑friendly, accessible) ----- */
+    .tabs-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      border-bottom: 2px solid #e0e3d8;
+      margin-bottom: 2rem;
+    }
+    .tab-btn {
+      background: transparent;
+      border: none;
+      padding: 0.75rem 1.8rem;
+      font-size: 1rem;
+      font-weight: 600;
+      font-family: Arial, sans-serif;
+      color: #4b4b60;
+      cursor: pointer;
+      border-radius: 40px 40px 0 0;
+      transition: var(--transition);
+      min-height: var(--touch-target);
+      min-width: var(--touch-target);
+    }
+    .tab-btn:hover {
+      background-color: rgba(0, 90, 220, 0.06);
+      color: var(--primary);
+    }
+    .tab-btn.active {
+      color: var(--primary);
+      background: white;
+      box-shadow: 0 -2px 0 var(--primary), 0 4px 8px rgba(0,0,0,0.02);
+      border-radius: 32px 32px 0 0;
+    }
+
+    /* ----- TAB PANELS & CARD GRID (2 columns, responsive) ----- */
+    .tab-pane {
+      display: none;
+      animation: fade 0.25s ease;
+    }
+    .tab-pane.active-pane {
+      display: block;
+    }
+    @keyframes fade {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.8rem;
+    }
+
+    /* ----- CARD STYLES (white bg, 4px top border, shadow) ----- */
+    .card {
+      background: white;
+      border-radius: var(--card-radius);
+      box-shadow: var(--shadow);
+      padding: 1.5rem;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      border: 1px solid #edefe6;
+      border-top-width: 4px;
+      border-top-style: solid;
+      border-radius: var(--card-radius);
+    }
+    .card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 20px 30px -12px rgba(0, 0, 0, 0.12);
+    }
+    /* top border colour classes */
+    .card-primary {
+      border-top-color: var(--primary);
+    }
+    .card-secondary {
+      border-top-color: var(--secondary);
+    }
+    .card-accent {
+      border-top-color: var(--accent);
+    }
+    .card h3 {
+      font-size: 1.35rem;
+      font-weight: 700;
+      margin-bottom: 0.65rem;
+      color: var(--text);
+    }
+    .card-meta {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      font-weight: 700;
+      margin-bottom: 0.8rem;
+      display: inline-block;
+      background: #eceee5;
+      padding: 0.2rem 0.8rem;
+      border-radius: 30px;
+      width: fit-content;
+    }
+    .card p {
+      font-size: 0.9rem;
+      line-height: 1.45;
+      color: #2d2d3a;
+      margin-bottom: 1rem;
+      flex: 1;
+    }
+    .card-footer-mock {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--primary);
+      border-top: 1px solid #e6e8e0;
+      padding-top: 0.7rem;
+      margin-top: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    /* ----- FOOTER with gradient bottom bar (green-yellow-green) ----- */
+    .site-footer {
+      background-color: var(--primary);
+      color: white;
+      margin-top: 3.5rem;
+      padding: 1.8rem 2rem;
+      border-radius: 24px;
+      position: relative;
+      text-align: center;
+    }
+    .footer-content p {
+      margin: 0.25rem 0;
+      font-size: 0.9rem;
+      opacity: 0.92;
+    }
+    .gradient-bar {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 5px;
+      background: linear-gradient(90deg, var(--secondary) 0%, var(--accent) 45%, var(--accent) 55%, var(--secondary) 100%);
+      border-radius: 0 0 24px 24px;
+    }
+
+    /* ----- RESPONSIVE (max-width: 768px) : stack layout, 1 col cards ----- */
+    @media (max-width: 768px) {
+      body {
+        padding: 1.2rem;
+      }
+      .cards-grid {
+        grid-template-columns: 1fr;
+        gap: 1.25rem;
+      }
+      .tab-btn {
+        padding: 0.6rem 1rem;
+        font-size: 0.85rem;
+      }
+      .dot-legend {
+        border-radius: 32px;
+        padding: 0.7rem 1rem;
+        gap: 1rem;
+        justify-content: center;
+      }
+      .title-section h1 {
+        font-size: 1.7rem;
+      }
+      .card {
+        padding: 1.2rem;
+      }
+      .site-footer {
+        padding: 1.2rem;
+      }
+      .legend-item {
+        font-size: 0.75rem;
+      }
+    }
+
+    /* extra touch-friendly & accessibility */
+    .tab-btn:focus-visible,
+    .legend-item:focus-visible {
+      outline: 2px solid var(--primary);
+      outline-offset: 2px;
+    }
+  </style>
+</head>
+<body>
+<div class="infographic">
+  
+  <!-- header / description -->
+  <div class="title-section">
+    <h1>⚡ Knowledge Factory Agent</h1>
+    <p>From learning to product delivery — automated portfolio roll-ups, stacked projects &amp; Karpathy intelligence</p>
+  </div>
+
+  <!-- Dot legend (meaning of border colors) -->
+  <div class="dot-legend">
+    <div class="legend-item"><span class="dot primary"></span> <strong>Strategic Portfolio</strong> (alignment, ROI)</div>
+    <div class="legend-item"><span class="dot secondary"></span> <strong>Project Velocity</strong> (execution, stacking)</div>
+    <div class="legend-item"><span class="dot accent"></span> <strong>Knowledge Asset</strong> (memory, AI wiki)</div>
+  </div>
+
+  <!-- Tabs navigation (3 tabs) -->
+  <div class="tabs-nav" role="tablist" aria-label="Knowledge Factory sections">
+    <button class="tab-btn" data-tab="tab1" role="tab" aria-selected="false">📊 Portfolio Insights</button>
+    <button class="tab-btn active" data-tab="tab2" role="tab" aria-selected="true">🏗️ Project Stack</button>
+    <button class="tab-btn" data-tab="tab3" role="tab" aria-selected="false">🧠 Knowledge Assets</button>
+  </div>
+
+  <!-- TAB 1 – Portfolio Management -->
+  <div id="tab1" class="tab-pane" role="tabpanel">
+    <div class="cards-grid">
+      <div class="card card-primary">
+        <div class="card-meta">Strategic overview</div>
+        <h3>Portfolio Health Index</h3>
+        <p>Real-time dashboards with parent-child roll-ups. When child projects are added, higher-level KPI’s auto-adjust.</p>
+        <div class="card-footer-mock">📈 +24% resource efficiency</div>
+      </div>
+      <div class="card card-secondary">
+        <div class="card-meta">Operational metrics</div>
+        <h3>Value Stream ROI</h3>
+        <p>Claude-powered forecasting &amp; risk detection. Direct integration with Disco LMS learning signals.</p>
+        <div class="card-footer-mock">⬆️ 92% forecast accuracy</div>
+      </div>
+      <div class="card card-accent">
+        <div class="card-meta">Innovation engine</div>
+        <h3>Cross‑portfolio Synergy</h3>
+        <p>Karpathy assistant compiles past initiatives into reusable wiki, reducing discovery loops by 43%.</p>
+        <div class="card-footer-mock">🧠 1.2k compiled artifacts</div>
+      </div>
+      <div class="card card-primary">
+        <div class="card-meta">Governance layer</div>
+        <h3>Automated Roll‑up Logic</h3>
+        <p>Projects inherit templates; dashboards reflect real-time status from nested sub-projects without manual work.</p>
+        <div class="card-footer-mock">✅ Zero consolidation overhead</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TAB 2 – Project Stack (nested, template-driven, child/parent stacking) -->
+  <div id="tab2" class="tab-pane active-pane" role="tabpanel">
+    <div class="cards-grid">
+      <div class="card card-primary">
+        <div class="card-meta">Parent initiative</div>
+        <h3>Product Launch · Core</h3>
+        <p>Master project with "product dev template". Children (AI features, UX) automatically update parent progress &amp; timeline.</p>
+        <div class="card-footer-mock">📌 Stacked children: 3 active</div>
+      </div>
+      <div class="card card-secondary">
+        <div class="card-meta">Child epic</div>
+        <h3>AI Assistant Module</h3>
+        <p>Uses same template as parent. Sprint data rolls up to portfolio dashboard – budget, completion %.</p>
+        <div class="card-footer-mock">⚙️ 67% done · on track</div>
+      </div>
+      <div class="card card-accent">
+        <div class="card-meta">Template inheritance</div>
+        <h3>SmartSuite + n8n Bridge</h3>
+        <p>When new child project is created, parent dashboard fields auto-refresh: total cost, risk flags, milestones.</p>
+        <div class="card-footer-mock">🔄 Live roll‑up fields</div>
+      </div>
+      <div class="card card-primary">
+        <div class="card-meta">Release pipeline</div>
+        <h3>Stacked QA &amp; Docs</h3>
+        <p>Sub‑projects keep full autonomy, yet aggregated views show enterprise readiness at a glance.</p>
+        <div class="card-footer-mock">📊 Real-time capacity view</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TAB 3 – Knowledge Assets (Karpathy style, Claude context, persistent memory) -->
+  <div id="tab3" class="tab-pane" role="tabpanel">
+    <div class="cards-grid">
+      <div class="card card-accent">
+        <div class="card-meta">Karpathy compiler</div>
+        <h3>Living Wiki Engine</h3>
+        <p>Auto‑ingests Disco discussions, project artifacts, and post‑mortems → structured, cross-linked knowledge base.</p>
+        <div class="card-footer-mock">📚 840+ wiki pages compiled</div>
+      </div>
+      <div class="card card-primary">
+        <div class="card-meta">Claude semantic memory</div>
+        <h3>Context Vault + Caching</h3>
+        <p>Cost‑efficient token caching and semantic search over all product decisions, reducing LLM costs by ~45%.</p>
+        <div class="card-footer-mock">⚡ sub‑400ms retrieval</div>
+      </div>
+      <div class="card card-secondary">
+        <div class="card-meta">Learning → Doing</div>
+        <h3>Disco LMS bridge</h3>
+        <p>Course completions trigger templated projects; best practices auto‑appended to knowledge wiki.</p>
+        <div class="card-footer-mock">🎓 82% faster onboarding</div>
+      </div>
+      <div class="card card-accent">
+        <div class="card-meta">Generative guidance</div>
+        <h3>AI Project Assistant</h3>
+        <p>Natural language Q&amp;A over historical projects, risk suggestions, and instant dashboard creation for new initiatives.</p>
+        <div class="card-footer-mock">🤖 Claude + n8n agentic core</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer: primary bg, white text, gradient bottom bar (green-yellow-green) -->
+  <footer class="site-footer">
+    <div class="footer-content">
+      <p>© 2026 De Baak · Knowledge Factory Agent</p>
+      <p>Integrated stack: Disco LMS → Karpathy Assistant → SmartSuite (non‑open-source) → auto‑adjusted dashboards</p>
+      <p style="font-size:0.8rem; opacity:0.8;">portfolio roll-ups · parent‑child templates · AI cost intelligence</p>
+    </div>
+    <div class="gradient-bar" aria-hidden="true"></div>
+  </footer>
+</div>
+
+<script>
+  (function() {
+    // Tab switching logic (vanilla, touch/click friendly)
+    const tabBtns = document.querySelectorAll('.tab-btn');
+    const panes = {
+      tab1: document.getElementById('tab1'),
+      tab2: document.getElementById('tab2'),
+      tab3: document.getElementById('tab3')
+    };
+
+    function activateTab(tabId) {
+      // hide all panes
+      Object.values(panes).forEach(pane => {
+        if (pane) pane.classList.remove('active-pane');
+      });
+      // remove active from all buttons
+      tabBtns.forEach(btn => {
+        btn.classList.remove('active');
+        btn.setAttribute('aria-selected', 'false');
+      });
+      // show selected pane
+      const activePane = panes[tabId];
+      if (activePane) activePane.classList.add('active-pane');
+      // mark button as active
+      const correspondingBtn = document.querySelector(`.tab-btn[data-tab="${tabId}"]`);
+      if (correspondingBtn) {
+        correspondingBtn.classList.add('active');
+        correspondingBtn.setAttribute('aria-selected', 'true');
+      }
+    }
+
+    tabBtns.forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const tabId = btn.getAttribute('data-tab');
+        if (tabId && panes[tabId]) {
+          activateTab(tabId);
+        }
+      });
+      // keyboard ENTER / SPACE for accessibility
+      btn.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          btn.click();
+        }
+      });
+    });
+
+    // ensure initial state (if any mismatch)
+    const currentActive = document.querySelector('.tab-btn.active');
+    if (!currentActive) {
+      activateTab('tab1');
+    } else {
+      const defaultTab = currentActive.getAttribute('data-tab');
+      if (defaultTab && panes[defaultTab]) activateTab(defaultTab);
+    }
+  })();
+</script>
+
+</body></html>

@@ -1,0 +1,2483 @@
+<!DOCTYPE html>
+<!-- saved from url=(0083)file:///C:/Users/arijj/Desktop/0107presentations/deepseek_html_20260630_89d630.html -->
+<html lang="nl"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ProcesOnlineTraining · De Baak Huisstijl v2.0</title>
+    <style>
+        /* ═══════════════════════════════════════════════════
+                   DE BAAK HUISSTIJL v2.0 — CSS VARIABLES
+                   ═══════════════════════════════════════════════════ */
+        :root {
+            /* ── Merkkleuren ── */
+            --primary: #005ADC;
+            --primary-dark: #003A8C;
+            --primary-mid: #0044B0;
+            --secondary: #00A555;
+            --secondary-dk: #008040;
+            --accent: #FFE100;
+            --bg: #F5F5EB;
+            --bg-light: #F0F5FF;
+            --bg-green: #F0FFF7;
+            --text: #1A1A2E;
+            --text-light: #4A5568;
+            --text-muted: #A0AEC0;
+
+            /* ── Border & shadow ── */
+            --border: rgba(0, 90, 220, 0.15);
+            --border-light: #D6E4FA;
+            --shadow: 0 4px 20px rgba(0, 90, 220, 0.12);
+            --shadow-hover: 0 8px 32px rgba(0, 90, 220, 0.18);
+
+            /* ── Radius ── */
+            --radius: 16px;
+            --radius-sm: 12px;
+            --radius-full: 100px;
+
+            /* ── Typografie ── */
+            --font: Arial, 'Helvetica Neue', Helvetica, sans-serif;
+            --font-head: Arial, 'Helvetica Neue', Helvetica, sans-serif;
+
+            /* ── Overgangen ── */
+            --ease: 0.3s ease;
+            --ease-smooth: 0.55s ease;
+        }
+
+        /* ═══════════════════════════════════════════════════
+                   RESET & BASE
+                   ═══════════════════════════════════════════════════ */
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-family: var(--font);
+            background: var(--bg);
+            color: var(--text);
+        }
+
+        body {
+            font-family: var(--font);
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.75;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* ═══════════════════════════════════════════════════
+                   BAKEN — DIAGONAAL ACHTERGRONDACCENT
+                   ═══════════════════════════════════════════════════ */
+        .baken-bg {
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 50vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 0;
+            background: linear-gradient(135deg, transparent 50%, rgba(0, 90, 220, 0.04) 100%);
+            clip-path: polygon(60% 0, 100% 0, 100% 100%, 0 100%);
+        }
+
+        .baken-bg::after {
+            content: '';
+            position: absolute;
+            top: -10%;
+            right: -5%;
+            width: 70%;
+            height: 120%;
+            background: linear-gradient(135deg, transparent 40%, rgba(0, 90, 220, 0.03) 100%);
+            transform: rotate(-8deg);
+            pointer-events: none;
+        }
+
+        /* ═══════════════════════════════════════════════════
+                   VOORTGANGSBALK (PROGRESS BAR)
+                   ═══════════════════════════════════════════════════ */
+        #progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 4px;
+            z-index: 1000;
+            width: 0%;
+            background: linear-gradient(90deg, #00A555 0%, #005ADC 60%, #FFE100 100%);
+            transition: width 0.1s ease;
+            box-shadow: 0 1px 8px rgba(0, 90, 220, 0.20);
+        }
+
+        #progress-track {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 4px;
+            z-index: 999;
+            width: 100%;
+            background: rgba(0, 90, 220, 0.12);
+        }
+
+        /* ═══════════════════════════════════════════════════
+                   CONTAINER
+                   ═══════════════════════════════════════════════════ */
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 32px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* ═══════════════════════════════════════════════════
+                   HERO
+                   ═══════════════════════════════════════════════════ */
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #005ADC 0%, #003A8C 100%);
+            padding: 96px 32px 120px;
+            margin: 0 -32px;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 6px;
+            background: linear-gradient(90deg, #00A555 0%, #FFE100 50%, #00A555 100%);
+            z-index: 2;
+        }
+
+        /* Baken-driehoek in hero */
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 45%;
+            height: 100%;
+            background: linear-gradient(135deg, transparent 50%, rgba(255, 255, 255, 0.06) 100%);
+            clip-path: polygon(60% 0, 100% 0, 100% 100%, 0 100%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 900px;
+        }
+
+        .hero-eyebrow {
+            display: inline-block;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            color: #FFE100;
+            background: rgba(255, 225, 0, 0.12);
+            border: 1px solid rgba(255, 225, 0, 0.35);
+            border-radius: var(--radius-full);
+            padding: 6px 18px;
+            margin-bottom: 24px;
+            animation: fadeUp 0.8s ease 0.1s forwards;
+            opacity: 0;
+            transform: translateY(16px);
+        }
+
+        .hero h1 {
+            font-family: var(--font-head);
+            font-size: clamp(2.4rem, 6vw, 4.2rem);
+            font-weight: 900;
+            color: #FFFFFF;
+            line-height: 1.15;
+            letter-spacing: -0.02em;
+            margin-bottom: 12px;
+            animation: fadeUp 0.8s ease 0.2s forwards;
+            opacity: 0;
+            transform: translateY(16px);
+        }
+
+        .hero-rule {
+            width: 56px;
+            height: 3px;
+            border: none;
+            border-radius: 2px;
+            background: linear-gradient(90deg, #FFE100, #00A555);
+            margin: 32px auto 36px;
+            animation: fadeUp 0.8s ease 0.5s forwards;
+            opacity: 0;
+            transform: translateY(16px);
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1rem, 1.4vw, 1.25rem);
+            font-weight: 400;
+            color: rgba(255, 255, 255, 0.88);
+            line-height: 1.6;
+            max-width: 720px;
+            margin: 0 auto 20px;
+            animation: fadeUp 0.8s ease 0.35s forwards;
+            opacity: 0;
+            transform: translateY(16px);
+        }
+
+        .hero-tagline {
+            font-size: 0.95rem;
+            font-weight: 400;
+            color: rgba(255, 255, 255, 0.7);
+            font-style: italic;
+            letter-spacing: 0.04em;
+            animation: fadeUp 0.8s ease 0.5s forwards;
+            opacity: 0;
+            transform: translateY(16px);
+        }
+
+        .hero-tagline .accent {
+            color: #FFE100;
+            font-weight: 600;
+        }
+
+        /* Scroll indicator */
+        .scroll-cue {
+            position: absolute;
+            bottom: clamp(28px, 7vh, 60px);
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            animation: fadeUp 0.8s ease 0.8s forwards;
+            opacity: 0;
+        }
+
+        .scroll-cue span {
+            font-size: 10px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: rgba(255, 255, 255, 0.45);
+        }
+
+        .scroll-arrow {
+            width: 20px;
+            height: 20px;
+            border-right: 2px solid rgba(255, 255, 255, 0.35);
+            border-bottom: 2px solid rgba(255, 255, 255, 0.35);
+            transform: rotate(45deg);
+            animation: scrollBounce 2s ease-in-out infinite;
+        }
+
+        @keyframes scrollBounce {
+            0%,
+            100% {
+                transform: rotate(45deg) translate(0, 0);
+                opacity: 0.4;
+            }
+            50% {
+                transform: rotate(45deg) translate(4px, 4px);
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ═══════════════════════════════════════════════════
+                   SECTIE — ALGEMEEN
+                   ═══════════════════════════════════════════════════ */
+        .section {
+            padding: 96px 0;
+            position: relative;
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+
+        .section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Eerste content-sectie na hero krijgt extra padding */
+        .section-first {
+            padding-top: 168px;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 48px;
+        }
+
+        .section-header .chapter-tag {
+            display: inline-block;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            color: var(--primary);
+            background: rgba(0, 90, 220, 0.07);
+            border: 1px solid rgba(0, 90, 220, 0.18);
+            border-radius: var(--radius-full);
+            padding: 5px 16px;
+            margin-bottom: 16px;
+        }
+
+        .section-header h2 {
+            font-family: var(--font-head);
+            font-size: clamp(1.8rem, 3.2vw, 2.6rem);
+            font-weight: 700;
+            color: var(--primary);
+            line-height: 1.2;
+            margin-bottom: 0;
+        }
+
+        .section-rule {
+            width: 48px;
+            height: 3px;
+            border: none;
+            border-radius: 2px;
+            background: var(--secondary);
+            margin: 20px auto 0;
+        }
+
+        .section-header p {
+            color: var(--text-light);
+            font-size: 1.05rem;
+            margin-top: 12px;
+            max-width: 640px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* ═══════════════════════════════════════════════════
+                   KAARTEN
+                   ═══════════════════════════════════════════════════ */
+        .card {
+            background: #FFFFFF;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            border-top: 4px solid var(--primary);
+            transition: transform var(--ease), box-shadow var(--ease);
+            overflow: hidden;
+        }
+
+        .card:hover {
+            transform: translateY(-6px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .card-secondary {
+            border-top-color: var(--secondary);
+        }
+
+        .card-tertiary {
+            border-top-color: var(--primary-mid);
+        }
+
+        .card-body {
+            padding: 1.5rem 2rem 2rem;
+        }
+
+        .card-body .card-title {
+            font-family: var(--font-head);
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: 0.4rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .card-body .card-title .badge-num {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--primary);
+            color: #fff;
+            font-size: 0.7rem;
+            font-weight: 700;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        .card-body .card-title .badge-num.green {
+            background: var(--secondary);
+        }
+
+        .card-body .card-title .badge-num.accent {
+            background: var(--accent);
+            color: var(--text);
+        }
+
+        .card-body .card-owner {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            background: var(--bg);
+            padding: 0.1rem 0.8rem;
+            border-radius: var(--radius-full);
+            display: inline-block;
+            margin-bottom: 0.75rem;
+        }
+
+        .card-body .card-sub {
+            font-size: 0.85rem;
+            color: var(--text-light);
+            margin-bottom: 1rem;
+        }
+
+        /* ═══════════════════════════════════════════════════
+                   FLOW STEPS
+                   ═══════════════════════════════════════════════════ */
+        .flow-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.15rem;
+        }
+
+        .flow-step {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            padding: 0.4rem 0.6rem;
+            border-radius: 8px;
+            transition: background 0.15s;
+            font-size: 0.92rem;
+            line-height: 1.5;
+        }
+
+        .flow-step:hover {
+            background: var(--bg-light);
+        }
+
+        .flow-step .step-id {
+            font-weight: 700;
+            color: var(--primary);
+            min-width: 70px;
+            font-size: 0.78rem;
+            letter-spacing: 0.02em;
+            flex-shrink: 0;
+            padding-top: 0.05rem;
+        }
+
+        .flow-step .step-text {
+            color: var(--text);
+            flex: 1;
+        }
+
+        .flow-step .step-tools {
+            font-size: 0.65rem;
+            color: var(--text-muted);
+            background: var(--bg);
+            padding: 0.05rem 0.6rem;
+            border-radius: var(--radius-full);
+            white-space: nowrap;
+            flex-shrink: 0;
+            margin-left: 0.25rem;
+        }
+
+        .flow-step .step-badge {
+            font-size: 0.6rem;
+            font-weight: 700;
+            padding: 0.05rem 0.6rem;
+            border-radius: var(--radius-full);
+            flex-shrink: 0;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+        }
+
+        .badge-manual {
+            background: var(--bg);
+            color: var(--text-light);
+        }
+        .badge-auto {
+            background: #DBEAFE;
+            color: var(--primary);
+        }
+        .badge-decision {
+            background: #FEF3C7;
+            color: #92400E;
+        }
+        .badge-predefined {
+            background: #E0E7FF;
+            color: #3730A3;
+        }
+        .badge-frequency {
+            background: #E0F2FE;
+            color: #0369A1;
+        }
+
+        .flow-arrow {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--border);
+            font-size: 1.1rem;
+            padding: 0.05rem 0;
+            letter-spacing: 0.2rem;
+        }
+
+        .flow-arrow span {
+            background: var(--bg);
+            padding: 0 0.6rem;
+            border-radius: var(--radius-full);
+            font-size: 0.6rem;
+            color: var(--text-light);
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+        }
+
+        /* Sub-flow */
+        .sub-flow {
+            margin-left: 2rem;
+            border-left: 2px solid var(--border);
+            padding-left: 1.2rem;
+            margin-top: 0.3rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .sub-flow .flow-step {
+            padding-left: 0;
+        }
+        .sub-flow .flow-step .step-id {
+            min-width: 60px;
+        }
+
+        /* ── flow-note ── */
+        .flow-note {
+            margin-top: 0.8rem;
+            font-size: 0.8rem;
+            color: var(--text-light);
+            background: var(--bg);
+            padding: 0.3rem 1rem;
+            border-radius: var(--radius-full);
+            display: inline-block;
+            border-left: 3px solid var(--secondary);
+        }
+
+        .flow-note .icon {
+            margin-right: 0.4rem;
+        }
+
+        /* ═══════════════════════════════════════════════════
+                   LEGEND
+                   ═══════════════════════════════════════════════════ */
+        .legend-section {
+            background: #FFFFFF;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            padding: 1.5rem 2rem;
+            margin-bottom: 2.5rem;
+            border-top: 4px solid var(--primary-mid);
+        }
+
+        .legend-section h2 {
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--text-light);
+            margin-bottom: 1rem;
+        }
+
+        .legend-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.6rem 1.8rem;
+            align-items: center;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            font-size: 0.8rem;
+            color: var(--text);
+        }
+
+        .legend-shape {
+            display: inline-block;
+            width: 26px;
+            height: 26px;
+            border-radius: 6px;
+            text-align: center;
+            line-height: 26px;
+            font-size: 0.65rem;
+            font-weight: 700;
+            flex-shrink: 0;
+            border: 1.5px solid var(--border);
+        }
+
+        .ls-manual {
+            background: var(--bg);
+            border-color: var(--border);
+        }
+        .ls-auto {
+            background: #DBEAFE;
+            border-color: var(--primary);
+        }
+        .ls-decision {
+            background: #FEF3C7;
+            border-color: #F59E0B;
+        }
+        .ls-predefined {
+            background: #E0E7FF;
+            border-color: #6366F1;
+        }
+        .ls-start {
+            background: #DCFCE7;
+            border-color: #22C55E;
+            border-radius: 50%;
+        }
+        .ls-connector {
+            background: #F3E8FF;
+            border-color: #A855F7;
+        }
+        .ls-change {
+            background: #FEE2E2;
+            border-color: #EF4444;
+        }
+        .ls-doc {
+            background: #FFF7ED;
+            border-color: #F97316;
+        }
+
+        /* ═══════════════════════════════════════════════════
+                   SECTION DIVIDER
+                   ═══════════════════════════════════════════════════ */
+        .section-divider {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin: 2.5rem 0 1.5rem;
+        }
+
+        .section-divider hr {
+            flex: 1;
+            border: none;
+            border-top: 2px dashed var(--border);
+        }
+
+        .section-divider .label {
+            font-weight: 700;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--text-light);
+            background: #FFFFFF;
+            padding: 0.2rem 1.2rem;
+            border-radius: var(--radius-full);
+            white-space: nowrap;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
+        }
+
+        /* ═══════════════════════════════════════════════════
+                   ACCOUNTABILITY GRID
+                   ═══════════════════════════════════════════════════ */
+        .accountability-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 1.25rem;
+            margin-top: 0.5rem;
+        }
+
+        .acct-card {
+            background: #FFFFFF;
+            border-radius: var(--radius);
+            padding: 1.25rem 1.5rem;
+            border-top: 4px solid var(--primary);
+            box-shadow: var(--shadow);
+            transition: transform var(--ease), box-shadow var(--ease);
+        }
+
+        .acct-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .acct-card:nth-child(2) {
+            border-top-color: var(--secondary);
+        }
+        .acct-card:nth-child(3) {
+            border-top-color: var(--accent);
+        }
+        .acct-card:nth-child(4) {
+            border-top-color: var(--primary-mid);
+        }
+        .acct-card:nth-child(5) {
+            border-top-color: var(--secondary);
+        }
+        .acct-card:nth-child(6) {
+            border-top-color: var(--primary);
+        }
+
+        .acct-card .role {
+            font-weight: 700;
+            color: var(--primary);
+            font-size: 1rem;
+        }
+
+        .acct-card .name {
+            color: var(--text);
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-top: 0.1rem;
+        }
+
+        .acct-card .acc-list {
+            list-style: none;
+            margin-top: 0.5rem;
+            font-size: 0.82rem;
+            color: var(--text-light);
+        }
+
+        .acct-card .acc-list li {
+            padding: 0.15rem 0 0.15rem 1.2rem;
+            position: relative;
+            line-height: 1.5;
+        }
+
+        .acct-card .acc-list li::before {
+            content: "▹";
+            position: absolute;
+            left: 0;
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        .acct-card .delegation {
+            margin-top: 0.6rem;
+            font-size: 0.65rem;
+            color: var(--text-muted);
+            background: var(--bg);
+            padding: 0.15rem 0.8rem;
+            border-radius: var(--radius-full);
+            display: inline-block;
+            font-weight: 600;
+            letter-spacing: 0.04em;
+        }
+
+        /* ═══════════════════════════════════════════════════
+                   MEETING TABLE
+                   ═══════════════════════════════════════════════════ */
+        .table-wrap {
+            background: #FFFFFF;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            border-top: 4px solid var(--secondary);
+        }
+
+        .table-wrap .table-body {
+            padding: 0.5rem 1.5rem 1.5rem;
+            overflow-x: auto;
+        }
+
+        .meeting-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.85rem;
+        }
+
+        .meeting-table th {
+            text-align: left;
+            padding: 0.6rem 1rem;
+            background: var(--primary);
+            color: #FFFFFF;
+            font-weight: 700;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+        }
+
+        .meeting-table td {
+            padding: 0.6rem 1rem;
+            border-bottom: 1px solid var(--border);
+            color: var(--text);
+        }
+
+        .meeting-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .meeting-table tr:nth-child(even) td {
+            background: var(--bg-light);
+        }
+
+        .meeting-table tr:hover td {
+            background: rgba(0, 90, 220, 0.04);
+        }
+
+        /* ═══════════════════════════════════════════════════
+                   FOOTER
+                   ═══════════════════════════════════════════════════ */
+        .site-footer {
+            background: var(--primary);
+            color: #FFFFFF;
+            padding: 40px 0 0;
+            margin: 0 -32px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .site-footer::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 6px;
+            background: linear-gradient(90deg, #00A555 0%, #FFE100 50%, #00A555 100%);
+            z-index: 2;
+        }
+
+        .site-footer::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 40%;
+            height: 100%;
+            background: linear-gradient(135deg, transparent 50%, rgba(255, 255, 255, 0.06) 100%);
+            clip-path: polygon(60% 0, 100% 0, 100% 100%, 0 100%);
+            pointer-events: none;
+        }
+
+        .footer-inner {
+            position: relative;
+            z-index: 1;
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 32px 32px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: flex-end;
+            gap: 1rem;
+        }
+
+        .footer-brand {
+            display: flex;
+            flex-direction: column;
+            gap: 0.2rem;
+        }
+
+        .footer-brand .name {
+            font-family: var(--font-head);
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #FFFFFF;
+            letter-spacing: -0.02em;
+        }
+
+        .footer-brand .tagline {
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.75);
+            font-weight: 400;
+            letter-spacing: 0.04em;
+        }
+
+        .footer-meta {
+            text-align: right;
+            font-size: 0.7rem;
+            color: rgba(255, 255, 255, 0.6);
+            letter-spacing: 0.04em;
+        }
+
+        .footer-meta .url {
+            color: rgba(255, 255, 255, 0.8);
+            font-weight: 600;
+        }
+
+        /* ═══════════════════════════════════════════════════
+                   RESPONSIVE
+                   ═══════════════════════════════════════════════════ */
+        @media (max-width: 1024px) {
+            .container {
+                padding: 0 24px;
+            }
+            .hero {
+                padding: 80px 24px 100px;
+                margin: 0 -24px;
+            }
+            .site-footer {
+                margin: 0 -24px;
+            }
+            .site-footer .footer-inner {
+                padding: 0 24px 28px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 16px;
+            }
+            .hero {
+                padding: 64px 16px 80px;
+                margin: 0 -16px;
+                min-height: 90vh;
+            }
+            .hero h1 {
+                font-size: 2rem;
+            }
+            .hero-subtitle {
+                font-size: 1rem;
+            }
+            .hero-tagline {
+                font-size: 0.8rem;
+            }
+
+            .section {
+                padding: 60px 0;
+            }
+            .section-first {
+                padding-top: 100px;
+            }
+            .section-header h2 {
+                font-size: 1.6rem;
+            }
+
+            .card-body {
+                padding: 1rem 1.25rem 1.5rem;
+            }
+
+            .flow-step {
+                flex-wrap: wrap;
+                padding: 0.3rem 0.4rem;
+                font-size: 0.85rem;
+            }
+            .flow-step .step-id {
+                min-width: 50px;
+                font-size: 0.7rem;
+            }
+            .flow-step .step-tools {
+                font-size: 0.6rem;
+                white-space: normal;
+            }
+            .sub-flow {
+                margin-left: 1rem;
+                padding-left: 0.75rem;
+            }
+
+            .legend-grid {
+                gap: 0.4rem 1rem;
+            }
+            .legend-item {
+                font-size: 0.7rem;
+            }
+            .legend-shape {
+                width: 20px;
+                height: 20px;
+                line-height: 20px;
+                font-size: 0.55rem;
+            }
+
+            .accountability-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .meeting-table {
+                font-size: 0.75rem;
+            }
+            .meeting-table th,
+            .meeting-table td {
+                padding: 0.4rem 0.6rem;
+            }
+
+            .section-divider .label {
+                font-size: 0.65rem;
+                padding: 0.15rem 0.8rem;
+            }
+
+            .footer-inner {
+                flex-direction: column;
+                align-items: flex-start;
+                text-align: left;
+                gap: 0.5rem;
+            }
+            .footer-meta {
+                text-align: left;
+            }
+
+            .site-footer {
+                margin: 0 -16px;
+            }
+            .site-footer .footer-inner {
+                padding: 0 16px 24px;
+            }
+
+            .legend-section {
+                padding: 1rem 1.25rem;
+            }
+            .table-wrap .table-body {
+                padding: 0.25rem 0.75rem 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 1.6rem;
+            }
+            .hero-eyebrow {
+                font-size: 9px;
+                padding: 4px 12px;
+            }
+            .hero-rule {
+                width: 40px;
+                margin: 20px auto 24px;
+            }
+            .flow-step .step-id {
+                min-width: 44px;
+                font-size: 0.65rem;
+            }
+            .flow-step .step-badge {
+                font-size: 0.5rem;
+                padding: 0.02rem 0.4rem;
+            }
+        }
+
+        /* ═══════════════════════════════════════════════════
+                   PRINT
+                   ═══════════════════════════════════════════════════ */
+        @media print {
+            body {
+                background: #fff;
+                padding: 0.3in;
+            }
+            .hero {
+                min-height: auto;
+                padding: 60px 32px 80px;
+                margin: 0;
+                border-radius: 0;
+            }
+            .hero::after,
+            .hero::before {
+                display: none;
+            }
+            .section {
+                opacity: 1 !important;
+                transform: none !important;
+                padding: 40px 0;
+            }
+            .section-first {
+                padding-top: 60px;
+            }
+            .card {
+                box-shadow: none;
+                border: 1px solid var(--border);
+                break-inside: avoid;
+            }
+            .card:hover {
+                transform: none;
+                box-shadow: none;
+            }
+            .site-footer {
+                margin: 0;
+                padding: 30px 0 0;
+                border-radius: 0;
+            }
+            .site-footer::before,
+            .site-footer::after {
+                display: none;
+            }
+            .baken-bg {
+                display: none;
+            }
+            #progress-bar,
+            #progress-track {
+                display: none;
+            }
+            .scroll-cue {
+                display: none;
+            }
+            .flow-step:hover {
+                background: transparent;
+            }
+            .acct-card:hover {
+                transform: none;
+                box-shadow: none;
+            }
+            .meeting-table tr:nth-child(even) td {
+                background: var(--bg-light);
+            }
+            .legend-section {
+                box-shadow: none;
+                border: 1px solid var(--border);
+            }
+            .table-wrap {
+                box-shadow: none;
+                border: 1px solid var(--border);
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ═══════════════════════════════════════════════════
+    VOORTGANGSBALK
+    ═══════════════════════════════════════════════════ -->
+    <div id="progress-track"></div>
+    <div id="progress-bar" style="width: 22.6422%;"></div>
+
+    <!-- ═══════════════════════════════════════════════════
+    BAKEN ACHTERGROND
+    ═══════════════════════════════════════════════════ -->
+    <div class="baken-bg" aria-hidden="true"></div>
+
+    <!-- ═══════════════════════════════════════════════════
+    HERO
+    ═══════════════════════════════════════════════════ -->
+    <header class="hero" id="top">
+        <div class="hero-content">
+            <div class="hero-eyebrow">ProcesOnlineTraining</div>
+            <h1>Portfolio management<br>online training module</h1>
+            <hr class="hero-rule" aria-hidden="true">
+            <p class="hero-subtitle">
+                End-to-end procesflow voor onderzoek, ontwikkeling, implementatie
+                en ondersteuning van online trainingen.
+            </p>
+            <p class="hero-tagline">
+                <span class="accent">●</span> Training · Ontwikkeling · Leiderschap · Sinds 1947
+            </p>
+        </div>
+
+        <div class="scroll-cue">
+            <span>Scroll</span>
+            <div class="scroll-arrow"></div>
+        </div>
+    </header>
+
+    <!-- ═══════════════════════════════════════════════════
+    MAIN CONTENT
+    ═══════════════════════════════════════════════════ -->
+    <main class="container">
+
+        <!-- ─── LEGEND ─── -->
+        <section class="section section-first visible" id="legend">
+            <div class="section-header">
+                <span class="chapter-tag">Processtencil</span>
+                <h2>Legenda &amp; symbolen</h2>
+                <hr class="section-rule">
+            </div>
+
+            <div class="legend-section">
+                <h2>🧩 Processtencil — overzicht</h2>
+                <div class="legend-grid">
+                    <span class="legend-item"><span class="legend-shape ls-manual">M</span> Handmatige taak</span>
+                    <span class="legend-item"><span class="legend-shape ls-auto">A</span> Geautomatiseerde taak</span>
+                    <span class="legend-item"><span class="legend-shape ls-decision">D</span> Beslissing</span>
+                    <span class="legend-item"><span class="legend-shape ls-predefined">P</span> Voorgedefinieerd proces</span>
+                    <span class="legend-item"><span class="legend-shape ls-start">S</span> Start / Einde</span>
+                    <span class="legend-item"><span class="legend-shape ls-connector">C</span> Connector (off‑page)</span>
+                    <span class="legend-item"><span class="legend-shape ls-change">∆</span> Proceswijziging</span>
+                    <span class="legend-item"><span class="legend-shape ls-doc">📄</span> Document</span>
+                    <span class="legend-item"><span class="legend-shape" style="background:#E0F2FE;border-color:#38BDF8;">⏱</span> Frequentie / timing</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- ═══════════════════════════════════════════════════
+        1.0 RESEARCH & DEVELOPMENT
+        ═══════════════════════════════════════════════════ -->
+        <div class="section-divider">
+            <hr>
+            <span class="label">1.0 Research &amp; Development</span>
+            <hr>
+        </div>
+
+        <!-- ─── 1.1 Market Research ─── -->
+        <section class="section visible" id="research">
+            <div class="section-header">
+                <span class="chapter-tag">Hoofdstuk 1</span>
+                <h2>1.1 Product Research and Validation</h2>
+                <hr class="section-rule">
+                <p>Onderzoek en valideer nieuwe formaten, voer risicoanalyses uit en selecteer kansrijke concepten.</p>
+            </div>
+
+            <div class="card">
+                <div class="card-body">
+                    <div class="card-title">
+                        <span class="badge-num">1.1</span>
+                        Marktonderzoek &amp; validatie
+                        <span class="card-owner" style="margin-left:auto;">R&amp;D Manager</span>
+                    </div>
+
+                    <div class="flow-list">
+                        <div class="flow-step">
+                            <span class="step-id">1.1.1</span>
+                            <span class="step-text">Genereer en onderzoek potentiële formaten voor jaarontwikkelplan</span>
+                            <span class="step-tools">Google Drive / ClickUp</span>
+                            <span class="step-badge badge-manual">Handmatig</span>
+                        </div>
+                        <div class="flow-step">
+                            <span class="step-id">1.1.2</span>
+                            <span class="step-text">Opzetten productdesign workshop</span>
+                            <span class="step-tools">Google Drive / ClickUp</span>
+                            <span class="step-badge badge-manual">Handmatig</span>
+                        </div>
+                        <div class="flow-step">
+                            <span class="step-id">1.1.3</span>
+                            <span class="step-text">Identificeer potentiële formaten</span>
+                            <span class="step-tools">Google Drive / ClickUp</span>
+                            <span class="step-badge badge-manual">Handmatig</span>
+                        </div>
+                        <div class="flow-step">
+                            <span class="step-id">1.1.4</span>
+                            <span class="step-text">Voer interviews met nieuwe / huidige / voormalige klanten</span>
+                            <span class="step-tools">Google Drive / ClickUp</span>
+                            <span class="step-badge badge-manual">Handmatig</span>
+                        </div>
+                        <div class="flow-step">
+                            <span class="step-id">1.1.5</span>
+                            <span class="step-text">Risicoanalyse uitvoeren</span>
+                            <span class="step-tools">Amazon / Helium10 / ClickUp / GSheets</span>
+                            <span class="step-badge badge-manual">Handmatig</span>
+                        </div>
+                        <div class="flow-step">
+                            <span class="step-id">1.1.6</span>
+                            <span class="step-text">Selecteer format voor financiële analyse</span>
+                            <span class="step-tools">ClickUp / GSheets</span>
+                            <span class="step-badge badge-decision">Beslissing</span>
+                        </div>
+                        <div class="flow-step">
+                            <span class="step-id">1.1.7</span>
+                            <span class="step-text">Financiële analyse uitvoeren</span>
+                            <span class="step-tools">ClickUp / GSheets</span>
+                            <span class="step-badge badge-manual">Handmatig</span>
+                        </div>
+                        <div class="flow-step">
+                            <span class="step-id">1.1.8</span>
+                            <span class="step-text">Offertes opvragen bij potentiële leveranciers</span>
+                            <span class="step-tools">ClickUp / GSheets / Alibaba / 1688</span>
+                            <span class="step-badge badge-manual">Handmatig</span>
+                        </div>
+                        <div class="flow-step">
+                            <span class="step-id">1.1.9</span>
+                            <span class="step-text">Werk productdetails bij in Product Tracker</span>
+                            <span class="step-tools">ClickUp</span>
+                            <span class="step-badge badge-manual">Handmatig</span>
+                        </div>
+                        <div class="flow-step">
+                            <span class="step-id">1.1.10</span>
+                            <span class="step-text">Werk trainingsplan volgende periode bij</span>
+                            <span class="step-tools">ClickUp / GSheets</span>
+                            <span class="step-badge badge-manual">Handmatig</span>
+                        </div>
+                    </div>
+
+                    <div class="flow-note">
+                        <span class="icon">📌</span> Community platform &amp; crowd sourcing · maandelijkse reviews
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ─── 1.2 Product Sourcing ─── -->
+        <section class="section visible" id="sourcing">
+            <div class="section-header">
+                <span class="chapter-tag">Hoofdstuk 2</span>
+                <h2>1.2 Product Sourcing &amp; Hardware / People</h2>
+                <hr class="section-rule">
+                <p>Selecteer leveranciers, beoordeel demo's en plaats initiële orders op basis van financiële onderbouwing.</p>
+            </div>
+
+            <div class="card card-secondary">
+                <div class="card-body">
+                    <div class="card-title">
+                        <span class="badge-num green">1.2</span>
+                        Product sourcing
+                        <span class="card-owner" style="margin-left:auto;">R&amp;D Manager / Sourcing Agent</span>
+                    </div>
+
+                    <div class="flow-list">
+                        <div class="flow-step">
+                            <span class="step-id">1.2.1</span>
+                            <span class="step-text">Offerteam voorbereiden en versturen naar Sourcing Agent</span>
+                            <span class="step-tools">Google Docs / Gmail</span>
+                            <span class="step-badge badge-manual">Handmatig</span>
+                        </div>
+                        <div class="flow-step">
+                            <span class="step-id">1.2.2</span>
+                            <span class="step-text">Gevestigde leveranciers sourcen</span>
+                            <span class="step-tools">Alibaba / 1688 / GSheets</span>
+                            <span class="step-badge badge-manual">Handmatig</span>
+                        </div>
+                        <div class="flow-step">
+                            <span class="step-id">1.2.3</span>
+                            <span class="step-text">Product Tracker bijwerken met potentiële leveranciers &amp; CEO taggen</span>
+                            <span class="step-tools">Gmail / ClickUp</span>
+                            <span class="step-badge badge-manual">Handmatig</span>
+                        </div>
+                        <div class="flow-step">
+                            <span class="step-id">1.2.4</span>
+                            <span class="step-text">Leverancier selecteren op basis van offertes</span>
+                            <span class="step-tools">Gmail / ClickUp</span>
+                            <span class="step-badge badge-decision">Beslissing</span>
+                        </div>
+                        <div class="flow-step">
+                            <span class="step-id">1.2.5</span>
+                            <span class="step-text">Behoefte aan maatwerk identificeren</span>
+                            <span class="step-tools">Gmail / ClickUp</span>
+                            <span class="step-badge badge-manual">Handmatig</span>
+                        </div>
+                        <div class="flow-step">
+                            <span class="step-id">1.2.6</span>
+                            <span class="step-text">Demo's aanvragen</span>
+                            <span class="step-tools">Gmail / ClickUp</span>
+                            <span class="step-badge badge-manual">Handmatig</span>
+                        </div>
+                        <div class="flow-step">
+                            <span class="step-id">1.2.7</span>
+                            <span class="step-text">Initiële order voorbereiden op basis van financiële analyse</span>
+                            <span class="step-tools">Gmail / GSheets / ClickUp</span>
+                            <span class="step-badge badge-manual">Handmatig</span>
+                        </div>
+                        <div class="flow-step">
+                            <span class="step-id">1.2.8</span>
+                            <span class="step-text">Monsters controleren en beste leverancier selecteren</span>
+                            <span class="step-tools">Gmail / GSheets / ClickUp</span>
+                            <span class="step-badge badge-decision">Beslissing</span>
+                        </div>
+                        <div class="flow-step">
+                            <span class="step-id">1.2.9</span>
+                            <span class="step-text">Initiële order plaatsen</span>
+                            <span class="step-tools">ClickUp / Amazon</span>
+                            <span class="step-badge badge-manual">Handmatig</span>
+                        </div>
+                    </div>
+
+                    <div class="flow-note">
+                        <span class="icon">📊</span> Feasibility &amp; kostenberekening · prototype · Go / no‑go
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ─── 1.3 Product Development ─── -->
+        <section class="section visible" id="development">
+            <div class="section-header">
+                <span class="chapter-tag">Hoofdstuk 3</span>
+                <h2>1.3 Product Development</h2>
+                <hr class="section-rule">
+                <p>Conceptualiseer, ontwerp en finaliseer productverbeteringen met feedbackloops.</p>
+            </div>
+
+            <div class="card card-tertiary">
+                <div class="card-body">
+                    <div class="card-title">
+                        <span class="badge-num" style="background:var(--primary-mid);">1.3</span>
+                        Productontwikkeling
+                        <span class="card-owner" style="margin-left:auto;">R&amp;D Manager / Product Design</span>
+                    </div>
+
+                    <div class="flow-list">
+                        <div class="flow-step">
+                            <span class="step-id">1.3.1</span>
+                            <span class="step-text">Productspecificaties conceptualiseren</span>
+                            <span class="step-tools">ClickUp / GSheets / Amazon</span>
+                            <span class="step-badge badge-manual">Handmatig</span>
+                        </div>
+                        <div class="flow-step">
+                            <span class="step-id">1.3.2</span>
+                            <span class="step-text">Ontwerpopties voorbereiden</span>
+                            <span class="step-tools">ClickUp / GSheets / Various Tools</span>
+                            <span class="step-badge badge-manual">Handmatig</span>
+                        </div>
+                        <div class="flow-step">
+                            <span class="step-id">1.3.3</span>
+                            <span class="step-text">Productverbeteringen en maatwerk finaliseren</span>
+                            <span class="step-tools">ClickUp / GSheets / Amazon</span>
+                            <span class="step-badge badge-manual">Handmatig</span>
+                        </div>
+                        <div class="flow-step">
+                            <span class="step-id">1.3.4</span>
+                            <span class="step-text">Review en finaliseer productaanpassingen</span>
+                            <span class="step-tools">ClickUp / GSheets</span>
+                            <span class="step-badge badge-manual">Handmatig</span>
+                        </div>
+                        <div class="flow-step">
+                            <span class="step-id">1.3.5</span>
+                            <span class="step-text">Feedback op productontwerp van CEO verwerken</span>
+                            <span class="step-tools">ClickUp / GSheets / Amazon</span>
+                            <span class="step-badge badge-manual">Handmatig</span>
+                        </div>
+                    </div>
+
+                    <!-- Sub: 1.3.1 Productie / Update -->
+                    <div style="margin-top:1.2rem;border-top:1px solid var(--border);padding-top:1rem;">
+                        <div style="font-weight:700;font-size:0.85rem;color:var(--primary);margin-bottom:0.5rem;">
+                            📂 1.3.1 Productie / Update online training
+                        </div>
+                        <div class="sub-flow">
+                            <div class="flow-step">
+                                <span class="step-id">1.3.1.1</span>
+                                <span class="step-text">Brand assets analyse en copy aanvragen</span>
+                                <span class="step-tools">LMS / Teams</span>
+                                <span class="step-badge badge-manual">Handmatig</span>
+                            </div>
+                            <div class="flow-step">
+                                <span class="step-id">1.3.1.2</span>
+                                <span class="step-text">Wijzigingen coördineren met designer / copywriter en opnieuw indienen</span>
+                                <span class="step-tools">LMS / Teams</span>
+                                <span class="step-badge badge-manual">Handmatig</span>
+                            </div>
+                            <div class="flow-step">
+                                <span class="step-id">1.3.1.3</span>
+                                <span class="step-text">Indienen voor review</span>
+                                <span class="step-tools">LMS / Teams</span>
+                                <span class="step-badge badge-manual">Handmatig</span>
+                            </div>
+                            <div class="flow-step">
+                                <span class="step-id">1.3.1.4</span>
+                                <span class="step-text">Review en update product assets</span>
+                                <span class="step-tools">LMS</span>
+                                <span class="step-badge badge-manual">Handmatig</span>
+                            </div>
+                            <div class="flow-step">
+                                <span class="step-id">1.3.1.5</span>
+                                <span class="step-text">Tone of voice review</span>
+                                <span class="step-tools">LMS</span>
+                                <span class="step-badge badge-manual">Handmatig</span>
+                            </div>
+                            <div class="flow-step">
+                                <span class="step-id">1.3.1.6</span>
+                                <span class="step-text">Brand assets voor LMS storefront review</span>
+                                <span class="step-tools">Various tools</span>
+                                <span class="step-badge badge-manual">Handmatig</span>
+                            </div>
+                            <div class="flow-step">
+                                <span class="step-id">1.3.1.7</span>
+                                <span class="step-text">Kwaliteitscontrole content</span>
+                                <span class="step-tools">Stappenplan</span>
+                                <span class="step-badge badge-manual">Handmatig</span>
+                            </div>
+                            <div class="flow-step">
+                                <span class="step-id">1.3.1.8</span>
+                                <span class="step-text">Content ordenen en beschrijven</span>
+                                <span class="step-tools">Stappenplan</span>
+                                <span class="step-badge badge-manual">Handmatig</span>
+                            </div>
+                            <div class="flow-step">
+                                <span class="step-id">1.3.1.9</span>
+                                <span class="step-text">Proces invoering / controle / ontsluiting contentbibliotheek opstellen</span>
+                                <span class="step-tools">Stappenplan</span>
+                                <span class="step-badge badge-manual">Handmatig</span>
+                            </div>
+                            <div class="flow-step">
+                                <span class="step-id">1.3.1.10</span>
+                                <span class="step-text">Uitvoering controle / ontsluiting contentbibliotheek</span>
+                                <span class="step-tools">Stappenplan</span>
+                                <span class="step-badge badge-manual">Handmatig</span>
+                            </div>
+                            <div class="flow-step">
+                                <span class="step-id">1.3.1.11</span>
+                                <span class="step-text">Communicatieplan proces &amp; doelgroep</span>
+                                <span class="step-tools">Stappenplan</span>
+                                <span class="step-badge badge-manual">Handmatig</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ─── 1.4 Product Sign-off ─── -->
+        <section class="section visible" id="signoff">
+            <div class="section-header">
+                <span class="chapter-tag">Hoofdstuk 4</span>
+                <h2>1.4 Product Sign‑off</h2>
+                <hr class="section-rule">
+                <p>Rond productdefinitie af, voer handover uit en bereid de projectomgeving voor.</p>
+            </div>
+
+            <div class="card">
+                <div class="card-body">
+                    <div class="card-title">
+                        <span class="badge-num">1.4</span>
+                        Productoplevering
+                        <span class="card-owner" style="margin-left:auto;">R&amp;D Specialist</span>
+                    </div>
+
+                    <div class="flow-list">
+                        <div class="flow-step">
+                            <span class="step-id">1.4.1</span>
+                            <span class="step-text">Product Tracker bijwerken vanuit productmap</span>
+                            <span class="step-tools">GSheets / ClickUp</span>
+                            <span class="step-badge badge-manual">Handmatig</span>
+                        </div>
+                        <div class="flow-step">
+                            <span class="step-id">1.4.2</span>
+                            <span class="step-text">'Product Overview'-document finaliseren</span>
+                            <span class="step-tools">GSheets / ClickUp</span>
+                            <span class="step-badge badge-manual">Handmatig</span>
+                        </div>
+                        <div class="flow-step">
+                            <span class="step-id">1.4.3</span>
+                            <span class="step-text">Product handover meeting</span>
+                            <span class="step-tools">GMeets / GSheets / ClickUp</span>
+                            <span class="step-badge badge-manual">Handmatig</span>
+                        </div>
+                        <div class="flow-step">
+                            <span class="step-id">1.4.4</span>
+                            <span class="step-text">Projectomgeving inrichten</span>
+                            <span class="step-tools">GSheets / ClickUp</span>
+                            <span class="step-badge badge-manual">Handmatig</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ═══════════════════════════════════════════════════
+        2.0 BRAND & PRODUCT MANAGEMENT
+        ═══════════════════════════════════════════════════ -->
+        <div class="section-divider">
+            <hr>
+            <span class="label">2.0 Brand &amp; Product Management</span>
+            <hr>
+        </div>
+
+        <!-- ─── 2.1 Product Listing Creation ─── -->
+        <section class="section visible" id="brand">
+            <div class="section-header">
+                <span class="chapter-tag">Hoofdstuk 5</span>
+                <h2>2.1 Product Listing Creation</h2>
+                <hr class="section-rule">
+                <p>Keyword-onderzoek, copywriting en creatie van productlistings met brand assets.</p>
+            </div>
+
+            <div class="card card-secondary">
+                <div class="card-body">
+                    <div class="card-title">
+                        <span class="badge-num green">2.1</span>
+                        Listing creatie
+                        <span class="card-owner" style="margin-left:auto;">Launch &amp; Brand Specialist</span>
+                    </div>
+
+                    <div class="flow-list">
+                        <div class="flow-step">
+                            <span class="step-id">2.1.1</span>
+                            <span class="step-text">Diepgaande keyword analyse en listing copy aanvragen</span>
+                            <span class="step-tools">GSheets / ClickUp</span>
+                            <span class="step-badge badge-manual">Handmatig</span>
+                        </div>
+                        <div class="flow-step">
+                            <span class="step-id">2.1.2</span>
+                            <span class="step-text">Listing copy voorbereiden en indienen</span>
+                            <span class="step-tools">GSheets / ClickUp</span>
+                            <span class="step-badge badge-manual">Handmatig</span>
+                        </div>
+                        <div class="flow-step">
+                            <span class="step-id">2.1.3</span>
+                            <span class="step-text">Brand assets voor EBC en storefront voorbereiden</span>
+                            <span class="step-tools">Various tools</span>
+                            <span class="step-badge badge-manual">Handmatig</span>
+                        </div>
+                        <div class="flow-step">
+                            <span class="step-id">2.1.4</span>
+                            <span class="step-text">Listing aanmaken en content uploaden (copy &amp; media) en indienen voor review</span>
+                            <span class="step-tools">ClickUp / Seller Central</span>
+                            <span class="step-badge badge-manual">Handmatig</span>
+                        </div>
+                        <div class="flow-step">
+                            <span class="step-id">2.1.5</span>
+                            <span class="step-text">Listing reviewen</span>
+                            <span class="step-tools">ClickUp / Seller Central</span>
+                            <span class="step-badge badge-manual">Handmatig</span>
+                        </div>
+                        <div class="flow-step">
+                            <span class="step-id">2.1.6</span>
+                            <span class="step-text">Wijzigingen coördineren met Graphic Designer / Copywriter en opnieuw indienen</span>
+                            <span class="step-tools">ClickUp / Seller Central</span>
+                            <span class="step-badge badge-manual">Handmatig</span>
+                        </div>
+                        <div class="flow-step">
+                            <span class="step-id">2.1.7</span>
+                            <span class="step-text">Orderstatus en listing activatie monitoren</span>
+                            <span class="step-tools">ClickUp / Seller Central</span>
+                            <span class="step-badge badge-auto">Geautomatiseerd</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ─── 2.2 Product Marketing Strategies ─── -->
+        <section class="section" id="marketing">
+            <div class="section-header">
+                <span class="chapter-tag">Hoofdstuk 6</span>
+                <h2>2.2 Product Marketing Strategies</h2>
+                <hr class="section-rule">
+                <p>Stel launchstrategieën vast, coördineer PPC en niet-PPC campagnes, en monitor prestaties.</p>
+            </div>
+
+            <div class="card card-tertiary">
+                <div class="card-body">
+                    <div class="card-title">
+                        <span class="badge-num" style="background:var(--primary-mid);">2.2</span>
+                        Marketingstrategieën
+                        <span class="card-owner" style="margin-left:auto;">Launch &amp; Brand Manager</span>
+                    </div>
+
+                    <div class="flow-list">
+                        <div class="flow-step">
+                            <span class="step-id">2.2.1</span>
+                            <span class="step-text">Launch strategieën en KPI‑doelen identificeren en vaststellen</span>
+                            <span class="step-tools">Various tools</span>
+                            <span class="step-badge badge-manual">Handmatig</span>
+                        </div>
+                        <div class="flow-step">
+                            <span class="step-id">2.2.2</span>
+                            <span class="step-text">Uitgevoerde keyword research reviewen en indienen bij Launch &amp; Brand Manager</span>
+                            <span class="step-tools">GSheets / ClickUp</span>
+                            <span class="step-badge badge-manual">Handmatig</span>
+                        </div>
+                        <div class="flow-step">
+                            <span class="step-id">2.2.3</span>
+                            <span class="step-text">Keyword lijst reviewen voor campagnes</span>
+                            <span class="step-tools">Various tools</span>
+                            <span class="step-badge badge-manual">Handmatig</span>
+                        </div>
+                        <div class="flow-step">
+                            <span class="step-id">2.2.4</span>
+                            <span class="step-text">PPC strategieën opzetten met PPC agency</span>
+                            <span class="step-tools">Meeting</span>
+                            <span class="step-badge badge-manual">Handmatig</span>
+                        </div>
+                        <div class="flow-step">
+                            <span class="step-id">2.2.5</span>
+                            <span class="step-text">Niet‑PPC marketingcampagnes opzetten of herzien</span>
+                            <span class="step-tools">Various tools</span>
+                            <span class="step-badge badge-manual">Handmatig</span>
+                        </div>
+                        <div class="flow-step">
+                            <span class="step-id">2.2.6</span>
+                            <span class="step-text">Opgezette campagnes reviewen</span>
+                            <span class="step-tools">Various tools</span>
+                            <span class="step-badge badge-manual">Handmatig</span>
+                        </div>
+                        <div class="flow-step">
+                            <span class="step-id">2.2.7</span>
+                            <span class="step-text">Campagne prestaties lanceren en monitoren</span>
+                            <span class="step-tools">Various tools</span>
+                            <span class="step-badge badge-auto">Geautomatiseerd</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ─── 2.3 Marketing Monitoring ─── -->
+        <section class="section" id="monitoring">
+            <div class="section-header">
+                <span class="chapter-tag">Hoofdstuk 7</span>
+                <h2>2.3 Marketing Strategies Monitoring</h2>
+                <hr class="section-rule">
+                <p>Analyseer campagneprestaties, rapporteer wekelijks en pas waar nodig bij.</p>
+            </div>
+
+            <div class="card">
+                <div class="card-body">
+                    <div class="card-title">
+                        <span class="badge-num">2.3</span>
+                        Marketingmonitoring
+                        <span class="card-owner" style="margin-left:auto;">Launch &amp; Brand Specialist / Manager</span>
+                    </div>
+
+                    <div class="flow-list">
+                        <div class="flow-step">
+                            <span class="step-id">2.3.1</span>
+                            <span class="step-text">Launch / campagne prestaties monitoren en analyseren</span>
+                            <span class="step-tools">Dynamics</span>
+                            <span class="step-badge badge-auto">Geautomatiseerd</span>
+                        </div>
+                        <div class="flow-step">
+                            <span class="step-id">2.3.2</span>
+                            <span class="step-text">Rapporteren tijdens wekelijkse meeting</span>
+                            <span class="step-tools">Team 2.0</span>
+                            <span class="step-badge badge-manual">Handmatig</span>
+                            <span class="step-badge badge-frequency">⏱ Wekelijks</span>
+                        </div>
+                        <div class="flow-step">
+                            <span class="step-id">2.3.3</span>
+                            <span class="step-text">Bevindingen en acties reviewen</span>
+                            <span class="step-tools">Team 2.0</span>
+                            <span class="step-badge badge-manual">Handmatig</span>
+                        </div>
+                        <div class="flow-step">
+                            <span class="step-id">2.3.4</span>
+                            <span class="step-text">Aanpassingen doorvoeren indien nodig</span>
+                            <span class="step-tools">Team 2.0</span>
+                            <span class="step-badge badge-manual">Handmatig</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ─── 2.4 Product Performance ─── -->
+        <section class="section" id="performance">
+            <div class="section-header">
+                <span class="chapter-tag">Hoofdstuk 8</span>
+                <h2>2.4 Product Performance Management</h2>
+                <hr class="section-rule">
+                <p>Monitor productprestaties, signaleer afwijkingen en stuur bij met datagestuurde acties.</p>
+            </div>
+
+            <div class="card card-secondary">
+                <div class="card-body">
+                    <div class="card-title">
+                        <span class="badge-num green">2.4</span>
+                        Performance management
+                        <span class="card-owner" style="margin-left:auto;">Launch &amp; Brand Specialist</span>
+                    </div>
+
+                    <div class="flow-list">
+                        <div class="flow-step">
+                            <span class="step-id">2.4.1</span>
+                            <span class="step-text">Performance metrics reviewen</span>
+                            <span class="step-tools">Dynamics</span>
+                            <span class="step-badge badge-auto">Geautomatiseerd</span>
+                            <span class="step-badge badge-frequency">⏱ Wekelijks</span>
+                        </div>
+                        <div class="flow-step">
+                            <span class="step-id">2.4.2</span>
+                            <span class="step-text">Nieuw gelanceerde producten monitoren</span>
+                            <span class="step-tools">Automate Dynamics</span>
+                            <span class="step-badge badge-auto">Geautomatiseerd</span>
+                            <span class="step-badge badge-frequency">⏱ Maandelijks</span>
+                        </div>
+                        <div class="flow-step">
+                            <span class="step-id">2.4.3</span>
+                            <span class="step-text">Volwassen / bestaande producten monitoren</span>
+                            <span class="step-tools">Automate Dynamics</span>
+                            <span class="step-badge badge-auto">Geautomatiseerd</span>
+                        </div>
+                        <div class="flow-step">
+                            <span class="step-id">2.4.4</span>
+                            <span class="step-text">Gemarkeerde items / bevindingen rapporteren tijdens maandelijkse Performance Team Meeting</span>
+                            <span class="step-tools">Team 2.0</span>
+                            <span class="step-badge badge-manual">Handmatig</span>
+                            <span class="step-badge badge-frequency">⏱ Maandelijks</span>
+                        </div>
+                        <div class="flow-step">
+                            <span class="step-id">2.4.5</span>
+                            <span class="step-text">Actie / strategie plannen voor bevindingen</span>
+                            <span class="step-tools">Team 2.0 / Backlog</span>
+                            <span class="step-badge badge-manual">Handmatig</span>
+                        </div>
+                        <div class="flow-step">
+                            <span class="step-id">2.4.6</span>
+                            <span class="step-text">Aanpassingen en optimalisaties doorvoeren</span>
+                            <span class="step-tools">Various tools</span>
+                            <span class="step-badge badge-manual">Handmatig</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ─── 2.5 Influencer Marketing ─── -->
+        <section class="section" id="influencer">
+            <div class="section-header">
+                <span class="chapter-tag">Hoofdstuk 9</span>
+                <h2>2.5 Influencer Marketing</h2>
+                <hr class="section-rule">
+                <p>Identificeer, benader en beheer influencers voor merkversterking en bereik.</p>
+            </div>
+
+            <div class="card card-tertiary">
+                <div class="card-body">
+                    <div class="card-title">
+                        <span class="badge-num" style="background:var(--primary-mid);">2.5</span>
+                        Influencer marketing
+                        <span class="card-owner" style="margin-left:auto;">Launch &amp; Brand Manager</span>
+                    </div>
+
+                    <div class="flow-list">
+                        <div class="flow-step">
+                            <span class="step-id">2.5.1</span>
+                            <span class="step-text">Potentiële influencers identificeren</span>
+                            <span class="step-tools">Channel Crawler</span>
+                            <span class="step-badge badge-manual">Handmatig</span>
+                        </div>
+                        <div class="flow-step">
+                            <span class="step-id">2.5.2</span>
+                            <span class="step-text">Influencer informatie verzamelen en contact opnemen</span>
+                            <span class="step-tools">Channel Crawler / YouTube / IG / FB / ClickUp</span>
+                            <span class="step-badge badge-manual">Handmatig</span>
+                        </div>
+                        <div class="flow-step">
+                            <span class="step-id">2.5.3</span>
+                            <span class="step-text">Influencer offers samenvoegen en indienen voor review</span>
+                            <span class="step-tools">ClickUp</span>
+                            <span class="step-badge badge-manual">Handmatig</span>
+                        </div>
+                        <div class="flow-step">
+                            <span class="step-id">2.5.4</span>
+                            <span class="step-text">Influencer offer reviewen</span>
+                            <span class="step-tools">ClickUp</span>
+                            <span class="step-badge badge-manual">Handmatig</span>
+                        </div>
+                        <div class="flow-step">
+                            <span class="step-id">2.5.5</span>
+                            <span class="step-text">Influencer deal bevestigen en items verzenden</span>
+                            <span class="step-tools">Gmail / Seller Central</span>
+                            <span class="step-badge badge-manual">Handmatig</span>
+                        </div>
+                        <div class="flow-step">
+                            <span class="step-id">2.5.6</span>
+                            <span class="step-text">Influencer kanaal en productprestaties monitoren</span>
+                            <span class="step-tools">Social Media / ClickUp</span>
+                            <span class="step-badge badge-auto">Geautomatiseerd</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ═══════════════════════════════════════════════════
+        3.0 SUPPLY CHAIN
+        ═══════════════════════════════════════════════════ -->
+        <div class="section-divider">
+            <hr>
+            <span class="label">3.0 Supply Chain Management • Training delivery</span>
+            <hr>
+        </div>
+
+        <!-- ─── 3.1 Forecasting ─── -->
+        <section class="section" id="supply">
+            <div class="section-header">
+                <span class="chapter-tag">Hoofdstuk 10</span>
+                <h2>3.1 Forecasting and Inventory Management</h2>
+                <hr class="section-rule">
+                <p>Prognosticeer verkoop, voorraad en inkomsten; stem af met CEO en Operations.</p>
+            </div>
+
+            <div class="card">
+                <div class="card-body">
+                    <div class="card-title">
+                        <span class="badge-num">3.1</span>
+                        Forecasting
+                        <span class="card-owner" style="margin-left:auto;">Supply Chain Specialist</span>
+                    </div>
+
+                    <div class="flow-list">
+                        <div class="flow-step">
+                            <span class="step-id">3.1.1</span>
+                            <span class="step-text">Sales, Revenue en Inventory Forecast voor het kwartaal controleren</span>
+                            <span class="step-tools">GSheets / ClickUp</span>
+                            <span class="step-badge badge-manual">Handmatig</span>
+                        </div>
+                        <div class="flow-step">
+                            <span class="step-id">3.1.2</span>
+                            <span class="step-text">Forecast presenteren en finaliseren met CEO en Operations Manager</span>
+                            <span class="step-tools">Meeting / ClickUp</span>
+                            <span class="step-badge badge-manual">Handmatig</span>
+                        </div>
+                        <div class="flow-step">
+                            <span class="step-id">3.1.3</span>
+                            <span class="step-text">Forecast reviewen en goedkeuren</span>
+                            <span class="step-tools">SoStocked / ClickUp</span>
+                            <span class="step-badge badge-decision">Beslissing</span>
+                        </div>
+                        <div class="flow-step">
+                            <span class="step-id">3.1.4</span>
+                            <span class="step-text">Forecast aanpassen op basis van discussie en feedback</span>
+                            <span class="step-tools">SoStocked / ClickUp</span>
+                            <span class="step-badge badge-manual">Handmatig</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ─── 3.2 Training activation ─── -->
+        <section class="section" id="activation">
+            <div class="section-header">
+                <span class="chapter-tag">Hoofdstuk 11</span>
+                <h2>3.2 Training activation &amp; 'shipping' preparation</h2>
+                <hr class="section-rule">
+                <p>Activeer trainingen in LMS, beheer voorraadtriggers en coördineer levering.</p>
+            </div>
+
+            <div class="card card-secondary">
+                <div class="card-body">
+                    <div class="card-title">
+                        <span class="badge-num green">3.2</span>
+                        Training activatie
+                        <span class="card-owner" style="margin-left:auto;">Supply Chain Specialist</span>
+                    </div>
+
+                    <div class="flow-list">
+                        <div class="flow-step">
+                            <span class="step-id">3.2.1</span>
+                            <span class="step-text">Voorraad en reorder triggers bepalen (SKUs en aantal units)</span>
+                            <span class="step-tools">SoStocked / Seller Central / ClickUp</span>
+                            <span class="step-badge badge-manual">Handmatig</span>
+                        </div>
+                        <div class="flow-step">
+                            <span class="step-id">3.2.2</span>
+                            <span class="step-text">Training activatie in LMS voorbereiden en inrichten</span>
+                            <span class="step-tools">Seller Central / SoStocked / ShipmentMakerPro</span>
+                            <span class="step-badge badge-manual">Handmatig</span>
+                        </div>
+                        <div class="flow-step">
+                            <span class="step-id">3.2.3</span>
+                            <span class="step-text">Training activatie monitoren</span>
+                            <span class="step-tools">SoStocked / Seller Central / ClickUp</span>
+                            <span class="step-badge badge-auto">Geautomatiseerd</span>
+                        </div>
+                        <div class="flow-step">
+                            <span class="step-id">3.2.4</span>
+                            <span class="step-text">FBA Shipments Management</span>
+                            <span class="step-tools">Gmail / Seller Central / SoStocked</span>
+                            <span class="step-badge badge-manual">Handmatig</span>
+                        </div>
+                        <div class="flow-step">
+                            <span class="step-id">3.2.5</span>
+                            <span class="step-text">Activatie uitvoering en customer delivery voorbereiden</span>
+                            <span class="step-tools">LMS</span>
+                            <span class="step-badge badge-manual">Handmatig</span>
+                        </div>
+                        <div class="flow-step">
+                            <span class="step-id">3.2.6</span>
+                            <span class="step-text">Activatie ontvangen van trainer / moderator</span>
+                            <span class="step-tools">Teams</span>
+                            <span class="step-badge badge-manual">Handmatig</span>
+                        </div>
+                        <div class="flow-step">
+                            <span class="step-id">3.2.7</span>
+                            <span class="step-text">Versturen naar L&amp;D Pro Co oversight</span>
+                            <span class="step-tools">SoStocked / Gmail / Paypal</span>
+                            <span class="step-badge badge-manual">Handmatig</span>
+                        </div>
+                        <div class="flow-step">
+                            <span class="step-id">3.2.8</span>
+                            <span class="step-text">Versturen naar projectmanagement / leverancier, tracker bijwerken en order monitoren</span>
+                            <span class="step-tools">SoStocked / Gmail / Paypal</span>
+                            <span class="step-badge badge-manual">Handmatig</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ─── 3.3 Shipping ─── -->
+        <section class="section" id="shipping">
+            <div class="section-header">
+                <span class="chapter-tag">Hoofdstuk 12</span>
+                <h2>3.3 'Delivering' training logistics</h2>
+                <hr class="section-rule">
+                <p>Monitors, inspecteer en coördineer de fysieke en digitale levering van trainingen.</p>
+            </div>
+
+            <div class="card card-tertiary">
+                <div class="card-body">
+                    <div class="card-title">
+                        <span class="badge-num" style="background:var(--primary-mid);">3.3</span>
+                        Logistiek
+                        <span class="card-owner" style="margin-left:auto;">Supply Chain Specialist</span>
+                    </div>
+
+                    <div class="flow-list">
+                        <div class="flow-step">
+                            <span class="step-id">3.3.1</span>
+                            <span class="step-text">Voortgang van uitvoering logistiek training monitoren</span>
+                            <span class="step-tools">Teams</span>
+                            <span class="step-badge badge-auto">Geautomatiseerd</span>
+                        </div>
+                        <div class="flow-step">
+                            <span class="step-id">3.3.2</span>
+                            <span class="step-text">Inspectie van logistiek training verwerken</span>
+                            <span class="step-tools">Teams</span>
+                            <span class="step-badge badge-manual">Handmatig</span>
+                        </div>
+                        <div class="flow-step">
+                            <span class="step-id">3.3.3</span>
+                            <span class="step-text">Inspectierapport ontvangen en in CU plaatsen voor review</span>
+                            <span class="step-tools">Teams</span>
+                            <span class="step-badge badge-manual">Handmatig</span>
+                        </div>
+                        <div class="flow-step">
+                            <span class="step-id">3.3.4</span>
+                            <span class="step-text">Inspectierapport reviewen en verzending goedkeuren</span>
+                            <span class="step-tools">Teams</span>
+                            <span class="step-badge badge-decision">Beslissing</span>
+                        </div>
+                        <div class="flow-step">
+                            <span class="step-id">3.3.5</span>
+                            <span class="step-text">Coördineren met freight forwarder voor verzending</span>
+                            <span class="step-tools">Teams</span>
+                            <span class="step-badge badge-manual">Handmatig</span>
+                        </div>
+                        <div class="flow-step">
+                            <span class="step-id">3.3.6</span>
+                            <span class="step-text">Orderverzending monitoren</span>
+                            <span class="step-tools">Teams</span>
+                            <span class="step-badge badge-auto">Geautomatiseerd</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ─── 3.4 Inventory Maintenance ─── -->
+        <section class="section" id="inventory">
+            <div class="section-header">
+                <span class="chapter-tag">Hoofdstuk 13</span>
+                <h2>3.4 Training Inventory Maintenance</h2>
+                <hr class="section-rule">
+                <p>Bewaak de IPI-score en ontwikkel strategieën voor optimalisatie.</p>
+            </div>
+
+            <div class="card">
+                <div class="card-body">
+                    <div class="card-title">
+                        <span class="badge-num">3.4</span>
+                        Voorraadbeheer
+                        <span class="card-owner" style="margin-left:auto;">Supply Chain Specialist</span>
+                    </div>
+
+                    <div class="flow-list">
+                        <div class="flow-step">
+                            <span class="step-id">3.4.1</span>
+                            <span class="step-text">IPI Score monitoren</span>
+                            <span class="step-tools">Seller Central</span>
+                            <span class="step-badge badge-auto">Geautomatiseerd</span>
+                        </div>
+                        <div class="flow-step">
+                            <span class="step-id">3.4.2</span>
+                            <span class="step-text">Strategie bepalen om IPI score te verbeteren</span>
+                            <span class="step-tools">SoStocked / Seller Central</span>
+                            <span class="step-badge badge-manual">Handmatig</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ═══════════════════════════════════════════════════
+        4.0 CUSTOMER SERVICE
+        ═══════════════════════════════════════════════════ -->
+        <div class="section-divider">
+            <hr>
+            <span class="label">4.0 Product &amp; Customer Support</span>
+            <hr>
+        </div>
+
+        <!-- ─── 4.1 Customer Service ─── -->
+        <section class="section" id="service">
+            <div class="section-header">
+                <span class="chapter-tag">Hoofdstuk 14</span>
+                <h2>4.1 Customer Service</h2>
+                <hr class="section-rule">
+                <p>Beantwoord klantvragen snel en accuraat met gestandaardiseerde templates.</p>
+            </div>
+
+            <div class="card card-secondary">
+                <div class="card-body">
+                    <div class="card-title">
+                        <span class="badge-num green">4.1</span>
+                        Klantenservice
+                        <span class="card-owner" style="margin-left:auto;">Customer Service Specialist</span>
+                    </div>
+
+                    <div class="flow-list">
+                        <div class="flow-step">
+                            <span class="step-id">4.1.1</span>
+                            <span class="step-text">E‑mails en berichten van klanten controleren</span>
+                            <span class="step-tools">System / Tool</span>
+                            <span class="step-badge badge-manual">Handmatig</span>
+                        </div>
+                        <div class="flow-step">
+                            <span class="step-id">4.1.2</span>
+                            <span class="step-text">Beoordelen of het een productvraag of positieve boodschap betreft</span>
+                            <span class="step-tools">System / Tool</span>
+                            <span class="step-badge badge-decision">Beslissing</span>
+                        </div>
+                        <div class="flow-step">
+                            <span class="step-id">4.1.3</span>
+                            <span class="step-text">Orderstatus controleren in Seller Central</span>
+                            <span class="step-tools">System / Tool</span>
+                            <span class="step-badge badge-auto">Geautomatiseerd</span>
+                        </div>
+                        <div class="flow-step">
+                            <span class="step-id">4.1.4</span>
+                            <span class="step-text">Antwoorden met template voor specifieke productinformatie</span>
+                            <span class="step-tools">System / Tool</span>
+                            <span class="step-badge badge-manual">Handmatig</span>
+                        </div>
+                    </div>
+
+                    <div class="flow-note">
+                        <span class="icon">⏱</span> Streef: antwoord binnen 24 uur
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ─── 4.2 Refunds ─── -->
+        <section class="section" id="refunds">
+            <div class="section-header">
+                <span class="chapter-tag">Hoofdstuk 15</span>
+                <h2>4.2 Refunds and Replacements</h2>
+                <hr class="section-rule">
+                <p>Verwerk retourzendingen, restituties en vervangingen op een klantvriendelijke manier.</p>
+            </div>
+
+            <div class="card card-tertiary">
+                <div class="card-body">
+                    <div class="card-title">
+                        <span class="badge-num" style="background:var(--primary-mid);">4.2</span>
+                        Retour &amp; vervanging
+                        <span class="card-owner" style="margin-left:auto;">Customer Service Specialist</span>
+                    </div>
+
+                    <div class="flow-list">
+                        <div class="flow-step">
+                            <span class="step-id">4.2.1</span>
+                            <span class="step-text">Reageren op de klant voor de actie op het probleem</span>
+                            <span class="step-tools">System / Tool</span>
+                            <span class="step-badge badge-manual">Handmatig</span>
+                        </div>
+                        <div class="flow-step">
+                            <span class="step-id">4.2.2</span>
+                            <span class="step-text">Retour, refund of vervanging verwerken</span>
+                            <span class="step-tools">System / Tool</span>
+                            <span class="step-badge badge-manual">Handmatig</span>
+                        </div>
+                        <div class="flow-step">
+                            <span class="step-id">4.2.3</span>
+                            <span class="step-text">Klant informeren dat refund / vervanging is verwerkt</span>
+                            <span class="step-tools">System / Tool</span>
+                            <span class="step-badge badge-manual">Handmatig</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ─── 4.3 Trainer Feedback ─── -->
+        <section class="section" id="feedback">
+            <div class="section-header">
+                <span class="chapter-tag">Hoofdstuk 16</span>
+                <h2>4.3 Trainer Feedback Management</h2>
+                <hr class="section-rule">
+                <p>Beoordeel trainerfeedback dagelijks en verwijder waar nodig onjuiste beoordelingen.</p>
+            </div>
+
+            <div class="card">
+                <div class="card-body">
+                    <div class="card-title">
+                        <span class="badge-num">4.3</span>
+                        Trainerfeedback
+                        <span class="card-owner" style="margin-left:auto;">Customer Service Specialist</span>
+                    </div>
+
+                    <div class="flow-list">
+                        <div class="flow-step">
+                            <span class="step-id">4.3.1</span>
+                            <span class="step-text">Trainer feedback controleren en reviewen</span>
+                            <span class="step-tools">System / Tool</span>
+                            <span class="step-badge badge-manual">Handmatig</span>
+                            <span class="step-badge badge-frequency">⏱ Dagelijks</span>
+                        </div>
+                        <div class="flow-step">
+                            <span class="step-id">4.3.2</span>
+                            <span class="step-text">Verwijdering van ongepaste / incorrecte feedback aanvragen</span>
+                            <span class="step-tools">System / Tool</span>
+                            <span class="step-badge badge-manual">Handmatig</span>
+                        </div>
+                        <div class="flow-step">
+                            <span class="step-id">4.3.3</span>
+                            <span class="step-text">Verwijdering monitoren en Feedback monitoring bijwerken</span>
+                            <span class="step-tools">System / Tool</span>
+                            <span class="step-badge badge-auto">Geautomatiseerd</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ─── 4.4 Product Review ─── -->
+        <section class="section" id="reviews">
+            <div class="section-header">
+                <span class="chapter-tag">Hoofdstuk 17</span>
+                <h2>4.4 Product Review Management</h2>
+                <hr class="section-rule">
+                <p>Vat productreviews samen en identificeer terugkerende issues voor verbetering.</p>
+            </div>
+
+            <div class="card card-secondary">
+                <div class="card-body">
+                    <div class="card-title">
+                        <span class="badge-num green">4.4</span>
+                        Productreview
+                        <span class="card-owner" style="margin-left:auto;">Customer Service Specialist</span>
+                    </div>
+
+                    <div class="flow-list">
+                        <div class="flow-step">
+                            <span class="step-id">4.4.1</span>
+                            <span class="step-text">Productreviews van klanten beoordelen en samenvatten</span>
+                            <span class="step-tools">System / Tool</span>
+                            <span class="step-badge badge-manual">Handmatig</span>
+                        </div>
+                        <div class="flow-step">
+                            <span class="step-id">4.4.2</span>
+                            <span class="step-text">Problemen die deze week zijn tegengekomen voorbereiden voor bespreking</span>
+                            <span class="step-tools">System / Tool</span>
+                            <span class="step-badge badge-manual">Handmatig</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ═══════════════════════════════════════════════════
+        ACCOUNTABILITY CHART
+        ═══════════════════════════════════════════════════ -->
+        <div class="section-divider">
+            <hr>
+            <span class="label">Accountability Chart</span>
+            <hr>
+        </div>
+
+        <section class="section" id="accountability">
+            <div class="section-header">
+                <span class="chapter-tag">Verantwoordelijkheden</span>
+                <h2>Rollen &amp; verantwoordelijkheden</h2>
+                <hr class="section-rule">
+                <p>Overzicht van kernrollen, bijbehorende verantwoordelijkheden en delegatieniveau.</p>
+            </div>
+
+            <div class="accountability-grid">
+                <!-- CEO -->
+                <div class="acct-card">
+                    <div class="role">CEO</div>
+                    <div class="name">John D.</div>
+                    <ul class="acc-list">
+                        <li>Direction &amp; Growth</li>
+                        <li>Business Development</li>
+                        <li>Creative / Problem Solving</li>
+                        <li>Big Idea Generation</li>
+                    </ul>
+                    <span class="delegation">Delegation/Automation Index — X/10</span>
+                </div>
+
+                <!-- COO -->
+                <div class="acct-card">
+                    <div class="role">COO</div>
+                    <div class="name">—</div>
+                    <ul class="acc-list">
+                        <li>Lead, Manage, Accountability</li>
+                        <li>Project &amp; Process Management</li>
+                        <li>Performance Monitoring / KPI</li>
+                        <li>Continuous Improvement</li>
+                        <li>Company Culture</li>
+                    </ul>
+                    <span class="delegation">Delegation/Automation Index — X/10</span>
+                </div>
+
+                <!-- Launch & Brand Manager -->
+                <div class="acct-card">
+                    <div class="role">Launch &amp; Brand Manager</div>
+                    <div class="name">Drew C.</div>
+                    <ul class="acc-list">
+                        <li>LMA — Product Launch Success</li>
+                        <li>Marketing &amp; Sales Strategy Development</li>
+                        <li>Liaise with PPC Agency</li>
+                        <li>Ongoing Launch and Product Analysis</li>
+                    </ul>
+                    <span class="delegation">Delegation/Automation Index — X/10</span>
+                </div>
+
+                <!-- PPC Agency -->
+                <div class="acct-card">
+                    <div class="role">PPC Agency</div>
+                    <div class="name">—</div>
+                    <ul class="acc-list">
+                        <li>PPC strategies</li>
+                        <li>PPC campaign setup</li>
+                        <li>PPC optimization</li>
+                        <li>PPC monitoring and reporting</li>
+                    </ul>
+                    <span class="delegation">Delegation/Automation Index — X/10</span>
+                </div>
+
+                <!-- Copywriter -->
+                <div class="acct-card">
+                    <div class="role">Copywriter</div>
+                    <div class="name">—</div>
+                    <ul class="acc-list">
+                        <li>Amazon listing copy</li>
+                        <li>Campaigns copy</li>
+                        <li>Website write‑up</li>
+                        <li>Product Packaging copy</li>
+                    </ul>
+                    <span class="delegation">Delegation/Automation Index — X/10</span>
+                </div>
+
+                <!-- Graphic Designer -->
+                <div class="acct-card">
+                    <div class="role">Graphic Designer</div>
+                    <div class="name">—</div>
+                    <ul class="acc-list">
+                        <li>Product Design</li>
+                        <li>Packaging Design</li>
+                        <li>Assets creation for listing, storefront, EBC</li>
+                    </ul>
+                    <span class="delegation">Delegation/Automation Index — X/10</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- ═══════════════════════════════════════════════════
+        MEETINGS
+        ═══════════════════════════════════════════════════ -->
+        <div class="section-divider">
+            <hr>
+            <span class="label">Meetings &amp; Agendas</span>
+            <hr>
+        </div>
+
+        <section class="section" id="meetings">
+            <div class="section-header">
+                <span class="chapter-tag">Overlegstructuur</span>
+                <h2>Teamoverleggen &amp; frequentie</h2>
+                <hr class="section-rule">
+                <p>Regelmatige afstemming over voortgang, KPI's en actiepunten.</p>
+            </div>
+
+            <div class="table-wrap">
+                <div class="table-body">
+                    <table class="meeting-table">
+                        <thead>
+                            <tr>
+                                <th>Team / Department</th>
+                                <th>Attendees</th>
+                                <th>Frequentie</th>
+                                <th>Agenda</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Business Review</strong></td>
+                                <td>Leadership Team</td>
+                                <td>Maandelijks</td>
+                                <td>Previous month's performance · Current month's targets · Action plans</td>
+                            </tr>
+                            <tr>
+                                <td><strong>L10 Meetings</strong></td>
+                                <td>Leadership Team</td>
+                                <td>Wekelijks</td>
+                                <td>Scorecards · Rocks status · Items to Identify‑Discuss‑Solve (IDS)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>R&amp;D team</strong></td>
+                                <td>R&amp;D Team</td>
+                                <td>Wekelijks</td>
+                                <td>Team Scorecard · Updates and status on tasks · Action plans</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ═══════════════════════════════════════════════════
+    FOOTER
+    ═══════════════════════════════════════════════════ -->
+    <footer class="site-footer">
+        <div class="footer-inner">
+            <div class="footer-brand">
+                <span class="name">De Baak</span>
+                <span class="tagline">Training · Ontwikkeling · Leiderschap · Sinds 1947</span>
+            </div>
+            <div class="footer-meta">
+                <div>ProcesOnlineTraining · Versie 1.0</div>
+                <div>10 augustus 2022 · <span class="url">debaak.nl</span></div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ═══════════════════════════════════════════════════
+    JAVASCRIPT
+    ═══════════════════════════════════════════════════ -->
+    <script>
+        (function() {
+            'use strict';
+
+            // ─── Progress bar ───
+            const progressBar = document.getElementById('progress-bar');
+            const hero = document.querySelector('.hero');
+            const footer = document.querySelector('.site-footer');
+
+            function updateProgress() {
+                const scrollTop = window.scrollY;
+                const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+                const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+                progressBar.style.width = Math.min(progress, 100) + '%';
+            }
+
+            window.addEventListener('scroll', updateProgress, { passive: true });
+            window.addEventListener('resize', updateProgress, { passive: true });
+            updateProgress();
+
+            // ─── Scroll reveal (IntersectionObserver) ───
+            const sections = document.querySelectorAll('.section');
+            const observer = new IntersectionObserver(function(entries) {
+                for (const entry of entries) {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                }
+            }, {
+                threshold: 0.08,
+                rootMargin: '-80px 0px -40px 0px'
+            });
+
+            for (const section of sections) {
+                observer.observe(section);
+            }
+
+            // ─── Smooth anchor links ───
+            document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
+                anchor.addEventListener('click', function(e) {
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        e.preventDefault();
+                        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                });
+            });
+
+        })();
+    </script>
+
+
+</body></html>

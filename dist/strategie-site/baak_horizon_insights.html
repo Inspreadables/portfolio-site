@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<!-- saved from url=(0086)file:///C:/Users/arijj/Desktop/Presentatiesdeepseek/deepseek_html_20260602_b372e1.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>De Baak | Infographic Insights</title>
+    <style>
+        /* ---------- DE BAAK HUISSTIJL V2.0 ---------- */
+        :root {
+            --primary: #005ADC;
+            --secondary: #00A555;
+            --accent: #FFE100;
+            --bg: #F5F5EB;
+            --text: #1A1A2E;
+            --shadow: 0 16px 28px -12px rgba(0, 0, 0, 0.12), 0 4px 12px -4px rgba(0, 0, 0, 0.06);
+            --card-radius: 16px;
+            --touch-min: 44px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.45;
+            scroll-behavior: smooth;
+        }
+
+        /* main container – responsive width */
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+        }
+
+        /* TITLE & HEADER */
+        .infographic-header {
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+        .infographic-header h1 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            letter-spacing: -0.3px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            margin-bottom: 0.5rem;
+        }
+        .infographic-header p {
+            font-size: 1.1rem;
+            color: #3a3a50;
+            max-width: 580px;
+            margin: 0 auto;
+        }
+
+        /* ----- DOT LEGEND (color indicator) ----- */
+        .legend {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1.8rem;
+            margin-bottom: 2rem;
+            padding: 0.5rem 0;
+            background: rgba(0, 90, 220, 0.03);
+            border-radius: 48px;
+        }
+        .legend-item {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            min-height: var(--touch-min);
+            padding: 0 0.25rem;
+        }
+        .legend-dot {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: inline-block;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        .legend-dot.primary-dot { background-color: var(--primary); }
+        .legend-dot.secondary-dot { background-color: var(--secondary); }
+        .legend-dot.accent-dot { background-color: var(--accent); }
+        .legend-item span:last-child {
+            color: var(--text);
+        }
+
+        /* ----- TABS (touch friendly) ----- */
+        .tabs-nav {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 0.75rem;
+            margin-bottom: 2.5rem;
+            border-bottom: 2px solid rgba(0, 90, 220, 0.2);
+            padding-bottom: 0.75rem;
+        }
+        .tab-btn {
+            background: transparent;
+            border: none;
+            font-family: Arial, sans-serif;
+            font-weight: 700;
+            font-size: 1.1rem;
+            padding: 0.85rem 1.8rem;
+            min-width: var(--touch-min);
+            min-height: var(--touch-min);
+            border-radius: 48px;
+            cursor: pointer;
+            color: #2c2c42;
+            transition: all 0.2s ease;
+            background-color: #ffffffc9;
+            backdrop-filter: blur(2px);
+        }
+        .tab-btn:hover {
+            background-color: white;
+            color: var(--primary);
+            transform: translateY(-2px);
+        }
+        .tab-btn.active {
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 6px 12px -6px var(--primary);
+        }
+        /* tab content containers */
+        .tab-pane {
+            display: none;
+            animation: fadeIn 0.25s ease;
+        }
+        .tab-pane.active-pane {
+            display: block;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px);}
+            to { opacity: 1; transform: translateY(0);}
+        }
+
+        /* 2-COLUMN CARD GRID */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.8rem;
+        }
+
+        /* CARD STYLES (white background, top border 4px, shadow, radius) */
+        .card {
+            background: white;
+            border-radius: var(--card-radius);
+            box-shadow: var(--shadow);
+            padding: 1.5rem;
+            transition: all 0.25s ease;
+            border-top: 4px solid;
+            border-top-color: transparent;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 24px 36px -16px rgba(0,0,0,0.15);
+        }
+        /* individual border top colours */
+        .card-primary {
+            border-top-color: var(--primary);
+        }
+        .card-secondary {
+            border-top-color: var(--secondary);
+        }
+        .card-accent {
+            border-top-color: var(--accent);
+        }
+        .card h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+            color: #0f172a;
+        }
+        .card p {
+            color: #334155;
+            line-height: 1.5;
+            font-size: 0.95rem;
+        }
+        .card-meta {
+            margin-top: 1rem;
+            display: inline-block;
+            font-weight: 600;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .card-primary .card-meta { color: var(--primary); }
+        .card-secondary .card-meta { color: var(--secondary); }
+        .card-accent .card-meta { color: #bb8f00; }
+
+        /* FOOTER with gradient bottom bar (green - yellow - green) */
+        .site-footer {
+            background: var(--primary);
+            color: white;
+            margin-top: 3rem;
+            position: relative;
+        }
+        .footer-content {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem 1.8rem;
+            text-align: center;
+        }
+        .footer-content p {
+            margin: 0.4rem 0;
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+        .footer-bottom-bar {
+            height: 8px;
+            width: 100%;
+            background: linear-gradient(90deg, var(--secondary) 0%, var(--accent) 50%, var(--secondary) 100%);
+        }
+        .footer-link {
+            color: rgba(255,255,255,0.9);
+            text-decoration: none;
+            border-bottom: 1px dotted rgba(255,255,255,0.4);
+        }
+        .footer-link:hover {
+            color: var(--accent);
+        }
+
+        /* ----- RESPONSIVE (mobile: stack cards + bigger tap zones) ----- */
+        @media (max-width: 768px) {
+            .container {
+                padding: 1.25rem;
+            }
+            .cards-grid {
+                grid-template-columns: 1fr;  /* stack layout */
+                gap: 1.25rem;
+            }
+            .tab-btn {
+                padding: 0.7rem 1.2rem;
+                font-size: 1rem;
+                flex: 0 0 auto;
+            }
+            .tabs-nav {
+                gap: 0.5rem;
+                justify-content: flex-start;
+                overflow-x: auto;
+                padding-bottom: 0.5rem;
+                flex-wrap: nowrap;
+                -webkit-overflow-scrolling: touch;
+            }
+            .tab-btn {
+                white-space: nowrap;
+            }
+            .legend-item {
+                min-width: auto;
+                padding: 0.25rem 0.5rem;
+            }
+            .legend {
+                gap: 1rem;
+            }
+            .card {
+                padding: 1.2rem;
+            }
+            .card h3 {
+                font-size: 1.3rem;
+            }
+        }
+
+        /* extra fine tuning for very small devices */
+        @media (max-width: 480px) {
+            .legend-item {
+                font-size: 0.8rem;
+            }
+            .legend-dot {
+                width: 18px;
+                height: 18px;
+            }
+            .tab-btn {
+                padding: 0.6rem 1rem;
+                font-size: 0.9rem;
+            }
+        }
+
+        /* accessibility / focus outlines */
+        button:focus-visible, .tab-btn:focus-visible {
+            outline: 3px solid var(--accent);
+            outline-offset: 2px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="infographic-header">
+        <h1>De Baak · horizon insights</h1>
+        <p>data-driven foresight · strategy · impact</p>
+    </div>
+
+    <!-- DOT LEGEND (color coding) -->
+    <div class="legend">
+        <div class="legend-item">
+            <span class="legend-dot primary-dot"></span>
+            <span>Strategisch leiderschap</span>
+        </div>
+        <div class="legend-item">
+            <span class="legend-dot secondary-dot"></span>
+            <span>Operationele groei</span>
+        </div>
+        <div class="legend-item">
+            <span class="legend-dot accent-dot"></span>
+            <span>Vernieuwing &amp; transitie</span>
+        </div>
+    </div>
+
+    <!-- TABS (3 tabs) -->
+    <div class="tabs-nav" role="tablist" aria-label="Infographic thema&#39;s">
+        <button class="tab-btn active" data-tab="tab1" role="tab" aria-selected="true">📊 Strategie &amp; markt</button>
+        <button class="tab-btn" data-tab="tab2" role="tab" aria-selected="false">🌱 Duurzaamheid &amp; impact</button>
+        <button class="tab-btn" data-tab="tab3" role="tab" aria-selected="false">⚡ Digitalisering &amp; AI</button>
+    </div>
+
+    <!-- TAB 1 CONTENT - 2 column grid, cards with primary/secondary/accent top borders -->
+    <div id="tab1" class="tab-pane active-pane" role="tabpanel" aria-hidden="false">
+        <div class="cards-grid">
+            <!-- card with primary border -->
+            <div class="card card-primary">
+                <h3>Marktexpansie 2026</h3>
+                <p>Strategische groeicorridors in EMEA en Noord-Amerika. Cross-sector partnerships versnellen time-to-market.</p>
+                <span class="card-meta">● Strategisch leiderschap</span>
+            </div>
+            <!-- card with secondary border -->
+            <div class="card card-secondary">
+                <h3>Operationele veerkracht</h3>
+                <p>Data-gebaseerde optimalisatie van supply chains. Verhoging efficiency met 23% binnen 2 kwartalen.</p>
+                <span class="card-meta">● Operationele groei</span>
+            </div>
+            <!-- card with accent border (vernieuwing) -->
+            <div class="card card-accent">
+                <h3>Innovatie cockpit</h3>
+                <p>Intern venture programma: 12 pilots, 3 schaalbaar naar markt. Focus op AI-ondersteunde R&amp;D.</p>
+                <span class="card-meta">● Vernieuwing &amp; transitie</span>
+            </div>
+            <!-- card primary again -->
+            <div class="card card-primary">
+                <h3>Concurrentie positionering</h3>
+                <p>Merkdifferentiatie met ESG &amp; digitale proposities. Marktaandeel +5% in Benelux.</p>
+                <span class="card-meta">● Strategisch leiderschap</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- TAB 2 CONTENT - Duurzaamheid & impact -->
+    <div id="tab2" class="tab-pane" role="tabpanel" aria-hidden="true">
+        <div class="cards-grid">
+            <div class="card card-primary">
+                <h3>Netto‑zero roadmap</h3>
+                <p>CO₂-reductie van 55% in 2030. Investering in hernieuwbare energie en circulaire waardeketens.</p>
+                <span class="card-meta">● Strategisch leiderschap</span>
+            </div>
+            <div class="card card-secondary">
+                <h3>Circulaire bedrijfsmodellen</h3>
+                <p>Van lineair naar 'product-as-a-service'. Pilot in drie sectoren, afvalreductie -38%.</p>
+                <span class="card-meta">● Operationele groei</span>
+            </div>
+            <div class="card card-accent">
+                <h3>Sociale innovatie</h3>
+                <p>Inclusieve arbeidsmarkten &amp; community investeringsfondsen. Social return meets businesswaarde.</p>
+                <span class="card-meta">● Vernieuwing &amp; transitie</span>
+            </div>
+            <div class="card card-secondary">
+                <h3>ESG rapportage 2.0</h3>
+                <p>Transparante metrics &amp; CSRD compliance. Real-time dashboard voor stakeholders.</p>
+                <span class="card-meta">● Operationele groei</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- TAB 3 CONTENT - Digitalisering & AI -->
+    <div id="tab3" class="tab-pane" role="tabpanel" aria-hidden="true">
+        <div class="cards-grid">
+            <div class="card card-primary">
+                <h3>Generatieve AI adoptie</h3>
+                <p>Productiviteitswinst van 30% in klantinteracties. 10 interne AI-assistenten gelanceerd.</p>
+                <span class="card-meta">● Strategisch leiderschap</span>
+            </div>
+            <div class="card card-accent">
+                <h3>Intelligent automation</h3>
+                <p>RPA + ML combineren voor 'zero-touch' processen. Foutmarge daalt met -42%.</p>
+                <span class="card-meta">● Vernieuwing &amp; transitie</span>
+            </div>
+            <div class="card card-secondary">
+                <h3>Data mesh architectuur</h3>
+                <p>Gedecentraliseerde data governance versnelt beslissingen. Time-to-insight -65%.</p>
+                <span class="card-meta">● Operationele groei</span>
+            </div>
+            <div class="card card-primary">
+                <h3>Cybersecurity fabric</h3>
+                <p>Zero-trust model &amp; AI-drivens bedreigingsdetectie. 99,98% beschikbaarheid.</p>
+                <span class="card-meta">● Strategisch leiderschap</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- FOOTER with gradient bottom bar (green - yellow - green) -->
+<footer class="site-footer">
+    <div class="footer-content">
+        <p>© 2025 De Baak — instituut voor strategische vernieuwing</p>
+        <p>Volg onze inzichten | <a href="file:///C:/Users/arijj/Desktop/Presentatiesdeepseek/deepseek_html_20260602_b372e1.html#" class="footer-link">Privacy &amp; verklaring</a> | <a href="file:///C:/Users/arijj/Desktop/Presentatiesdeepseek/deepseek_html_20260602_b372e1.html#" class="footer-link">Contact</a></p>
+        <p style="font-size:0.8rem; margin-top:0.75rem;">De Baak huisstijl v2.0 · datagedreven toekomstverkenning</p>
+    </div>
+    <div class="footer-bottom-bar" aria-label="decoratieve gradient balk"></div>
+</footer>
+
+<!-- VANILLA JS: TABS & TOUCH RESPONSIVE (geen libraries) -->
+<script>
+    (function() {
+        // Get all tab buttons and panes
+        const tabBtns = document.querySelectorAll('.tab-btn');
+        const panes = document.querySelectorAll('.tab-pane');
+
+        // function to switch active tab
+        function switchTab(tabId) {
+            // Deactivate all panes
+            panes.forEach(pane => {
+                pane.classList.remove('active-pane');
+                pane.setAttribute('aria-hidden', 'true');
+            });
+            // Activate selected pane
+            const activePane = document.getElementById(tabId);
+            if (activePane) {
+                activePane.classList.add('active-pane');
+                activePane.setAttribute('aria-hidden', 'false');
+            }
+
+            // Update button active states + accessibility
+            tabBtns.forEach(btn => {
+                const btnTab = btn.getAttribute('data-tab');
+                if (btnTab === tabId) {
+                    btn.classList.add('active');
+                    btn.setAttribute('aria-selected', 'true');
+                } else {
+                    btn.classList.remove('active');
+                    btn.setAttribute('aria-selected', 'false');
+                }
+            });
+        }
+
+        // Add click event to each tab button
+        tabBtns.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const tabId = btn.getAttribute('data-tab');
+                if (tabId) {
+                    switchTab(tabId);
+                }
+                // optional: small haptic feedback (accessibility)
+                btn.blur(); // avoid stuck focus style, but keep outline for keyboard
+            });
+            // ensure touch targets have at least 44px (already satisfied by CSS)
+            // optional: keyboard enter/space works natively
+            btn.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    const tabId = btn.getAttribute('data-tab');
+                    if (tabId) switchTab(tabId);
+                }
+            });
+        });
+
+        // initial sync: in case any mismatch
+        const activeTab = document.querySelector('.tab-btn.active');
+        if (activeTab) {
+            const defaultTab = activeTab.getAttribute('data-tab');
+            if (defaultTab && !document.getElementById(defaultTab)?.classList.contains('active-pane')) {
+                switchTab(defaultTab);
+            }
+        } else if (tabBtns.length > 0) {
+            // fallback: set first tab active
+            const firstTabId = tabBtns[0].getAttribute('data-tab');
+            if (firstTabId) switchTab(firstTabId);
+        }
+
+        // Responsive touch & extra comfort: ensure no sticky hover on mobile
+        if ('ontouchstart' in window) {
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.addEventListener('touchstart', function() {
+                    // just ensures instant response, no side-effects
+                });
+            });
+        }
+    })();
+</script>
+
+</body></html>

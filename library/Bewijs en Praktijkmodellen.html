@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <title>Bewijs en Praktijkmodellen</title>
+  <meta name="viewport" content="width=960, initial-scale=1">
+  <style>
+    :root {
+      --font-family-display: Arial, sans-serif;
+      --font-weight-display: 600;
+      --font-family-content: Arial, sans-serif;
+      --font-weight-content: 400;
+      --font-size-content: 16px;
+      --line-height-content: 1.4;
+    }
+    body.theme-light {
+      --color-bg-base: #ffffff;
+      --color-bg-elevated: #f8fafc;
+      --color-bg-surface: #f1f5f9;
+      --color-bg-muted: #e2e8f0;
+      --color-text-primary: #0f172a;
+      --color-text-secondary: #475569;
+      --color-text-muted: #64748b;
+      --color-text-accent: #0284c7;
+      --color-primary: #0284c7;
+      --color-primary-foreground: #ffffff;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: var(--font-family-content);
+      font-weight: var(--font-weight-content);
+      font-size: var(--font-size-content);
+      line-height: var(--line-height-content);
+      background-color: var(--color-bg-base, #ffffff);
+      color: var(--color-text-primary, #0f172a);
+    }
+    .slide {
+      width: 960px;
+      height: 540px;
+      margin: 0 auto 20px;
+      display: flex;
+      flex-shrink: 0;
+      position: relative;
+      overflow: hidden;
+      flex-direction: column;
+      background: var(--color-bg-elevated, #f8fafc);
+      border-radius: 6px;
+      box-shadow: 0 6px 18px #CBD5E1aa;
+    }
+    .p-16 { padding: 4rem; }
+    .p-8 { padding: 2rem; }
+    .mb-8 { margin-bottom: 2rem; }
+    .mb-6 { margin-bottom: 1.5rem; }
+    .mb-4 { margin-bottom: 1rem; }
+    .mb-2 { margin-bottom: 0.5rem; }
+    .text-6xl { font-size: 3.5rem; font-weight: 700;}
+    .text-4xl { font-size: 2.25rem; font-weight: 700;}
+    .text-2xl { font-size: 1.5rem; }
+    .text-xl { font-size: 1.25rem; }
+    .text-lg { font-size: 1.125rem; }
+    .text-base { font-size: 1rem; }
+    .text-sm { font-size: 0.85rem;}
+    .text-center { text-align: center; }
+    .text-accent { color: #0284c7;}
+    .opacity-70 { opacity: 0.7; }
+    ul, ol { margin-left: 2rem; }
+    li { margin-bottom: 1rem; font-size: 1.08em;}
+    .row { display: flex; flex-direction: row; gap: 2rem; }
+    .col { display: flex; flex-direction: column;}
+    .card-rect {
+      background: var(--color-bg-surface, #f1f5f9);
+      padding: 2rem;
+      margin-right: 1rem;
+      border-radius: 0;
+      box-shadow: 0 6px 14px #E0E7EF55;
+      min-width: 0;
+      flex: 1;
+      overflow: hidden;
+    }
+    @media (max-width: 980px) {
+      .slide {
+        width: 95vw;
+        height: auto;
+        font-size: 14px;
+      }
+      .p-16 { padding: 2rem;}
+      .p-8 { padding: 1rem;}
+      .row { flex-direction: column; gap: 0.5rem;}
+      .card-rect { margin-right: 0;}
+    }
+  </style>
+</head>
+<body class="theme-light">
+
+  <!-- Title Slide -->
+  <section class="slide p-16 col center" style="background-color: #0284c7; color: #fff;">
+    <h1 class="text-6xl mb-4">Overzicht<br/>Evidence-Based & Praktijkmodellen</h1>
+    <p class="text-2xl">Audit op toepasbaarheid en bewijs</p>
+    <p class="text-sm mt-8 opacity-70">Welke modellen zijn onderbouwd, welke vooral bruikbaar?</p>
+  </section>
+
+  <!-- Slide: Labels uitleg -->
+  <section class="slide p-16 col" style="background-color: #f1f5f9;">
+    <h2 class="text-4xl mb-6 text-accent">Drie Categorieën in het Onderwijs</h2>
+    <ul class="text-lg">
+      <li><b>Evidence-Based</b> – <span class="text-accent">“Dit weten we uit onderzoek.”</span></li>
+      <li><b>Toepasbaar?</b> – <span class="text-accent">“Veel gebruikt, werkbaar, maar geen hard bewijs.”</span></li>
+      <li><b>Praktijkmodellen & Metaforen</b> – <span class="text-accent">“Dit is een handige bril om naar de werkelijkheid te kijken.”</span></li>
+    </ul>
+  </section>
+
+  <!-- Slide: Evidence-Based -->
+  <section class="slide p-16 col" style="background-color: #fff;">
+    <h2 class="mb-6 text-4xl text-accent">Evidence-Based</h2>
+    <ul class="text-lg">
+      <li>Zelfcompassie (Kristin Neff)</li>
+      <li>De Roos van Leary</li>
+      <li>S-of groeicurve model</li>
+      <li>Meta-reflectie / Balkon-dansvloer (Heifetz)</li>
+      <li>Onderhandelen en conflicthantering (Thomas-Kilmann)</li>
+      <li>Feedback: de 4 G’s</li>
+      <li>Lasswell-model</li>
+      <li>HVR (Hartritmevariabiliteit)</li>
+      <li>Dramadriehoek (Karpman)</li>
+    </ul>
+  </section>
+
+  <!-- Slide: Toepasbaar? -->
+  <section class="slide p-16 col" style="background-color: #f1f5f9;">
+    <h2 class="mb-6 text-4xl text-accent">Toepasbaar?</h2>
+    <ul class="text-lg">
+      <li>Kernkwaliteiten (Ofman)</li>
+      <li>Transactionele Analyse (OVK)</li>
+      <li>Belbin Teamrollen</li>
+      <li>Situationeel Leiderschap</li>
+      <li>Comfort-stretch-paniekzone</li>
+      <li>Polyvagale theorie</li>
+      <li>HeartMath / HRV</li>
+      <li>GROW-model / LSD</li>
+      <li>Weerstand en beschermingsmechanismen (Gielis)</li>
+      <li>5 Invloedstijlen</li>
+      <li>IPG of Integrale procesmodel</li>
+      <li>Fasen in de onderstroom</li>
+      <li>Feedbackmodellen (4 G's e.d.)</li>
+    </ul>
+  </section>
+
+  <!-- Slide: Praktijkmodellen & Metaforen -->
+  <section class="slide p-16 col" style="background-color: #fff;">
+    <h2 class="mb-6 text-4xl text-accent">Praktijkmodellen & Metaforen</h2>
+    <ul class="text-lg">
+      <li>IJsbergmodel (McClelland)</li>
+      <li>Theory U (Scharmer)</li>
+      <li>De 4 temperamenten</li>
+      <li>Spiral Dynamics</li>
+      <li>Reis van de Held</li>
+      <li>Kern-model / Het Ware Zelf</li>
+      <li>Systemische principes / Hellinger</li>
+      <li>Werken met Ikken (de ikkenbus)</li>
+      <li>3 petten model</li>
+      <li>De informele leider</li>
+      <li>Piramide Outputsturing</li>
+      <li>Denken-Delen-Doen model</li>
+      <li>Biografie levensloop</li>
+      <li>7 Brillen over leidinggeven</li>
+      <li>De 4 archetypen van Jung</li>
+      <li>Omgaan met druk – Ditzler</li>
+      <li>Persoonlijk kracht model</li>
+      <li>Teamdoelmatigheidsmodel / SDRPI</li>
+      <li>Management-trechter</li>
+      <li>Contextmodellen (bv. LASSWELL)</li>
+    </ul>
+  </section>
+
+  <!-- Slide: Afsluiting -->
+  <section class="slide p-16 col center" style="background-color: #0284c7; color: #fff;">
+    <h2 class="text-4xl mb-8">Conclusie</h2>
+    <p class="text-xl">Gebruik <b>evidence-based</b> modellen waar mogelijk voor onderbouwing, en zet <b>praktijkmodellen</b> in als hulpmiddel voor dialoog en reflectie.</p>
+    <p class="mt-8 text-sm opacity-70">Presenteer theorie altijd in de juiste context – wetenschap is geen waarheid, metaforen zijn geen wetenschap.</p>
+  </section>
+
+</body>
+</html>

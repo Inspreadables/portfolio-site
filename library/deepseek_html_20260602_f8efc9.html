@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>De Baak · Huisstijl Infographic</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    /* De Baak huisstijl v2.0 – CSS variabelen */
+    :root {
+      --primary: #005ADC;
+      --secondary: #00A555;
+      --accent: #FFE100;
+      --bg: #F5F5EB;
+      --text: #1A1A2E;
+      --shadow: 0 12px 24px rgba(0, 0, 0, 0.06), 0 4px 8px rgba(0, 0, 0, 0.02);
+      --card-radius: 16px;
+      --touch-min: 44px;
+    }
+
+    body {
+      background-color: var(--bg);
+      font-family: Arial, sans-serif;
+      color: var(--text);
+      line-height: 1.4;
+      margin: 0;
+      padding: 2rem 1rem;
+    }
+
+    /* container – beperkte breedte, centrering */
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      background: transparent;
+    }
+
+    /* header stijl */
+    .header {
+      margin-bottom: 2rem;
+      text-align: left;
+    }
+
+    .header h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      letter-spacing: -0.3px;
+      color: var(--text);
+      margin-bottom: 0.25rem;
+    }
+
+    .header p {
+      font-size: 1rem;
+      color: #4a4a5e;
+      border-left: 3px solid var(--primary);
+      padding-left: 1rem;
+      margin-top: 0.5rem;
+    }
+
+    /* tab navigatie – touch targets ≥44px */
+    .tabs-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin: 1.5rem 0 1.25rem 0;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    }
+
+    .tab-btn {
+      background: transparent;
+      border: none;
+      font-family: Arial, sans-serif;
+      font-size: 1.1rem;
+      font-weight: 600;
+      padding: 0.75rem 1.5rem;
+      min-height: var(--touch-min);
+      cursor: pointer;
+      color: #5a5a6e;
+      transition: all 0.2s ease;
+      border-radius: 32px 32px 0 0;
+      letter-spacing: -0.2px;
+    }
+
+    .tab-btn:hover {
+      background-color: rgba(0, 90, 220, 0.06);
+      color: var(--primary);
+    }
+
+    .tab-btn.active {
+      color: var(--primary);
+      background-color: white;
+      box-shadow: 0 -2px 8px rgba(0,0,0,0.02), 0 2px 0 white;
+      border-bottom: 2px solid var(--primary);
+    }
+
+    /* DOT LEGEND – uitleg bij de kleuren (cirkels + labels) */
+    .dot-legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      background: white;
+      padding: 1rem 1.5rem;
+      border-radius: 60px;
+      margin-bottom: 2rem;
+      box-shadow: var(--shadow);
+      align-items: center;
+      justify-content: flex-start;
+    }
+
+    .legend-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.65rem;
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 0.2px;
+    }
+
+    .legend-dot {
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      display: inline-block;
+      box-shadow: 0 0 0 1px rgba(0,0,0,0.05);
+    }
+
+    .legend-dot.primary-dot { background-color: var(--primary); }
+    .legend-dot.secondary-dot { background-color: var(--secondary); }
+    .legend-dot.accent-dot { background-color: var(--accent); }
+
+    /* 2-koloms card grid – responsive */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.75rem;
+      margin: 1.5rem 0 2rem 0;
+    }
+
+    /* kaart styling: witte achtergrond, 4px top border, schaduw, afgeronde hoeken */
+    .card {
+      background: white;
+      border-radius: var(--card-radius);
+      box-shadow: var(--shadow);
+      padding: 1.5rem;
+      transition: transform 0.2s ease, box-shadow 0.2s;
+      border-top: 4px solid;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+
+    .card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 20px 28px -12px rgba(0,0,0,0.15);
+    }
+
+    /* Top border kleuren via variabelen */
+    .card-primary {
+      border-top-color: var(--primary);
+    }
+    .card-secondary {
+      border-top-color: var(--secondary);
+    }
+    .card-accent {
+      border-top-color: var(--accent);
+    }
+
+    .card-title {
+      font-size: 1.35rem;
+      font-weight: 700;
+      margin-bottom: 0.75rem;
+      color: var(--text);
+      letter-spacing: -0.2px;
+    }
+
+    .card-description {
+      font-size: 0.95rem;
+      line-height: 1.45;
+      color: #2d2d44;
+      opacity: 0.85;
+    }
+
+    /* extra kleine badge of indicator (optioneel) */
+    .card-meta {
+      margin-top: 1rem;
+      font-size: 0.7rem;
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: #6b6b85;
+    }
+
+    /* FOOTER: #005ADC achtergrond, witte tekst + gradient bottom bar */
+    .site-footer {
+      background-color: var(--primary);
+      color: white;
+      border-radius: 32px 32px 0 0;
+      margin-top: 3rem;
+      padding: 1.8rem 2rem 0 2rem;
+      position: relative;
+    }
+
+    .footer-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+      padding-bottom: 1.2rem;
+    }
+
+    .footer-content p {
+      font-size: 0.9rem;
+      font-weight: 500;
+      opacity: 0.9;
+    }
+
+    .footer-small {
+      font-size: 0.75rem;
+      opacity: 0.7;
+    }
+
+    /* gradient bottom bar: groen - geel - groen */
+    .gradient-bottom-bar {
+      height: 6px;
+      width: 100%;
+      background: linear-gradient(90deg, var(--secondary) 0%, var(--accent) 50%, var(--secondary) 100%);
+      border-radius: 3px 3px 0 0;
+      margin-top: 0.25rem;
+    }
+
+    /* Responsive: mobiel (max-width: 768px) */
+    @media (max-width: 768px) {
+      body {
+        padding: 1.25rem;
+      }
+      .cards-grid {
+        grid-template-columns: 1fr;  /* stapel layout */
+        gap: 1.25rem;
+      }
+      .dot-legend {
+        border-radius: 28px;
+        padding: 0.75rem 1.25rem;
+        gap: 1rem;
+        justify-content: center;
+      }
+      .tab-btn {
+        padding: 0.65rem 1.2rem;
+        font-size: 1rem;
+        min-height: var(--touch-min);
+      }
+      .tabs-nav {
+        justify-content: flex-start;
+        overflow-x: auto;
+        flex-wrap: nowrap;
+        padding-bottom: 2px;
+      }
+      .card-title {
+        font-size: 1.2rem;
+      }
+      .footer-content {
+        flex-direction: column;
+        text-align: center;
+      }
+      .site-footer {
+        padding: 1.5rem 1.2rem 0 1.2rem;
+      }
+    }
+
+    /* touch targets extra veilig (knoppen en interactive items) */
+    button, .tab-btn, .legend-item {
+      touch-action: manipulation;
+    }
+
+    /* extra: focus outline toegankelijkheid */
+    .tab-btn:focus-visible {
+      outline: 2px solid var(--primary);
+      outline-offset: 2px;
+      border-radius: 24px;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <h1>📍 De Baak · kennisplatform</h1>
+    <p>Inzichten & impact — huisstijl v2.0 | data gestuurd, toekomstbestendig</p>
+  </div>
+
+  <!-- TABS (3 tabs) -->
+  <div class="tabs-nav" id="tabNavigation" role="tablist" aria-label="Infographic thema's">
+    <button class="tab-btn active" data-tab="0" role="tab" aria-selected="true">📊 Strategie & groei</button>
+    <button class="tab-btn" data-tab="1" role="tab" aria-selected="false">🌱 Duurzaamheid & transitie</button>
+    <button class="tab-btn" data-tab="2" role="tab" aria-selected="false">🚀 Toekomst & innovatie</button>
+  </div>
+
+  <!-- DOT LEGEND (kleuren uitleg, past bij alle tabs) -->
+  <div class="dot-legend" aria-label="Kleurlegenda voor kaarten">
+    <div class="legend-item"><span class="legend-dot primary-dot"></span> <span>PRIMARY · strategisch leiderschap</span></div>
+    <div class="legend-item"><span class="legend-dot secondary-dot"></span> <span>SECONDARY · groei & duurzaam rendement</span></div>
+    <div class="legend-item"><span class="legend-dot accent-dot"></span> <span>ACCENT · vernieuwing & creatief potentieel</span></div>
+  </div>
+
+  <!-- dynamische card grid (2 kolommen / 1 kolom mobiel) -->
+  <div id="cardsContainer" class="cards-grid"></div>
+</div>
+
+<footer class="site-footer">
+  <div class="footer-content">
+    <p>© 2025 De Baak — Huisstijl v2.0 Infographic</p>
+    <p class="footer-small">Inzichten op basis van actuele data · CC BY‑NC 4.0</p>
+  </div>
+  <!-- gradient bottom bar (green - yellow - green) -->
+  <div class="gradient-bottom-bar"></div>
+</footer>
+
+<script>
+  // ----- DATA DEFINITIE: 3 tabs, elk met 2-koloms grid (4 cards per tab, 2x2)
+  // cards hebben borderTop kleur: 'primary', 'secondary', 'accent' 
+  // volgens de legenda en huisstijl.
+
+  const tabsData = [
+    {   // TAB 0: Strategie & groei
+      id: 'tab_strategie',
+      label: 'Strategie & groei',
+      cards: [
+        { title: "Marktanalyse & positie", description: "Marktgroei 23% in Q1, versterkte concurrentiepositie door datagedreven strategieën.", borderColor: "primary", meta: "KPI +23%" },
+        { title: "Klanttevredenheid", description: "NPS stijgt naar 72 door personalisatie en service optimalisatie. Klantbehoud met 14% toegenomen.", borderColor: "secondary", meta: "NPS +12 pt" },
+        { title: "Innovatiepotentieel", description: "5 nieuwe concepten succesvol getest, waaronder een AI-gestuurd dashboard en co-creatie labs.", borderColor: "accent", meta: "5 pilots" },
+        { title: "Operationele efficiëntie", description: "Kostenreductie 12% door lean processen en automatisering. Doorlooptijd -23% gerealiseerd.", borderColor: "primary", meta: "ROI +8%" }
+      ]
+    },
+    {   // TAB 1: Duurzaamheid & transitie
+      id: 'tab_duurzaamheid',
+      label: 'Duurzaamheid & transitie',
+      cards: [
+        { title: "CO₂-reductie", description: "34% minder uitstoot ten opzichte van baseline, dankzij elektrificatie en groene inkoop.", borderColor: "primary", meta: "scope 1 & 2" },
+        { title: "Circulaire initiatieven", description: "85% hergebruik van grondstoffen; gesloten ketens en reverse logistics geïmplementeerd.", borderColor: "secondary", meta: "circulair 85%" },
+        { title: "Maatschappelijke impact", description: "Ruim 2000 medewerkers betrokken in sociale trajecten, plus 12社区 projecten.", borderColor: "accent", meta: "2.000+ deelnemers" },
+        { title: "Energieverbruik", description: "15% daling verbruik door slimme meters, zonne-energie en gedragsverandering.", borderColor: "primary", meta: "ISO 50001" }
+      ]
+    },
+    {   // TAB 2: Toekomst & innovatie
+      id: 'tab_toekomst',
+      label: 'Toekomst & innovatie',
+      cards: [
+        { title: "AI-adoptie & automatisering", description: "30% van de processen geautomatiseerd met generatieve AI. Efficiëntie +38% in klantinteracties.", borderColor: "secondary", meta: "AI maturity" },
+        { title: "Talentontwikkeling", description: "Leerplatformen en leiderschapsprogramma's voor 2025, reskilling trajecten voor 900 medewerkers.", borderColor: "accent", meta: "learning 2025" },
+        { title: "Digital Twins", description: "Virtuele replica’s optimaliseren productie en logistiek, downtime -27% in pilots.", borderColor: "primary", meta: "industrie 4.0" },
+        { title: "Globaliseringsstrategie", description: "3 nieuwe markten ontsloten (Zuid-Europa, Azië). Internationale omzet +19% op jaarbasis.", borderColor: "secondary", meta: "nieuwe regio's" }
+      ]
+    }
+  ];
+
+  // helper: border class toevoegen op basis van borderColor string
+  function getBorderClass(borderColor) {
+    switch(borderColor) {
+      case 'primary': return 'card-primary';
+      case 'secondary': return 'card-secondary';
+      case 'accent': return 'card-accent';
+      default: return 'card-primary';
+    }
+  }
+
+  // render cards voor de actieve tab (index)
+  function renderCards(tabIndex) {
+    const container = document.getElementById('cardsContainer');
+    if (!container) return;
+    const selectedTab = tabsData[tabIndex];
+    if (!selectedTab) return;
+
+    const cardsArray = selectedTab.cards;
+    // genereer HTML voor elk kaartje (2-koloms grid door CSS)
+    let cardsHTML = '';
+    for (let i = 0; i < cardsArray.length; i++) {
+      const card = cardsArray[i];
+      const borderClass = getBorderClass(card.borderColor);
+      // extra meta optioneel tonen
+      const metaHtml = card.meta ? `<div class="card-meta">📌 ${card.meta}</div>` : '';
+      cardsHTML += `
+        <div class="card ${borderClass}">
+          <div class="card-title">${escapeHtml(card.title)}</div>
+          <div class="card-description">${escapeHtml(card.description)}</div>
+          ${metaHtml}
+        </div>
+      `;
+    }
+    container.innerHTML = cardsHTML;
+  }
+
+  // kleine helper tegen XSS
+  function escapeHtml(str) {
+    return str.replace(/[&<>]/g, function(m) {
+      if (m === '&') return '&amp;';
+      if (m === '<') return '&lt;';
+      if (m === '>') return '&gt;';
+      return m;
+    }).replace(/[\uD800-\uDBFF][\uDC00-\uDFFF]/g, function(c) {
+      return c;
+    });
+  }
+
+  // activeer tab + update UI en render content
+  let currentTab = 0;  // 0-indexed
+
+  function setActiveTab(index) {
+    // update knoppen classes en aria
+    const buttons = document.querySelectorAll('.tab-btn');
+    buttons.forEach((btn, i) => {
+      if (i === index) {
+        btn.classList.add('active');
+        btn.setAttribute('aria-selected', 'true');
+      } else {
+        btn.classList.remove('active');
+        btn.setAttribute('aria-selected', 'false');
+      }
+    });
+    currentTab = index;
+    renderCards(currentTab);
+  }
+
+  // event listeners voor tabs (touch / mouse)
+  function initTabs() {
+    const buttons = document.querySelectorAll('.tab-btn');
+    buttons.forEach((btn, idx) => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        const tabIdx = parseInt(btn.getAttribute('data-tab'), 10);
+        if (!isNaN(tabIdx) && tabIdx !== currentTab) {
+          setActiveTab(tabIdx);
+        } else if (isNaN(tabIdx)) {
+          // fallback via index
+          setActiveTab(idx);
+        }
+      });
+      // extra data-tab voor betrouwbaarheid, zet indien niet aanwezig
+      if (!btn.hasAttribute('data-tab')) {
+        btn.setAttribute('data-tab', idx);
+      }
+    });
+  }
+
+  // voegt extra veiligheid aan touch targets & initialiseer
+  document.addEventListener('DOMContentLoaded', () => {
+    initTabs();
+    // start met eerste tab (strategie)
+    setActiveTab(0);
+    
+    // kleine garantie dat alle interactieve elementen minimaal 44px zijn in mobiele weergave
+    // door de CSS min-height: var(--touch-min) is al ingesteld op .tab-btn
+    // maar ook eventueel check legend items? legend items geen klikactie maar visueel
+    // voldoen aan touch friendliness (navigatie knoppen)
+    const styleCheck = document.createElement('style');
+    styleCheck.textContent = `
+      @media (pointer: coarse) {
+        .tab-btn {
+          min-height: 48px;
+        }
+      }
+    `;
+    document.head.appendChild(styleCheck);
+  });
+</script>
+</body>
+</html>

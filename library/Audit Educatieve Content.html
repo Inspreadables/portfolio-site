@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Audit Educatieve Content</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: #f5f5f5;
+            overflow-x: hidden;
+        }
+
+        .slide {
+            width: 960px;
+            height: 540px;
+            margin: 0 auto 20px;
+            display: flex;
+            flex-shrink: 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .col { flex-direction: column; }
+        .row { flex-direction: row; }
+        .center { justify-content: center; align-items: center; text-align: center; }
+        .items-center { align-items: center; }
+        .items-start { align-items: flex-start; }
+        .space-between { justify-content: space-between; }
+        .fill-width { flex: 1; }
+        .fill-height { flex: 1; display: flex; flex-direction: column; }
+
+        .gap-sm { gap: 0.5rem; }
+        .gap-md { gap: 1rem; }
+        .gap-lg { gap: 1.5rem; }
+        .gap-xl { gap: 2rem; }
+        .gap-2xl { gap: 3rem; }
+
+        .p-4 { padding: 1rem; }
+        .p-6 { padding: 1.5rem; }
+        .p-8 { padding: 2rem; }
+        .p-12 { padding: 3rem; }
+        .p-16 { padding: 4rem; }
+
+        .mb-2 { margin-bottom: 0.5rem; }
+        .mb-4 { margin-bottom: 1rem; }
+        .mb-6 { margin-bottom: 1.5rem; }
+        .mb-8 { margin-bottom: 2rem; }
+        .mt-2 { margin-top: 0.5rem; }
+        .mt-4 { margin-top: 1rem; }
+        .mt-6 { margin-top: 1.5rem; }
+        .mt-8 { margin-top: 2rem; }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            font-weight: 600;
+            line-height: 1.2;
+            margin: 0;
+        }
+
+        h1 { font-size: 3rem; }
+        h2 { font-size: 2.25rem; }
+        h3 { font-size: 1.75rem; }
+        h4 { font-size: 1.5rem; }
+        h5 { font-size: 1.25rem; }
+        h6 { font-size: 1rem; }
+
+        .text-6xl { font-size: 3.75rem; }
+        .text-5xl { font-size: 3rem; }
+        .text-4xl { font-size: 2.25rem; }
+        .text-3xl { font-size: 1.875rem; }
+        .text-2xl { font-size: 1.5rem; }
+        .text-xl { font-size: 1.25rem; }
+        .text-lg { font-size: 1.125rem; }
+        .text-base { font-size: 1rem; }
+        .text-sm { font-size: 0.875rem; }
+        .text-xs { font-size: 0.75rem; }
+
+        .font-bold { font-weight: 700; }
+        .font-semibold { font-weight: 600; }
+        .font-normal { font-weight: 400; }
+
+        ul, ol {
+            margin-left: 2rem;
+            line-height: 1.8;
+        }
+
+        ul li { list-style: disc; }
+        ol li { list-style: decimal; }
+
+        li { margin-bottom: 0.75rem; }
+        li:last-child { margin-bottom: 0; }
+
+        .card-rect {
+            padding: 2rem;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+        }
+
+        /* THEME: Light/Professional */
+        .slide { background-color: #ffffff; color: #1f2121; }
+
+        /* Slide 1: Title Slide */
+        .slide-title-bg { background: linear-gradient(135deg, #1e738f 0%, #2d85a8 100%); color: #ffffff; }
+
+        /* Slide 2-8: Content Slides */
+        .slide-content-bg { background-color: #ffffff; color: #1f2121; }
+        .slide-content-bg h2 { color: #1e738f; }
+
+        /* Scoring Cards */
+        .score-card {
+            padding: 1.5rem;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: 600;
+            color: #ffffff;
+            min-height: 100px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .score-nee { background-color: #e53e3e; }
+        .score-deels { background-color: #f6ad55; }
+        .score-ja { background-color: #38a169; }
+
+        /* Table Styling */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.95rem;
+            margin-top: 1rem;
+        }
+
+        th, td {
+            padding: 0.75rem;
+            border: 1px solid #e2e8f0;
+            text-align: left;
+        }
+
+        th {
+            background-color: #edf2f7;
+            font-weight: 600;
+            color: #1f2121;
+        }
+
+        tr:nth-child(even) { background-color: #f7fafc; }
+    </style>
+</head>
+<body>
+
+    <!-- Slide 1: Title Slide -->
+    <section class="slide col center slide-title-bg p-16">
+        <h1 class="mb-4" style="color: #ffffff;">Audit Educatieve Content</h1>
+        <p class="text-2xl mb-8" style="color: #e8f4f8;">Een template voor het evalueren van de kwaliteit van educatieve content via evidence-based criteria</p>
+        <p class="text-lg" style="color: #b3d9e8;">met als doel transparantie, verantwoording en voortdurende verbetering van kennismanagementpraktijken</p>
+    </section>
+
+    <!-- Slide 2: Introductie -->
+    <section class="slide col slide-content-bg p-16">
+        <h2 class="mb-6">Wat is deze audit?</h2>
+        <div class="fill-height">
+            <ul class="text-lg" style="color: #475569;">
+                <li>Een gestructureerd raamwerk voor evaluatie van educatieve content</li>
+                <li>Gebaseerd op evidence-based criteria voor kwaliteitsborging</li>
+                <li>Gericht op transparantie in kenniscreatie en -beheer</li>
+                <li>Bevordert voortdurende verbetering van leerinhoud</li>
+                <li>Ondersteunt accountabiliteit in educatieve praktijken</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Slide 3: Wetenschappelijke Methode -->
+    <section class="slide col slide-content-bg p-16">
+        <h2 class="mb-6">🔬 Gebruik van de Wetenschappelijke Methode</h2>
+        <div class="fill-height">
+            <table>
+                <tr>
+                    <th style="background-color: #fee2e2; color: #991b1b;">Nee</th>
+                    <th style="background-color: #fef3c7; color: #92400e;">Deels</th>
+                    <th style="background-color: #dcfce7; color: #166534;">Ja</th>
+                </tr>
+                <tr>
+                    <td>Geen duidelijke methode</td>
+                    <td>Enkele stappen aanwezig</td>
+                    <td>Volledig wetenschappelijk proces, transparant</td>
+                </tr>
+            </table>
+        </div>
+    </section>
+
+    <!-- Slide 4: Data-gedreven Bewijsvoering -->
+    <section class="slide col slide-content-bg p-16">
+        <h2 class="mb-6">📊 Data-gedreven Bewijsvoering</h2>
+        <div class="fill-height">
+            <table>
+                <tr>
+                    <th style="background-color: #fee2e2; color: #991b1b;">Nee</th>
+                    <th style="background-color: #fef3c7; color: #92400e;">Deels</th>
+                    <th style="background-color: #dcfce7; color: #166534;">Ja</th>
+                </tr>
+                <tr>
+                    <td>Anekdotisch of geen bewijs</td>
+                    <td>Enige gestructureerde data</td>
+                    <td>Strikte, grootschalige, geanalyseerde data</td>
+                </tr>
+            </table>
+        </div>
+    </section>
+
+    <!-- Slide 5: Mensgericht Ontwerp -->
+    <section class="slide col slide-content-bg p-16">
+        <h2 class="mb-6">👥 Mensgericht Ontwerp (HCD)</h2>
+        <div class="fill-height">
+            <table>
+                <tr>
+                    <th style="background-color: #fee2e2; color: #991b1b;">Nee</th>
+                    <th style="background-color: #fef3c7; color: #92400e;">Deels</th>
+                    <th style="background-color: #dcfce7; color: #166534;">Ja</th>
+                </tr>
+                <tr>
+                    <td>Gebruiker ontbreekt/onduidelijk</td>
+                    <td>Gebruiker vermeld</td>
+                    <td>Empathie, diepgaand onderzoek, iteratieve feedback</td>
+                </tr>
+            </table>
+        </div>
+    </section>
+
+    <!-- Slide 6: Experimentele Validatie -->
+    <section class="slide col slide-content-bg p-16">
+        <h2 class="mb-6">🧪 Experimentele Validatie (A/B-test)</h2>
+        <div class="fill-height">
+            <table>
+                <tr>
+                    <th style="background-color: #fee2e2; color: #991b1b;">Nee</th>
+                    <th style="background-color: #fef3c7; color: #92400e;">Deels</th>
+                    <th style="background-color: #dcfce7; color: #166534;">Ja</th>
+                </tr>
+                <tr>
+                    <td>Niet toegepast</td>
+                    <td>Af en toe, onduidelijk</td>
+                    <td>Systematisch, uitkomstdata, actiegericht</td>
+                </tr>
+            </table>
+        </div>
+    </section>
+
+    <!-- Slide 7: Sociaalwetenschappelijke Grondigheid -->
+    <section class="slide col slide-content-bg p-16">
+        <h2 class="mb-6">📚 Sociaalwetenschappelijke Grondigheid</h2>
+        <div class="fill-height">
+            <table>
+                <tr>
+                    <th style="background-color: #fee2e2; color: #991b1b;">Nee</th>
+                    <th style="background-color: #fef3c7; color: #92400e;">Deels</th>
+                    <th style="background-color: #dcfce7; color: #166534;">Ja</th>
+                </tr>
+                <tr>
+                    <td>Niet-onderbouwde beweringen</td>
+                    <td>Enkele enquêtes/interviews</td>
+                    <td>Robuust, transparant, multimodaal</td>
+                </tr>
+            </table>
+        </div>
+    </section>
+
+    <!-- Slide 8: Transparantie & Verantwoording -->
+    <section class="slide col slide-content-bg p-16">
+        <h2 class="mb-6">🔍 Transparantie & Verantwoording</h2>
+        <div class="fill-height">
+            <table>
+                <tr>
+                    <th style="background-color: #fee2e2; color: #991b1b;">Nee</th>
+                    <th style="background-color: #fef3c7; color: #92400e;">Deels</th>
+                    <th style="background-color: #dcfce7; color: #166534;">Ja</th>
+                </tr>
+                <tr>
+                    <td>Geen proces of delen van informatie</td>
+                    <td>Gedeeltelijke documentatie</td>
+                    <td>Volledige openheid (methodes, data, review)</td>
+                </tr>
+            </table>
+        </div>
+    </section>
+
+    <!-- Slide 9: KPI's -->
+    <section class="slide col slide-content-bg p-16">
+        <h2 class="mb-6">📈 Definitie en Opvolging van KPI's</h2>
+        <div class="fill-height">
+            <table>
+                <tr>
+                    <th style="background-color: #fee2e2; color: #991b1b;">Nee</th>
+                    <th style="background-color: #fef3c7; color: #92400e;">Deels</th>
+                    <th style="background-color: #dcfce7; color: #166534;">Ja</th>
+                </tr>
+                <tr>
+                    <td>Geen KPI's</td>
+                    <td>Vage KPI's gedefinieerd</td>
+                    <td>Duidelijke KPI's, gevolgd en gebruikt voor aanpassing</td>
+                </tr>
+            </table>
+        </div>
+    </section>
+
+    <!-- Slide 10: Auditproces -->
+    <section class="slide col slide-content-bg p-16">
+        <h2 class="mb-6">Auditproces in 5 Stappen</h2>
+        <div class="fill-height row gap-lg items-center">
+            <div style="text-align: center; flex: 1;">
+                <div class="score-card score-ja" style="margin-bottom: 0.5rem;">1</div>
+                <p style="font-weight: 600; font-size: 0.9rem;">Voorbereiding</p>
+            </div>
+            <div style="text-align: center; flex: 1;">
+                <div class="score-card score-ja" style="margin-bottom: 0.5rem;">2</div>
+                <p style="font-weight: 600; font-size: 0.9rem;">Uitvoering</p>
+            </div>
+            <div style="text-align: center; flex: 1;">
+                <div class="score-card score-ja" style="margin-bottom: 0.5rem;">3</div>
+                <p style="font-weight: 600; font-size: 0.9rem;">Dataverzameling</p>
+            </div>
+            <div style="text-align: center; flex: 1;">
+                <div class="score-card score-ja" style="margin-bottom: 0.5rem;">4</div>
+                <p style="font-weight: 600; font-size: 0.9rem;">Rapportage</p>
+            </div>
+            <div style="text-align: center; flex: 1;">
+                <div class="score-card score-ja" style="margin-bottom: 0.5rem;">5</div>
+                <p style="font-weight: 600; font-size: 0.9rem;">Monitoring</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 11: Conclusion/Thank You -->
+    <section class="slide col center slide-title-bg p-16">
+        <h2 class="mb-4" style="color: #ffffff;">Dank u</h2>
+        <p class="text-xl" style="color: #b3d9e8;">Vragen?</p>
+        <p class="text-sm mt-8" style="color: #b3d9e8;">Voor meer informatie over deze audit-framework</p>
+    </section>
+
+</body>
+</html>

@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>De Baak · Knowledge Assistant Infographic</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background-color: var(--bg);
+      font-family: Arial, Helvetica, sans-serif;
+      color: var(--text);
+      line-height: 1.4;
+      scroll-behavior: smooth;
+    }
+
+    /* CSS Variables (De Baak huisstijl v2.0) */
+    :root {
+      --primary: #005ADC;
+      --secondary: #00A555;
+      --accent: #FFE100;
+      --bg: #F5F5EB;
+      --text: #1A1A2E;
+      --shadow: 0 12px 24px -8px rgba(0, 0, 0, 0.08), 0 4px 8px rgba(0, 0, 0, 0.02);
+      --card-radius: 16px;
+    }
+
+    /* main container */
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem 1.5rem 1.5rem;
+    }
+
+    /* header / infographic title */
+    .hero {
+      margin-bottom: 2.5rem;
+      text-align: left;
+    }
+    .hero h1 {
+      font-size: 2.2rem;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      background: linear-gradient(135deg, var(--primary) 0%, #002b6e 100%);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+      margin-bottom: 0.5rem;
+    }
+    .hero p {
+      font-size: 1.1rem;
+      color: #2c2c3e;
+      max-width: 720px;
+      border-left: 4px solid var(--accent);
+      padding-left: 1rem;
+      margin-top: 0.5rem;
+    }
+
+    /* dot legend (kleurlegenda) */
+    .dot-legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.75rem;
+      background: rgba(0, 90, 220, 0.04);
+      padding: 0.85rem 1.25rem;
+      border-radius: 60px;
+      margin-bottom: 2rem;
+      backdrop-filter: blur(2px);
+      align-items: center;
+    }
+    .legend-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-size: 0.85rem;
+      font-weight: 600;
+      background: white;
+      padding: 0.4rem 1rem 0.4rem 0.8rem;
+      border-radius: 40px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    }
+    .legend-dot {
+      width: 18px;
+      height: 18px;
+      border-radius: 18px;
+      display: inline-block;
+    }
+    .legend-dot.primary { background-color: var(--primary); }
+    .legend-dot.secondary { background-color: var(--secondary); }
+    .legend-dot.accent { background-color: var(--accent); }
+    .legend-text {
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    /* tab navigation */
+    .tab-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      border-bottom: 2px solid rgba(0, 90, 220, 0.2);
+      margin-bottom: 2rem;
+    }
+    .tab-btn {
+      background: transparent;
+      border: none;
+      padding: 0.9rem 1.8rem;
+      font-family: Arial, sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      color: #5a5a6e;
+      cursor: pointer;
+      border-radius: 40px 40px 0 0;
+      transition: all 0.2s ease;
+      margin-bottom: -2px;
+      letter-spacing: 0.3px;
+      min-height: 52px;     /* touch target ≥44px */
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .tab-btn i { font-style: normal; font-weight: normal; }
+    .tab-btn:hover {
+      color: var(--primary);
+      background-color: rgba(0, 90, 220, 0.05);
+    }
+    .tab-btn.active {
+      color: var(--primary);
+      border-bottom: 3px solid var(--primary);
+      background: white;
+      box-shadow: 0 -2px 6px rgba(0,0,0,0.02);
+    }
+
+    /* panel grid: 2 columns, responsive */
+    .tab-panel {
+      display: none;
+      animation: fadeIn 0.25s ease;
+    }
+    .tab-panel.active-panel {
+      display: block;
+    }
+    .cards-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.8rem;
+    }
+
+    /* card styling */
+    .card {
+      background: #FFFFFF;
+      border-radius: var(--card-radius);
+      box-shadow: var(--shadow);
+      padding: 1.5rem;
+      transition: transform 0.2s, box-shadow 0.2s;
+      display: flex;
+      flex-direction: column;
+      border-top: 4px solid;
+      height: 100%;
+    }
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 20px 28px -12px rgba(0,0,0,0.12);
+    }
+    /* border kleuren via classes */
+    .card-primary {
+      border-top-color: var(--primary);
+    }
+    .card-secondary {
+      border-top-color: var(--secondary);
+    }
+    .card-accent {
+      border-top-color: var(--accent);
+    }
+    .card-icon {
+      font-size: 2rem;
+      margin-bottom: 0.75rem;
+    }
+    .card h3 {
+      font-size: 1.35rem;
+      font-weight: 700;
+      margin-bottom: 0.65rem;
+      color: #111;
+      letter-spacing: -0.2px;
+    }
+    .card p {
+      font-size: 0.92rem;
+      line-height: 1.45;
+      color: #2c2c3a;
+      flex: 1;
+    }
+
+    /* footer */
+    .site-footer {
+      background-color: var(--primary);
+      color: white;
+      margin-top: 3.5rem;
+      position: relative;
+    }
+    .footer-inner {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem 1.8rem;
+      text-align: center;
+    }
+    .footer-inner p {
+      font-size: 0.9rem;
+      opacity: 0.9;
+      letter-spacing: 0.3px;
+    }
+    .footer-gradient-bar {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 6px;
+      background: linear-gradient(90deg, var(--secondary) 0%, var(--accent) 50%, var(--secondary) 100%);
+    }
+
+    /* responsive: mobile stack */
+    @media (max-width: 768px) {
+      .container {
+        padding: 1.5rem 1rem;
+      }
+      .hero h1 {
+        font-size: 1.75rem;
+      }
+      .cards-grid {
+        grid-template-columns: 1fr;
+        gap: 1.2rem;
+      }
+      .tab-btn {
+        padding: 0.7rem 1.2rem;
+        font-size: 0.9rem;
+        min-height: 48px;
+      }
+      .dot-legend {
+        border-radius: 28px;
+        gap: 0.9rem;
+        justify-content: center;
+      }
+      .legend-item {
+        font-size: 0.75rem;
+        padding: 0.3rem 0.9rem;
+      }
+      .card h3 {
+        font-size: 1.2rem;
+      }
+    }
+
+    /* extra touch friendly */
+    button, .tab-btn, .legend-item {
+      cursor: pointer;
+      touch-action: manipulation;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px);}
+      to { opacity: 1; transform: translateY(0);}
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  
+  <!-- header met uitleg -->
+  <div class="hero">
+    <h1>📚 Knowledge Assistant · De Baak Huisstijl</h1>
+    <p>Andrej Karpathy’s visie: een AI-bibliothecaris die ruwe bronnen omzet in een onderling verbonden wiki. Jij denkt, de assistent bouwt.</p>
+  </div>
+
+  <!-- Dot legend (uitleg border kleuren) -->
+  <div class="dot-legend">
+    <div class="legend-item">
+      <span class="legend-dot primary"></span>
+      <span class="legend-text">🧠 Core AI concepten</span>
+    </div>
+    <div class="legend-item">
+      <span class="legend-dot secondary"></span>
+      <span class="legend-text">⚙️ Proces & methodiek</span>
+    </div>
+    <div class="legend-item">
+      <span class="legend-dot accent"></span>
+      <span class="legend-text">✨ Output & inzichten</span>
+    </div>
+    <div style="margin-left: auto; font-size:0.75rem; opacity:0.7;">📌 topborder = kleurcode</div>
+  </div>
+
+  <!-- Tabs navigatie -->
+  <div class="tab-bar" id="tabBar">
+    <button class="tab-btn active" data-tab="tab1">🧩 Karpathy · Bibliotheekfuncties</button>
+    <button class="tab-btn" data-tab="tab2">🗂️ Wiki structuur · Kenniscreatie</button>
+    <button class="tab-btn" data-tab="tab3">📥 Kennis toevoegen · Publicatie</button>
+  </div>
+
+  <!-- Tab 1: Karpathy concept & library functions -->
+  <div id="tab1" class="tab-panel active-panel">
+    <div class="cards-grid">
+      <!-- kaart 1: primary -->
+      <div class="card card-primary">
+        <div class="card-icon">🤖🧠</div>
+        <h3>LLM-gecompileerde wiki</h3>
+        <p>Andrej Karpathy: raw data (PDF, HTML, CSV) wordt door een LLM stap voor stap omgezet naar een onderling gelinkt Markdown-archief. Geen RAG nodig op kleine schaal.</p>
+      </div>
+      <!-- kaart 2: secondary -->
+      <div class="card card-secondary">
+        <div class="card-icon">📚🤖</div>
+        <h3>Autonome bibliothecaris</h3>
+        <p>Claude Code beheert de gehele wiki: schrijft samenvattingen, legt backlinks, maakt nieuwe conceptpagina's aan. Jij kijkt alleen mee in Obsidian.</p>
+      </div>
+      <!-- kaart 3: primary -->
+      <div class="card card-primary">
+        <div class="card-icon">📥⚡</div>
+        <h3>Raw data ingestie</h3>
+        <p>Webclipper, PDF’s, Gmail-exports & CSV’s → map /raw. De assistent herkent ieder formaat en extraheert gestructureerde metadata en kerninzichten.</p>
+      </div>
+      <!-- kaart 4: accent (linting / gezondheidscheck) -->
+      <div class="card card-accent">
+        <div class="card-icon">🔍✅</div>
+        <h3>Linting & gezondheidschecks</h3>
+        <p>Maandelijkse ‘lint pass’: vindt tegenstrijdigheden, weespagina’s, ontbrekende verbindingen. Stelt nieuwe artikelonderwerpen voor om de wiki te verrijken.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tab 2: Wiki structuur & kenniscreatie -->
+  <div id="tab2" class="tab-panel">
+    <div class="cards-grid">
+      <div class="card card-primary">
+        <div class="card-icon">🗂️🏛️</div>
+        <h3>Domein gestuurde mappen</h3>
+        <p>Learning Design, Media & Content, HR-processen, AI-implementatie, Research, Leadership – zes kerngebieden voor een gestructureerd tweede brein.</p>
+      </div>
+      <div class="card card-secondary">
+        <div class="card-icon">🔗🧩</div>
+        <h3>Concept extractie & backlinks</h3>
+        <p>Automatisch herkent de LLM terugkerende thema's (bv. "TPACK", "feedback loops") en maakt [[wikilinks]] tussen samenvattingen en conceptpagina’s.</p>
+      </div>
+      <div class="card card-primary">
+        <div class="card-icon">📊📌</div>
+        <h3>Cross-cutting topics</h3>
+        <p>Prompts, templates, casestudies en checklists leven in een aparte laag – herbruikbaar voor alle domeinen binnen de vault.</p>
+      </div>
+      <div class="card card-accent">
+        <div class="card-icon">📽️✨</div>
+        <h3>Van wiki naar publicatie</h3>
+        <p>Genereer Marp-slides, matplotlib visuals, rapporten. Claude Code kan outputs direct formatteren als presentatie of infographic – klaar voor publicatie.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tab 3: Knowledge toevoegen & publication workflow -->
+  <div id="tab3" class="tab-panel">
+    <div class="cards-grid">
+      <div class="card card-primary">
+        <div class="card-icon">🌐✂️</div>
+        <h3>Obsidian Web Clipper</h3>
+        <p>Één klik: elk webartikel wordt schoon als .md bestand opgeslagen in /raw. Geen advertenties, alleen de kerninhoud. Ideaal voor snel onderzoek.</p>
+      </div>
+      <div class="card card-secondary">
+        <div class="card-icon">⌨️🤖</div>
+        <h3>Claude Code commando</h3>
+        <p>Typ: “Verwerk alle nieuwe bestanden in /raw volgens het librarian protocol”. De LLM leest, samenvat, linkt en werkt de master index bij – volledig hands-off.</p>
+      </div>
+      <div class="card card-secondary">
+        <div class="card-icon">📋🗂️</div>
+        <h3>Master Index & tracking</h3>
+        <p>Bestand /meta/00-Master-Index.md houdt automatisch een log bij van elke compilatie: nieuwe concepten, samenvattingen, tijdstempels – volledige transparantie.</p>
+      </div>
+      <div class="card card-accent">
+        <div class="card-icon">🚀📢</div>
+        <h3>Publicatieklaar output</h3>
+        <p>Exporteer als PDF, HTML slides of Marp-presentatie. De kennisassistent helpt bij het bouwen van editorial brains, research dossiers en leerarchieven.</p>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- Footer met gradient bar (groen-geel-groen) -->
+<footer class="site-footer">
+  <div class="footer-inner">
+    <p>🧠 De Baak Huisstijl v2.0 – Knowledge Assistant Infographic</p>
+    <p style="font-size:0.8rem; margin-top: 0.5rem;">AI bibliothecaris | Karpathy-methode | Obsidian + Claude Code</p>
+    <p style="font-size:0.75rem; margin-top: 0.8rem;">📌 Voeg kennis toe: /raw → vraag Claude Code → wiki groeit organisch</p>
+  </div>
+  <div class="footer-gradient-bar"></div>
+</footer>
+
+<script>
+  (function() {
+    // tab functionaliteit
+    const tabs = document.querySelectorAll('.tab-btn');
+    const panels = {
+      tab1: document.getElementById('tab1'),
+      tab2: document.getElementById('tab2'),
+      tab3: document.getElementById('tab3')
+    };
+
+    function activateTab(tabId) {
+      // deactivate all panels
+      Object.values(panels).forEach(panel => {
+        if (panel) panel.classList.remove('active-panel');
+      });
+      // activate current panel
+      if (panels[tabId]) {
+        panels[tabId].classList.add('active-panel');
+      }
+      // update button active style
+      tabs.forEach(btn => {
+        const btnTab = btn.getAttribute('data-tab');
+        if (btnTab === tabId) {
+          btn.classList.add('active');
+        } else {
+          btn.classList.remove('active');
+        }
+      });
+    }
+
+    // event listeners voor elke tab knop
+    tabs.forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const tabId = btn.getAttribute('data-tab');
+        if (tabId && panels[tabId]) {
+          activateTab(tabId);
+        }
+      });
+      // touch + keyboard access
+      btn.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          const tabId = btn.getAttribute('data-tab');
+          if (tabId && panels[tabId]) activateTab(tabId);
+        }
+      });
+      btn.setAttribute('role', 'tab');
+    });
+
+    // standaard: tab1 actief, eventueel controleren bij laden
+    const activeTab = document.querySelector('.tab-btn.active');
+    if (!activeTab || !activeTab.getAttribute('data-tab')) {
+      activateTab('tab1');
+    } else {
+      const defaultTab = activeTab.getAttribute('data-tab');
+      if (defaultTab && panels[defaultTab]) activateTab(defaultTab);
+      else activateTab('tab1');
+    }
+  })();
+</script>
+</body>
+</html>

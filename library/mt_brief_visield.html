@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>De Baak · Huisstijl Infographic v2.0</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* De Baak Huisstijl v2.0 – CSS Variabelen */
+        :root {
+            --primary: #005ADC;
+            --secondary: #00A555;
+            --accent: #FFE100;
+            --bg: #F5F5EB;
+            --text: #1A1A2E;
+            --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.08), 0 4px 6px -2px rgba(0, 0, 0, 0.02);
+            --card-radius: 16px;
+            --touch-min: 44px;
+        }
+
+        body {
+            background-color: var(--bg);
+            font-family: Arial, sans-serif;
+            color: var(--text);
+            line-height: 1.45;
+            scroll-behavior: smooth;
+        }
+
+        /* Container – centered, responsive padding */
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem 1rem 1.5rem;
+        }
+
+        /* Header / titel */
+        .infographic-header {
+            text-align: left;
+            margin-bottom: 2rem;
+        }
+
+        .infographic-header h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            letter-spacing: -0.01em;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            margin-bottom: 0.5rem;
+        }
+
+        .infographic-header p {
+            font-size: 1.125rem;
+            color: #2d2d44;
+            max-width: 680px;
+            border-left: 3px solid var(--primary);
+            padding-left: 1rem;
+        }
+
+        /* DOT LEGEND (kleurcodering) */
+        .legend {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            margin: 1.8rem 0 2rem 0;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            font-size: 0.9rem;
+            font-weight: 500;
+            background: white;
+            padding: 0.4rem 1rem 0.4rem 0.8rem;
+            border-radius: 40px;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.03);
+        }
+
+        .dot {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            display: inline-block;
+        }
+
+        .dot.primary { background-color: var(--primary); }
+        .dot.secondary { background-color: var(--secondary); }
+        .dot.accent { background-color: var(--accent); }
+
+        /* TABS navigatie – touch friendly */
+        .tabs-nav {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            margin-bottom: 2rem;
+            border-bottom: 1px solid #e0e0d4;
+            padding-bottom: 0.5rem;
+        }
+
+        .tab-btn {
+            background: transparent;
+            border: none;
+            padding: 0.75rem 1.8rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            font-family: Arial, sans-serif;
+            color: #4b4b5a;
+            cursor: pointer;
+            border-radius: 48px;
+            transition: all 0.2s ease;
+            min-height: var(--touch-min);
+            min-width: 100px;
+            background-color: #ffffffcc;
+            backdrop-filter: blur(2px);
+        }
+
+        .tab-btn:hover {
+            background-color: #ffffff;
+            color: var(--primary);
+            box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+        }
+
+        .tab-btn.active {
+            background-color: var(--primary);
+            color: white;
+            box-shadow: 0 4px 10px rgba(0, 90, 220, 0.2);
+        }
+
+        /* Tab panels */
+        .tab-pane {
+            display: none;
+            animation: fadeIn 0.25s ease;
+        }
+
+        .tab-pane.active-pane {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(6px);}
+            to { opacity: 1; transform: translateY(0);}
+        }
+
+        /* 2‑koloms card grid */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.8rem;
+        }
+
+        /* Kaart styling */
+        .card {
+            background: white;
+            border-radius: var(--card-radius);
+            box-shadow: var(--shadow);
+            padding: 1.6rem 1.4rem 1.6rem 1.4rem;
+            transition: transform 0.2s ease, box-shadow 0.2s;
+            border-top: 4px solid;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 20px 30px -12px rgba(0, 0, 0, 0.12);
+        }
+
+        /* borderkleuren worden via aparte klassen toegepast */
+        .card-border-primary {
+            border-top-color: var(--primary);
+        }
+        .card-border-secondary {
+            border-top-color: var(--secondary);
+        }
+        .card-border-accent {
+            border-top-color: var(--accent);
+        }
+
+        .card h3 {
+            font-size: 1.45rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+            letter-spacing: -0.2px;
+            color: var(--text);
+        }
+
+        .card p {
+            font-size: 0.95rem;
+            line-height: 1.5;
+            color: #2e2e44;
+            opacity: 0.85;
+        }
+
+        /* FOOTER – Baak stijl */
+        .footer {
+            background-color: var(--primary);
+            color: white;
+            margin-top: 3.5rem;
+            position: relative;
+        }
+
+        .footer-content {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem 1.8rem 1.5rem;
+            text-align: center;
+        }
+
+        .footer-content p {
+            font-size: 0.95rem;
+            margin: 0.25rem 0;
+            letter-spacing: 0.3px;
+        }
+
+        .footer-tagline {
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            font-size: 1rem;
+        }
+
+        /* gradient bottom bar: groen-geel-groen */
+        .gradient-bar {
+            width: 100%;
+            height: 6px;
+            background: linear-gradient(90deg, var(--secondary) 0%, var(--accent) 50%, var(--secondary) 100%);
+            position: absolute;
+            bottom: 0;
+            left: 0;
+        }
+
+        /* RESPONSIVE – mobiel stack */
+        @media (max-width: 768px) {
+            .container {
+                padding: 1.5rem 1.2rem;
+            }
+            .cards-grid {
+                grid-template-columns: 1fr;
+                gap: 1.2rem;
+            }
+            .tab-btn {
+                padding: 0.6rem 1.2rem;
+                font-size: 1rem;
+                min-width: auto;
+                flex: 1 0 auto;
+            }
+            .tabs-nav {
+                gap: 0.5rem;
+                justify-content: center;
+            }
+            .legend {
+                justify-content: center;
+                gap: 1rem;
+            }
+            .infographic-header h1 {
+                font-size: 1.8rem;
+            }
+            .card {
+                padding: 1.4rem;
+            }
+        }
+
+        /* touch targets extra veiligheid */
+        button, .tab-btn, .legend-item {
+            cursor: pointer;
+            touch-action: manipulation;
+        }
+
+        /* extra kleine aanpassing */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="infographic-header">
+        <h1>De Baak · Groei & Verbinding</h1>
+        <p>Huisstijl infographic v2.0 — inzichten uit drie strategische pijlers. Elke kaart toont een thema, herkenbaar aan de gekleurde bovenrand.</p>
+    </div>
+
+    <!-- DOT LEGEND: uitleg randkleuren -->
+    <div class="legend" aria-label="Kleurenlegenda voor kaartranden">
+        <div class="legend-item"><span class="dot primary"></span> <span>Primair (kernthema)</span></div>
+        <div class="legend-item"><span class="dot secondary"></span> <span>Secundair (groei & transitie)</span></div>
+        <div class="legend-item"><span class="dot accent"></span> <span>Accent (vernieuwing & energie)</span></div>
+    </div>
+
+    <!-- TABS: 3 onderdelen -->
+    <div class="tabs-nav" role="tablist" aria-label="Infographic thema's">
+        <button class="tab-btn active" data-tab="tab1" role="tab" aria-selected="true">📈 Strategie & Impact</button>
+        <button class="tab-btn" data-tab="tab2" role="tab" aria-selected="false">🌱 Duurzame Groei</button>
+        <button class="tab-btn" data-tab="tab3" role="tab" aria-selected="false">🤝 Verbinding & Co-creatie</button>
+    </div>
+
+    <!-- TAB 1: Strategie & Impact -->
+    <div id="tab1" class="tab-pane active-pane" role="tabpanel">
+        <div class="cards-grid">
+            <!-- kaart 1 - primaire rand -->
+            <div class="card card-border-primary">
+                <h3>Strategische Foresight</h3>
+                <p>Anticipeer op disruptie met scenarioplanning en toekomstverkenningen. Bouw veerkrachtige organisatiestrategieën.</p>
+            </div>
+            <!-- kaart 2 - secundaire rand -->
+            <div class="card card-border-secondary">
+                <h3>Waarde Gedreven Portfolio</h3>
+                <p>Optimaliseer investeringen en meet maatschappelijke & financiële impact. Keuzes met langetermijnvisie.</p>
+            </div>
+            <!-- kaart 3 - accent rand -->
+            <div class="card card-border-accent">
+                <h3>Data-gestuurde Besluitvorming</h3>
+                <p>AI-ondersteunde dashboards en realtime inzichten. Van ruwe data naar strategische actie.</p>
+            </div>
+            <!-- kaart 4 - primaire rand -->
+            <div class="card card-border-primary">
+                <h3>Veranderkundig Leiderschap</h3>
+                <p>Stuur transities met vertrouwen, psychologische veiligheid en betrokken verandermanagement.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- TAB 2: Duurzame Groei -->
+    <div id="tab2" class="tab-pane" role="tabpanel">
+        <div class="cards-grid">
+            <div class="card card-border-secondary">
+                <h3>Circulaire Bedrijfsmodellen</h3>
+                <p>Ontwerp ketens met herbruik, reduceer afval en creëer nieuwe waarde door circulariteit.</p>
+            </div>
+            <div class="card card-border-accent">
+                <h3>ESG & Compliance</h3>
+                <p>Milieu, sociaal en governance structureel verankeren. Transparante rapportage & impactmeting.</p>
+            </div>
+            <div class="card card-border-primary">
+                <h3>Mensgerichte Innovatie</h3>
+                <p>Technologie als middel, niet als doel. Human-centric AI en digitale inclusie.</p>
+            </div>
+            <div class="card card-border-secondary">
+                <h3>Leren & Ontwikkelcultuur</h3>
+                <p>Leven lang ontwikkelen, wendbare skills & groei-mindset voor teams en leiders.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- TAB 3: Verbinding & Co-creatie -->
+    <div id="tab3" class="tab-pane" role="tabpanel">
+        <div class="cards-grid">
+            <div class="card card-border-accent">
+                <h3>Partnerecosystemen</h3>
+                <p>Samenwerken over sectorgrenzen heen. Co-creatie met startups, kennisinstellingen en overheid.</p>
+            </div>
+            <div class="card card-border-primary">
+                <h3>Inclusieve Besluitvorming</h3>
+                <p>Diversiteit als strategisch voordeel. Besluiten met breed perspectief en gedeeld eigenaarschap.</p>
+            </div>
+            <div class="card card-border-secondary">
+                <h3>Community Impact</h3>
+                <p>Sociale waarde realiseren met stakeholders. Van lokaal tot internationaal: verbindende kracht.</p>
+            </div>
+            <div class="card card-border-accent">
+                <h3>Transparante Governance</h3>
+                <p>Dialoog, openheid en integere checks & balances. Vertrouwen als basis voor duurzame samenwerking.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- FOOTER met gradientbar (groen-geel-groen) -->
+<footer class="footer">
+    <div class="footer-content">
+        <p class="footer-tagline">De Baak · Leiderschap in beweging</p>
+        <p>Huisstijl v2.0 – Infographic met inzichten vanuit AI, strategie en mensgericht werken</p>
+        <p style="font-size: 0.8rem; margin-top: 0.75rem;">© 2026 De Baak · Alle rechten voorbehouden</p>
+    </div>
+    <div class="gradient-bar" aria-hidden="true"></div>
+</footer>
+
+<script>
+    (function() {
+        // Tab functionaliteit: schakelen tussen paneel + active button
+        const tabBtns = document.querySelectorAll('.tab-btn');
+        const panes = document.querySelectorAll('.tab-pane');
+
+        function activateTab(tabId) {
+            // Verberg alle panes
+            panes.forEach(pane => {
+                pane.classList.remove('active-pane');
+                pane.setAttribute('aria-hidden', 'true');
+            });
+            // Toon geselecteerde pane
+            const activePane = document.getElementById(tabId);
+            if (activePane) {
+                activePane.classList.add('active-pane');
+                activePane.setAttribute('aria-hidden', 'false');
+            }
+
+            // Update button states
+            tabBtns.forEach(btn => {
+                const btnTab = btn.getAttribute('data-tab');
+                const isActive = (btnTab === tabId);
+                if (isActive) {
+                    btn.classList.add('active');
+                    btn.setAttribute('aria-selected', 'true');
+                } else {
+                    btn.classList.remove('active');
+                    btn.setAttribute('aria-selected', 'false');
+                }
+            });
+        }
+
+        // Event listeners voor elke tabknop
+        tabBtns.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const targetTab = btn.getAttribute('data-tab');
+                if (targetTab) {
+                    activateTab(targetTab);
+                }
+                // Optioneel: kleine haptische feedback
+                btn.style.transform = 'scale(0.98)';
+                setTimeout(() => { btn.style.transform = ''; }, 100);
+            });
+
+            // touch / keyboard toegankelijkheid
+            btn.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    btn.click();
+                }
+            });
+        });
+
+        // Initialiseer eerste tab expliciet (zorgt voor consistentie)
+        const initialActive = document.querySelector('.tab-btn.active');
+        if (initialActive) {
+            const initialTab = initialActive.getAttribute('data-tab');
+            if (initialTab) activateTab(initialTab);
+        } else if (tabBtns.length) {
+            // fallback: eerste tab activeren
+            const firstTab = tabBtns[0].getAttribute('data-tab');
+            if (firstTab) activateTab(firstTab);
+        }
+    })();
+</script>
+</body>
+</html>

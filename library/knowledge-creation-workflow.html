@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>De Baak | AI Second Brain – Leeromgeving Infographic</title>
+  <style>
+    /* ---------- DE BAAK HUISSTIJL v2.0 ---------- */
+    :root {
+      --primary: #005ADC;
+      --secondary: #00A555;
+      --accent: #FFE100;
+      --bg: #F5F5EB;
+      --text: #1A1A2E;
+      --shadow: 0 12px 24px -8px rgba(0, 0, 0, 0.12), 0 4px 8px rgba(0, 0, 0, 0.04);
+      --card-radius: 16px;
+      --transition: all 0.2s ease;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background-color: var(--bg);
+      font-family: Arial, sans-serif;
+      color: var(--text);
+      line-height: 1.45;
+      padding: 2rem 1.5rem;
+    }
+
+    /* main container – readable width */
+    .debaak-container {
+      max-width: 1280px;
+      margin: 0 auto;
+      background: transparent;
+    }
+
+    /* HEADER & TYPOGRAPHY */
+    h1 {
+      font-size: 1.9rem;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      margin-bottom: 0.5rem;
+      color: var(--text);
+    }
+
+    .subhead {
+      font-size: 1.1rem;
+      color: #4a4a5e;
+      border-left: 4px solid var(--primary);
+      padding-left: 1rem;
+      margin: 0.75rem 0 1.5rem 0;
+    }
+
+    /* DOT LEGEND (3 dots) */
+    .dot-legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      align-items: center;
+      margin-bottom: 2rem;
+      background: rgba(0, 90, 220, 0.04);
+      padding: 0.75rem 1.25rem;
+      border-radius: 60px;
+      width: fit-content;
+    }
+
+    .legend-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+
+    .dot {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      display: inline-block;
+    }
+
+    .dot-primary { background-color: var(--primary); }
+    .dot-secondary { background-color: var(--secondary); }
+    .dot-accent { background-color: var(--accent); }
+
+    /* TABS (touch friendly) */
+    .tabs-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin: 1.5rem 0 2rem 0;
+      border-bottom: 2px solid #e2e2d6;
+    }
+
+    .tab-btn {
+      background: transparent;
+      border: none;
+      padding: 0.85rem 1.8rem;
+      font-size: 1rem;
+      font-weight: 700;
+      font-family: Arial, sans-serif;
+      color: var(--text);
+      cursor: pointer;
+      transition: var(--transition);
+      border-radius: 40px 40px 0 0;
+      min-height: 48px;       /* touch target ≥44px */
+      letter-spacing: 0.3px;
+    }
+
+    .tab-btn:hover {
+      background: rgba(0, 90, 220, 0.08);
+      color: var(--primary);
+    }
+
+    .tab-btn.active {
+      color: var(--primary);
+      border-bottom: 3px solid var(--primary);
+      background: rgba(0, 90, 220, 0.04);
+    }
+
+    /* Tab panes */
+    .tab-pane {
+      display: none;
+      animation: fade 0.25s ease;
+    }
+
+    .tab-pane.active-pane {
+      display: block;
+    }
+
+    @keyframes fade {
+      from { opacity: 0; transform: translateY(6px);}
+      to { opacity: 1; transform: translateY(0);}
+    }
+
+    /* 2‑column card grid (responsive) */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.75rem;
+    }
+
+    /* CARD STYLES */
+    .card {
+      background: white;
+      border-radius: var(--card-radius);
+      box-shadow: var(--shadow);
+      padding: 1.6rem;
+      transition: transform 0.2s ease, box-shadow 0.2s;
+      border-top: 4px solid transparent;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 20px 28px -12px rgba(0, 0, 0, 0.18);
+    }
+
+    /* top border colors per component */
+    .card-primary {
+      border-top-color: var(--primary);
+    }
+    .card-secondary {
+      border-top-color: var(--secondary);
+    }
+    .card-accent {
+      border-top-color: var(--accent);
+    }
+
+    .card-icon {
+      font-size: 2.1rem;
+      margin-bottom: 1rem;
+    }
+
+    .card h3 {
+      font-size: 1.4rem;
+      font-weight: 700;
+      margin-bottom: 0.75rem;
+      color: #0f172a;
+    }
+
+    .card p {
+      font-size: 0.95rem;
+      line-height: 1.5;
+      color: #2d3a4a;
+      margin-bottom: 1rem;
+      flex: 1;
+    }
+
+    .card-tag {
+      display: inline-block;
+      font-size: 0.7rem;
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      background: #f0f0ea;
+      padding: 0.2rem 0.7rem;
+      border-radius: 30px;
+      margin-top: 0.6rem;
+      align-self: flex-start;
+    }
+
+    /* FOOTER */
+    .site-footer {
+      background-color: var(--primary);
+      color: white;
+      margin-top: 3.5rem;
+      border-radius: 24px 24px 16px 16px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .footer-content {
+      padding: 2rem 2rem 1.8rem 2rem;
+      text-align: center;
+      position: relative;
+      z-index: 2;
+    }
+
+    .footer-content p {
+      font-size: 0.95rem;
+      line-height: 1.5;
+      max-width: 700px;
+      margin: 0 auto 0.5rem auto;
+    }
+
+    .gradient-bottom-bar {
+      height: 6px;
+      width: 100%;
+      background: linear-gradient(90deg, var(--secondary) 0%, var(--accent) 50%, var(--secondary) 100%);
+      position: absolute;
+      bottom: 0;
+      left: 0;
+    }
+
+    /* responsive : mobile stacking */
+    @media (max-width: 768px) {
+      body {
+        padding: 1.2rem;
+      }
+      h1 {
+        font-size: 1.6rem;
+      }
+      .cards-grid {
+        grid-template-columns: 1fr;
+        gap: 1.25rem;
+      }
+      .tab-btn {
+        padding: 0.7rem 1.2rem;
+        font-size: 0.9rem;
+        min-height: 44px;
+      }
+      .dot-legend {
+        gap: 1rem;
+        padding: 0.6rem 1rem;
+        width: 100%;
+        justify-content: center;
+      }
+      .footer-content {
+        padding: 1.5rem 1rem;
+      }
+      .card {
+        padding: 1.3rem;
+      }
+      .card h3 {
+        font-size: 1.25rem;
+      }
+    }
+
+    /* small extra touch */
+    @media (max-width: 480px) {
+      .tabs-nav {
+        justify-content: center;
+      }
+      .legend-item span {
+        font-size: 0.75rem;
+      }
+    }
+
+    /* accessibility & focus */
+    .tab-btn:focus-visible {
+      outline: 2px solid var(--primary);
+      outline-offset: 2px;
+      border-radius: 20px;
+    }
+
+    a, button {
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+<div class="debaak-container">
+  
+  <!-- header / intro -->
+  <h1>🧠 AI Tweede Brein<br>Workflow × Knowledge Agent × Social Learning</h1>
+  <div class="subhead">
+    Een leeromgeving die met je meegroeit — gebaseerd op DISCO-principes & De Baak huisstijl v2.0
+  </div>
+
+  <!-- DOT LEGEND (kleurcodering) -->
+  <div class="dot-legend">
+    <div class="legend-item"><span class="dot dot-primary"></span> Workflow (blauw)</div>
+    <div class="legend-item"><span class="dot dot-secondary"></span> Knowledge Agent (groen)</div>
+    <div class="legend-item"><span class="dot dot-accent"></span> Social Learning (geel)</div>
+    <div class="legend-item" style="opacity:0.7;">🧩 gezamenlijk → lerend ecosysteem</div>
+  </div>
+
+  <!-- TABS NAVIGATION -->
+  <div class="tabs-nav" role="tablist" aria-label="Infographic thema's">
+    <button class="tab-btn active" data-tab="tab-workflow" role="tab" aria-selected="true">⚙️ Workflow</button>
+    <button class="tab-btn" data-tab="tab-agent" role="tab" aria-selected="false">🤖 Knowledge Agent</button>
+    <button class="tab-btn" data-tab="tab-social" role="tab" aria-selected="false">🌱 Social Learning Env</button>
+  </div>
+
+  <!-- TAB 1: WORKFLOW -->
+  <div id="tab-workflow" class="tab-pane active-pane" role="tabpanel">
+    <div class="cards-grid">
+      <!-- card 1 workflow -->
+      <div class="card card-primary">
+        <div class="card-icon">📥</div>
+        <h3>Capture & raw/ folder</h3>
+        <p>Web Clipper, PDF's, spraakmemo's & eigen notities landen direct in de <strong>raw/-map</strong>. Eén klik en bronnen zijn beschikbaar voor je AI-bibliothecaris.</p>
+        <span class="card-tag">Obsidian Web Clipper</span>
+      </div>
+      <!-- card 2 workflow -->
+      <div class="card card-primary">
+        <div class="card-icon">⚙️</div>
+        <h3>AI-ingestie (Claude Code)</h3>
+        <p>Automatisch inlezen: "Lees het nieuwe bestand in raw/ in." Je AI-agent verwerkt, linkt en verrijkt je kennisbank zonder handmatig werk.</p>
+        <span class="card-tag">automatische integratie</span>
+      </div>
+      <!-- card 3 workflow -->
+      <div class="card card-primary">
+        <div class="card-icon">💬</div>
+        <h3>Natural language query</h3>
+        <p>Stel vragen zoals: <em>“Wat zeiden we drie maanden geleden over Anthropic?”</em> De bibliothecaris antwoordt met bronvermelding & exacte passages.</p>
+        <span class="card-tag">interactief & direct</span>
+      </div>
+      <!-- card 4 workflow -->
+      <div class="card card-primary">
+        <div class="card-icon">🩺</div>
+        <h3>Lint pass (gezondheidscheck)</h3>
+        <p>Maandelijks automatisch rapport: weespagina's, tegenstrijdigheden, verouderde claims. Blijf scherp en consistent.</p>
+        <span class="card-tag">kwaliteitsborging</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- TAB 2: KNOWLEDGE AGENT (AI BIBLIOTHECARIS) -->
+  <div id="tab-agent" class="tab-pane" role="tabpanel">
+    <div class="cards-grid">
+      <div class="card card-secondary">
+        <div class="card-icon">🔗</div>
+        <h3>Leest & linkt alles</h3>
+        <p>Elke nieuwe bron wordt verbonden met bestaande pagina's. Ontologie groeit vanzelf: begrippen, personen, projecten.</p>
+        <span class="card-tag">bidirectionele links</span>
+      </div>
+      <div class="card card-secondary">
+        <div class="card-icon">⚠️</div>
+        <h3>Contradictie detectie</h3>
+        <p>“Welke auteurs zijn het oneens over methode X?” De agent toont specifieke passages waar bronnen elkaar tegenspreken – essentieel voor diepgaand onderzoek.</p>
+        <span class="card-tag">critical thinking</span>
+      </div>
+      <div class="card card-secondary">
+        <div class="card-icon">📚</div>
+        <h3>Source-gebaseerde antwoorden</h3>
+        <p>Geen hallucinaties. Elk antwoord bevat letterlijke citaten uit jouw vault. Vertrouwelijke kennis blijft binnen je eigen wiki.</p>
+        <span class="card-tag">betrouwbaar & traceerbaar</span>
+      </div>
+      <div class="card card-secondary">
+        <div class="card-icon">🧩</div>
+        <h3>Ontologiebouwer</h3>
+        <p>Creëert automatisch conceptpagina's, synoniemen en relaties. Jouw persoonlijke Wiki wordt een gestructureerd kennismodel.</p>
+        <span class="card-tag">DISCO – Ontology-driven</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- TAB 3: SOCIAL LEARNING ENVIRONMENT (incl. DISCO & samenwerking) -->
+  <div id="tab-social" class="tab-pane" role="tabpanel">
+    <div class="cards-grid">
+      <div class="card card-accent">
+        <div class="card-icon">🔄</div>
+        <h3>Publicatie-lus</h3>
+        <p>Elk artikel, rapport of projectupdate wordt na publicatie teruggeclipt naar de vault. Wat jij deelt, verrijkt je eigen toekomstige AI-bibliothecaris.</p>
+        <span class="card-tag">lerende organisatie</span>
+      </div>
+      <div class="card card-accent">
+        <div class="card-icon">👥</div>
+        <h3>Team vaults & gedeelde projectdossiers</h3>
+        <p>Gebruik iCloud, Dropbox of Obsidian Sync voor gezamenlijke wiki's. Managers vragen: “Wat heeft klant Y gevraagd dat we nog niet opvolgden?” – antwoord in seconden.</p>
+        <span class="card-tag">collaboratief</span>
+      </div>
+      <div class="card card-accent">
+        <div class="card-icon">📢</div>
+        <h3>Gedeelde lint pass rapporten</h3>
+        <p>Wekelijks of maandelijks stuctureel tegenstrijdigheden bespreken met team. Maak kennisverschillen expliciet en verbeter gezamenlijk de bronnenkwaliteit.</p>
+        <span class="card-tag">reflectie & groei</span>
+      </div>
+      <div class="card card-accent">
+        <div class="card-icon">🌈</div>
+        <h3>DISCO in actie</h3>
+        <p><strong>D</strong>istributed (sync/multi-device) · <strong>I</strong>nteractive (vraag/antwoord) · <strong>S</strong>ocial (publiceren & delen) · <strong>C</strong>ollaborative (mens+AI) · <strong>O</strong>ntology-driven (gelinkte begrippen). Samen vormen zij een levende leeromgeving.</p>
+        <span class="card-tag">de Baak methodiek</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER met gradient bottom bar (groen-geel-groen) -->
+  <footer class="site-footer">
+    <div class="footer-content">
+      <p style="font-weight:600;">🧠 “Het is geen tool, maar een werkmethode die met je meegroeit.”</p>
+      <p>Hoe langer je de workflow + knowledge agent + sociale omgeving gebruikt, hoe rijker je AI-bibliothecaris wordt. Begin klein, voeg geleidelijk toe en ervaar hoe jouw tweede brein na maanden uitgroeit tot een onmisbare leerpartner.<br>
+      📍 De Baak Huisstijl v2.0 — Lint pass, Obsidian Web Clipper, en gezamenlijke kennisdeling versnellen jouw ontwikkeling.</p>
+      <p style="font-size:0.8rem; margin-top:1rem;">© AI Second Brain — Leer & ontwikkel continu. Privacy: eigen vault, geen modeltraining.</p>
+    </div>
+    <div class="gradient-bottom-bar"></div>
+  </footer>
+</div>
+
+<script>
+  (function() {
+    // tab switching logic – vanilla JS, geen libraries
+    const tabs = document.querySelectorAll('.tab-btn');
+    const panes = document.querySelectorAll('.tab-pane');
+
+    function activateTab(tabId) {
+      // Deactivate all panes & buttons
+      panes.forEach(pane => {
+        pane.classList.remove('active-pane');
+        pane.setAttribute('aria-hidden', 'true');
+      });
+      tabs.forEach(btn => {
+        btn.classList.remove('active');
+        btn.setAttribute('aria-selected', 'false');
+      });
+
+      // Activate new pane
+      const activePane = document.getElementById(tabId);
+      if (activePane) {
+        activePane.classList.add('active-pane');
+        activePane.setAttribute('aria-hidden', 'false');
+      }
+
+      // Activate corresponding button
+      const activeButton = Array.from(tabs).find(btn => btn.getAttribute('data-tab') === tabId);
+      if (activeButton) {
+        activeButton.classList.add('active');
+        activeButton.setAttribute('aria-selected', 'true');
+      }
+    }
+
+    // Add click listeners
+    tabs.forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const tabId = btn.getAttribute('data-tab');
+        if (tabId) {
+          activateTab(tabId);
+        }
+      });
+      // touch + keyboard friendly, already min-height 44px
+    });
+
+    // Set default (first tab is already active, but ensure aria states)
+    const initialActiveTab = document.querySelector('.tab-btn.active');
+    if (!initialActiveTab || !initialActiveTab.getAttribute('data-tab')) {
+      // fallback: activate workflow
+      activateTab('tab-workflow');
+    } else {
+      // ensure correct pane visibility if page load state mismatches
+      const defaultTabId = initialActiveTab.getAttribute('data-tab');
+      if (defaultTabId) {
+        const defaultPane = document.getElementById(defaultTabId);
+        if (defaultPane && !defaultPane.classList.contains('active-pane')) {
+          activateTab(defaultTabId);
+        }
+      }
+    }
+
+    // extra robustness: check aria for each pane
+    panes.forEach(pane => {
+      if (pane.classList.contains('active-pane')) {
+        pane.setAttribute('aria-hidden', 'false');
+      } else {
+        pane.setAttribute('aria-hidden', 'true');
+      }
+    });
+  })();
+</script>
+</body>
+</html>

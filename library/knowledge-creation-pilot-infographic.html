@@ -1,0 +1,1522 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Knowledge Creation Platform - Pilot Charter & Business Case</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background-color: #ffffff;
+            color: #1f2937;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 40px 20px;
+            background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
+            color: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(2, 132, 199, 0.1);
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        header p {
+            font-size: 1.1rem;
+            opacity: 0.95;
+        }
+
+        /* Tab Navigation */
+        .tab-container {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            border-bottom: 2px solid #e2e8f0;
+            overflow-x: auto;
+            padding-bottom: 0;
+        }
+
+        .tab-btn {
+            padding: 12px 20px;
+            border: none;
+            background-color: transparent;
+            color: #64748b;
+            cursor: pointer;
+            font-size: 0.95rem;
+            font-weight: 500;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .tab-btn:hover {
+            color: #0284c7;
+            background-color: #f8fafc;
+        }
+
+        .tab-btn.active {
+            color: #0284c7;
+            border-bottom-color: #0284c7;
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Cards and Sections */
+        .card {
+            background-color: #f1f5f9;
+            border-radius: 8px;
+            padding: 24px;
+            margin-bottom: 20px;
+            border-left: 4px solid #0284c7;
+        }
+
+        .card-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: #0284c7;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat-box {
+            background-color: #f1f5f9;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            border: 1px solid #e2e8f0;
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #0284c7;
+            margin-bottom: 8px;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: #64748b;
+            font-weight: 500;
+        }
+
+        /* Objectives and Lists */
+        .objective-list {
+            list-style: none;
+        }
+
+        .objective-list li {
+            background-color: #f1f5f9;
+            padding: 16px;
+            margin-bottom: 12px;
+            border-radius: 8px;
+            border-left: 4px solid #0284c7;
+            display: flex;
+            gap: 12px;
+        }
+
+        .objective-list li:before {
+            content: "✓";
+            color: #0284c7;
+            font-weight: bold;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+
+        /* Two Column Layout */
+        .two-column {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .column-section h3 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: #0284c7;
+        }
+
+        .column-section ul {
+            list-style: none;
+        }
+
+        .column-section li {
+            padding: 10px 0;
+            padding-left: 20px;
+            position: relative;
+            color: #475569;
+        }
+
+        .column-section li:before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: #0284c7;
+            font-weight: bold;
+        }
+
+        /* Timeline */
+        .timeline {
+            position: relative;
+            padding: 20px 0;
+        }
+
+        .timeline-item {
+            display: grid;
+            grid-template-columns: 120px 1fr;
+            gap: 20px;
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .timeline-item:last-child {
+            border-bottom: none;
+        }
+
+        .timeline-phase {
+            background-color: #0284c7;
+            color: white;
+            padding: 12px;
+            border-radius: 6px;
+            text-align: center;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .timeline-content h4 {
+            color: #0284c7;
+            margin-bottom: 8px;
+            font-size: 1.1rem;
+        }
+
+        .timeline-content p {
+            color: #64748b;
+            margin-bottom: 6px;
+            font-size: 0.95rem;
+        }
+
+        /* Team Roles */
+        .role-card {
+            background-color: #f1f5f9;
+            padding: 18px;
+            border-radius: 8px;
+            margin-bottom: 16px;
+            border-left: 4px solid #0284c7;
+        }
+
+        .role-title {
+            font-weight: 600;
+            color: #0284c7;
+            margin-bottom: 8px;
+            font-size: 1rem;
+        }
+
+        .role-detail {
+            font-size: 0.85rem;
+            color: #64748b;
+            margin-bottom: 4px;
+        }
+
+        /* Revenue Table */
+        .revenue-table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: #f1f5f9;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .revenue-table thead {
+            background-color: #0284c7;
+            color: white;
+        }
+
+        .revenue-table th {
+            padding: 12px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        .revenue-table td {
+            padding: 12px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .revenue-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .revenue-table tr:hover {
+            background-color: #e0f2fe;
+        }
+
+        /* Success Criteria Grid */
+        .criteria-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+
+        .criteria-box {
+            background-color: #f1f5f9;
+            padding: 16px;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .criteria-category {
+            font-weight: 600;
+            color: #0284c7;
+            margin-bottom: 8px;
+            font-size: 0.95rem;
+        }
+
+        .criteria-target {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #0284c7;
+            margin-bottom: 6px;
+        }
+
+        .criteria-metric {
+            font-size: 0.85rem;
+            color: #64748b;
+        }
+
+        /* Summary Box */
+        .summary-box {
+            background: linear-gradient(135deg, #f0f9ff 0%, #f1f5f9 100%);
+            border: 2px solid #0284c7;
+            border-radius: 8px;
+            padding: 24px;
+            margin-bottom: 20px;
+        }
+
+        .summary-box h3 {
+            color: #0284c7;
+            margin-bottom: 12px;
+            font-size: 1.2rem;
+        }
+
+        .summary-box p {
+            color: #475569;
+            line-height: 1.8;
+            margin-bottom: 10px;
+        }
+
+        /* Executive Summary Page */
+        .exec-summary-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .exec-card {
+            background-color: #f1f5f9;
+            padding: 20px;
+            border-radius: 8px;
+            border-top: 4px solid #0284c7;
+        }
+
+        .exec-card-title {
+            font-weight: 600;
+            color: #0284c7;
+            margin-bottom: 12px;
+            font-size: 1rem;
+        }
+
+        .exec-card-content {
+            font-size: 0.9rem;
+            color: #64748b;
+            line-height: 1.6;
+        }
+
+        .exec-highlight {
+            color: #0284c7;
+            font-weight: 600;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 1.8rem;
+            }
+
+            .tab-container {
+                gap: 4px;
+            }
+
+            .tab-btn {
+                padding: 10px 12px;
+                font-size: 0.85rem;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .two-column {
+                grid-template-columns: 1fr;
+            }
+
+            .timeline-item {
+                grid-template-columns: 1fr;
+            }
+
+            .timeline-phase {
+                text-align: left;
+            }
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 30px;
+            color: #94a3b8;
+            font-size: 0.9rem;
+            border-top: 1px solid #e2e8f0;
+            margin-top: 40px;
+        }
+
+        .badge {
+            display: inline-block;
+            background-color: #0284c7;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-right: 8px;
+        }
+
+        .alert {
+            background-color: #fef3c7;
+            border-left: 4px solid #f59e0b;
+            padding: 16px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+        }
+
+        .alert-title {
+            font-weight: 600;
+            color: #b45309;
+            margin-bottom: 6px;
+        }
+
+        .alert-text {
+            color: #92400e;
+            font-size: 0.95rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Knowledge Creation Platform</h1>
+            <p>Flagship Pilot: Project Charter & Business Case</p>
+        </header>
+
+        <div class="tab-container">
+            <button class="tab-btn active" onclick="switchTab(event, 'overview')">Executive Summary</button>
+            <button class="tab-btn" onclick="switchTab(event, 'purpose')">Project Purpose</button>
+            <button class="tab-btn" onclick="switchTab(event, 'objectives')">Objectives</button>
+            <button class="tab-btn" onclick="switchTab(event, 'scope')">Scope</button>
+            <button class="tab-btn" onclick="switchTab(event, 'deliverables')">Deliverables</button>
+            <button class="tab-btn" onclick="switchTab(event, 'timeline')">Timeline</button>
+            <button class="tab-btn" onclick="switchTab(event, 'roles')">Team Structure</button>
+            <button class="tab-btn" onclick="switchTab(event, 'market')">Market Analysis</button>
+            <button class="tab-btn" onclick="switchTab(event, 'economics')">Pilot Economics</button>
+            <button class="tab-btn" onclick="switchTab(event, 'revenue')">Revenue Model</button>
+            <button class="tab-btn" onclick="switchTab(event, 'metrics')">Success Metrics</button>
+        </div>
+
+        <!-- EXECUTIVE SUMMARY TAB -->
+        <div id="overview" class="tab-content active">
+            <h2 style="color: #0284c7; margin-bottom: 30px; font-size: 2rem;">Executive Summary: Knowledge Creation Platform Pilot</h2>
+
+            <div class="stats-grid">
+                <div class="stat-box">
+                    <div class="stat-value">24 weeks</div>
+                    <div class="stat-label">Project Timeline</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-value">30-50</div>
+                    <div class="stat-label">Target Participants</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-value">€9-17k</div>
+                    <div class="stat-label">Pilot Investment</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-value">€103k</div>
+                    <div class="stat-label">Year 1 Revenue (Target)</div>
+                </div>
+            </div>
+
+            <div class="exec-summary-grid">
+                <div class="exec-card">
+                    <div class="exec-card-title">🎯 Project Goal</div>
+                    <div class="exec-card-content">
+                        Run a flagship <span class="exec-highlight">1-week, 7-lesson cohort</span> for mid-career professionals combining deep work, life design, and relational health principles. Validate the business model before scaling.
+                    </div>
+                </div>
+
+                <div class="exec-card">
+                    <div class="exec-card-title">🎓 Target Audience</div>
+                    <div class="exec-card-content">
+                        <span class="exec-highlight">Mid-career professionals</span> (30-55) seeking clarity on career, focus, and relationships. Affluent, education-oriented, willing to invest in self-development.
+                    </div>
+                </div>
+
+                <div class="exec-card">
+                    <div class="exec-card-title">📊 Market Opportunity</div>
+                    <div class="exec-card-content">
+                        <span class="exec-highlight">€50k addressable market</span> in Europe. Fragmented existing solutions (retreats too expensive, books lack application, platforms lack community).
+                    </div>
+                </div>
+
+                <div class="exec-card">
+                    <div class="exec-card-title">💰 Unit Economics</div>
+                    <div class="exec-card-content">
+                        Mature cohort at €129/participant needs 44 participants for break-even; at €199 price, needs 28. Profitability through bundles, membership, and coaching layering.
+                    </div>
+                </div>
+
+                <div class="exec-card">
+                    <div class="exec-card-title">✅ Success Thresholds</div>
+                    <div class="exec-card-content">
+                        <span class="exec-highlight">70% completion</span>, <span class="exec-highlight">4.0/5 satisfaction</span>, <span class="exec-highlight">NPS 40+</span>, <span class="exec-highlight">60% behavior change</span>, <span class="exec-highlight">50% upsell interest</span>
+                    </div>
+                </div>
+
+                <div class="exec-card">
+                    <div class="exec-card-title">🚀 Path Forward</div>
+                    <div class="exec-card-content">
+                        If green-light: scale to <span class="exec-highlight">10-session flagship</span> and layered revenue (bundles, circles, coaching, B2B). Investment phase Year 1; profitability Year 2.
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-title">Pilot Roadmap at a Glance</div>
+                <p style="margin-bottom: 15px; color: #64748b;"><strong>Discover (Wk 1-3):</strong> 8-12 interviews, 5-competitor analysis, personas | <strong>Interpret (Wk 4-5):</strong> HMW statements, challenge statement, success criteria</p>
+                <p style="margin-bottom: 15px; color: #64748b;"><strong>Ideate (Wk 6-8):</strong> 7-lesson design, script beats, concept validation | <strong>Experiment (Wk 9-18):</strong> Video production, platform setup, internal QA</p>
+                <p style="margin-bottom: 15px; color: #64748b;"><strong>Pilot Launch (Wk 19-22):</strong> Recruitment, live 1-week cohort, data collection | <strong>Evolve (Wk 23-24):</strong> Data synthesis, go/no-go decision, next roadmap</p>
+            </div>
+
+            <div class="alert">
+                <div class="alert-title">💡 Why This Pilot?</div>
+                <div class="alert-text">Year 1 is an intentional investment phase. By validating the 7-lesson flagship with real users, we de-risk the full €206k Year 1 operating cost and generate evidence for partners, funders, and B2B clients.</div>
+            </div>
+        </div>
+
+        <!-- PROJECT PURPOSE TAB -->
+        <div id="purpose" class="tab-content">
+            <h2 style="color: #0284c7; margin-bottom: 30px; font-size: 2rem;">Project Purpose & Vision</h2>
+
+            <div class="summary-box">
+                <h3>Vision</h3>
+                <p>Create a research-backed, behavior-change oriented learning environment that integrates deep work, life design, and relational health in a blended format of short videos, tools, and peer learning.</p>
+            </div>
+
+            <div class="card">
+                <div class="card-title">Strategic Intent</div>
+                <p style="margin-bottom: 15px; color: #64748b;">The Knowledge Creation Platform will solve a critical gap: mid-career professionals need structured support combining three pillars (productivity, career clarity, relational health) but existing offers are fragmented and either too theoretical or too expensive.</p>
+                <p style="color: #64748b;">This pilot is the first production of the platform ecosystem, proving that video + tools + community + behavior change metrics drive sustainable engagement and revenue.</p>
+            </div>
+
+            <div class="two-column">
+                <div class="column-section">
+                    <h3>Primary Objectives</h3>
+                    <ul>
+                        <li>Validate problem-solution fit with real mid-career professionals</li>
+                        <li>Test delivery model (async video, tools, optional peer circles)</li>
+                        <li>Achieve pilot success metrics (70% completion, NPS 40+)</li>
+                        <li>Generate behavior change stories and testimonials</li>
+                        <li>Prove business model viability (pricing, CAC, LTV)</li>
+                        <li>Create foundation for 10-session flagship and broader portfolio</li>
+                    </ul>
+                </div>
+                <div class="column-section">
+                    <h3>Secondary Objectives</h3>
+                    <ul>
+                        <li>Establish brand and market positioning</li>
+                        <li>Build first alumni network for referrals</li>
+                        <li>Create case studies and testimonials for B2B</li>
+                        <li>Test platform and tooling stack</li>
+                        <li>Validate instructor credibility and delivery style</li>
+                        <li>Position for Year 1 institutional partnerships</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-title">Success Means...</div>
+                <ul class="objective-list">
+                    <li>A validated flagship course that professionals actively pay for and complete</li>
+                    <li>Measurable behavior change (work habits, decisions, relationship shifts)</li>
+                    <li>Sustainable unit economics with clear path to profitability by Year 2</li>
+                    <li>A replicable model that can scale to 10-session, 30-lesson, and beyond</li>
+                    <li>Institutional credibility for partnerships and B2B sales</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- OBJECTIVES TAB -->
+        <div id="objectives" class="tab-content">
+            <h2 style="color: #0284c7; margin-bottom: 30px; font-size: 2rem;">Pilot Success Criteria</h2>
+
+            <div class="criteria-grid">
+                <div class="criteria-box">
+                    <div class="criteria-category">COMPLETION</div>
+                    <div class="criteria-target">70%</div>
+                    <div class="criteria-metric">Finish all 7 lessons</div>
+                </div>
+                <div class="criteria-box">
+                    <div class="criteria-category">SATISFACTION</div>
+                    <div class="criteria-target">4.0/5</div>
+                    <div class="criteria-metric">Post-course survey</div>
+                </div>
+                <div class="criteria-box">
+                    <div class="criteria-category">NPS</div>
+                    <div class="criteria-target">40+</div>
+                    <div class="criteria-metric">Likelihood to recommend</div>
+                </div>
+                <div class="criteria-box">
+                    <div class="criteria-category">BEHAVIOR CHANGE</div>
+                    <div class="criteria-target">60%</div>
+                    <div class="criteria-metric">Report concrete shift</div>
+                </div>
+                <div class="criteria-box">
+                    <div class="criteria-category">UPSELL</div>
+                    <div class="criteria-target">50%</div>
+                    <div class="criteria-metric">Willing to buy 10-session</div>
+                </div>
+                <div class="criteria-box">
+                    <div class="criteria-category">EMOTIONAL SAFETY</div>
+                    <div class="criteria-target">4.0/5</div>
+                    <div class="criteria-metric">Feel supported & safe</div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-title">Go/No-Go Decision Framework</div>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
+                    <div style="background-color: #dbeafe; padding: 16px; border-radius: 6px; border-left: 4px solid #0284c7;">
+                        <div style="font-weight: 600; color: #0284c7; margin-bottom: 8px;">🟢 GREEN LIGHT: Scale</div>
+                        <div style="font-size: 0.9rem; color: #0c4a6e;">All 4+ metrics met. Fast-track to 10-session flagship, bundles, membership, coaching.</div>
+                    </div>
+                    <div style="background-color: #fef08a; padding: 16px; border-radius: 6px; border-left: 4px solid #ca8a04;">
+                        <div style="font-weight: 600; color: #ca8a04; margin-bottom: 8px;">🟡 YELLOW LIGHT: Iterate</div>
+                        <div style="font-size: 0.9rem; color: #713f12;">60-70% completion, 3.5-4.0 satisfaction, 30-40 NPS. Revise 2-3 lessons, rerun in 6 weeks.</div>
+                    </div>
+                    <div style="background-color: #fee2e2; padding: 16px; border-radius: 6px; border-left: 4px solid #dc2626;">
+                        <div style="font-weight: 600; color: #dc2626; margin-bottom: 8px;">🔴 RED LIGHT: Pause</div>
+                        <div style="font-size: 0.9rem; color: #7f1d1d;"><60% completion, <3.5 satisfaction, <30 NPS. Conduct deeper discovery into why.</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-title">Quantitative Metrics Tracked</div>
+                <table class="revenue-table">
+                    <thead>
+                        <tr>
+                            <th>Metric</th>
+                            <th>Target</th>
+                            <th>Tracking Method</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Enrollments</strong></td>
+                            <td>30-50</td>
+                            <td>Registration form</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Completion Rate</strong></td>
+                            <td>70%</td>
+                            <td>LMS tracking</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Avg Time-on-Lesson</strong></td>
+                            <td>12-18 min</td>
+                            <td>Analytics</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Reflection Submissions</strong></td>
+                            <td>40%</td>
+                            <td>Comment count</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Post-Course Satisfaction</strong></td>
+                            <td>4.0/5</td>
+                            <td>Survey (7-10 questions)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>NPS</strong></td>
+                            <td>40+</td>
+                            <td>"Likely to recommend" scale</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Refund Rate</strong></td>
+                            <td><10%</td>
+                            <td>Payment processor</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Behavior Change Reported</strong></td>
+                            <td>60%</td>
+                            <td>Post-survey + interviews</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- SCOPE TAB -->
+        <div id="scope" class="tab-content">
+            <h2 style="color: #0284c7; margin-bottom: 30px; font-size: 2rem;">Project Scope: In & Out</h2>
+
+            <div class="two-column">
+                <div class="column-section" style="background-color: #f1f5f9; padding: 20px; border-radius: 8px;">
+                    <h3 style="color: #10b981;">✅ IN SCOPE</h3>
+                    <ul>
+                        <li>1-week, 7-lesson online course</li>
+                        <li>Short videos (8-15 min each)</li>
+                        <li>Tools and worksheets</li>
+                        <li>Daily reflection prompts</li>
+                        <li>LMS setup and configuration</li>
+                        <li>Email automation sequences</li>
+                        <li>Analytics and tracking</li>
+                        <li>Optional peer circle</li>
+                        <li>One external pilot cohort (30-50)</li>
+                        <li>Waitlist and recruitment</li>
+                        <li>Post-pilot evaluation and reporting</li>
+                    </ul>
+                </div>
+
+                <div class="column-section" style="background-color: #f1f5f9; padding: 20px; border-radius: 8px;">
+                    <h3 style="color: #ef4444;">❌ OUT OF SCOPE (Pilot)</h3>
+                    <ul>
+                        <li>Full 10-session program build</li>
+                        <li>Comprehensive community features</li>
+                        <li>Mobile app development</li>
+                        <li>Large-scale paid marketing</li>
+                        <li>Enterprise API integrations</li>
+                        <li>Detailed certification system</li>
+                        <li>Live instructor-led sessions</li>
+                        <li>Translation to other languages</li>
+                        <li>Advanced personalization</li>
+                        <li>Affiliate partner program</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-title">Scope Governance</div>
+                <p style="color: #64748b; margin-bottom: 10px;"><strong>Scope Freeze:</strong> Two weeks before pilot launch (Week 17), no changes to course content or platform features. Bug fixes only.</p>
+                <p style="color: #64748b; margin-bottom: 10px;"><strong>Change Control:</strong> Any request to add features, extend timeline, or increase budget must go through Product Owner approval.</p>
+                <p style="color: #64748b;"><strong>Post-Pilot Iterations:</strong> Feedback-driven enhancements prioritized by RICE (Reach, Impact, Confidence, Effort) for Year 1 roadmap.</p>
+            </div>
+        </div>
+
+        <!-- DELIVERABLES TAB -->
+        <div id="deliverables" class="tab-content">
+            <h2 style="color: #0284c7; margin-bottom: 30px; font-size: 2rem;">Pilot Deliverables Checklist</h2>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; margin-bottom: 30px;">
+                <div class="card">
+                    <div class="card-title">📚 Research & Design Phase</div>
+                    <ul class="objective-list">
+                        <li>8-12 participant interviews</li>
+                        <li>5-competitor platform analysis</li>
+                        <li>2-3 user personas with use cases</li>
+                        <li>Insight summary document (2-3 pages)</li>
+                        <li>Design challenge framing (HMW statements)</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <div class="card-title">✏️ Content & Instructional Design</div>
+                    <ul class="objective-list">
+                        <li>7-lesson outline (30-40 pages)</li>
+                        <li>Learning objectives per lesson</li>
+                        <li>Script beats and anecdotes</li>
+                        <li>2-3 reflection prompts per lesson</li>
+                        <li>Action experiments and worksheets</li>
+                        <li>Peer circle facilitator guide (optional)</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <div class="card-title">🎬 Media & Visual Assets</div>
+                    <ul class="objective-list">
+                        <li>7 edited lesson videos</li>
+                        <li>Hero image (1920x1080px)</li>
+                        <li>7 lesson thumbnails (320x180px)</li>
+                        <li>Course page copy (200 words)</li>
+                        <li>Email sequence (5 emails)</li>
+                        <li>Graphics and brand assets</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <div class="card-title">💻 Platform & Technical Setup</div>
+                    <ul class="objective-list">
+                        <li>LMS fully configured (7 lessons)</li>
+                        <li>Video player with progress tracking</li>
+                        <li>Email automation tested</li>
+                        <li>Analytics dashboard setup</li>
+                        <li>Captions and accessibility check</li>
+                        <li>Mobile-responsive design</li>
+                        <li>QA checklist completed</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <div class="card-title">📊 Pilot Data & Reporting</div>
+                    <ul class="objective-list">
+                        <li>Enrollment data (30-50 participants)</li>
+                        <li>Completion and engagement metrics</li>
+                        <li>Post-course survey responses (7-10 questions)</li>
+                        <li>5-10 participant interviews (15-30 min each)</li>
+                        <li>Testimonials and quotes</li>
+                        <li>NPS and satisfaction calculations</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <div class="card-title">📄 Final Deliverables</div>
+                    <ul class="objective-list">
+                        <li>Pilot report (10-20 pages)</li>
+                        <li>Go/no-go decision document</li>
+                        <li>Unit economics analysis</li>
+                        <li>Risk register and learnings</li>
+                        <li>Updated roadmap for Year 1</li>
+                        <li>Stakeholder presentation</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="alert">
+                <div class="alert-title">📌 Completeness Standard</div>
+                <div class="alert-text">All deliverables must be fully functional and tested before pilot launch. No "work in progress" or placeholder content. Every video, email, and platform feature is ready for 30-50 real learners.</div>
+            </div>
+        </div>
+
+        <!-- TIMELINE TAB -->
+        <div id="timeline" class="tab-content">
+            <h2 style="color: #0284c7; margin-bottom: 30px; font-size: 2rem;">24-Week Roadmap: IDEO Design Thinking Phases</h2>
+
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-phase">DISCOVER<br>Weeks 1-3</div>
+                    <div class="timeline-content">
+                        <h4>Research & Understand</h4>
+                        <p><strong>Activities:</strong> Conduct 8-12 interviews with target audience | Scan 5 competing platforms | Observe analogous solutions (Duolingo, Peloton, etc.)</p>
+                        <p><strong>Deliverables:</strong> 2-3 user personas | Insight summary with 3-5 key themes | Design challenge framing</p>
+                        <p><strong>Key Output:</strong> Validated problem statement and audience understanding</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-phase">INTERPRET<br>Weeks 4-5</div>
+                    <div class="timeline-content">
+                        <h4>Frame Opportunities</h4>
+                        <p><strong>Activities:</strong> Team workshop to cluster themes | Generate 3-5 "How might we" statements | Define pilot success criteria</p>
+                        <p><strong>Deliverables:</strong> 1-page challenge statement | Success metrics framework | Draft value proposition</p>
+                        <p><strong>Key Output:</strong> Clear design brief and metrics alignment</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-phase">IDEATE<br>Weeks 6-8</div>
+                    <div class="timeline-content">
+                        <h4>Design the Flagship</h4>
+                        <p><strong>Activities:</strong> Co-create 7-lesson structure | Develop script beats and reflection prompts | Sketch user journey</p>
+                        <p><strong>Deliverables:</strong> 30-40 page instructional design doc | Script outlines (not word-for-word) | Storyboard of experience</p>
+                        <p><strong>Key Output:</strong> Approved pilot design, ready for production</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-phase">EXPERIMENT<br>Weeks 9-18</div>
+                    <div class="timeline-content">
+                        <h4>Produce & Build</h4>
+                        <p><strong>Sub-phases:</strong></p>
+                        <p>• <strong>Pre-Prod (9-10):</strong> Finalize lesson briefs, scout location, tech check<br>
+                        • <strong>Production (11):</strong> 2-day shoot, 2-3 camera angles, lavalier audio<br>
+                        • <strong>Post-Prod (12-15):</strong> Edit 7 videos, audio mastering, graphics, captions<br>
+                        • <strong>Platform (13-17):</strong> LMS build, email setup, analytics, internal QA<br>
+                        • <strong>Soft Launch (18):</strong> Team goes through as learners, final tweaks</p>
+                        <p><strong>Key Output:</strong> Fully functional pilot ready for external learners</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-phase">PILOT LAUNCH<br>Weeks 19-22</div>
+                    <div class="timeline-content">
+                        <h4>Run & Validate</h4>
+                        <p><strong>Activities:</strong> Activate waitlist and recruit 30-50 participants | Release lessons on schedule (1-2 per day) | Run optional peer circle/QA | Moderation and support</p>
+                        <p><strong>Data Collection:</strong> Track completion, time-on-page, comments | Collect post-course survey | Conduct 5-10 participant interviews</p>
+                        <p><strong>Key Output:</strong> Real-world learning data and participant feedback</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-phase">EVOLVE<br>Weeks 23-24</div>
+                    <div class="timeline-content">
+                        <h4>Synthesize & Decide</h4>
+                        <p><strong>Activities:</strong> Analyze metrics against success criteria | Conduct team debrief retrospective | Compare outcomes to baseline | Make go/no-go decision</p>
+                        <p><strong>Deliverables:</strong> Pilot report (findings, testimonials, metrics) | Updated roadmap | Stakeholder presentation | Risk register</p>
+                        <p><strong>Key Output:</strong> Clear decision and path forward (scale, iterate, or pause)</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-title">Key Milestones & Gates</div>
+                <ul class="objective-list">
+                    <li><strong>Week 3 Milestone:</strong> Research complete; personas and insights approved by sponsor</li>
+                    <li><strong>Week 5 Milestone:</strong> Challenge statement and success criteria signed off</li>
+                    <li><strong>Week 8 Milestone:</strong> Instructional design doc ready for production</li>
+                    <li><strong>Week 13 Milestone:</strong> Video production complete; platform build started</li>
+                    <li><strong>Week 18 Milestone:</strong> Platform fully functional; internal QA passed</li>
+                    <li><strong>Week 19 Milestone:</strong> Recruitment campaign live; waitlist active</li>
+                    <li><strong>Week 22 Milestone:</strong> Cohort completes; data collection done</li>
+                    <li><strong>Week 24 Milestone:</strong> Go/no-go decision + stakeholder alignment</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- TEAM STRUCTURE TAB -->
+        <div id="roles" class="tab-content">
+            <h2 style="color: #0284c7; margin-bottom: 30px; font-size: 2rem;">Core Team Structure & Governance</h2>
+
+            <div class="card">
+                <div class="card-title">Leadership & Decision-Making</div>
+                <div class="role-card">
+                    <div class="role-title">Executive Sponsor / Program Owner</div>
+                    <div class="role-detail"><strong>FTE:</strong> 1.0 | <strong>Hours/Week:</strong> 35-40</div>
+                    <div class="role-detail"><strong>Responsibilities:</strong> Vision and strategic direction | Budget ownership | Stakeholder alignment | Go/no-go decisions | Business development</div>
+                    <div class="role-detail"><strong>Salary/Budget:</strong> €50-70k annually</div>
+                </div>
+
+                <div class="role-card">
+                    <div class="role-title">Product Owner</div>
+                    <div class="role-detail"><strong>FTE:</strong> 1.0 | <strong>Hours/Week:</strong> 35-40</div>
+                    <div class="role-detail"><strong>Responsibilities:</strong> Scope management | Backlog prioritization | Metrics tracking | Feature decisions | Vendor selection</div>
+                    <div class="role-detail"><strong>Salary/Budget:</strong> €45-55k annually</div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-title">Content & Learning Design</div>
+                <div class="role-card">
+                    <div class="role-title">Lead Instructor / Subject-Matter Expert</div>
+                    <div class="role-detail"><strong>FTE:</strong> 0.5-1.0 | <strong>Hours/Week:</strong> 20-30</div>
+                    <div class="role-detail"><strong>Responsibilities:</strong> Course concept design | On-camera teaching | Content review and iteration | Expertise guidance</div>
+                    <div class="role-detail"><strong>Budget:</strong> €0-30k (often contributor or external)</div>
+                </div>
+
+                <div class="role-card">
+                    <div class="role-title">Instructional Designer</div>
+                    <div class="role-detail"><strong>FTE:</strong> 1.0 | <strong>Hours/Week:</strong> 35-40</div>
+                    <div class="role-detail"><strong>Responsibilities:</strong> Learning objectives | Lesson structure | Reflection prompts | Assessment design | Pedagogical coherence</div>
+                    <div class="role-detail"><strong>Salary/Budget:</strong> €40-50k annually</div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-title">Operations & Delivery</div>
+                <div class="role-card">
+                    <div class="role-title">Producer / Project Manager</div>
+                    <div class="role-detail"><strong>FTE:</strong> 1.0 | <strong>Hours/Week:</strong> 35-40</div>
+                    <div class="role-detail"><strong>Responsibilities:</strong> Timeline management | Budget control | Vendor coordination | Weekly standups | Risk mitigation</div>
+                    <div class="role-detail"><strong>Salary/Budget:</strong> €40-50k annually</div>
+                </div>
+
+                <div class="role-card">
+                    <div class="role-title">Tech Lead / Platform Manager</div>
+                    <div class="role-detail"><strong>FTE:</strong> 0.5 | <strong>Hours/Week:</strong> 15-20</div>
+                    <div class="role-detail"><strong>Responsibilities:</strong> LMS setup and configuration | Integrations (email, payments, analytics) | Analytics dashboard | Troubleshooting | Support</div>
+                    <div class="role-detail"><strong>Salary/Budget:</strong> €20-25k annually</div>
+                </div>
+
+                <div class="role-card">
+                    <div class="role-title">Community Manager</div>
+                    <div class="role-detail"><strong>FTE:</strong> 0.5 | <strong>Hours/Week:</strong> 15-20</div>
+                    <div class="role-detail"><strong>Responsibilities:</strong> Comment moderation | Learner support | Feedback synthesis | Engagement monitoring | Data collection</div>
+                    <div class="role-detail"><strong>Salary/Budget:</strong> €20-25k annually</div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-title">Extended Team & Vendors</div>
+                <div class="role-card">
+                    <div class="role-title">Video Production Company</div>
+                    <div class="role-detail"><strong>Scope:</strong> 2-day shoot, editing, color grading, audio mastering</div>
+                    <div class="role-detail"><strong>Budget:</strong> €4.5-7.5k</div>
+                </div>
+
+                <div class="role-card">
+                    <div class="role-title">Graphic Design</div>
+                    <div class="role-detail"><strong>Scope:</strong> Hero image, thumbnails, email graphics, brand assets</div>
+                    <div class="role-detail"><strong>Budget:</strong> €1-2k</div>
+                </div>
+
+                <div class="role-card">
+                    <div class="role-title">Copywriter / Editor</div>
+                    <div class="role-detail"><strong>Scope:</strong> Course page, lesson blurbs, emails, brand voice</div>
+                    <div class="role-detail"><strong>Budget:</strong> €2-3k</div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-title">Governance & Meeting Cadence</div>
+                <ul class="objective-list">
+                    <li><strong>Weekly Standup (1 hr):</strong> PM, Tech Lead, Instructional Designer | Blockers, progress, risk flags</li>
+                    <li><strong>Bi-Weekly Steering (30 min):</strong> Executive Sponsor, Product Owner, PM | Budget, timeline, scope, go/no-go readiness</li>
+                    <li><strong>Monday Strategy Call (1 hr):</strong> Sponsor, Instructor, Designer, PM | Week priorities and pending decisions</li>
+                    <li><strong>Friday Retrospective (1 hr):</strong> Full team | Metrics review, team wins, what to improve next week</li>
+                </ul>
+            </div>
+
+            <div class="alert">
+                <div class="alert-title">💼 Budget & Allocation</div>
+                <div class="alert-text"><strong>Total Year 1 Core Payroll:</strong> €170-230k (depending on salary tier and FTE flexibility) | <strong>Pilot-Only Cost:</strong> €9-17k for production, platform, and vendor services</div>
+            </div>
+        </div>
+
+        <!-- MARKET ANALYSIS TAB -->
+        <div id="market" class="tab-content">
+            <h2 style="color: #0284c7; margin-bottom: 30px; font-size: 2rem;">Market Problem & Opportunity</h2>
+
+            <div class="summary-box">
+                <h3>The Gap</h3>
+                <p>Mid-career professionals face <strong>fragmented support</strong> across three critical needs:</p>
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li><strong>Career clarity & direction:</strong> Designing Your Life workshops exist but are geographically limited and cost €800-2,000</li>
+                    <li><strong>Deep work and focus:</strong> Cal Newport's books and essays lack practical application and live community</li>
+                    <li><strong>Relational health:</strong> Wellness platforms (Commune, Insight Timer) focus on meditation/trauma but miss career/productivity emphasis</li>
+                </ul>
+                <p style="margin-top: 15px;">Result: professionals piece together advice from books, podcasts, and coaching instead of having a <strong>structured, integrated, behavior-change platform</strong>.</p>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-box">
+                    <div class="stat-value">€50k</div>
+                    <div class="stat-label">TAM (Europe): Active professionals seeking this</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-value">30-55</div>
+                    <div class="stat-label">Target Age Range</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-value">€99-299</div>
+                    <div class="stat-label">Willingness to pay (cohorts)</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-value">€9.99-24.99</div>
+                    <div class="stat-label">Willingness to pay (monthly)</div>
+                </div>
+            </div>
+
+            <div class="two-column">
+                <div class="column-section">
+                    <h3>Target Segment Profile</h3>
+                    <ul>
+                        <li><strong>Affluent & educated:</strong> college/masters degree, willing to invest in self-development</li>
+                        <li><strong>Career-focused:</strong> managers, entrepreneurs, independent professionals</li>
+                        <li><strong>Seeking clarity:</strong> navigating next career move, work-life balance, authentic relationships</li>
+                        <li><strong>Prefer quality over quantity:</strong> curated content over infinite feeds</li>
+                        <li><strong>Value community:</strong> peer learning and accountability matter</li>
+                        <li><strong>Busy schedules:</strong> need asynchronous, flexible formats</li>
+                    </ul>
+                </div>
+
+                <div class="column-section">
+                    <h3>Market Validation Signals</h3>
+                    <ul>
+                        <li><strong>Deep Work (Cal Newport):</strong> Bestseller for 8+ years; sustained demand</li>
+                        <li><strong>Designing Your Life:</strong> Maintains waitlists despite high cost</li>
+                        <li><strong>Commune Starting Fresh:</strong> 200+ 5-star reviews; strong social proof</li>
+                        <li><strong>Masterclass & Maven:</strong> Cohort programs priced €99-299 sell consistently</li>
+                        <li><strong>Substack & Patreon:</strong> Niche creators building €5-50k/month revenue with similar audiences</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-title">Competitive Landscape</div>
+                <table class="revenue-table">
+                    <thead>
+                        <tr>
+                            <th>Competitor</th>
+                            <th>Strength</th>
+                            <th>Gap / Weakness</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Commune</strong></td>
+                            <td>Strong community, relational focus, brand awareness</td>
+                            <td>Lacks productivity/deep work emphasis; primarily wellness</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Designing Your Life</strong></td>
+                            <td>Proven method, book credibility, demand</td>
+                            <td>Expensive retreats; limited ongoing community or tools</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Cal Newport Content</strong></td>
+                            <td>Deep work expertise, bestselling author credibility</td>
+                            <td>Intellectual; lacks application, community, live support</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Generic LMS Courses</strong></td>
+                            <td>Scalable, affordable</td>
+                            <td>Generic content; no community; low completion rates</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="card">
+                <div class="card-title">Our Opportunity</div>
+                <p style="color: #64748b; margin-bottom: 15px;"><strong>Integrated Blended Model:</strong> Combine expert video (like Commune), behavior-change tools (like DYL), and deep work frameworks (like Cal Newport) into a single platform with built-in accountability, peer circles, and ongoing coaching options.</p>
+                <p style="color: #64748b; margin-bottom: 15px;"><strong>70-20-10 Learning Model:</strong> 70% experiential (tools, exercises), 20% social (peer circles, community), 10% formal (videos, essays) — proven for adult behavior change.</p>
+                <p style="color: #64748b;"><strong>Sustainable Revenue:</strong> Layer courses, bundles, membership, peer circles, masterminds, 1:1 coaching, and B2B licensing to achieve profitability by Year 2.</p>
+            </div>
+        </div>
+
+        <!-- PILOT ECONOMICS TAB -->
+        <div id="economics" class="tab-content">
+            <h2 style="color: #0284c7; margin-bottom: 30px; font-size: 2rem;">Pilot Investment & Unit Economics</h2>
+
+            <div class="card">
+                <div class="card-title">Pilot Budget Breakdown</div>
+                <table class="revenue-table">
+                    <thead>
+                        <tr>
+                            <th>Cost Category</th>
+                            <th>Low</th>
+                            <th>High</th>
+                            <th>Notes</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Pre-Production</strong></td>
+                            <td>€2k</td>
+                            <td>€3k</td>
+                            <td>Research incentives, instructional design, location scouting</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Video Production & Post-Prod</strong></td>
+                            <td>€4.5k</td>
+                            <td>€7.5k</td>
+                            <td>2-day shoot, editing, audio, color, graphics</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Platform & Tools</strong></td>
+                            <td>€0.6k</td>
+                            <td>€1.3k</td>
+                            <td>LMS, video hosting, email, surveys over 6 months</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Marketing & Contingency</strong></td>
+                            <td>€1k</td>
+                            <td>€2k</td>
+                            <td>Waitlist campaign, ads, survey incentives, buffer</td>
+                        </tr>
+                        <tr style="background-color: #dbeafe; font-weight: bold;">
+                            <td><strong>TOTAL PILOT</strong></td>
+                            <td><strong>€9k</strong></td>
+                            <td><strong>€17k</strong></td>
+                            <td><strong>Mid-range: €13k</strong></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="card">
+                <div class="card-title">Pilot Revenue</div>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px;">
+                    <div style="background-color: #f1f5f9; padding: 16px; border-radius: 6px;">
+                        <div style="font-size: 2rem; font-weight: 700; color: #0284c7; margin-bottom: 8px;">€29-49</div>
+                        <div style="font-size: 0.9rem; color: #64748b;">Beta price per participant</div>
+                    </div>
+                    <div style="background-color: #f1f5f9; padding: 16px; border-radius: 6px;">
+                        <div style="font-size: 2rem; font-weight: 700; color: #0284c7; margin-bottom: 8px;">30-50</div>
+                        <div style="font-size: 0.9rem; color: #64748b;">Expected participants</div>
+                    </div>
+                    <div style="background-color: #f1f5f9; padding: 16px; border-radius: 6px;">
+                        <div style="font-size: 2rem; font-weight: 700; color: #0284c7; margin-bottom: 8px;">€870-2.5k</div>
+                        <div style="font-size: 0.9rem; color: #64748b;">Pilot revenue range</div>
+                    </div>
+                    <div style="background-color: #f1f5f9; padding: 16px; border-radius: 6px;">
+                        <div style="font-size: 2rem; font-weight: 700; color: #0284c7; margin-bottom: 8px;">~9%</div>
+                        <div style="font-size: 0.9rem; color: #64748b;">Covers pilot operating costs</div>
+                    </div>
+                </div>
+                <p style="color: #64748b; margin-top: 15px; font-size: 0.95rem;"><strong>Note:</strong> Pilot revenue covers a portion of platform, email, and basic moderation. Full production (video, design) is R&D investment by the organization.</p>
+            </div>
+
+            <div class="card">
+                <div class="card-title">Mature Cohort Unit Economics (Post-Pilot)</div>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-top: 15px;">
+                    <div style="background-color: #f1f5f9; padding: 16px; border-radius: 6px; border-left: 4px solid #0284c7;">
+                        <div style="font-weight: 600; color: #0284c7; margin-bottom: 8px;">At €129/participant</div>
+                        <div style="font-size: 0.9rem; color: #64748b; margin-bottom: 8px;">• 30 participants = €3,870 gross</div>
+                        <div style="font-size: 0.9rem; color: #64748b; margin-bottom: 8px;">• Per-cohort cost: ~€5,667 (fully loaded)</div>
+                        <div style="font-size: 0.9rem; color: #64748b;"><strong>• Breakeven: 44 participants</strong></div>
+                    </div>
+                    <div style="background-color: #f1f5f9; padding: 16px; border-radius: 6px; border-left: 4px solid #0284c7;">
+                        <div style="font-weight: 600; color: #0284c7; margin-bottom: 8px;">At €199/participant</div>
+                        <div style="font-size: 0.9rem; color: #64748b; margin-bottom: 8px;">• 30 participants = €5,970 gross</div>
+                        <div style="font-size: 0.9rem; color: #64748b; margin-bottom: 8px;">• Per-cohort cost: ~€5,667 (fully loaded)</div>
+                        <div style="font-size: 0.9rem; color: #64748b;"><strong>• Breakeven: 28 participants</strong></div>
+                    </div>
+                </div>
+                <p style="color: #64748b; margin-top: 15px; font-size: 0.95rem;"><strong>Profitability Path:</strong> Single-cohort margins are negative initially, but positive unit economics achieved through production amortization across multiple cohort runs (3+ cohorts per course line) and layering bundles, membership, peer circles, and coaching on top.</p>
+            </div>
+
+            <div class="alert">
+                <div class="alert-title">💡 Investment Philosophy</div>
+                <div class="alert-text"><strong>Year 1 is intentional investment phase.</strong> The €206k operating cost (team, platform, content, coaches) is spread across modest revenue. By validating the pilot with real users, we de-risk the Year 1 burn and generate evidence for Year 2 profitability and institutional partnerships.</div>
+            </div>
+        </div>
+
+        <!-- REVENUE MODEL TAB -->
+        <div id="revenue" class="tab-content">
+            <h2 style="color: #0284c7; margin-bottom: 30px; font-size: 2rem;">Year 1 & Beyond Revenue Streams</h2>
+
+            <div class="card">
+                <div class="card-title">Year 1 Revenue Projections</div>
+                <table class="revenue-table">
+                    <thead>
+                        <tr>
+                            <th>Revenue Stream</th>
+                            <th>Unit Price</th>
+                            <th>Volume</th>
+                            <th>Annual Revenue</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Flagship Courses</strong></td>
+                            <td>€129 avg</td>
+                            <td>6 launches × 30 participants</td>
+                            <td>€23.2k</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Course Bundles</strong></td>
+                            <td>€249</td>
+                            <td>40 bundles (buy 3 courses, 20% discount)</td>
+                            <td>€9.96k</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Premium Membership</strong></td>
+                            <td>€9.99/month</td>
+                            <td>80 users × 12 months</td>
+                            <td>€9.6k</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Peer Circles</strong></td>
+                            <td>€29/month</td>
+                            <td>40 active members × 12 months</td>
+                            <td>€13.9k</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Mastermind Cohorts</strong></td>
+                            <td>€599 per cohort</td>
+                            <td>3 runs × 12 participants</td>
+                            <td>€21.6k</td>
+                        </tr>
+                        <tr>
+                            <td><strong>1:1 Coaching</strong></td>
+                            <td>€200/session</td>
+                            <td>50 sessions</td>
+                            <td>€10k</td>
+                        </tr>
+                        <tr>
+                            <td><strong>B2B Licensing</strong></td>
+                            <td>€2.5-5k per contract</td>
+                            <td>2-3 team licenses</td>
+                            <td>€7.5-15k</td>
+                        </tr>
+                        <tr style="background-color: #dbeafe; font-weight: bold;">
+                            <td colspan="3"><strong>Year 1 Total</strong></td>
+                            <td><strong>€95.7-110k</strong> (mid: €103k)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="two-column">
+                <div class="card">
+                    <div class="card-title">Year 1 Operating Costs</div>
+                    <table style="width: 100%; font-size: 0.9rem;">
+                        <tr>
+                            <td><strong>Content Production</strong></td>
+                            <td style="text-align: right;">€24-36k</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Instructors & SMEs</strong></td>
+                            <td style="text-align: right;">€18k</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Copywriting & Design</strong></td>
+                            <td style="text-align: right;">€45k</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Core Team Payroll</strong></td>
+                            <td style="text-align: right;">€170-230k</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Platform & Tools</strong></td>
+                            <td style="text-align: right;">€10-12k</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Coaches & Facilitators</strong></td>
+                            <td style="text-align: right;">€24-36k</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Marketing</strong></td>
+                            <td style="text-align: right;">€6k</td>
+                        </tr>
+                        <tr style="border-top: 2px solid #0284c7; font-weight: bold;">
+                            <td><strong>Total Operating Cost</strong></td>
+                            <td style="text-align: right;"><strong>~€206k</strong></td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div class="card">
+                    <div class="card-title">Path to Profitability</div>
+                    <p style="color: #64748b; margin-bottom: 15px;"><strong>Year 1 Margin:</strong> –€103-110k (investment phase)</p>
+                    <p style="color: #64748b; margin-bottom: 15px;"><strong>Year 2 Target:</strong> Break-even by Q1-Q2 with improved unit economics</p>
+                    <p style="color: #64748b; margin-bottom: 15px;"><strong>Path:</strong></p>
+                    <ul style="list-style: none; padding-left: 0; color: #64748b; font-size: 0.9rem;">
+                        <li>✓ Amortize production costs across 3+ cohort runs</li>
+                        <li>✓ Layer in 30-50% enrollment from referrals (lower CAC)</li>
+                        <li>✓ Grow bundle and membership adoption</li>
+                        <li>✓ Add peer circles and mastermind revenue</li>
+                        <li>✓ Secure 2-3 B2B contracts at €2.5-5k each</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-title">Customer Acquisition & Lifetime Value</div>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px;">
+                    <div style="background-color: #f1f5f9; padding: 14px; border-radius: 6px; border-left: 4px solid #0284c7;">
+                        <div style="font-size: 0.85rem; color: #64748b;"><strong>Cost Per Acquisition (CAC)</strong></div>
+                        <div style="font-size: 1.6rem; font-weight: 700; color: #0284c7; margin: 8px 0;">€30-50</div>
+                        <div style="font-size: 0.8rem; color: #64748b;">Assumes €5k pilot marketing budget, 150 reach, 35% conversion</div>
+                    </div>
+                    <div style="background-color: #f1f5f9; padding: 14px; border-radius: 6px; border-left: 4px solid #0284c7;">
+                        <div style="font-size: 0.85rem; color: #64748b;"><strong>Average Revenue Per User (ARPU)</strong></div>
+                        <div style="font-size: 1.6rem; font-weight: 700; color: #0284c7; margin: 8px 0;">€180+</div>
+                        <div style="font-size: 0.8rem; color: #64748b;">One course €129 + membership 5mo at €9.99</div>
+                    </div>
+                    <div style="background-color: #f1f5f9; padding: 14px; border-radius: 6px; border-left: 4px solid #0284c7;">
+                        <div style="font-size: 0.85rem; color: #64748b;"><strong>2-Year LTV</strong></div>
+                        <div style="font-size: 1.6rem; font-weight: 700; color: #0284c7; margin: 8px 0;">€252</div>
+                        <div style="font-size: 0.8rem; color: #64748b;">€180 + 40% retention × €180 in Year 2</div>
+                    </div>
+                    <div style="background-color: #f1f5f9; padding: 14px; border-radius: 6px; border-left: 4px solid #0284c7;">
+                        <div style="font-size: 0.85rem; color: #64748b;"><strong>LTV:CAC Ratio</strong></div>
+                        <div style="font-size: 1.6rem; font-weight: 700; color: #10b981; margin: 8px 0;">8.4:1</div>
+                        <div style="font-size: 0.8rem; color: #64748b;">Healthy benchmark: 3:1 or higher ✓</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SUCCESS METRICS TAB -->
+        <div id="metrics" class="tab-content">
+            <h2 style="color: #0284c7; margin-bottom: 30px; font-size: 2rem;">Success Metrics & KPI Dashboard</h2>
+
+            <div class="card">
+                <div class="card-title">Acquisition Metrics</div>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px;">
+                    <div style="background-color: #f1f5f9; padding: 16px; border-radius: 6px;">
+                        <div style="font-weight: 600; color: #0284c7; margin-bottom: 8px;">Enrollments</div>
+                        <div style="font-size: 0.9rem; color: #64748b;"><strong>Target:</strong> 30-50</div>
+                        <div style="font-size: 0.9rem; color: #64748b;"><strong>Tracking:</strong> Registration form</div>
+                    </div>
+                    <div style="background-color: #f1f5f9; padding: 16px; border-radius: 6px;">
+                        <div style="font-weight: 600; color: #0284c7; margin-bottom: 8px;">Waitlist Conversion</div>
+                        <div style="font-size: 0.9rem; color: #64748b;"><strong>Target:</strong> 50%</div>
+                        <div style="font-size: 0.9rem; color: #64748b;"><strong>Tracking:</strong> Landing page analytics</div>
+                    </div>
+                    <div style="background-color: #f1f5f9; padding: 16px; border-radius: 6px;">
+                        <div style="font-weight: 600; color: #0284c7; margin-bottom: 8px;">Cost Per Acquisition</div>
+                        <div style="font-size: 0.9rem; color: #64748b;"><strong>Target:</strong> €50</div>
+                        <div style="font-size: 0.9rem; color: #64748b;"><strong>Tracking:</strong> Ad spend / conversions</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-title">Engagement Metrics</div>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px;">
+                    <div style="background-color: #f1f5f9; padding: 16px; border-radius: 6px;">
+                        <div style="font-weight: 600; color: #0284c7; margin-bottom: 8px;">Completion Rate</div>
+                        <div style="font-size: 0.9rem; color: #64748b;"><strong>Target:</strong> 70%</div>
+                        <div style="font-size: 0.9rem; color: #64748b;"><strong>Tracking:</strong> LMS completion tracking</div>
+                    </div>
+                    <div style="background-color: #f1f5f9; padding: 16px; border-radius: 6px;">
+                        <div style="font-weight: 600; color: #0284c7; margin-bottom: 8px;">Avg Time-on-Lesson</div>
+                        <div style="font-size: 0.9rem; color: #64748b;"><strong>Target:</strong> 12-18 min</div>
+                        <div style="font-size: 0.9rem; color: #64748b;"><strong>Tracking:</strong> Analytics dashboard</div>
+                    </div>
+                    <div style="background-color: #f1f5f9; padding: 16px; border-radius: 6px;">
+                        <div style="font-weight: 600; color: #0284c7; margin-bottom: 8px;">Reflection Submissions</div>
+                        <div style="font-size: 0.9rem; color: #64748b;"><strong>Target:</strong> 40%+</div>
+                        <div style="font-size: 0.9rem; color: #64748b;"><strong>Tracking:</strong> Comment count & forms</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-title">Satisfaction & NPS Metrics</div>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px;">
+                    <div style="background-color: #f1f5f9; padding: 16px; border-radius: 6px;">
+                        <div style="font-weight: 600; color: #0284c7; margin-bottom: 8px;">Post-Course Satisfaction</div>
+                        <div style="font-size: 0.9rem; color: #64748b;"><strong>Target:</strong> 4.0/5</div>
+                        <div style="font-size: 0.9rem; color: #64748b;"><strong>Tracking:</strong> 7-10 question survey</div>
+                    </div>
+                    <div style="background-color: #f1f5f9; padding: 16px; border-radius: 6px;">
+                        <div style="font-weight: 600; color: #0284c7; margin-bottom: 8px;">NPS (Net Promoter Score)</div>
+                        <div style="font-size: 0.9rem; color: #64748b;"><strong>Target:</strong> 40+</div>
+                        <div style="font-size: 0.9rem; color: #64748b;"><strong>Tracking:</strong> "Likely to recommend" 0-10</div>
+                    </div>
+                    <div style="background-color: #f1f5f9; padding: 16px; border-radius: 6px;">
+                        <div style="font-weight: 600; color: #0284c7; margin-bottom: 8px;">Emotional Safety</div>
+                        <div style="font-size: 0.9rem; color: #64748b;"><strong>Target:</strong> 4.0/5</div>
+                        <div style="font-size: 0.9rem; color: #64748b;"><strong>Tracking:</strong> Survey question</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-title">Behavior Change & Revenue Metrics</div>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px;">
+                    <div style="background-color: #f1f5f9; padding: 16px; border-radius: 6px;">
+                        <div style="font-weight: 600; color: #0284c7; margin-bottom: 8px;">Behavior Change Reported</div>
+                        <div style="font-size: 0.9rem; color: #64748b;"><strong>Target:</strong> 60%</div>
+                        <div style="font-size: 0.9rem; color: #64748b;"><strong>Tracking:</strong> Survey + interviews</div>
+                    </div>
+                    <div style="background-color: #f1f5f9; padding: 16px; border-radius: 6px;">
+                        <div style="font-weight: 600; color: #0284c7; margin-bottom: 8px;">Upsell Interest (10-Session)</div>
+                        <div style="font-size: 0.9rem; color: #64748b;"><strong>Target:</strong> 50%+</div>
+                        <div style="font-size: 0.9rem; color: #64748b;"><strong>Tracking:</strong> Survey question</div>
+                    </div>
+                    <div style="background-color: #f1f5f9; padding: 16px; border-radius: 6px;">
+                        <div style="font-weight: 600; color: #0284c7; margin-bottom: 8px;">Refund Rate</div>
+                        <div style="font-size: 0.9rem; color: #64748b;"><strong>Target:</strong> <10%</div>
+                        <div style="font-size: 0.9rem; color: #64748b;"><strong>Tracking:</strong> Payment processor</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-title">Go/No-Go Decision Framework</div>
+                <div style="display: grid; gap: 16px;">
+                    <div style="background-color: #dbeafe; padding: 16px; border-radius: 6px; border-left: 4px solid #0284c7;">
+                        <div style="font-weight: 600; color: #0284c7; margin-bottom: 8px;">🟢 GREEN LIGHT</div>
+                        <div style="font-size: 0.9rem; color: #0c4a6e; line-height: 1.6;">
+                            <strong>Criteria met:</strong> 70%+ completion, 4.0+ satisfaction, NPS 40+, 60%+ behavior change, 50%+ upsell interest<br>
+                            <strong>Decision:</strong> Scale to 10-session flagship, bundles, membership, coaching layering
+                        </div>
+                    </div>
+                    <div style="background-color: #fef08a; padding: 16px; border-radius: 6px; border-left: 4px solid #ca8a04;">
+                        <div style="font-weight: 600; color: #ca8a04; margin-bottom: 8px;">🟡 YELLOW LIGHT</div>
+                        <div style="font-size: 0.9rem; color: #713f12; line-height: 1.6;">
+                            <strong>Criteria met:</strong> 60-70% completion, 3.5-4.0 satisfaction, 30-40 NPS<br>
+                            <strong>Decision:</strong> Identify 2-3 specific adjustments (pacing, content, support), rerun smaller pilot (15-20 people) in 6 weeks
+                        </div>
+                    </div>
+                    <div style="background-color: #fee2e2; padding: 16px; border-radius: 6px; border-left: 4px solid #dc2626;">
+                        <div style="font-weight: 600; color: #dc2626; margin-bottom: 8px;">🔴 RED LIGHT</div>
+                        <div style="font-size: 0.9rem; color: #7f1d1d; line-height: 1.6;">
+                            <strong>Criteria met:</strong> <60% completion, <3.5 satisfaction, <30 NPS<br>
+                            <strong>Decision:</strong> Pause and conduct deeper discovery into concept/execution misalignment; consider pivot or audience reframing
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="alert">
+                <div class="alert-title">📊 Dashboard & Reporting</div>
+                <div class="alert-text">All metrics tracked in a live dashboard (Google Sheets, Data Studio, or Tableau) updated weekly. Bi-weekly steering committee reviews metrics, risk register, and contingencies. Monthly stakeholder reporting ensures alignment and continued buy-in.</div>
+            </div>
+        </div>
+
+        <footer>
+            <p>Knowledge Creation Platform – Flagship Pilot | Project Charter & Business Case | December 2025</p>
+            <p style="margin-top: 10px; font-size: 0.85rem;">This infographic synthesizes the IDEO design thinking methodology, product-pilot template, and business-plan data into an interactive, mobile-responsive dashboard for stakeholder alignment.</p>
+        </footer>
+    </div>
+
+    <script>
+        function switchTab(evt, tabName) {
+            const tabContents = document.querySelectorAll('.tab-content');
+            tabContents.forEach(tab => tab.classList.remove('active'));
+
+            const tabBtns = document.querySelectorAll('.tab-btn');
+            tabBtns.forEach(btn => btn.classList.remove('active'));
+
+            document.getElementById(tabName).classList.add('active');
+            evt.currentTarget.classList.add('active');
+
+            window.scrollTo(0, 0);
+        }
+    </script>
+</body>
+</html>

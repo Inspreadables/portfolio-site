@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Claude → GitHub Workflow — de Baak</title>
+  <style>
+    :root {
+      --blue:     #005ADC;
+      --blue-dk:  #0047b0;
+      --green:    #00A555;
+      --yellow:   #FFE100;
+      --alabas:   #F5F5EB;
+      --white:    #ffffff;
+      --charcoal: #2d2d2d;
+      --mid:      #5a5a5a;
+      --muted:    #8a8a8a;
+      --border:   #d4d4c8;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: var(--alabas);
+      color: var(--charcoal);
+      padding: 40px 48px 80px;
+      max-width: 794px;
+      margin: 0 auto;
+      min-height: 1123px;
+      position: relative;
+    }
+
+    /* ── Header ── */
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+      border-bottom: 3px solid var(--blue);
+    }
+
+    .header-eyebrow {
+      font-size: 10.5px;
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--blue);
+      margin-bottom: 6px;
+    }
+
+    header h1 {
+      font-size: 1.5rem;
+      font-weight: 900;
+      color: var(--charcoal);
+      line-height: 1.2;
+    }
+
+    header p {
+      font-size: 0.8rem;
+      color: var(--mid);
+      margin-top: 4px;
+    }
+
+    .brand {
+      text-align: right;
+      font-size: 1rem;
+      font-weight: 400;
+      color: var(--charcoal);
+    }
+
+    .brand strong { font-weight: 700; color: var(--blue); }
+
+    .brand-descriptor {
+      font-size: 10.5px;
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+
+    .divider-strip {
+      width: 60px; height: 3px;
+      background: var(--blue);
+      margin-bottom: 20px;
+    }
+
+    /* ── Golden rule ── */
+    .golden-rule {
+      background: var(--blue);
+      border-radius: 8px;
+      padding: 16px 24px;
+      margin-bottom: 20px;
+    }
+
+    .gr-label {
+      font-size: 10.5px;
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.65);
+      margin-bottom: 5px;
+    }
+
+    .golden-rule p {
+      font-size: 0.9rem;
+      font-style: italic;
+      color: rgba(255,255,255,.9);
+      line-height: 1.6;
+    }
+
+    /* ── Grid ── */
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+    .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+
+    /* ── Cards ── */
+    .card {
+      background: var(--white);
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 4px 20px rgba(45,45,45,.07);
+      border: 1px solid var(--border);
+    }
+
+    .card-header {
+      background: var(--blue);
+      color: white;
+      padding: 10px 18px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .card-header.green { background: var(--green); }
+    .card-header.yellow-top {
+      background: var(--white);
+      border-top: 3px solid var(--yellow);
+      color: var(--charcoal);
+    }
+    .card-header.yellow-top .card-num { color: var(--muted); }
+    .card-header.yellow-top h2 { color: var(--charcoal); }
+
+    .card-num {
+      font-size: 10.5px;
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      opacity: 0.75;
+      flex-shrink: 0;
+    }
+
+    .card-header h2 { font-size: 0.88rem; font-weight: 700; }
+
+    .card-body { padding: 14px 18px; }
+
+    .step { display: flex; gap: 9px; margin-bottom: 8px; align-items: flex-start; }
+    .step:last-child { margin-bottom: 0; }
+
+    .dot {
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: var(--blue);
+      margin-top: 7px;
+      flex-shrink: 0;
+    }
+    .dot.green { background: var(--green); }
+
+    .step p { font-size: 0.81rem; line-height: 1.6; color: var(--mid); }
+    .step p strong { color: var(--blue); font-weight: 700; }
+    .step p strong.green { color: var(--green); }
+
+    code {
+      font-family: 'Courier New', monospace;
+      font-size: 0.72rem;
+      background: var(--alabas);
+      border: 1px solid var(--border);
+      border-radius: 3px;
+      padding: 1px 5px;
+      color: var(--blue-dk);
+      display: inline-block;
+      margin-top: 3px;
+    }
+
+    /* ── Taxonomy table ── */
+    .taxonomy-wrap {
+      background: var(--white);
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      box-shadow: 0 4px 20px rgba(45,45,45,.07);
+      overflow: hidden;
+      margin-bottom: 16px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.78rem;
+    }
+
+    thead tr { background: var(--blue); color: white; }
+    thead th {
+      padding: 8px 14px;
+      text-align: left;
+      font-weight: 700;
+      font-size: 10.5px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    tbody tr:nth-child(even) { background: rgba(0,90,220,.04); }
+    tbody tr:nth-child(odd)  { background: var(--white); }
+
+    tbody td {
+      padding: 7px 14px;
+      color: var(--mid);
+      border-bottom: 1px solid var(--border);
+      line-height: 1.5;
+    }
+
+    tbody td:first-child {
+      font-family: 'Courier New', monospace;
+      font-size: 0.72rem;
+      color: var(--blue);
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    /* ── Code block ── */
+    .code-block {
+      font-family: 'Courier New', monospace;
+      font-size: 0.75rem;
+      background: #1a2a3a;
+      color: #a8ccee;
+      border-radius: 6px;
+      padding: 12px 16px;
+      margin-top: 8px;
+      line-height: 1.8;
+    }
+
+    .code-block .comment { color: #4a8abf; }
+    .code-block .cmd { color: #d8eeff; font-weight: 600; }
+
+    /* ── Project pills ── */
+    .pills-wrap { padding: 12px 18px; display: flex; flex-wrap: wrap; gap: 7px; }
+
+    .pill {
+      background: rgba(0,90,220,.06);
+      border: 1px solid rgba(0,90,220,.18);
+      border-radius: 20px;
+      padding: 4px 10px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: var(--blue);
+    }
+
+    /* ── Quote ── */
+    .quote-box {
+      background: rgba(0,90,220,.06);
+      border-left: 5px solid var(--blue);
+      border-radius: 0 8px 8px 0;
+      padding: 14px 20px;
+      margin-bottom: 16px;
+      font-style: italic;
+      font-size: 0.87rem;
+      color: var(--charcoal);
+      line-height: 1.8;
+    }
+
+    /* ── Footer ── */
+    footer {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      background: var(--blue);
+      padding: 16px 48px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    footer .brand-footer { font-size: 0.88rem; font-weight: 700; color: white; }
+    footer .descriptor {
+      font-size: 0.72rem; font-weight: 600;
+      letter-spacing: 2px; text-transform: uppercase;
+      color: rgba(255,255,255,.6);
+    }
+
+    @media print {
+      body { background: white; }
+      footer { position: fixed; bottom: 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div>
+      <div class="header-eyebrow">Workflow Referentie</div>
+      <h1>Claude → GitHub</h1>
+      <p>Sessies en HTML-pagina's opslaan per project</p>
+    </div>
+    <div class="brand">
+      de <strong>Baak</strong>
+      <div class="brand-descriptor">Sinds 1947</div>
+    </div>
+  </header>
+
+  <div class="divider-strip"></div>
+
+  <!-- Golden rule -->
+  <div class="golden-rule">
+    <div class="gr-label">De Gouden Regel</div>
+    <p>Sluit geen Claude-chat voordat je het script hebt uitgevoerd. Twee plakken, één ENTER, klaar. Daarna mag de chat weg.</p>
+  </div>
+
+  <!-- Workflows -->
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-header">
+        <span class="card-num">01</span>
+        <h2>Een HTML-pagina opslaan</h2>
+      </div>
+      <div class="card-body">
+        <div class="step"><div class="dot"></div><p>Kopieer de HTML-code uit Claude</p></div>
+        <div class="step"><div class="dot"></div><p>Open <strong>Git Bash</strong>:<br><code>cd ~/inspreadables</code></p></div>
+        <div class="step"><div class="dot"></div><p>Voer het script uit:<br><code>./save-session.sh &lt;project&gt; &lt;naam&gt;</code></p></div>
+        <div class="step"><div class="dot"></div><p>Plak HTML in <strong>output.html</strong> → sla op</p></div>
+        <div class="step"><div class="dot"></div><p>Druk op <strong>ENTER</strong> → 🚀 klaar</p></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header green">
+        <span class="card-num">02</span>
+        <h2>Een chat &amp; prompt opslaan</h2>
+      </div>
+      <div class="card-body">
+        <div class="step"><div class="dot green"></div><p><strong class="green">Vóór het sluiten</strong> — kopieer prompt én outputcode</p></div>
+        <div class="step"><div class="dot green"></div><p>Voer script uit:<br><code>./save-session.sh de-baak-lms pagina-hero-nl</code></p></div>
+        <div class="step"><div class="dot green"></div><p>Plak <strong class="green">prompt</strong> in <code>prompt.md</code><br>Plak <strong class="green">code</strong> in <code>output.html</code></p></div>
+        <div class="step"><div class="dot green"></div><p>Sla op → druk <strong class="green">ENTER</strong></p></div>
+        <div class="step"><div class="dot green"></div><p>✅ <strong class="green">Verwijder de Claude-chat</strong></p></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Taxonomy -->
+  <div class="taxonomy-wrap">
+    <div class="card-header">
+      <span class="card-num">03</span>
+      <h2>Naamgeving — &lt;type&gt;-&lt;subject&gt;-&lt;qualifier&gt;</h2>
+    </div>
+    <div class="grid-2" style="gap:0;margin:0;">
+      <table>
+        <thead><tr><th>Type</th><th>Gebruik voor</th></tr></thead>
+        <tbody>
+          <tr><td>brief</td><td>Instructies, design specs</td></tr>
+          <tr><td>pagina</td><td>LMS HTML pagina's</td></tr>
+          <tr><td>infographic</td><td>Scrollbare HTML publicaties</td></tr>
+          <tr><td>cheatsheet</td><td>Referentiekaarten</td></tr>
+          <tr><td>prompt</td><td>Prompts zonder output</td></tr>
+          <tr><td>template</td><td>Herbruikbare startbestanden</td></tr>
+          <tr><td>script</td><td>Automatiseringsscripts</td></tr>
+          <tr><td>research</td><td>Onderzoek, vergelijkingen</td></tr>
+        </tbody>
+      </table>
+      <table>
+        <thead><tr><th>Qualifier</th><th>Gebruik wanneer</th></tr></thead>
+        <tbody>
+          <tr><td>v2, v3</td><td>Eerdere versie bestaat</td></tr>
+          <tr><td>final</td><td>Definitief na iteraties</td></tr>
+          <tr><td>draft</td><td>Werk in uitvoering</td></tr>
+          <tr><td>nl</td><td>NL versie (als EN ook bestaat)</td></tr>
+          <tr><td>en</td><td>EN versie (als NL ook bestaat)</td></tr>
+          <tr><td colspan="2" style="color:#8a8a8a;font-style:italic;">Alleen toevoegen indien nodig</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Project folders -->
+  <div class="card" style="margin-bottom:16px;">
+    <div class="card-header">
+      <span class="card-num">📁</span>
+      <h2>Projectmappen</h2>
+    </div>
+    <div class="pills-wrap">
+      <div class="pill">de-baak-lms</div>
+      <div class="pill">de-baak-html-publicatie</div>
+      <div class="pill">de-baak-print-publicatie</div>
+      <div class="pill">de-baak-governance</div>
+      <div class="pill">de-baak-research</div>
+      <div class="pill">aj-print-research</div>
+      <div class="pill">nanoo-banana</div>
+    </div>
+  </div>
+
+  <!-- New project -->
+  <div class="card" style="margin-bottom:16px;border-top:3px solid var(--yellow);">
+    <div class="card-header yellow-top">
+      <span class="card-num">+</span>
+      <h2>Nieuwe projectmap toevoegen</h2>
+    </div>
+    <div class="card-body">
+      <div class="code-block">
+        <span class="comment"># Git Bash</span><br>
+        <span class="cmd">mkdir -p nieuwe-projectnaam && touch nieuwe-projectnaam/.gitkeep</span><br>
+        <span class="cmd">git add . && git commit -m "Add project: naam" && git push</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Quote -->
+  <div class="quote-box">
+    GitHub is jouw geheugen — Claude-chats zijn wegwerpbaar. Eerst opslaan, dan loslaten.
+  </div>
+
+  <footer>
+    <span class="brand-footer">de Baak</span>
+    <span class="descriptor">Training · Ontwikkeling · Leiderschap · Sinds 1947</span>
+  </footer>
+
+</body>
+</html>

@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<!-- saved from url=(0051)file:///C:/Users/arijj/debaak-analyse/mt-brief.html -->
+<html lang="nl"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MT-Briefing — Competitive Positioning De Baak</title>
+<style>
+  :root {
+    --primary: #005ADC;
+    --primary-dark: #003A8C;
+    --primary-mid: #0044B0;
+    --secondary: #00A555;
+    --secondary-dk: #008040;
+    --teal-mid: #0077C8;
+    --accent: #FFE100;
+    --bg: #F5F5EB;
+    --white: #FFFFFF;
+    --charcoal: #1A1A2E;
+    --gray-mid: #4A5568;
+    --gray-light: #A0AEC0;
+    --border: rgba(0,90,220,0.15);
+    --zebra-blue: #F0F5FF;
+    --light-blue: #E8EEF9;
+    --shadow-soft: 0 4px 20px rgba(0,90,220,0.12);
+    --shadow-hover: 0 8px 32px rgba(0,90,220,0.18);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+  body {
+    font-family: Arial, sans-serif;
+    background: var(--bg);
+    color: var(--charcoal);
+    line-height: 1.75;
+    font-size: 16px;
+  }
+
+  /* Sticky progress bar */
+  .progress-bar {
+    position: fixed; top: 0; left: 0;
+    width: 0%; height: 4px;
+    background: linear-gradient(90deg, var(--secondary) 0%, var(--primary) 60%, var(--accent) 100%);
+    z-index: 1000;
+    transition: width 0.1s ease;
+  }
+
+  /* Baken-driehoek global background */
+  .baken-bg {
+    position: fixed;
+    top: 0; right: 0;
+    width: 40vw; height: 60vh;
+    background: linear-gradient(225deg, rgba(0,90,220,0.05) 0%, rgba(0,90,220,0) 60%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* HERO */
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+    color: var(--white);
+    padding: clamp(60px, 12vh, 120px) clamp(24px, 5vw, 80px) clamp(80px, 22vh, 160px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: 0; right: 0;
+    width: 60%; height: 70%;
+    background: linear-gradient(225deg, rgba(255,255,255,0.07) 0%, rgba(255,255,255,0) 60%);
+    pointer-events: none;
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 6px;
+    background: linear-gradient(90deg, var(--secondary) 0%, var(--accent) 50%, var(--secondary) 100%);
+  }
+  .hero-inner {
+    position: relative;
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+  }
+  .eyebrow-hero {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--accent);
+    background: rgba(255,225,0,0.12);
+    border: 1px solid rgba(255,225,0,0.35);
+    border-radius: 100px;
+    padding: 6px 18px;
+    margin-bottom: 24px;
+  }
+  .hero h1 {
+    font-family: Arial, sans-serif;
+    font-size: clamp(36px, 5.5vw, 64px);
+    font-weight: 900;
+    line-height: 1.15;
+    color: var(--white);
+    margin-bottom: 0;
+    max-width: 900px;
+  }
+  .hero-rule {
+    width: 56px; height: 3px;
+    border: none; border-radius: 2px;
+    background: linear-gradient(90deg, var(--accent), var(--secondary));
+    margin: 32px 0 36px;
+  }
+  .hero-subtitle {
+    font-size: clamp(17px, 2vw, 22px);
+    line-height: 1.5;
+    color: rgba(255,255,255,0.88);
+    max-width: 760px;
+    margin-bottom: 28px;
+  }
+  .hero-author {
+    color: var(--accent);
+    font-style: italic;
+    font-size: 13px;
+    letter-spacing: 0.05em;
+  }
+  .hero-meta {
+    margin-top: 48px;
+    padding-top: 28px;
+    border-top: 1px solid rgba(255,255,255,0.18);
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 28px;
+    max-width: 900px;
+  }
+  .hero-meta .k {
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.65);
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+  .hero-meta .v {
+    color: var(--white);
+    font-size: 14px;
+    font-weight: 700;
+  }
+  .scroll-cue {
+    position: absolute;
+    bottom: clamp(28px, 7vh, 60px);
+    left: 50%;
+    transform: translateX(-50%);
+    width: 24px; height: 24px;
+    border-right: 2px solid rgba(255,255,255,0.45);
+    border-bottom: 2px solid rgba(255,255,255,0.45);
+    transform: translateX(-50%) rotate(45deg);
+    animation: bounce 2s infinite;
+  }
+  @keyframes bounce {
+    0%, 100% { transform: translateX(-50%) rotate(45deg) translateY(0); }
+    50% { transform: translateX(-50%) rotate(45deg) translateY(8px); }
+  }
+
+  /* MAIN */
+  main {
+    position: relative;
+    z-index: 1;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 clamp(24px, 4vw, 32px);
+  }
+
+  section {
+    padding: 96px 0;
+  }
+  .js-reveal section:not(.hero) {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .js-reveal section.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  section#tldr {
+    padding-top: 168px; /* eerste content na full-bleed hero */
+  }
+  @media (max-width: 768px) {
+    section { padding: 60px 0; }
+    section#tldr { padding-top: 100px; }
+  }
+
+  .section-header {
+    margin-bottom: 40px;
+  }
+  .eyebrow {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--primary);
+    background: rgba(0,90,220,0.07);
+    border: 1px solid rgba(0,90,220,0.18);
+    border-radius: 100px;
+    padding: 5px 16px;
+    margin-bottom: 16px;
+  }
+  h2 {
+    font-family: Arial, sans-serif;
+    font-size: clamp(26px, 3.5vw, 36px);
+    font-weight: 700;
+    color: var(--primary);
+    line-height: 1.15;
+    margin: 0;
+  }
+  hr.section-rule {
+    width: 48px; height: 3px;
+    border: none; border-radius: 2px;
+    background: var(--secondary);
+    margin: 20px 0 0;
+  }
+  h3 {
+    font-family: Arial, sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--charcoal);
+    line-height: 1.3;
+    margin-bottom: 10px;
+  }
+  p {
+    font-size: 16px;
+    line-height: 1.75;
+    color: var(--charcoal);
+    margin-bottom: 16px;
+  }
+  p.lede {
+    font-size: 18px;
+    color: var(--gray-mid);
+    max-width: 800px;
+  }
+
+  /* TL;DR card */
+  .tldr-card {
+    background: var(--white);
+    border-radius: 16px;
+    box-shadow: var(--shadow-soft);
+    padding: 0;
+    overflow: hidden;
+    position: relative;
+  }
+  .tldr-card::before {
+    content: '';
+    display: block;
+    height: 4px;
+    background: var(--primary);
+  }
+  .tldr-body {
+    padding: 36px 40px;
+  }
+  .tldr-body ul {
+    list-style: none;
+    padding: 0;
+  }
+  .tldr-body li {
+    padding: 10px 0 10px 32px;
+    position: relative;
+    font-size: 16px;
+    line-height: 1.6;
+    border-bottom: 1px solid var(--border);
+  }
+  .tldr-body li:last-child { border-bottom: none; }
+  .tldr-body li::before {
+    content: '';
+    position: absolute;
+    left: 6px;
+    top: 18px;
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--secondary);
+  }
+  .tldr-body li strong { color: var(--primary); font-weight: 700; }
+
+  /* CARDS GRID */
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 28px;
+  }
+  .card {
+    background: var(--white);
+    border-radius: 16px;
+    box-shadow: var(--shadow-soft);
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+  }
+  .card:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--shadow-hover);
+  }
+  .card .top-border {
+    height: 4px;
+    background: var(--primary);
+  }
+  .card.green .top-border { background: var(--secondary); }
+  .card.teal .top-border { background: var(--teal-mid); }
+  .card-body {
+    padding: 28px;
+    flex: 1;
+  }
+  .card-tag {
+    display: inline-block;
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--primary);
+    font-weight: 700;
+    margin-bottom: 10px;
+  }
+  .card.green .card-tag { color: var(--secondary-dk); }
+  .card.teal .card-tag { color: var(--teal-mid); }
+  .card p {
+    font-size: 15px;
+    color: var(--gray-mid);
+    margin: 0;
+    line-height: 1.6;
+  }
+
+  /* PULLQUOTE */
+  .pullquote {
+    background: var(--primary);
+    color: var(--white);
+    padding: 36px 40px;
+    border-radius: 16px;
+    margin: 32px 0;
+    position: relative;
+    overflow: hidden;
+    font-size: 20px;
+    line-height: 1.5;
+    font-weight: 700;
+  }
+  .pullquote::after {
+    content: '';
+    position: absolute;
+    top: 0; right: 0;
+    width: 35%; height: 100%;
+    background: linear-gradient(225deg, rgba(255,255,255,0.07), rgba(255,255,255,0));
+    pointer-events: none;
+  }
+
+  /* OPTIONS */
+  .options { display: flex; flex-direction: column; gap: 24px; }
+  .option {
+    background: var(--white);
+    border-radius: 16px;
+    box-shadow: var(--shadow-soft);
+    overflow: hidden;
+    position: relative;
+  }
+  .option .top-border {
+    height: 4px;
+    background: var(--gray-light);
+  }
+  .option.recommended .top-border { background: var(--secondary); }
+  .option-body { padding: 32px 36px; }
+  .ribbon {
+    position: absolute;
+    top: 12px; right: 24px;
+    background: var(--accent);
+    color: var(--charcoal);
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    padding: 5px 14px;
+    border-radius: 100px;
+    font-weight: 700;
+  }
+  .option-head {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    margin-bottom: 14px;
+  }
+  .option-num {
+    width: 48px; height: 48px;
+    border-radius: 50%;
+    background: var(--primary);
+    color: var(--white);
+    font-size: 22px;
+    font-weight: 900;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .option.recommended .option-num { background: var(--secondary); }
+  .option-title {
+    font-family: Arial, sans-serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--primary);
+    line-height: 1.2;
+  }
+  .option p { font-size: 15.5px; line-height: 1.65; margin-bottom: 0; }
+  .specs {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-top: 22px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border);
+  }
+  .specs .k {
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--gray-light);
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+  .specs .v {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--charcoal);
+  }
+  @media (max-width: 768px) {
+    .specs { grid-template-columns: repeat(2, 1fr); }
+    .hero-meta { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  /* WARN block */
+  .warn {
+    background: var(--zebra-blue);
+    border-left: 4px solid var(--primary);
+    padding: 24px 28px;
+    border-radius: 0 16px 16px 0;
+  }
+  .warn h3 { margin-bottom: 10px; }
+  .warn p { font-size: 15px; color: var(--gray-mid); margin: 0; }
+
+  /* DECISION */
+  .decision {
+    background: var(--primary);
+    color: var(--white);
+    border-radius: 16px;
+    padding: 40px 44px;
+    position: relative;
+    overflow: hidden;
+  }
+  .decision::after {
+    content: '';
+    position: absolute;
+    top: 0; right: 0;
+    width: 35%; height: 100%;
+    background: linear-gradient(225deg, rgba(255,255,255,0.07), rgba(255,255,255,0));
+    pointer-events: none;
+  }
+  .decision::before {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 6px;
+    background: linear-gradient(90deg, var(--secondary) 0%, var(--accent) 50%, var(--secondary) 100%);
+  }
+  .decision .eyebrow {
+    color: var(--accent);
+    background: rgba(255,225,0,0.12);
+    border-color: rgba(255,225,0,0.35);
+  }
+  .decision h2 { color: var(--white); }
+  .decision hr.section-rule { background: var(--accent); }
+  .decision ol {
+    list-style: none;
+    counter-reset: dec;
+    padding: 0;
+    margin-top: 28px;
+  }
+  .decision li {
+    counter-increment: dec;
+    padding: 14px 0 14px 52px;
+    position: relative;
+    border-bottom: 1px solid rgba(255,255,255,0.15);
+    font-size: 15.5px;
+    line-height: 1.5;
+  }
+  .decision li:last-child { border-bottom: none; }
+  .decision li::before {
+    content: counter(dec);
+    position: absolute;
+    left: 0; top: 14px;
+    width: 32px; height: 32px;
+    background: var(--accent);
+    color: var(--primary-dark);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 900;
+    font-size: 14px;
+  }
+  .decision li strong { color: var(--accent); font-weight: 700; }
+
+  /* FOOTER */
+  footer {
+    background: var(--primary);
+    color: var(--white);
+    margin-top: 80px;
+    padding: 44px clamp(24px, 4vw, 56px) 40px;
+    position: relative;
+    overflow: hidden;
+  }
+  footer::before {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 6px;
+    background: linear-gradient(90deg, var(--secondary) 0%, var(--accent) 50%, var(--secondary) 100%);
+  }
+  footer::after {
+    content: '';
+    position: absolute;
+    top: 0; right: 0;
+    width: 30%; height: 100%;
+    background: linear-gradient(225deg, rgba(255,255,255,0.07), rgba(255,255,255,0));
+    pointer-events: none;
+  }
+  .footer-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    flex-wrap: wrap;
+    gap: 16px;
+    position: relative;
+    z-index: 1;
+  }
+  .footer-brand {
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--white);
+    line-height: 1;
+  }
+  .footer-tagline {
+    font-size: 13px;
+    color: rgba(255,255,255,0.75);
+    margin-top: 6px;
+    letter-spacing: 0.02em;
+  }
+  .footer-link {
+    font-size: 13px;
+    color: rgba(255,255,255,0.75);
+  }
+  .footer-link a { color: var(--accent); text-decoration: none; }
+  .footer-link a:hover { text-decoration: underline; }
+
+  @media print {
+    body { background: white; }
+    .baken-bg, .progress-bar, .scroll-cue { display: none; }
+    section { opacity: 1; transform: none; page-break-inside: avoid; }
+    .hero { min-height: auto; page-break-after: always; }
+    .decision { page-break-inside: avoid; }
+  }
+</style>
+</head>
+<body class="js-reveal">
+
+<div class="progress-bar" id="progress" style="width: 53.2532%;"></div>
+<div class="baken-bg"></div>
+
+<section class="hero">
+  <div class="hero-inner">
+    <span class="eyebrow-hero">MT-Briefing · Strategie</span>
+    <h1>Een uitgehold middenveld — drie wegen vooruit</h1>
+    <hr class="hero-rule">
+    <p class="hero-subtitle">De markt voor leiderschapsontwikkeling splitst zich in twee polen: premium high-touch transformational en schaalbare AI-coaching. De Baak's positie tussenin verzwakt — maar twee onbenutte activa geven ons een unieke uitweg.</p>
+    <div class="hero-author">Vertrouwelijk · Voor het managementteam</div>
+
+    <div class="hero-meta">
+      <div><div class="k">Datum</div><div class="v">28 mei 2026</div></div>
+      <div><div class="k">Scope</div><div class="v">10 NL + 11 internationaal</div></div>
+      <div><div class="k">Bronnen</div><div class="v">Publieke web-research</div></div>
+      <div><div class="k">Leestijd</div><div class="v">± 3 minuten</div></div>
+    </div>
+  </div>
+  <div class="scroll-cue"></div>
+</section>
+
+<main>
+
+  <section id="tldr" class="visible">
+    <div class="section-header">
+      <span class="eyebrow">Hoofdstuk 1 · In het kort</span>
+      <h2>De kern in vier punten</h2>
+      <hr class="section-rule">
+    </div>
+    <div class="tldr-card">
+      <div class="top-border"></div>
+      <div class="tldr-body">
+        <ul>
+          <li><strong>De markt polariseert.</strong> Mobius/THNK trekken weg aan de top; BetterUp/Hone breken aan de onderkant binnen. Het klassieke middenveld waar De Baak nu zit, krimpt.</li>
+          <li><strong>Consolidatie is voelbaar.</strong> House of Performance → Highberg. Bright Alley → Conclusion. Sounding Board → BTS. Boetiek-NL wordt opgekocht of geïntegreerd.</li>
+          <li><strong>Twee activa zijn onbenut.</strong> De fysieke retreat-locaties (Noordwijk/Driebergen) en de coach-pool — geen enkele concurrent kan dit kopiëren binnen 24 maanden.</li>
+          <li><strong>Beslissing nu nodig.</strong> Bewegen naar een differentiator vóór AI-platforms de NL-enterprise-markt veroveren. Window: 12–18 maanden.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="visible">
+    <div class="section-header">
+      <span class="eyebrow">Hoofdstuk 2 · Marktbeweging</span>
+      <h2>Wat schoof er in de markt?</h2>
+      <hr class="section-rule">
+    </div>
+    <div class="cards">
+      <div class="card">
+        <div class="top-border"></div>
+        <div class="card-body">
+          <div class="card-tag">Trend 1 · AI-coaching</div>
+          <h3>AI wordt enterprise-default</h3>
+          <p>BetterUp combineert sinds Fall 2025 human-coach + AI-in-werktools. Hone lanceerde 24/7 AI-coach in flow of work. Section pivoteerde compleet weg van klassieke exec ed naar Section AI.</p>
+        </div>
+      </div>
+      <div class="card green">
+        <div class="top-border"></div>
+        <div class="card-body">
+          <div class="card-tag">Trend 2 · Consolidatie</div>
+          <h3>NL boetiek-laag krimpt</h3>
+          <p>HoP, Bright Alley, Sounding Board — alle drie binnen 18 maanden onderdeel van grotere ecosystemen geworden. Onafhankelijke premium-spelers worden zeldzamer.</p>
+        </div>
+      </div>
+      <div class="card teal">
+        <div class="top-border"></div>
+        <div class="card-body">
+          <div class="card-tag">Trend 3 · Top-segment</div>
+          <h3>Premium intensiveert begeleiding</h3>
+          <p>Mobius doet 6-maands immersie met Cambridge/Egon Zehnder. TIAS rapporteert in 2026 satisfactie-piek op mentoring. Wie premium claimt, levert het ook diep.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="visible">
+    <div class="section-header">
+      <span class="eyebrow">Hoofdstuk 3 · Witte ruimte</span>
+      <h2>Waar zijn minder dan 3 concurrenten actief?</h2>
+      <hr class="section-rule">
+    </div>
+    <div class="pullquote">
+      Mobius en THNK doen retreat zónder AI. BetterUp en Hone doen AI zónder locatie. Niemand combineert het.
+    </div>
+    <div class="cards">
+      <div class="card">
+        <div class="top-border"></div>
+        <div class="card-body">
+          <div class="card-tag">Blind spot A</div>
+          <h3>Locatie-immersief + AI-coach</h3>
+          <p>Niemand combineert fysieke retreat met always-on AI-begeleiding tussen sessies. De Baak's locaties maken dit uniek mogelijk.</p>
+        </div>
+      </div>
+      <div class="card green">
+        <div class="top-border"></div>
+        <div class="card-body">
+          <div class="card-tag">Blind spot C</div>
+          <h3>Vrouwen aan top — hard geprofileerd</h3>
+          <p>Iedereen doet diversiteit; niemand profileert het als merk-as. De Baak noemt het al, maar exploiteert het niet.</p>
+        </div>
+      </div>
+      <div class="card teal">
+        <div class="top-border"></div>
+        <div class="card-body">
+          <div class="card-tag">Blind spot B</div>
+          <h3>Cross-sector NL-challenges</h3>
+          <p>Common Purpose doet dit globaal; geen Nederlandse speler claimt deze positie voor mid-senior leiders.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="visible">
+    <div class="section-header">
+      <span class="eyebrow">Hoofdstuk 4 · Strategische opties</span>
+      <h2>Drie wegen vooruit</h2>
+      <hr class="section-rule">
+    </div>
+    <div class="options">
+
+      <div class="option recommended">
+        <div class="top-border"></div>
+        <div class="ribbon">Aanbevolen</div>
+        <div class="option-body">
+          <div class="option-head">
+            <div class="option-num">1</div>
+            <div class="option-title">Het immersieve AI-leiderschapshuis</div>
+          </div>
+          <p>Een 6-maands traject met twee retreats op onze locaties + always-on AI-coach voor reflectie tussen sessies + 1:1 executive coach. Combineert wat Mobius/THNK niet kunnen (NL-locaties) met wat BetterUp/Hone niet hebben (retreat-DNA).</p>
+          <div class="specs">
+            <div><div class="k">Horizon</div><div class="v">12 mnd MVP</div></div>
+            <div><div class="k">Blind spots</div><div class="v">A + F</div></div>
+            <div><div class="k">Verdedigbaar</div><div class="v">18–24 mnd</div></div>
+            <div><div class="k">Investering</div><div class="v">Midden</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="option">
+        <div class="top-border"></div>
+        <div class="option-body">
+          <div class="option-head">
+            <div class="option-num">2</div>
+            <div class="option-title">De Baak voor Vrouwen aan Top</div>
+          </div>
+          <p>Hard positioneren met dedicated cohorten, vrouwelijke faculty, alumni-netwerk als sales-engine. Lagere investering, snel marketing-signaal. Geschikt als parallel spoor naast Optie 1.</p>
+          <div class="specs">
+            <div><div class="k">Horizon</div><div class="v">12–18 mnd</div></div>
+            <div><div class="k">Blind spots</div><div class="v">C (deels E)</div></div>
+            <div><div class="k">Verdedigbaar</div><div class="v">First-mover</div></div>
+            <div><div class="k">Investering</div><div class="v">Laag-midden</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="option">
+        <div class="top-border"></div>
+        <div class="option-body">
+          <div class="option-head">
+            <div class="option-num">3</div>
+            <div class="option-title">Het Maatschappelijk Leiderschapsplatform</div>
+          </div>
+          <p>Common-Purpose-model voor NL: cross-sector challenges met overheid, bedrijfsleven, NGO's, op échte vraagstukken (energietransitie, zorg, AI-ethiek). Vereist eerst credibility-platform — parkeren tot jaar 2.</p>
+          <div class="specs">
+            <div><div class="k">Horizon</div><div class="v">3–5 jaar</div></div>
+            <div><div class="k">Blind spots</div><div class="v">B (deels E)</div></div>
+            <div><div class="k">Verdedigbaar</div><div class="v">Netwerk-effect</div></div>
+            <div><div class="k">Investering</div><div class="v">Hoog</div></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="visible">
+    <div class="section-header">
+      <span class="eyebrow">Hoofdstuk 5 · Vermijden</span>
+      <h2>Wat we niet moeten doen</h2>
+      <hr class="section-rule">
+    </div>
+    <div class="warn">
+      <h3>Drie valkuilen</h3>
+      <p><strong>Niet</strong> nog een AI-leiderschapsprogramma als losse line-item — dat is common-knowledge race waar iedereen al rent. <strong>Niet</strong> de prijs verlagen om met NCOI te concurreren — dat ondermijnt de premium-positie die Optie 1 mogelijk maakt. <strong>Niet</strong> verder bewegen richting klassieke exec ed (Nyenrode/TIAS-pad) — daar zijn zij institutioneel sterker.</p>
+    </div>
+  </section>
+
+  <section class="visible">
+    <div class="decision">
+      <span class="eyebrow">Hoofdstuk 6 · Besluiten</span>
+      <h2>Beslissingen voor het MT</h2>
+      <hr class="section-rule">
+      <ol>
+        <li><strong>Akkoord op richting Optie 1?</strong> Indien ja: budget vrijmaken voor 90-dagen MVP-scoping (locatie-design + AI-tech-evaluatie + pilot-cohort werving).</li>
+        <li><strong>Akkoord op Optie 2 als parallel marketing-spoor?</strong> Indien ja: positioneringsteam aanwijzen, eerste cohort najaar 2026.</li>
+        <li><strong>Optie 3 parkeren tot jaar 2?</strong> Bevestiging dat we niet versnipperen.</li>
+        <li><strong>Wie owner per spoor?</strong> Naam + datum eerste sturingsgroep.</li>
+      </ol>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <div>
+      <div class="footer-brand">De Baak</div>
+      <div class="footer-tagline">Training · Ontwikkeling · Leiderschap · Sinds 1947</div>
+    </div>
+    <div class="footer-link">
+      Bron: competitive analysis · publieke bronnen · mei 2026<br>
+      <a href="file:///C:/Users/arijj/debaak-analyse/debaak-competitive-analysis.md">Volledig rapport →</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Enable scroll-reveal only when JS is available
+  document.body.classList.add('js-reveal');
+
+  // Progress bar
+  const progress = document.getElementById('progress');
+  window.addEventListener('scroll', () => {
+    const h = document.documentElement;
+    const scrolled = (h.scrollTop / (h.scrollHeight - h.clientHeight)) * 100;
+    progress.style.width = scrolled + '%';
+  });
+
+  // Scroll reveal
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) entry.target.classList.add('visible');
+    });
+  }, { threshold: 0.08, rootMargin: '-80px' });
+  document.querySelectorAll('section:not(.hero)').forEach(s => observer.observe(s));
+</script>
+
+
+
+</body></html>

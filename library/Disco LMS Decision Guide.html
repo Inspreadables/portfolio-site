@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Disco LMS Implementation - Management Decision Guide</title>
+<style>
+/* Theme Variables */
+:root {
+  --font-family-display: Arial, sans-serif;
+  --font-weight-display: 600;
+  --font-family-content: Arial, sans-serif;
+  --font-weight-content: 400;
+  --font-size-content: 16px;
+  --line-height-content: 1.4;
+}
+
+/* LIGHT THEME */
+body.theme-light {
+  --color-bg-base: #ffffff;
+  --color-bg-elevated: #f8fafc;
+  --color-bg-surface: #f1f5f9;
+  --color-bg-muted: #e2e8f0;
+  --color-text-primary: #0f172a;
+  --color-text-secondary: #475569;
+  --color-text-muted: #64748b;
+  --color-text-accent: #0284c7;
+  --color-primary: #0284c7;
+  --color-primary-foreground: #ffffff;
+}
+
+/* Base Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-family-content);
+  font-weight: var(--font-weight-content);
+  font-size: var(--font-size-content);
+  line-height: var(--line-height-content);
+  overflow-x: hidden;
+}
+
+/* Slide Container */
+.slide {
+  width: 960px;
+  height: 540px;
+  margin: 0 auto 20px;
+  display: flex;
+  flex-shrink: 0;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Layout Utilities */
+.row { flex-direction: row; }
+.col { flex-direction: column; }
+.center {
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+.space-between { justify-content: space-between; }
+.items-center { align-items: center; }
+.items-start { align-items: flex-start; }
+.items-end { align-items: flex-end; }
+.fill-width { flex: 1; }
+.fill-height { flex: 1; display: flex; flex-direction: column; }
+
+/* Spacing */
+.gap-sm { gap: 0.5rem; }
+.gap-md { gap: 1rem; }
+.gap-lg { gap: 1.5rem; }
+.gap-xl { gap: 2rem; }
+.gap-2xl { gap: 3rem; }
+
+.p-4 { padding: 1rem; }
+.p-6 { padding: 1.5rem; }
+.p-8 { padding: 2rem; }
+.p-12 { padding: 3rem; }
+.p-16 { padding: 4rem; }
+
+.mb-2 { margin-bottom: 0.5rem; }
+.mb-4 { margin-bottom: 1rem; }
+.mb-6 { margin-bottom: 1.5rem; }
+.mb-8 { margin-bottom: 2rem; }
+.mb-12 { margin-bottom: 3rem; }
+
+.mt-2 { margin-top: 0.5rem; }
+.mt-4 { margin-top: 1rem; }
+.mt-6 { margin-top: 1.5rem; }
+.mt-8 { margin-top: 2rem; }
+.mt-12 { margin-top: 3rem; }
+
+/* Typography */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-family-display);
+  font-weight: var(--font-weight-display);
+  line-height: 1.2;
+  margin: 0;
+}
+
+h1 { font-size: 3rem; }
+h2 { font-size: 2.25rem; }
+h3 { font-size: 1.75rem; }
+h4 { font-size: 1.5rem; }
+h5 { font-size: 1.25rem; }
+h6 { font-size: 1rem; }
+
+.text-6xl { font-size: 3.75rem; }
+.text-5xl { font-size: 3rem; }
+.text-4xl { font-size: 2.25rem; }
+.text-3xl { font-size: 1.875rem; }
+.text-2xl { font-size: 1.5rem; }
+.text-xl { font-size: 1.25rem; }
+.text-lg { font-size: 1.125rem; }
+.text-base { font-size: 1rem; }
+.text-sm { font-size: 0.875rem; }
+.text-xs { font-size: 0.75rem; }
+
+.font-bold { font-weight: 700; }
+.font-semibold { font-weight: 600; }
+.font-medium { font-weight: 500; }
+.font-normal { font-weight: 400; }
+
+.text-center { text-align: center; }
+.text-left { text-align: left; }
+.text-right { text-align: right; }
+
+.opacity-90 { opacity: 0.9; }
+.opacity-80 { opacity: 0.8; }
+.opacity-70 { opacity: 0.7; }
+.opacity-60 { opacity: 0.6; }
+
+/* Lists */
+ul, ol {
+  margin-left: 2rem;
+  line-height: 1.8;
+}
+
+ul li { list-style: disc; }
+ol li { list-style: decimal; }
+
+li { margin-bottom: 0.75rem; }
+li:last-child { margin-bottom: 0; }
+</style>
+</head>
+<body class="theme-light">
+
+  <!-- Slide 1: Title Slide -->
+  <section class="slide p-16 col center" style="background-color: #0284c7; color: #ffffff;">
+    <h1 class="text-6xl mb-4" style="color: #ffffff;">Disco LMS Implementation</h1>
+    <p class="text-2xl mb-2" style="color: #ffffff;">Management Decision Guide</p>
+    <p class="text-lg" style="color: #ffffff;">Strategic Roadmap for Student Journey Management</p>
+    <p class="text-sm mt-8" style="color: #ffffff;">November 19, 2025 • Utrecht, Netherlands</p>
+  </section>
+
+  <!-- Slide 2: Executive Summary -->
+  <section class="slide p-16 col" style="background-color: #ffffff; color: #0f172a;">
+    <h2 class="mb-6" style="color: #0284c7;">Executive Summary</h2>
+    <ul class="text-lg" style="color: #475569;">
+      <li>Comprehensive 16-week implementation roadmap for Disco LMS</li>
+      <li>AI-first platform for complete student journey management</li>
+      <li>Phased approach: Foundation → Configuration → Launch</li>
+      <li>Investment: €252,000-€282,000 with 3-5 FTE requirement</li>
+    </ul>
+  </section>
+
+  <!-- Slide 3: Business Value Proposition -->
+  <section class="slide p-16 col" style="background-color: #ffffff; color: #0f172a;">
+    <h2 class="mb-6" style="color: #0284c7;">Business Value Proposition</h2>
+    <div class="row gap-lg">
+      <div class="fill-width" style="background-color: #f1f5f9; padding: 1.5rem;">
+        <h3 class="mb-4" style="color: #0284c7; font-size: 1.25rem;">Efficiency Gains</h3>
+        <p style="color: #475569;">75% reduction in course creation time using AI Canvas</p>
+      </div>
+      <div class="fill-width" style="background-color: #f1f5f9; padding: 1.5rem;">
+        <h3 class="mb-4" style="color: #0284c7; font-size: 1.25rem;">Student Journey</h3>
+        <p style="color: #475569;">End-to-end management from recruitment to alumni</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Slide 4: Phase 1 - Foundation & Discovery -->
+  <section class="slide p-16 col" style="background-color: #ffffff; color: #0f172a;">
+    <h2 class="mb-6" style="color: #0284c7;">Phase 1: Foundation (Weeks 1-2)</h2>
+    <ul class="text-lg" style="color: #475569;">
+      <li>Project kickoff and team assembly</li>
+      <li>Platform provisioning and tenant setup</li>
+      <li>Requirements gathering workshops</li>
+      <li>Integration architecture design</li>
+    </ul>
+  </section>
+
+  <!-- Slide 5: Phase 2 - Platform Configuration -->
+  <section class="slide p-16 col" style="background-color: #ffffff; color: #0f172a;">
+    <h2 class="mb-6" style="color: #0284c7;">Phase 2: Configuration (Weeks 3-5)</h2>
+    <ul class="text-lg" style="color: #475569;">
+      <li>Branding and user experience setup</li>
+      <li>Learning structure and cohort design</li>
+      <li>API configuration and integrations</li>
+      <li>Role-based access control implementation</li>
+    </ul>
+  </section>
+
+  <!-- Slide 6: Phase 3 - Content Migration -->
+  <section class="slide p-16 col" style="background-color: #ffffff; color: #0f172a;">
+    <h2 class="mb-6" style="color: #0284c7;">Phase 3: Content (Weeks 6-8)</h2>
+    <ul class="text-lg" style="color: #475569;">
+      <li>Content inventory and migration planning</li>
+      <li>AI Canvas-powered course generation</li>
+      <li>Content upload and course building</li>
+      <li>Quality assurance and testing</li>
+    </ul>
+  </section>
+
+  <!-- Slide 7: Phase 4 - Community Setup -->
+  <section class="slide p-16 col" style="background-color: #ffffff; color: #0f172a;">
+    <h2 class="mb-6" style="color: #0284c7;">Phase 4: Community (Week 9)</h2>
+    <ul class="text-lg" style="color: #475569;">
+      <li>Community architecture design</li>
+      <li>Networking and engagement features</li>
+      <li>Gamification and recognition systems</li>
+      <li>Alumni transition workflows</li>
+    </ul>
+  </section>
+
+  <!-- Slide 8: Phase 5 - Testing & Pilot -->
+  <section class="slide p-16 col" style="background-color: #ffffff; color: #0f172a;">
+    <h2 class="mb-6" style="color: #0284c7;">Phase 5: Testing (Weeks 10-11)</h2>
+    <ul class="text-lg" style="color: #475569;">
+      <li>Comprehensive system testing</li>
+      <li>User acceptance testing with 30-40 users</li>
+      <li>Administrator and instructor training</li>
+      <li>Pilot cohort preparation (20-30 students)</li>
+    </ul>
+  </section>
+
+  <!-- Slide 9: Phase 6 - Pilot Launch -->
+  <section class="slide p-16 col" style="background-color: #ffffff; color: #0f172a;">
+    <h2 class="mb-6" style="color: #0284c7;">Phase 6: Pilot (Weeks 12-13)</h2>
+    <ul class="text-lg" style="color: #475569;">
+      <li>Pilot cohort launch with intensive support</li>
+      <li>Daily monitoring and engagement tactics</li>
+      <li>Feedback collection and analysis</li>
+      <li>Quick optimization and improvements</li>
+    </ul>
+  </section>
+
+  <!-- Slide 10: Phase 7 - Full Rollout -->
+  <section class="slide p-16 col" style="background-color: #ffffff; color: #0f172a;">
+    <h2 class="mb-6" style="color: #0284c7;">Phase 7: Rollout (Weeks 14-16)</h2>
+    <ul class="text-lg" style="color: #475569;">
+      <li>Platform finalization based on pilot learnings</li>
+      <li>Full launch to entire student population</li>
+      <li>Operations stabilization and handover</li>
+      <li>Continuous improvement roadmap</li>
+    </ul>
+  </section>
+
+  <!-- Slide 11: Key Performance Indicators -->
+  <section class="slide p-16 col" style="background-color: #ffffff; color: #0f172a;">
+    <h2 class="mb-6" style="color: #0284c7;">Success Metrics (Month 3 Targets)</h2>
+    <div class="row gap-lg">
+      <div class="fill-width" style="background-color: #f1f5f9; padding: 1.5rem;">
+        <h3 class="mb-2" style="color: #0284c7; font-size: 1.25rem;">90%</h3>
+        <p style="color: #475569;">Student registration rate</p>
+      </div>
+      <div class="fill-width" style="background-color: #f1f5f9; padding: 1.5rem;">
+        <h3 class="mb-2" style="color: #0284c7; font-size: 1.25rem;">75%</h3>
+        <p style="color: #475569;">Weekly active users</p>
+      </div>
+      <div class="fill-width" style="background-color: #f1f5f9; padding: 1.5rem;">
+        <h3 class="mb-2" style="color: #0284c7; font-size: 1.25rem;">70%+</h3>
+        <p style="color: #475569;">Course completion</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Slide 12: Resource Requirements -->
+  <section class="slide p-16 col" style="background-color: #ffffff; color: #0f172a;">
+    <h2 class="mb-6" style="color: #0284c7;">Resource Requirements</h2>
+    <ul class="text-lg" style="color: #475569;">
+      <li>Core team: 3-5 FTE during implementation</li>
+      <li>Project Manager (1.0 FTE, 16 weeks)</li>
+      <li>LMS Administrator (1.0 FTE, 16 weeks)</li>
+      <li>Content Developers (2.0 FTE, 8 weeks)</li>
+    </ul>
+  </section>
+
+  <!-- Slide 13: Budget Overview -->
+  <section class="slide p-16 col" style="background-color: #ffffff; color: #0f172a;">
+    <h2 class="mb-6" style="color: #0284c7;">Investment Required</h2>
+    <p class="text-lg mb-6" style="color: #475569;">Total estimated budget: €252,000 - €282,000</p>
+    <ul class="text-lg" style="color: #475569;">
+      <li>Software licensing: €25,000-€50,000</li>
+      <li>Personnel costs: €134,000</li>
+      <li>Content development: €25,000</li>
+    </ul>
+  </section>
+
+  <!-- Slide 14: Risk Assessment -->
+  <section class="slide p-16 col" style="background-color: #ffffff; color: #0f172a;">
+    <h2 class="mb-6" style="color: #0284c7;">Key Risks & Mitigation</h2>
+    <ul class="text-lg" style="color: #475569;">
+      <li>Faculty resistance → Early engagement & training</li>
+      <li>Data migration issues → Phased migration approach</li>
+      <li>Low student adoption → Strong change management</li>
+      <li>Overall risk level: Low-Medium (cloud SaaS)</li>
+    </ul>
+  </section>
+
+  <!-- Slide 15: Integration Architecture -->
+  <section class="slide p-16 col" style="background-color: #ffffff; color: #0f172a;">
+    <h2 class="mb-6" style="color: #0284c7;">System Integration Strategy</h2>
+    <ul class="text-lg" style="color: #475569;">
+      <li>SIS integration via REST API</li>
+      <li>Marketing automation through Zapier</li>
+      <li>Payment gateway (Stripe/PayPal)</li>
+      <li>Analytics platform data export</li>
+    </ul>
+  </section>
+
+  <!-- Slide 16: Management Best Practices -->
+  <section class="slide p-16 col center" style="background-color: #0284c7; color: #ffffff;">
+    <h2 class="text-4xl mb-8" style="color: #ffffff;">Management Decision Framework</h2>
+    <p class="text-xl" style="color: #ffffff;">Evidence-based approach to project approval</p>
+  </section>
+
+  <!-- Slide 17: Structured Objectives -->
+  <section class="slide p-16 col" style="background-color: #ffffff; color: #0f172a;">
+    <h2 class="mb-6" style="color: #0284c7;">Define Clear Objectives</h2>
+    <ul class="text-lg" style="color: #475569;">
+      <li>Transform student journey with modern platform</li>
+      <li>Reduce course creation time by 75%</li>
+      <li>Achieve 90% student adoption within 3 months</li>
+      <li>Enable end-to-end lifecycle management</li>
+    </ul>
+  </section>
+
+  <!-- Slide 18: Methodology Framework -->
+  <section class="slide p-16 col" style="background-color: #ffffff; color: #0f172a;">
+    <h2 class="mb-6" style="color: #0284c7;">Implementation Methodology</h2>
+    <ul class="text-lg" style="color: #475569;">
+      <li>Phased rollout with pilot validation</li>
+      <li>Agile approach with 2-week sprints</li>
+      <li>Risk-first strategy with contingencies</li>
+      <li>Parallel workstreams for efficiency</li>
+    </ul>
+  </section>
+
+  <!-- Slide 19: Measurable Indicators -->
+  <section class="slide p-16 col" style="background-color: #ffffff; color: #0f172a;">
+    <h2 class="mb-6" style="color: #0284c7;">Success Measurement</h2>
+    <p class="text-lg mb-4" style="color: #475569;">Track progress through quantifiable metrics:</p>
+    <ul class="text-lg" style="color: #475569;">
+      <li>Platform uptime: 99.9% target</li>
+      <li>Student satisfaction: 4.0+/5.0 score</li>
+      <li>Support resolution: <24 hour average</li>
+    </ul>
+  </section>
+
+  <!-- Slide 20: Timeline Realism -->
+  <section class="slide p-16 col" style="background-color: #ffffff; color: #0f172a;">
+    <h2 class="mb-6" style="color: #0284c7;">Realistic Timeline</h2>
+    <ul class="text-lg" style="color: #475569;">
+      <li>16 weeks (4 months) total implementation</li>
+      <li>Built-in buffer time for contingencies</li>
+      <li>Pilot testing before full rollout</li>
+      <li>Phased approach allows flexibility</li>
+    </ul>
+  </section>
+
+  <!-- Slide 21: Decision Options (Go-NoGo) -->
+  <section class="slide p-16 col" style="background-color: #ffffff; color: #0f172a;">
+    <h2 class="mb-6" style="color: #0284c7;">Decision Options</h2>
+    <div class="row gap-lg">
+      <div class="fill-width" style="background-color: #f1f5f9; padding: 1.5rem;">
+        <h3 class="mb-4" style="color: #0284c7; font-size: 1.25rem;">Option 1: Proceed</h3>
+        <p style="color: #475569;">Full implementation with 16-week roadmap</p>
+      </div>
+      <div class="fill-width" style="background-color: #f1f5f9; padding: 1.5rem;">
+        <h3 class="mb-4" style="color: #0284c7; font-size: 1.25rem;">Option 2: Pilot Only</h3>
+        <p style="color: #475569;">Limited pilot to validate before committing</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Slide 22: Decision Criteria -->
+  <section class="slide p-16 col" style="background-color: #ffffff; color: #0f172a;">
+    <h2 class="mb-6" style="color: #0284c7;">Key Decision Criteria</h2>
+    <ul class="text-lg" style="color: #475569;">
+      <li>Budget availability: €252k-€282k approved?</li>
+      <li>Resource commitment: 3-5 FTE available?</li>
+      <li>Strategic alignment with digital transformation</li>
+      <li>Stakeholder readiness and buy-in</li>
+    </ul>
+  </section>
+
+  <!-- Slide 23: Critical Success Factors -->
+  <section class="slide p-16 col" style="background-color: #ffffff; color: #0f172a;">
+    <h2 class="mb-6" style="color: #0284c7;">Critical Success Factors</h2>
+    <ul class="text-lg" style="color: #475569;">
+      <li>Executive sponsorship and visible support</li>
+      <li>Comprehensive change management program</li>
+      <li>AI Canvas leverage for rapid deployment</li>
+      <li>Community-first engagement strategy</li>
+    </ul>
+  </section>
+
+  <!-- Slide 24: Next Steps -->
+  <section class="slide p-16 col" style="background-color: #ffffff; color: #0f172a;">
+    <h2 class="mb-6" style="color: #0284c7;">Immediate Next Steps</h2>
+    <ol class="text-lg" style="color: #475569;">
+      <li>Secure executive approval and budget</li>
+      <li>Assemble project team within 2 weeks</li>
+      <li>Schedule kickoff meeting</li>
+      <li>Begin Disco LMS contract negotiation</li>
+    </ol>
+  </section>
+
+  <!-- Slide 25: Recommendation -->
+  <section class="slide p-16 col" style="background-color: #ffffff; color: #0f172a;">
+    <h2 class="mb-6" style="color: #0284c7;">Management Recommendation</h2>
+    <p class="text-xl mb-6" style="color: #475569;">Proceed with full implementation</p>
+    <ul class="text-lg" style="color: #475569;">
+      <li>Strong business case with clear ROI</li>
+      <li>Low-medium risk profile with cloud SaaS</li>
+      <li>Proven phased approach minimizes exposure</li>
+    </ul>
+  </section>
+
+  <!-- Slide 26: Thank You -->
+  <section class="slide p-16 col center" style="background-color: #0284c7; color: #ffffff;">
+    <h2 class="text-5xl mb-6" style="color: #ffffff;">Questions?</h2>
+    <p class="text-xl mb-8" style="color: #ffffff;">Ready to transform student learning</p>
+    <p class="text-sm" style="color: #ffffff;">Project Team • November 2025</p>
+  </section>
+
+</body>
+</html>
+

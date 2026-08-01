@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>De Baak | Intelligent Workflows · Huisstijl v2.0</title>
+    <style>
+        /* ---------- DE BAAK HUISSTIJL v2.0 ---------- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #005ADC;
+            --secondary: #00A555;
+            --accent: #FFE100;
+            --bg: #F5F5EB;
+            --text: #1A1A2E;
+            --shadow: 0 12px 28px -8px rgba(0, 0, 0, 0.08), 0 4px 12px rgba(0, 0, 0, 0.02);
+            --card-radius: 16px;
+            --transition: all 0.2s ease;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: Arial, sans-serif;
+            line-height: 1.45;
+            scroll-behavior: smooth;
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem 1rem 1.5rem;
+        }
+
+        /* header & brand */
+        .brand {
+            margin-bottom: 1.75rem;
+        }
+
+        .brand h1 {
+            font-size: 1.9rem;
+            font-weight: 700;
+            letter-spacing: -0.3px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 80%);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            display: inline-block;
+        }
+
+        .badge {
+            display: inline-block;
+            background: rgba(0, 90, 220, 0.12);
+            padding: 0.2rem 0.8rem;
+            border-radius: 40px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--primary);
+            margin-left: 0.75rem;
+            vertical-align: middle;
+        }
+
+        /* ---------- DOT LEGEND (kleurcode) ---------- */
+        .legend {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            background: white;
+            padding: 0.9rem 1.5rem;
+            border-radius: 80px;
+            margin: 1.5rem 0 1.8rem 0;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.03), 0 2px 6px rgba(0,0,0,0.05);
+            justify-content: flex-start;
+            align-items: center;
+        }
+
+        .legend-item {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            font-size: 0.85rem;
+            font-weight: 550;
+            background: transparent;
+            padding: 4px 12px 4px 8px;
+            border-radius: 40px;
+            transition: var(--transition);
+        }
+
+        .legend-dot {
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            display: inline-block;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+        }
+
+        .legend-dot.primary-dot { background-color: var(--primary); }
+        .legend-dot.secondary-dot { background-color: var(--secondary); }
+        .legend-dot.accent-dot { background-color: var(--accent); }
+
+        .legend-text {
+            font-weight: 600;
+            color: var(--text);
+        }
+        .legend-sub {
+            font-size: 0.7rem;
+            font-weight: normal;
+            color: #4a4a5e;
+            margin-left: 0.2rem;
+        }
+
+        /* ---------- TABS (touch ≥44px) ---------- */
+        .tabs-nav {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+            border-bottom: 1px solid rgba(0,0,0,0.08);
+            padding-bottom: 0.25rem;
+        }
+
+        .tab-btn {
+            background: transparent;
+            border: none;
+            font-size: 1rem;
+            font-weight: 600;
+            font-family: Arial, sans-serif;
+            padding: 12px 28px;
+            min-height: 48px;
+            min-width: 120px;
+            cursor: pointer;
+            color: #4a4a5e;
+            border-radius: 40px;
+            transition: var(--transition);
+            background-color: transparent;
+            letter-spacing: -0.2px;
+        }
+
+        .tab-btn:hover {
+            background-color: rgba(0, 90, 220, 0.06);
+            color: var(--primary);
+        }
+
+        .tab-btn.active {
+            background-color: white;
+            color: var(--primary);
+            box-shadow: 0 2px 8px rgba(0, 90, 220, 0.12);
+            border: 1px solid rgba(0, 90, 220, 0.2);
+        }
+
+        /* ---------- CARD GRID : 2 columns, responsive stack ---------- */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.8rem;
+        }
+
+        /* card styling */
+        .card {
+            background: white;
+            border-radius: var(--card-radius);
+            box-shadow: var(--shadow);
+            padding: 1.6rem 1.5rem 1.8rem 1.5rem;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            border-top: 4px solid transparent;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 24px 36px -12px rgba(0, 0, 0, 0.15);
+        }
+
+        /* top border color variants */
+        .card-primary {
+            border-top-color: var(--primary);
+        }
+        .card-secondary {
+            border-top-color: var(--secondary);
+        }
+        .card-accent {
+            border-top-color: var(--accent);
+        }
+
+        .card h3 {
+            font-size: 1.45rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+            letter-spacing: -0.2px;
+            color: var(--text);
+        }
+
+        .card p {
+            font-size: 0.9rem;
+            line-height: 1.45;
+            color: #2c2c3a;
+            margin-bottom: 1rem;
+            flex: 1;
+        }
+
+        .card-meta {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            color: #6b6b7e;
+            margin-top: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .inline-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 10px;
+            display: inline-block;
+        }
+
+        /* tab panes */
+        .tab-pane {
+            display: none;
+            animation: fadeIn 0.25s ease;
+        }
+
+        .tab-pane.active-pane {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(6px);}
+            to { opacity: 1; transform: translateY(0);}
+        }
+
+        /* ---------- FOOTER + gradient bar ---------- */
+        .site-footer {
+            background-color: var(--primary);
+            color: white;
+            margin-top: 4rem;
+            width: 100%;
+        }
+
+        .footer-content {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem 1.5rem 1.5rem;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .footer-text {
+            font-size: 0.85rem;
+            opacity: 0.92;
+        }
+
+        .footer-badge {
+            background: rgba(255,255,255,0.15);
+            padding: 6px 14px;
+            border-radius: 60px;
+            font-size: 0.7rem;
+            font-weight: 600;
+        }
+
+        .gradient-bottom-bar {
+            height: 8px;
+            width: 100%;
+            background: linear-gradient(90deg, var(--secondary) 0%, var(--accent) 50%, var(--secondary) 100%);
+        }
+
+        /* ---------- RESPONSIVE (≤768px) : stack + touch safe ---------- */
+        @media (max-width: 768px) {
+            .container {
+                padding: 1.25rem 1rem;
+            }
+
+            .legend {
+                border-radius: 32px;
+                padding: 0.75rem 1rem;
+                gap: 1rem;
+                justify-content: center;
+            }
+
+            .legend-item {
+                font-size: 0.75rem;
+                padding: 4px 8px;
+            }
+
+            .cards-grid {
+                grid-template-columns: 1fr;
+                gap: 1.2rem;
+            }
+
+            .tab-btn {
+                padding: 10px 20px;
+                min-width: 100px;
+                font-size: 0.9rem;
+            }
+
+            .tabs-nav {
+                justify-content: center;
+                gap: 0.4rem;
+            }
+
+            .card {
+                padding: 1.4rem;
+            }
+
+            .brand h1 {
+                font-size: 1.6rem;
+            }
+
+            .footer-content {
+                flex-direction: column;
+                text-align: center;
+                gap: 0.75rem;
+            }
+        }
+
+        /* extra touch guarantee */
+        button, .tab-btn, .legend-item {
+            cursor: pointer;
+            user-select: none;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- header met huisstijl -->
+    <div class="brand">
+        <h1>BAakie · intelligent orchestrator</h1>
+        <span class="badge">v2.0 · De Baak huisstijl</span>
+        <p style="margin-top: 0.6rem; color: #3a3a4a; max-width: 650px;">Hybrid social learning · AI agents · portfolio strategy — visueel dashboard</p>
+    </div>
+
+    <!-- DOT LEGEND (kleur betekenis) -->
+    <div class="legend">
+        <div class="legend-item">
+            <span class="legend-dot primary-dot"></span>
+            <span class="legend-text">Primair <span class="legend-sub">strategie & leiderschap</span></span>
+        </div>
+        <div class="legend-item">
+            <span class="legend-dot secondary-dot"></span>
+            <span class="legend-text">Secundair <span class="legend-sub">groei & duurzaamheid</span></span>
+        </div>
+        <div class="legend-item">
+            <span class="legend-dot accent-dot"></span>
+            <span class="legend-text">Accent <span class="legend-sub">creativiteit & innovatie</span></span>
+        </div>
+        <div style="margin-left: auto; font-size: 0.7rem; color:#6f6f82;">⬤ top border = kleurcode</div>
+    </div>
+
+    <!-- tabs navigatie (3 tabs) -->
+    <div class="tabs-nav" role="tablist" aria-label="Infographic thema's">
+        <button class="tab-btn active" data-tab="tab1" role="tab" aria-selected="true">🧠 KENNIS & AI</button>
+        <button class="tab-btn" data-tab="tab2" role="tab" aria-selected="false">💡 DESIGN & INNOVATIE</button>
+        <button class="tab-btn" data-tab="tab3" role="tab" aria-selected="false">⚙️ STRATEGIE & EXECUTIE</button>
+    </div>
+
+    <!-- TAB 1 : KENNIS & AI (4 kaarten, 2 kolommen) -->
+    <div id="tab1" class="tab-pane active-pane" role="tabpanel">
+        <div class="cards-grid">
+            <!-- card primary -->
+            <div class="card card-primary">
+                <h3>AI Agents Orchestrator</h3>
+                <p>Multi-agent research robot orchestratie voor trainingsdata en automatische samenvatting. Verlaagt tokenvoetafdruk met slimme routing.</p>
+                <div class="card-meta"><span class="inline-dot" style="background: var(--primary);"></span> primaire laag · leiderschap</div>
+            </div>
+            <!-- card secondary -->
+            <div class="card card-secondary">
+                <h3>Hybrid Social Learning</h3>
+                <p>Roadmap voor sociaal leren in sandbox-omgevingen. Peer-review, agent spiegelen en gezamenlijke kennisopbouw.</p>
+                <div class="card-meta"><span class="inline-dot" style="background: var(--secondary);"></span> groei & community</div>
+            </div>
+            <!-- card accent -->
+            <div class="card card-accent">
+                <h3>LLM Wiki Improvement</h3>
+                <p>Evaluatieplan & EU AI Act compliance — bronnen, menselijke input en copyright transparantie. Wiki audit agent.</p>
+                <div class="card-meta"><span class="inline-dot" style="background: var(--accent);"></span> innovatie & compliance</div>
+            </div>
+            <!-- card primary -->
+            <div class="card card-primary">
+                <h3>Document Analysis Stack</h3>
+                <p>NotebookLM document strategie + batch processing HTML. Optimale tokenisatie en observability voor elke file.</p>
+                <div class="card-meta"><span class="inline-dot" style="background: var(--primary);"></span> strategisch inzicht</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- TAB 2 : DESIGN & INNOVATIE -->
+    <div id="tab2" class="tab-pane" role="tabpanel">
+        <div class="cards-grid">
+            <div class="card card-secondary">
+                <h3>IDEO Design Thinking</h3>
+                <p>Product template flow met empathie, prototyping en testen. Design sprint integrated met AI-assistenten.</p>
+                <div class="card-meta"><span class="inline-dot" style="background: var(--secondary);"></span> mensgericht ontwerp</div>
+            </div>
+            <div class="card card-accent">
+                <h3>Competitor Analysis</h3>
+                <p>Framework voor concurrentie landschap: markttrends, positionering en disruptieve patronen.</p>
+                <div class="card-meta"><span class="inline-dot" style="background: var(--accent);"></span> creatieve strategie</div>
+            </div>
+            <div class="card card-primary">
+                <h3>BaakieDoc Tutorial</h3>
+                <p>Uitleg voor vijfjarigen (ELI5) over vaults, Obsidian kaarten en folderstructuur. Kennisgraph visualisatie.</p>
+                <div class="card-meta"><span class="inline-dot" style="background: var(--primary);"></span> eenvoud & helderheid</div>
+            </div>
+            <div class="card card-secondary">
+                <h3>GitHub Backup Explainer</h3>
+                <p>Repository back-up strategie, rename remote URL en security audit plan voor organisaties.</p>
+                <div class="card-meta"><span class="inline-dot" style="background: var(--secondary);"></span> robuustheid</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- TAB 3 : STRATEGIE & EXECUTIE -->
+    <div id="tab3" class="tab-pane" role="tabpanel">
+        <div class="cards-grid">
+            <div class="card card-accent">
+                <h3>Lend Portfolio Stack</h3>
+                <p>Gelaagde projectstrategie voor portfoliomanagement. KPI dashboards en asset allocatie.</p>
+                <div class="card-meta"><span class="inline-dot" style="background: var(--accent);"></span> wendbaarheid</div>
+            </div>
+            <div class="card card-primary">
+                <h3>Audit & Improvement Plan</h3>
+                <p>Baakie Orchestrator audit · intake tutorial en agent migratieplan voor schaalbare omgevingen.</p>
+                <div class="card-meta"><span class="inline-dot" style="background: var(--primary);"></span> governance & controle</div>
+            </div>
+            <div class="card card-secondary">
+                <h3>Agents Migration Plan</h3>
+                <p>Workflow agent social learning environment, BTC community OS knowledge management integratie.</p>
+                <div class="card-meta"><span class="inline-dot" style="background: var(--secondary);"></span> schaal & transitie</div>
+            </div>
+            <div class="card card-accent">
+                <h3>HTML Proces Training</h3>
+                <p>HTML + templates prod dev ideo, asset mismatch detectie, DeepSeek desktop workflow.</p>
+                <div class="card-meta"><span class="inline-dot" style="background: var(--accent);"></span> dev productiviteit</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- FOOTER (primair blauw + gradient bar groen/geel/groen) -->
+<footer class="site-footer">
+    <div class="footer-content">
+        <div class="footer-text">© 2025 De Baak — Kennisassistent · ELI5 research robot · hybrid social learning roadmap</div>
+        <div class="footer-badge">v2.0 orchestrator · token optimalisatie guides</div>
+    </div>
+    <div class="gradient-bottom-bar"></div>
+</footer>
+
+<script>
+    (function() {
+        // tab switching logic (alleen vanilla)
+        const tabs = document.querySelectorAll('.tab-btn');
+        const panes = {
+            tab1: document.getElementById('tab1'),
+            tab2: document.getElementById('tab2'),
+            tab3: document.getElementById('tab3')
+        };
+
+        function activateTab(tabId) {
+            // deactivate all panes
+            Object.values(panes).forEach(pane => {
+                if (pane) pane.classList.remove('active-pane');
+            });
+            // activeer de gekozen pane
+            if (panes[tabId]) {
+                panes[tabId].classList.add('active-pane');
+            }
+            // update button states & aria
+            tabs.forEach(btn => {
+                const btnTab = btn.getAttribute('data-tab');
+                if (btnTab === tabId) {
+                    btn.classList.add('active');
+                    btn.setAttribute('aria-selected', 'true');
+                } else {
+                    btn.classList.remove('active');
+                    btn.setAttribute('aria-selected', 'false');
+                }
+            });
+        }
+
+        // Event listeners voor elke tabknop (touch targets >44px gewaarborgd)
+        tabs.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const tabId = btn.getAttribute('data-tab');
+                if (tabId && panes[tabId]) {
+                    activateTab(tabId);
+                }
+            });
+            // extra accessibility enter key (werkt al via click)
+            btn.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    btn.click();
+                }
+            });
+        });
+
+        // fallback: indien geen actieve tab expliciet, zorg voor consistentie
+        const activeBtn = document.querySelector('.tab-btn.active');
+        if (!activeBtn || !panes[activeBtn.getAttribute('data-tab')]?.classList.contains('active-pane')) {
+            // default tab1
+            activateTab('tab1');
+        }
+    })();
+</script>
+</body>
+</html>

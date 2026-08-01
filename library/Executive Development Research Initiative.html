@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Executive Development Research Initiative</title>
+<style>
+/* Theme Variables */
+:root {
+  --font-family-display: Arial, sans-serif;
+  --font-weight-display: 600;
+  --font-family-content: Arial, sans-serif;
+  --font-weight-content: 400;
+  --font-size-content: 16px;
+  --line-height-content: 1.4;
+}
+
+/* LIGHT THEME */
+body.theme-light {
+  --color-bg-base: #ffffff;
+  --color-bg-elevated: #f8fafc;
+  --color-bg-surface: #f1f5f9;
+  --color-bg-muted: #e2e8f0;
+  --color-text-primary: #0f172a;
+  --color-text-secondary: #475569;
+  --color-text-muted: #64748b;
+  --color-text-accent: #0284c7;
+  --color-primary: #0284c7;
+  --color-primary-foreground: #ffffff;
+}
+
+/* Base Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-family-content);
+  font-weight: var(--font-weight-content);
+  font-size: var(--font-size-content);
+  line-height: var(--line-height-content);
+  overflow-x: hidden;
+}
+
+/* Slide Container */
+.slide {
+  width: 960px;
+  height: 540px;
+  margin: 0 auto 20px;
+  display: flex;
+  flex-shrink: 0;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Layout Utilities */
+.row { flex-direction: row; }
+.col { flex-direction: column; }
+.center {
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+.space-between { justify-content: space-between; }
+.items-center { align-items: center; }
+.items-start { align-items: flex-start; }
+.items-end { align-items: flex-end; }
+.fill-width { flex: 1; }
+.fill-height { flex: 1; display: flex; flex-direction: column; }
+
+/* Spacing */
+.gap-sm { gap: 0.5rem; }
+.gap-md { gap: 1rem; }
+.gap-lg { gap: 1.5rem; }
+.gap-xl { gap: 2rem; }
+.gap-2xl { gap: 3rem; }
+
+.p-4 { padding: 1rem; }
+.p-6 { padding: 1.5rem; }
+.p-8 { padding: 2rem; }
+.p-12 { padding: 3rem; }
+.p-16 { padding: 4rem; }
+
+.mb-2 { margin-bottom: 0.5rem; }
+.mb-4 { margin-bottom: 1rem; }
+.mb-6 { margin-bottom: 1.5rem; }
+.mb-8 { margin-bottom: 2rem; }
+.mb-12 { margin-bottom: 3rem; }
+
+.mt-2 { margin-top: 0.5rem; }
+.mt-4 { margin-top: 1rem; }
+.mt-6 { margin-top: 1.5rem; }
+.mt-8 { margin-top: 2rem; }
+.mt-12 { margin-top: 3rem; }
+
+/* Typography */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-family-display);
+  font-weight: var(--font-weight-display);
+  line-height: 1.2;
+  margin: 0;
+}
+
+h1 { font-size: 3rem; }
+h2 { font-size: 2.25rem; }
+h3 { font-size: 1.75rem; }
+h4 { font-size: 1.5rem; }
+h5 { font-size: 1.25rem; }
+h6 { font-size: 1rem; }
+
+.text-6xl { font-size: 3.75rem; }
+.text-5xl { font-size: 3rem; }
+.text-4xl { font-size: 2.25rem; }
+.text-3xl { font-size: 1.875rem; }
+.text-2xl { font-size: 1.5rem; }
+.text-xl { font-size: 1.25rem; }
+.text-lg { font-size: 1.125rem; }
+.text-base { font-size: 1rem; }
+.text-sm { font-size: 0.875rem; }
+.text-xs { font-size: 0.75rem; }
+
+.font-bold { font-weight: 700; }
+.font-semibold { font-weight: 600; }
+.font-medium { font-weight: 500; }
+.font-normal { font-weight: 400; }
+
+.text-center { text-align: center; }
+.text-left { text-align: left; }
+.text-right { text-align: right; }
+
+.opacity-90 { opacity: 0.9; }
+.opacity-80 { opacity: 0.8; }
+.opacity-70 { opacity: 0.7; }
+.opacity-60 { opacity: 0.6; }
+
+/* Lists */
+ul, ol {
+  margin-left: 2rem;
+  line-height: 1.8;
+}
+
+ul li { list-style: disc; }
+ol li { list-style: decimal; }
+
+li { margin-bottom: 0.75rem; }
+li:last-child { margin-bottom: 0; }
+
+/* Card Styles */
+.card-rect {
+  padding: 2rem;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+}
+</style>
+</head>
+<body class="theme-light">
+
+  <!-- TITLE SLIDE -->
+  <section class="slide p-16 col center" style="background-color: #0284c7; color: #ffffff;">
+    <h1 class="text-6xl mb-4" style="color: #ffffff;">Executive Development Research Initiative</h1>
+    <p class="text-2xl" style="color: #ffffff;">Hybrid Learning Model with AI-Powered Biometric Analytics</p>
+    <p class="text-sm mt-8" style="color: #ffffff;">Management Decision Briefing • November 2025</p>
+  </section>
+
+  <!-- ORGANIZATIONAL STRUCTURE -->
+  <section class="slide p-16 col" style="background-color: #ffffff; color: #0f172a;">
+    <h2 class="mb-6" style="color: #0284c7;">Organizational Structure: Matrix Pod Model</h2>
+    <div class="fill-height">
+      <ul class="text-lg" style="color: #475569;">
+        <li><strong>Core Leadership:</strong> Head of Product, Head of Learning, CTO</li>
+        <li><strong>Platform Teams:</strong> Shared services for infrastructure, data, design, faculty</li>
+        <li><strong>Course Pods:</strong> Agile cross-functional teams (AI PM, LXD, Dev, Analyst, Faculty)</li>
+        <li><strong>Privacy Engineer:</strong> Critical specialized role for GDPR compliance</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- DEVELOPMENT PROCESS -->
+  <section class="slide p-16 col" style="background-color: #ffffff; color: #0f172a;">
+    <h2 class="mb-6" style="color: #0284c7;">Five-Phase Development Process</h2>
+    <div class="fill-height">
+      <ul class="text-lg" style="color: #475569;">
+        <li><strong>Empathize &amp; Define:</strong> Executive interviews + AI-driven market research</li>
+        <li><strong>Ideate:</strong> Pod brainstorming with generative AI creative partner</li>
+        <li><strong>Prototype:</strong> Build minimum viable course module with sensors</li>
+        <li><strong>Test &amp; Validate:</strong> Usability testing + biometric data analysis</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- DEVELOPMENT PROCESS CONTINUED -->
+  <section class="slide p-16 col" style="background-color: #ffffff; color: #0f172a;">
+    <h2 class="mb-6" style="color: #0284c7;">Five-Phase Development Process (Continued)</h2>
+    <div class="fill-height">
+      <ul class="text-lg" style="color: #475569;">
+        <li><strong>Implement &amp; Launch:</strong> 2-week Agile sprints, continuous iteration</li>
+        <li><strong>Living Course:</strong> Faculty iterates based on each cohort's feedback</li>
+        <li><strong>Continuous Loop:</strong> Returns to Phase 1 after launch for ongoing improvement</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- TECHNOLOGY STACK - SENSORS -->
+  <section class="slide p-16 col" style="background-color: #ffffff; color: #0f172a;">
+    <h2 class="mb-6" style="color: #0284c7;">Biometric Sensor Technologies</h2>
+    <div class="fill-height">
+      <ul class="text-lg" style="color: #475569;">
+        <li><strong>Physiological:</strong> EEG (cognitive load), heart rate (stress), GSR (engagement)</li>
+        <li><strong>Behavioral:</strong> Eye-tracking (attention), facial expressions (emotion), head pose</li>
+        <li><strong>91% accuracy</strong> in detecting distraction through multimodal fusion</li>
+        <li><strong>Real-time adaptation:</strong> System adjusts content based on executive state</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- FOUR-LAYER PRIVACY -->
+  <section class="slide p-16 col" style="background-color: #ffffff; color: #0f172a;">
+    <h2 class="mb-6" style="color: #0284c7;">Four-Layer Privacy Architecture</h2>
+    <div class="fill-height">
+      <ul class="text-lg" style="color: #475569;">
+        <li><strong>Layer 1:</strong> Burner emails, pseudonymous accounts, no social media integration</li>
+        <li><strong>Layer 2:</strong> Anonymous communications, encrypted messaging, burner phones for 2FA</li>
+        <li><strong>Layer 3:</strong> Burner devices (phones/laptops) for high-security needs</li>
+        <li><strong>Layer 4:</strong> Data masking, differential privacy, federated learning, k-anonymity</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- PRIVACY COMPLIANCE -->
+  <section class="slide p-16 col" style="background-color: #ffffff; color: #0f172a;">
+    <h2 class="mb-6" style="color: #0284c7;">Privacy &amp; Compliance Framework</h2>
+    <div class="fill-height">
+      <ul class="text-lg" style="color: #475569;">
+        <li><strong>GDPR Articles 25, 32, 35:</strong> Privacy by design, encryption, impact assessments</li>
+        <li><strong>On-device processing:</strong> Sensitive data never leaves executive's devices</li>
+        <li><strong>True anonymization:</strong> Re-identification computationally infeasible</li>
+        <li><strong>Audit trails:</strong> Four-layer documentation for regulatory compliance</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- HYBRID LEARNING MODEL -->
+  <section class="slide p-16 col" style="background-color: #ffffff; color: #0f172a;">
+    <h2 class="mb-6" style="color: #0284c7;">Hybrid Learning Model Components</h2>
+    <div class="fill-height">
+      <ul class="text-lg" style="color: #475569;">
+        <li><strong>Live gatherings:</strong> Launch session, mid-program workshop, capstone summit</li>
+        <li><strong>Technology-supported:</strong> LMS, mobile apps, virtual collaboration</li>
+        <li><strong>Cohort-based:</strong> 15-30 executives progressing together</li>
+        <li><strong>10-30x higher</strong> completion rates vs. self-paced online courses</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- SECTION DIVIDER -->
+  <section class="slide p-16 col center" style="background-color: #0284c7; color: #ffffff;">
+    <h2 class="text-5xl mb-6" style="color: #ffffff;">Management Decision Framework</h2>
+    <p class="text-xl" style="color: #ffffff;">Strategic Considerations for Initiative Approval</p>
+  </section>
+
+  <!-- EXECUTIVE SUMMARY -->
+  <section class="slide p-16 col" style="background-color: #ffffff; color: #0f172a;">
+    <h2 class="mb-6" style="color: #0284c7;">Executive Summary</h2>
+    <div class="fill-height">
+      <p class="text-lg mb-4" style="color: #475569;">This initiative proposes developing executive education courses using a hybrid learning model with AI-powered biometric analytics and military-grade privacy protections.</p>
+      <p class="text-lg" style="color: #475569;"><strong>Key differentiators:</strong> Real-time cognitive load monitoring, emotion recognition for adaptive learning, and four-layer anonymization enabling C-suite participation without reputation risk.</p>
+    </div>
+  </section>
+
+  <!-- BUSINESS VALUE PROPOSITION -->
+  <section class="slide p-16 col" style="background-color: #ffffff; color: #0f172a;">
+    <h2 class="mb-6" style="color: #0284c7;">Business Value Proposition</h2>
+    <div class="fill-height">
+      <ul class="text-lg" style="color: #475569;">
+        <li><strong>Premium positioning:</strong> Ultra-private courses command 3-5x pricing vs. standard programs</li>
+        <li><strong>Measurable outcomes:</strong> Biometric data proves learning effectiveness to corporate buyers</li>
+        <li><strong>Competitive moat:</strong> Privacy architecture creates 18-24 month lead vs. competitors</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- BUSINESS VALUE CONTINUED -->
+  <section class="slide p-16 col" style="background-color: #ffffff; color: #0f172a;">
+    <h2 class="mb-6" style="color: #0284c7;">Business Value Proposition (Continued)</h2>
+    <div class="fill-height">
+      <ul class="text-lg" style="color: #475569;">
+        <li><strong>Market access:</strong> Enables participation from government officials, regulated industries</li>
+        <li><strong>Data asset:</strong> Anonymized learning analytics inform future product development</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- STRUCTURED OBJECTIVES -->
+  <section class="slide p-16 col" style="background-color: #ffffff; color: #0f172a;">
+    <h2 class="mb-6" style="color: #0284c7;">Structured Objectives</h2>
+    <div class="fill-height">
+      <ul class="text-lg" style="color: #475569;">
+        <li><strong>Phase 1 (Months 1-6):</strong> Assemble core team, build privacy infrastructure</li>
+        <li><strong>Phase 2 (Months 7-12):</strong> Develop and test first pilot course with 20 executives</li>
+        <li><strong>Phase 3 (Months 13-18):</strong> Launch two additional courses, refine based on data</li>
+        <li><strong>Phase 4 (Months 19-24):</strong> Scale to five active courses, achieve profitability</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- METHODOLOGY -->
+  <section class="slide p-16 col" style="background-color: #ffffff; color: #0f172a;">
+    <h2 class="mb-6" style="color: #0284c7;">Methodology with Measurable Indicators</h2>
+    <div class="fill-height">
+      <ul class="text-lg" style="color: #475569;">
+        <li><strong>Engagement:</strong> Target 85%+ attention levels during live sessions (eye-tracking)</li>
+        <li><strong>Completion:</strong> Target 90%+ cohort completion (vs. 60% industry average)</li>
+        <li><strong>Learning outcomes:</strong> Pre/post assessments show 40%+ skill improvement</li>
+        <li><strong>Privacy compliance:</strong> Zero GDPR violations, pass external audit</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- REALISTIC TIMELINE -->
+  <section class="slide p-16 col" style="background-color: #ffffff; color: #0f172a;">
+    <h2 class="mb-6" style="color: #0284c7;">Realistic Implementation Timeline</h2>
+    <div class="row gap-lg">
+      <div class="fill-width" style="background-color: #f1f5f9; color: #0f172a; padding: 1.5rem;">
+        <h3 class="mb-4" style="color: #0284c7;">Months 1-6</h3>
+        <p style="color: #475569;">Team assembly, privacy infrastructure, platform development</p>
+      </div>
+      <div class="fill-width" style="background-color: #f1f5f9; color: #0f172a; padding: 1.5rem;">
+        <h3 class="mb-4" style="color: #0284c7;">Months 7-12</h3>
+        <p style="color: #475569;">Pilot course development and testing with first cohort</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- TIMELINE CONTINUED -->
+  <section class="slide p-16 col" style="background-color: #ffffff; color: #0f172a;">
+    <h2 class="mb-6" style="color: #0284c7;">Realistic Implementation Timeline (Continued)</h2>
+    <div class="row gap-lg">
+      <div class="fill-width" style="background-color: #f1f5f9; color: #0f172a; padding: 1.5rem;">
+        <h3 class="mb-4" style="color: #0284c7;">Months 13-18</h3>
+        <p style="color: #475569;">Scale to three courses, refine methodology based on data</p>
+      </div>
+      <div class="fill-width" style="background-color: #f1f5f9; color: #0f172a; padding: 1.5rem;">
+        <h3 class="mb-4" style="color: #0284c7;">Months 19-24</h3>
+        <p style="color: #475569;">Profitability milestone with five active courses</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- INVESTMENT REQUIREMENTS -->
+  <section class="slide p-16 col" style="background-color: #ffffff; color: #0f172a;">
+    <h2 class="mb-6" style="color: #0284c7;">Investment Requirements</h2>
+    <div class="fill-height">
+      <ul class="text-lg" style="color: #475569;">
+        <li><strong>Personnel (Year 1):</strong> $1.8M - Core leadership, platform teams, first pod</li>
+        <li><strong>Technology:</strong> $600K - LMS, sensor hardware, privacy infrastructure, cloud</li>
+        <li><strong>R&amp;D:</strong> $400K - Pilot testing, UX research, regulatory compliance</li>
+        <li><strong>Total Year 1:</strong> $2.8M investment</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- DECISION OPTIONS - PROCEED FULL -->
+  <section class="slide p-16 col" style="background-color: #ffffff; color: #0f172a;">
+    <h2 class="mb-6" style="color: #0284c7;">Decision Option A: Full Commitment</h2>
+    <div class="fill-height">
+      <p class="text-lg mb-4" style="color: #475569;"><strong>Approve $2.8M for 24-month initiative</strong></p>
+      <ul class="text-lg" style="color: #475569;">
+        <li><strong>Pros:</strong> First-mover advantage, complete privacy architecture, market leadership</li>
+        <li><strong>Cons:</strong> High upfront investment, regulatory uncertainty, technology risk</li>
+        <li><strong>Milestones:</strong> Go/no-go decision after pilot (Month 12)</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- DECISION OPTIONS - PILOT -->
+  <section class="slide p-16 col" style="background-color: #ffffff; color: #0f172a;">
+    <h2 class="mb-6" style="color: #0284c7;">Decision Option B: Phased Pilot</h2>
+    <div class="fill-height">
+      <p class="text-lg mb-4" style="color: #475569;"><strong>Approve $1.2M for 12-month proof of concept</strong></p>
+      <ul class="text-lg" style="color: #475569;">
+        <li><strong>Pros:</strong> Lower risk, validate assumptions before full scale</li>
+        <li><strong>Cons:</strong> Slower market entry, may lose competitive advantage</li>
+        <li><strong>Scope:</strong> Simplified privacy (Layers 1-2), single course, 20 executives</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- DECISION OPTIONS - DEFER -->
+  <section class="slide p-16 col" style="background-color: #ffffff; color: #0f172a;">
+    <h2 class="mb-6" style="color: #0284c7;">Decision Option C: Strategic Defer</h2>
+    <div class="fill-height">
+      <p class="text-lg mb-4" style="color: #475569;"><strong>Invest $200K in exploratory research for 6 months</strong></p>
+      <ul class="text-lg" style="color: #475569;">
+        <li><strong>Pros:</strong> Minimal commitment, monitor regulatory landscape</li>
+        <li><strong>Cons:</strong> Competitors may establish market position first</li>
+        <li><strong>Deliverables:</strong> Regulatory analysis, vendor assessment, revised business case</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- KEY RISKS -->
+  <section class="slide p-16 col" style="background-color: #ffffff; color: #0f172a;">
+    <h2 class="mb-6" style="color: #0284c7;">Key Risks &amp; Mitigation Strategies</h2>
+    <div class="fill-height">
+      <ul class="text-lg" style="color: #475569;">
+        <li><strong>Regulatory:</strong> EU AI Act may classify emotion recognition as high-risk (Mitigation: Privacy Engineer ensures compliance, can pivot to engagement-only metrics)</li>
+        <li><strong>Technical:</strong> Sensor accuracy varies across demographics (Mitigation: Multi-vendor approach, human-in-loop validation)</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- KEY RISKS CONTINUED -->
+  <section class="slide p-16 col" style="background-color: #ffffff; color: #0f172a;">
+    <h2 class="mb-6" style="color: #0284c7;">Key Risks &amp; Mitigation Strategies (Continued)</h2>
+    <div class="fill-height">
+      <ul class="text-lg" style="color: #475569;">
+        <li><strong>Market:</strong> Executives may resist biometric monitoring (Mitigation: Radical transparency, opt-in design, emphasize learning benefits)</li>
+        <li><strong>Talent:</strong> Privacy Engineers are scarce (Mitigation: Partner with academic institutions, competitive compensation)</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- COMPETITIVE LANDSCAPE -->
+  <section class="slide p-16 col" style="background-color: #ffffff; color: #0f172a;">
+    <h2 class="mb-6" style="color: #0284c7;">Competitive Landscape Analysis</h2>
+    <div class="fill-height">
+      <ul class="text-lg" style="color: #475569;">
+        <li><strong>Traditional providers:</strong> Harvard, INSEAD, Wharton lack biometric capabilities</li>
+        <li><strong>EdTech startups:</strong> Coursera, Udacity use basic analytics, no privacy focus</li>
+        <li><strong>Our advantage:</strong> Military-grade privacy + biometric insights unique in market</li>
+        <li><strong>Timing:</strong> 18-24 month window before competitors copy approach</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- SUCCESS CRITERIA -->
+  <section class="slide p-16 col" style="background-color: #ffffff; color: #0f172a;">
+    <h2 class="mb-6" style="color: #0284c7;">Success Criteria for Go/No-Go (Month 12)</h2>
+    <div class="fill-height">
+      <ul class="text-lg" style="color: #475569;">
+        <li><strong>Pilot completion:</strong> 80%+ of first cohort completes program</li>
+        <li><strong>Executive satisfaction:</strong> NPS score of 50+ from pilot participants</li>
+        <li><strong>Privacy validation:</strong> External audit confirms GDPR compliance</li>
+        <li><strong>Market validation:</strong> Three corporate commitments for Year 2 courses</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- RECOMMENDATIONS -->
+  <section class="slide p-16 col" style="background-color: #ffffff; color: #0f172a;">
+    <h2 class="mb-6" style="color: #0284c7;">Management Recommendation</h2>
+    <div class="fill-height">
+      <p class="text-lg mb-4" style="color: #475569;"><strong>Recommended path: Option B (Phased Pilot)</strong></p>
+      <ul class="text-lg" style="color: #475569;">
+        <li>Balances innovation ambition with prudent risk management</li>
+        <li>Validates core assumptions before full-scale investment</li>
+        <li>Provides 12-month window to monitor regulatory developments</li>
+        <li>Enables pivots based on pilot learnings without major sunk costs</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- NEXT STEPS -->
+  <section class="slide p-16 col" style="background-color: #ffffff; color: #0f172a;">
+    <h2 class="mb-6" style="color: #0284c7;">Immediate Next Steps (If Approved)</h2>
+    <div class="fill-height">
+      <ul class="text-lg" style="color: #475569;">
+        <li><strong>Week 1-2:</strong> Recruit Head of Product, Head of Learning, CTO</li>
+        <li><strong>Week 3-6:</strong> Hire Privacy Engineer (critical path dependency)</li>
+        <li><strong>Week 7-12:</strong> Assemble first Course Pod, define pilot curriculum</li>
+        <li><strong>Month 4:</strong> Begin platform development and sensor vendor selection</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- CLOSING SLIDE -->
+  <section class="slide p-16 col center" style="background-color: #0284c7; color: #ffffff;">
+    <h2 class="text-5xl mb-6" style="color: #ffffff;">Questions &amp; Discussion</h2>
+    <p class="text-xl" style="color: #ffffff;">Executive Development Research Initiative</p>
+    <p class="text-sm mt-8" style="color: #ffffff;">Decision Required: Approve Option A, B, or C</p>
+  </section>
+
+</body>
+</html>
+

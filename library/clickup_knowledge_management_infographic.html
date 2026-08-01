@@ -1,0 +1,1335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ClickUp Knowledge Management Framework | Interactive Infographic</title>
+    <style>
+        :root {
+            --bg-primary: #0a0e27;
+            --bg-secondary: #141b3d;
+            --bg-card: #1a2151;
+            --accent-blue: #38bdf8;
+            --accent-purple: #a855f7;
+            --accent-green: #34d399;
+            --accent-orange: #fb923c;
+            --text-primary: #f1f5f9;
+            --text-secondary: #94a3b8;
+            --text-muted: #64748b;
+            --border: #2d3b66;
+            --shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background: linear-gradient(135deg, var(--bg-primary) 0%, #050816 100%);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            padding: 60px 20px;
+            background: radial-gradient(circle at center, rgba(56, 189, 248, 0.1) 0%, transparent 70%);
+            margin-bottom: 60px;
+        }
+
+        .header h1 {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 20px;
+        }
+
+        .header p {
+            font-size: clamp(1rem, 2vw, 1.25rem);
+            color: var(--text-secondary);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Section */
+        .section {
+            margin-bottom: 80px;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .section-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            flex-shrink: 0;
+        }
+
+        .section-title {
+            font-size: clamp(1.75rem, 3vw, 2.5rem);
+            font-weight: 700;
+        }
+
+        .section-subtitle {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+            line-height: 1.8;
+        }
+
+        /* Grid Layouts */
+        .grid {
+            display: grid;
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+
+        .grid-2 {
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        }
+
+        .grid-3 {
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        }
+
+        .grid-4 {
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        }
+
+        /* Cards */
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: var(--shadow-sm);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent-blue), var(--accent-purple));
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow);
+        }
+
+        .card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .card-label {
+            display: inline-block;
+            background: rgba(56, 189, 248, 0.15);
+            color: var(--accent-blue);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            margin-bottom: 15px;
+        }
+
+        .card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--text-primary);
+        }
+
+        .card p, .card li {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+
+        .card ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .card li {
+            padding-left: 25px;
+            position: relative;
+            margin-bottom: 10px;
+        }
+
+        .card li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: var(--accent-blue);
+            font-weight: bold;
+        }
+
+        /* Hierarchy Visualization */
+        .hierarchy {
+            background: var(--bg-secondary);
+            border-radius: 16px;
+            padding: 40px;
+            margin: 40px 0;
+        }
+
+        .hierarchy-level {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            padding: 20px;
+            background: var(--bg-card);
+            border-radius: 12px;
+            border-left: 4px solid var(--accent-blue);
+            transition: all 0.3s ease;
+        }
+
+        .hierarchy-level:hover {
+            transform: translateX(10px);
+            border-left-color: var(--accent-purple);
+        }
+
+        .hierarchy-number {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--accent-blue);
+            width: 60px;
+            flex-shrink: 0;
+        }
+
+        .hierarchy-content h4 {
+            font-size: 1.3rem;
+            margin-bottom: 8px;
+            color: var(--text-primary);
+        }
+
+        .hierarchy-content p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        /* SECI Cycle */
+        .seci-cycle {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin: 40px 0;
+        }
+
+        @media (max-width: 768px) {
+            .seci-cycle {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .seci-item {
+            background: var(--bg-card);
+            padding: 30px;
+            border-radius: 16px;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .seci-item::after {
+            content: '↻';
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 2rem;
+            color: var(--accent-purple);
+            opacity: 0.3;
+        }
+
+        .seci-item:nth-child(1) { border-color: var(--accent-blue); }
+        .seci-item:nth-child(2) { border-color: var(--accent-purple); }
+        .seci-item:nth-child(3) { border-color: var(--accent-green); }
+        .seci-item:nth-child(4) { border-color: var(--accent-orange); }
+
+        .seci-item:hover {
+            transform: scale(1.05);
+            box-shadow: var(--shadow);
+        }
+
+        .seci-label {
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+        }
+
+        .seci-item:nth-child(1) .seci-label { color: var(--accent-blue); }
+        .seci-item:nth-child(2) .seci-label { color: var(--accent-purple); }
+        .seci-item:nth-child(3) .seci-label { color: var(--accent-green); }
+        .seci-item:nth-child(4) .seci-label { color: var(--accent-orange); }
+
+        .seci-type {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            margin-bottom: 15px;
+        }
+
+        .seci-description {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+
+        /* Timeline */
+        .timeline {
+            position: relative;
+            padding-left: 40px;
+            margin: 40px 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 10px;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: linear-gradient(180deg, var(--accent-blue), var(--accent-purple));
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 40px;
+            padding: 25px;
+            background: var(--bg-card);
+            border-radius: 12px;
+            border: 1px solid var(--border);
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -30px;
+            top: 30px;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: var(--accent-blue);
+            border: 4px solid var(--bg-primary);
+            box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.3);
+        }
+
+        .timeline-phase {
+            display: inline-block;
+            background: rgba(56, 189, 248, 0.15);
+            color: var(--accent-blue);
+            padding: 4px 12px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .timeline-item h4 {
+            font-size: 1.3rem;
+            margin-bottom: 12px;
+            color: var(--text-primary);
+        }
+
+        .timeline-item p {
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        /* Tabs */
+        .tabs {
+            margin: 40px 0;
+        }
+
+        .tab-buttons {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .tab-button {
+            padding: 12px 24px;
+            background: var(--bg-card);
+            border: 2px solid var(--border);
+            border-radius: 30px;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .tab-button:hover {
+            border-color: var(--accent-blue);
+            color: var(--accent-blue);
+        }
+
+        .tab-button.active {
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+            border-color: transparent;
+            color: white;
+        }
+
+        .tab-content {
+            display: none;
+            background: var(--bg-card);
+            padding: 30px;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+        }
+
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.4s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 40px 0;
+        }
+
+        .stat-card {
+            background: var(--bg-card);
+            padding: 25px;
+            border-radius: 12px;
+            text-align: center;
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+        }
+
+        .stat-label {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            font-weight: 600;
+        }
+
+        /* Accordion */
+        .accordion {
+            margin: 30px 0;
+        }
+
+        .accordion-item {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            margin-bottom: 15px;
+            overflow: hidden;
+        }
+
+        .accordion-header {
+            padding: 20px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background 0.3s ease;
+        }
+
+        .accordion-header:hover {
+            background: rgba(56, 189, 248, 0.05);
+        }
+
+        .accordion-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .accordion-icon {
+            font-size: 1.5rem;
+            color: var(--accent-blue);
+            transition: transform 0.3s ease;
+        }
+
+        .accordion-item.open .accordion-icon {
+            transform: rotate(180deg);
+        }
+
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, padding 0.3s ease;
+        }
+
+        .accordion-item.open .accordion-content {
+            max-height: 500px;
+            padding: 0 20px 20px;
+        }
+
+        .accordion-content p, .accordion-content li {
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        /* Badge */
+        .badge {
+            display: inline-block;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin: 5px;
+        }
+
+        .badge-blue {
+            background: rgba(56, 189, 248, 0.15);
+            color: var(--accent-blue);
+        }
+
+        .badge-purple {
+            background: rgba(168, 85, 247, 0.15);
+            color: var(--accent-purple);
+        }
+
+        .badge-green {
+            background: rgba(52, 211, 153, 0.15);
+            color: var(--accent-green);
+        }
+
+        .badge-orange {
+            background: rgba(251, 146, 60, 0.15);
+            color: var(--accent-orange);
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, rgba(56, 189, 248, 0.1), rgba(168, 85, 247, 0.1));
+            border: 2px solid var(--border);
+            border-radius: 20px;
+            padding: 60px 40px;
+            text-align: center;
+            margin: 60px 0;
+        }
+
+        .cta-section h2 {
+            font-size: clamp(1.75rem, 3vw, 2.5rem);
+            margin-bottom: 20px;
+        }
+
+        .cta-section p {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            max-width: 700px;
+            margin: 0 auto 30px;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 40px 20px;
+            color: var(--text-muted);
+            border-top: 1px solid var(--border);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px 15px;
+            }
+
+            .section-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .hierarchy {
+                padding: 20px;
+            }
+
+            .card {
+                padding: 20px;
+            }
+
+            .timeline {
+                padding-left: 30px;
+            }
+        }
+
+        /* Scroll Progress Bar */
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent-blue), var(--accent-purple));
+            z-index: 1000;
+            transform-origin: left;
+        }
+    </style>
+</head>
+<body>
+    <div class="progress-bar" id="progressBar"></div>
+
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <h1>ClickUp Knowledge Management Framework</h1>
+            <p>A comprehensive system integrating hierarchical project management with organizational knowledge creation, validation, and distribution</p>
+        </header>
+
+        <!-- Executive Summary -->
+        <section class="section">
+            <div class="section-header">
+                <div class="section-icon">📊</div>
+                <h2 class="section-title">Executive Summary</h2>
+            </div>
+            <div class="grid grid-2">
+                <div class="card">
+                    <div class="card-label">The Challenge</div>
+                    <h3>From Scattered to Strategic</h3>
+                    <p>Organizations struggle to convert dispersed knowledge embedded in daily tasks into strategic intelligence for decision-making. Traditional systems operate in isolation from project execution platforms.</p>
+                </div>
+                <div class="card">
+                    <div class="card-label">The Solution</div>
+                    <h3>Integrated Architecture</h3>
+                    <p>ClickUp's hierarchical structure combined with automation capabilities bridges this divide, enabling systematic knowledge flow from individual task execution to portfolio-level strategic visibility.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ClickUp Hierarchy -->
+        <section class="section">
+            <div class="section-header">
+                <div class="section-icon">🏗️</div>
+                <h2 class="section-title">Six-Layer Hierarchical Architecture</h2>
+            </div>
+            <p class="section-subtitle">ClickUp's nested containment structure provides natural knowledge aggregation boundaries, enabling seamless flow from granular activities to enterprise-wide intelligence.</p>
+            
+            <div class="hierarchy">
+                <div class="hierarchy-level">
+                    <div class="hierarchy-number">1</div>
+                    <div class="hierarchy-content">
+                        <h4>Workspace</h4>
+                        <p>Enterprise-level container representing the entire organization. Single workspace for unified knowledge repository.</p>
+                    </div>
+                </div>
+                <div class="hierarchy-level">
+                    <div class="hierarchy-number">2</div>
+                    <div class="hierarchy-content">
+                        <h4>Space</h4>
+                        <p>Departmental divisions (Marketing, Engineering, Operations) with domain-specific knowledge management policies.</p>
+                    </div>
+                </div>
+                <div class="hierarchy-level">
+                    <div class="hierarchy-number">3</div>
+                    <div class="hierarchy-content">
+                        <h4>Folder</h4>
+                        <p>Program-level groupings enabling knowledge aggregation across related projects and initiatives.</p>
+                    </div>
+                </div>
+                <div class="hierarchy-level">
+                    <div class="hierarchy-number">4</div>
+                    <div class="hierarchy-content">
+                        <h4>List</h4>
+                        <p>Project-level task containers representing primary units for execution and knowledge codification.</p>
+                    </div>
+                </div>
+                <div class="hierarchy-level">
+                    <div class="hierarchy-number">5</div>
+                    <div class="hierarchy-content">
+                        <h4>Task</h4>
+                        <p>Fundamental work units where tacit knowledge (expertise) meets explicit requirements (specifications).</p>
+                    </div>
+                </div>
+                <div class="hierarchy-level">
+                    <div class="hierarchy-number">6</div>
+                    <div class="hierarchy-content">
+                        <h4>Subtask</h4>
+                        <p>Granular components enabling detailed knowledge capture about multi-step processes and methodologies.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number">6</div>
+                    <div class="stat-label">Hierarchical Levels</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">10M+</div>
+                    <div class="stat-label">Data Points Handled</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">25</div>
+                    <div class="stat-label">Conditional Rules/Automation</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">50+</div>
+                    <div class="stat-label">Widget Types Available</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Conditional Logic -->
+        <section class="section">
+            <div class="section-header">
+                <div class="section-icon">⚙️</div>
+                <h2 class="section-title">Conditional Logic as Knowledge Routing</h2>
+            </div>
+            <p class="section-subtitle">ClickUp's automation system functions as an intelligent knowledge routing engine using trigger-condition-action schemas that mirror organizational decision-making.</p>
+
+            <div class="tabs">
+                <div class="tab-buttons">
+                    <button class="tab-button active" data-tab="triggers">Triggers (WHEN)</button>
+                    <button class="tab-button" data-tab="conditions">Conditions (IF/WHERE)</button>
+                    <button class="tab-button" data-tab="actions">Actions (THEN)</button>
+                </div>
+
+                <div class="tab-content active" id="triggers">
+                    <h3 style="margin-bottom: 20px;">Event-Based Triggers</h3>
+                    <div class="grid grid-3">
+                        <div class="card">
+                            <h4 style="color: var(--accent-blue); margin-bottom: 10px;">Status Changes</h4>
+                            <p>Initiate workflows when task status transitions (e.g., "Ready for Review", "Completed")</p>
+                        </div>
+                        <div class="card">
+                            <h4 style="color: var(--accent-purple); margin-bottom: 10px;">Due Date Events</h4>
+                            <p>Activate automations based on approaching or passed deadlines</p>
+                        </div>
+                        <div class="card">
+                            <h4 style="color: var(--accent-green); margin-bottom: 10px;">Custom Field Updates</h4>
+                            <p>Respond to changes in knowledge metadata, priorities, or domain classifications</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="conditions">
+                    <h3 style="margin-bottom: 20px;">Context-Aware Filtering</h3>
+                    <p style="margin-bottom: 20px; color: var(--text-secondary);">Conditions provide sophisticated filtering logic (up to 25 rules per automation) that determines whether workflows should execute based on situational parameters.</p>
+                    <div class="grid grid-2">
+                        <div class="card">
+                            <h4 style="margin-bottom: 15px;">Example: Client Engagement</h4>
+                            <code style="display: block; background: var(--bg-secondary); padding: 15px; border-radius: 8px; color: var(--accent-blue); font-size: 0.9rem;">
+                                IF [Project Type = "Client Engagement"]<br>
+                                AND [Priority = "High"]<br>
+                                THEN apply expedited review conditions
+                            </code>
+                        </div>
+                        <div class="card">
+                            <h4 style="margin-bottom: 15px;">Example: QA Escalation</h4>
+                            <code style="display: block; background: var(--bg-secondary); padding: 15px; border-radius: 8px; color: var(--accent-purple); font-size: 0.9rem;">
+                                WHERE [Time in QA > 5 hours]<br>
+                                AND [Priority = "Urgent"]<br>
+                                THEN escalate to QA team lead
+                            </code>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="actions">
+                    <h3 style="margin-bottom: 20px;">Automated Organizational Responses</h3>
+                    <div class="grid grid-4">
+                        <div class="card">
+                            <h4 style="color: var(--accent-blue); margin-bottom: 10px;">Status Updates</h4>
+                            <p>Automatically advance or modify task status based on completion criteria</p>
+                        </div>
+                        <div class="card">
+                            <h4 style="color: var(--accent-purple); margin-bottom: 10px;">Task Assignment</h4>
+                            <p>Route knowledge to appropriate reviewers, experts, or stakeholders</p>
+                        </div>
+                        <div class="card">
+                            <h4 style="color: var(--accent-green); margin-bottom: 10px;">Notifications</h4>
+                            <p>Alert teams to new knowledge, required reviews, or approval needs</p>
+                        </div>
+                        <div class="card">
+                            <h4 style="color: var(--accent-orange); margin-bottom: 10px;">Field Updates</h4>
+                            <p>Modify metadata, timestamps, or knowledge classifications automatically</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECI Model -->
+        <section class="section">
+            <div class="section-header">
+                <div class="section-icon">🔄</div>
+                <h2 class="section-title">SECI Knowledge Conversion Model</h2>
+            </div>
+            <p class="section-subtitle">The continuous spiral of knowledge creation through dynamic interaction between tacit and explicit knowledge, operating at multiple organizational levels simultaneously.</p>
+
+            <div class="seci-cycle">
+                <div class="seci-item">
+                    <div class="seci-label">Socialization</div>
+                    <div class="seci-type">Tacit → Tacit</div>
+                    <div class="seci-description">
+                        Knowledge sharing through direct experience and observation. Team collaboration in task comments, threaded discussions, and observing workflow patterns.
+                    </div>
+                </div>
+                <div class="seci-item">
+                    <div class="seci-label">Externalization</div>
+                    <div class="seci-type">Tacit → Explicit</div>
+                    <div class="seci-description">
+                        Converting personal expertise into codified, shareable formats. Documentation in task descriptions, SOPs in ClickUp Docs, custom fields capturing decision criteria.
+                    </div>
+                </div>
+                <div class="seci-item">
+                    <div class="seci-label">Combination</div>
+                    <div class="seci-type">Explicit → Explicit</div>
+                    <div class="seci-description">
+                        Synthesis of multiple explicit sources into new knowledge. Relationship fields linking tasks, rollup fields aggregating data, dashboards synthesizing metrics.
+                    </div>
+                </div>
+                <div class="seci-item">
+                    <div class="seci-label">Internalization</div>
+                    <div class="seci-type">Explicit → Tacit</div>
+                    <div class="seci-description">
+                        Absorption of explicit knowledge into personal practice. Applying documented processes, using templates, reviewing historical data to inform decisions.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Three-Tier Architecture -->
+        <section class="section">
+            <div class="section-header">
+                <div class="section-icon">🏛️</div>
+                <h2 class="section-title">Three-Tier Knowledge Architecture</h2>
+            </div>
+
+            <div class="grid grid-3">
+                <div class="card">
+                    <div class="card-label">Tier 1</div>
+                    <h3>Knowledge Resources (Backend)</h3>
+                    <ul>
+                        <li>Task data repository</li>
+                        <li>Custom fields database</li>
+                        <li>Relationship network graphs</li>
+                        <li>Historical archives</li>
+                        <li>External system integrations</li>
+                    </ul>
+                    <div style="margin-top: 15px;">
+                        <span class="badge badge-blue">Data Acquisition</span>
+                        <span class="badge badge-blue">Storage</span>
+                        <span class="badge badge-blue">Retrieval</span>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-label">Tier 2</div>
+                    <h3>Knowledge Flow (Processing)</h3>
+                    <ul>
+                        <li>Knowledge creation activities</li>
+                        <li>SECI conversion processes</li>
+                        <li>Automation evaluation engine</li>
+                        <li>Cross-project synthesis</li>
+                        <li>Peer review & validation</li>
+                    </ul>
+                    <div style="margin-top: 15px;">
+                        <span class="badge badge-purple">Transformation</span>
+                        <span class="badge badge-purple">Validation</span>
+                        <span class="badge badge-purple">Synthesis</span>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-label">Tier 3</div>
+                    <h3>Knowledge Application (Frontend)</h3>
+                    <ul>
+                        <li>Dashboard visualization layer</li>
+                        <li>Access & authentication</li>
+                        <li>Knowledge publication interfaces</li>
+                        <li>Decision support applications</li>
+                        <li>Daily work integration</li>
+                    </ul>
+                    <div style="margin-top: 15px;">
+                        <span class="badge badge-green">Consumption</span>
+                        <span class="badge badge-green">Visualization</span>
+                        <span class="badge badge-green">Application</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Knowledge Distribution -->
+        <section class="section">
+            <div class="section-header">
+                <div class="section-icon">📤</div>
+                <h2 class="section-title">Knowledge Distribution Models</h2>
+            </div>
+
+            <div class="grid grid-2">
+                <div class="card">
+                    <div class="card-label">Push Distribution</div>
+                    <h3>Proactive Delivery</h3>
+                    <p style="margin-bottom: 20px;">Active delivery of knowledge to recipients through automated mechanisms.</p>
+                    <ul>
+                        <li><strong>Automated Notifications:</strong> Alerts when new knowledge is published or updated</li>
+                        <li><strong>Scheduled Digests:</strong> Weekly/monthly knowledge summaries via email or Slack</li>
+                        <li><strong>Training Distribution:</strong> Onboarding tasks with linked documentation</li>
+                        <li><strong>Context-Aware Recommendations:</strong> Relevant knowledge surfaced during task creation</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <div class="card-label">Pull Distribution</div>
+                    <h3>Self-Service Access</h3>
+                    <p style="margin-bottom: 20px;">User-initiated knowledge seeking through discovery mechanisms.</p>
+                    <ul>
+                        <li><strong>Universal Search:</strong> Find tasks by keywords, tags, or custom field values</li>
+                        <li><strong>Filtered Views:</strong> Saved views filtered by relevance criteria</li>
+                        <li><strong>Relationship Discovery:</strong> Navigate connected knowledge artifacts</li>
+                        <li><strong>Department Dashboards:</strong> Curated access to function-specific knowledge</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div style="margin-top: 30px; padding: 30px; background: var(--bg-card); border-radius: 12px; border: 1px solid var(--border);">
+                <h4 style="margin-bottom: 15px; color: var(--accent-blue);">Formal vs. Informal Mechanisms</h4>
+                <div class="grid grid-2">
+                    <div>
+                        <h5 style="margin-bottom: 10px; color: var(--text-primary);">Formal Channels</h5>
+                        <ul style="list-style: none; padding: 0;">
+                            <li style="padding-left: 20px; position: relative; margin-bottom: 8px; color: var(--text-secondary);">
+                                <span style="position: absolute; left: 0; color: var(--accent-green);">✓</span>
+                                Documentation repositories with governance
+                            </li>
+                            <li style="padding-left: 20px; position: relative; margin-bottom: 8px; color: var(--text-secondary);">
+                                <span style="position: absolute; left: 0; color: var(--accent-green);">✓</span>
+                                Structured training programs
+                            </li>
+                            <li style="padding-left: 20px; position: relative; margin-bottom: 8px; color: var(--text-secondary);">
+                                <span style="position: absolute; left: 0; color: var(--accent-green);">✓</span>
+                                SOP libraries with review cycles
+                            </li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h5 style="margin-bottom: 10px; color: var(--text-primary);">Informal Channels</h5>
+                        <ul style="list-style: none; padding: 0;">
+                            <li style="padding-left: 20px; position: relative; margin-bottom: 8px; color: var(--text-secondary);">
+                                <span style="position: absolute; left: 0; color: var(--accent-purple);">✓</span>
+                                Task comments and discussions
+                            </li>
+                            <li style="padding-left: 20px; position: relative; margin-bottom: 8px; color: var(--text-secondary);">
+                                <span style="position: absolute; left: 0; color: var(--accent-purple);">✓</span>
+                                @Mentions and direct questions
+                            </li>
+                            <li style="padding-left: 20px; position: relative; margin-bottom: 8px; color: var(--text-secondary);">
+                                <span style="position: absolute; left: 0; color: var(--accent-purple);">✓</span>
+                                Communities of practice
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Implementation Framework -->
+        <section class="section">
+            <div class="section-header">
+                <div class="section-icon">🚀</div>
+                <h2 class="section-title">IDEO-Style Implementation Framework</h2>
+            </div>
+            <p class="section-subtitle">A pilot-based, iterative approach using rapid prototyping to test assumptions quickly before full-scale rollout.</p>
+
+            <div class="timeline">
+                <div class="timeline-item">
+                    <span class="timeline-phase">Phase 1: Weeks 1-4</span>
+                    <h4>Strategic Foundation</h4>
+                    <p><strong>Define a small pilot scope:</strong> Choose one team or workflow as a protected sandbox. Clarify what you need to learn and establish success metrics.</p>
+                    <p style="margin-top: 10px;"><strong>Key Activities:</strong> Align KM with business objectives, conduct knowledge audit, secure executive sponsorship, assemble cross-functional team.</p>
+                </div>
+
+                <div class="timeline-item">
+                    <span class="timeline-phase">Phase 2: Weeks 5-8</span>
+                    <h4>Architecture & Design</h4>
+                    <p><strong>Understand users & generate concepts:</strong> Use design thinking (empathize, define, ideate) to map needs, then select promising concepts to test.</p>
+                    <p style="margin-top: 10px;"><strong>Key Activities:</strong> Design hierarchical structure, define taxonomy, configure automation workflows, design dashboard suite.</p>
+                </div>
+
+                <div class="timeline-item">
+                    <span class="timeline-phase">Phase 3: Weeks 9-16</span>
+                    <h4>Build Small Prototypes & Pilot</h4>
+                    <p><strong>Create low-fidelity prototypes:</strong> Build simplified versions targeting riskiest assumptions. Test in real contexts and iterate quickly.</p>
+                    <p style="margin-top: 10px;"><strong>Key Activities:</strong> Migrate high-value knowledge, launch pilot with early adopters, collect feedback, iterate based on learning.</p>
+                </div>
+
+                <div class="timeline-item">
+                    <span class="timeline-phase">Phase 4: Weeks 17-26</span>
+                    <h4>Measure, Benchmark & Scale</h4>
+                    <p><strong>Validate and expand:</strong> Compare pilot results to baseline. Use validated prototype as benchmark for broader rollout.</p>
+                    <p style="margin-top: 10px;"><strong>Key Activities:</strong> Embed in daily workflows, communicate value continuously, expand in waves, monitor metrics.</p>
+                </div>
+
+                <div class="timeline-item">
+                    <span class="timeline-phase">Phase 5: Ongoing</span>
+                    <h4>Maturation & Continuous Improvement</h4>
+                    <p><strong>Foster knowledge culture:</strong> Establish governance, leverage AI and analytics, progress through maturity stages.</p>
+                    <p style="margin-top: 10px;"><strong>Key Activities:</strong> Knowledge stewardship, quality standards, recognition systems, community building.</p>
+                </div>
+            </div>
+
+            <div style="margin-top: 40px; padding: 30px; background: linear-gradient(135deg, rgba(56, 189, 248, 0.1), rgba(168, 85, 247, 0.1)); border-radius: 16px; border: 2px solid var(--border);">
+                <h3 style="margin-bottom: 20px; color: var(--accent-blue);">Why Rapid Prototyping Works</h3>
+                <div class="grid grid-2">
+                    <div>
+                        <h4 style="color: var(--text-primary); margin-bottom: 10px;">✓ Risk Reduction</h4>
+                        <p style="color: var(--text-secondary); font-size: 0.95rem;">Uncover problems at small scale before full rollout</p>
+                    </div>
+                    <div>
+                        <h4 style="color: var(--text-primary); margin-bottom: 10px;">✓ Better Fit</h4>
+                        <p style="color: var(--text-secondary); font-size: 0.95rem;">Frequent user interaction ensures solution addresses real needs</p>
+                    </div>
+                    <div>
+                        <h4 style="color: var(--text-primary); margin-bottom: 10px;">✓ Faster Learning</h4>
+                        <p style="color: var(--text-secondary); font-size: 0.95rem;">Short cycles mean "test fast, learn fast"</p>
+                    </div>
+                    <div>
+                        <h4 style="color: var(--text-primary); margin-bottom: 10px;">✓ Reusable Benchmark</h4>
+                        <p style="color: var(--text-secondary); font-size: 0.95rem;">Successful pilot becomes living example for other teams</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Success Factors -->
+        <section class="section">
+            <div class="section-header">
+                <div class="section-icon">⭐</div>
+                <h2 class="section-title">Critical Success Factors & Barriers</h2>
+            </div>
+
+            <div class="grid grid-2">
+                <div>
+                    <h3 style="margin-bottom: 25px; color: var(--accent-green);">Success Factors</h3>
+                    <div class="accordion">
+                        <div class="accordion-item">
+                            <div class="accordion-header">
+                                <span class="accordion-title">Leadership & Sponsorship</span>
+                                <span class="accordion-icon">▼</span>
+                            </div>
+                            <div class="accordion-content">
+                                <p>Most critical factor. Executive support determines resource allocation, cultural signals, and organizational commitment. Leaders must "walk the talk" by actively creating and consuming knowledge.</p>
+                            </div>
+                        </div>
+
+                        <div class="accordion-item">
+                            <div class="accordion-header">
+                                <span class="accordion-title">Culture & People (80% of Success)</span>
+                                <span class="accordion-icon">▼</span>
+                            </div>
+                            <div class="accordion-content">
+                                <p>Trust, psychological safety, collaboration norms, and recognition for contribution. Technology is only 20% - culture determines whether people actually engage with knowledge systems.</p>
+                            </div>
+                        </div>
+
+                        <div class="accordion-item">
+                            <div class="accordion-header">
+                                <span class="accordion-title">Clear Strategy & Alignment</span>
+                                <span class="accordion-icon">▼</span>
+                            </div>
+                            <div class="accordion-content">
+                                <p>KM must connect to business imperatives. Explicit goals tied to business metrics, definition of strategic knowledge domains, integration into core processes.</p>
+                            </div>
+                        </div>
+
+                        <div class="accordion-item">
+                            <div class="accordion-header">
+                                <span class="accordion-title">Motivation & Reward Systems</span>
+                                <span class="accordion-icon">▼</span>
+                            </div>
+                            <div class="accordion-content">
+                                <p>People contribute when benefits exceed costs. Recognition, career advancement, personal learning, and organizational citizenship must be reinforced through formal and informal mechanisms.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 style="margin-bottom: 25px; color: var(--accent-orange);">Common Barriers</h3>
+                    <div class="accordion">
+                        <div class="accordion-item">
+                            <div class="accordion-header">
+                                <span class="accordion-title">Cultural Resistance</span>
+                                <span class="accordion-icon">▼</span>
+                            </div>
+                            <div class="accordion-content">
+                                <p>Hierarchical structures discouraging communication, competitive environments rewarding knowledge hoarding, low trust, absence of recognition, history of misuse.</p>
+                            </div>
+                        </div>
+
+                        <div class="accordion-item">
+                            <div class="accordion-header">
+                                <span class="accordion-title">Time Constraints</span>
+                                <span class="accordion-icon">▼</span>
+                            </div>
+                            <div class="accordion-content">
+                                <p>Competing priorities, lack of protected time, perception that knowledge work is "extra" overhead, inefficient processes requiring excessive time investment.</p>
+                            </div>
+                        </div>
+
+                        <div class="accordion-item">
+                            <div class="accordion-header">
+                                <span class="accordion-title">Organizational Silos</span>
+                                <span class="accordion-icon">▼</span>
+                            </div>
+                            <div class="accordion-content">
+                                <p>Departmental boundaries creating knowledge islands, teams duplicating efforts, cross-functional knowledge lost in gaps, unclear reporting in matrix organizations.</p>
+                            </div>
+                        </div>
+
+                        <div class="accordion-item">
+                            <div class="accordion-header">
+                                <span class="accordion-title">Trust Deficits</span>
+                                <span class="accordion-icon">▼</span>
+                            </div>
+                            <div class="accordion-content">
+                                <p>Fear of misuse, history of organizational betrayal, low psychological safety, competitive performance systems pitting individuals against each other.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Key Recommendations -->
+        <section class="section">
+            <div class="section-header">
+                <div class="section-icon">💡</div>
+                <h2 class="section-title">Strategic Recommendations</h2>
+            </div>
+
+            <div class="grid grid-2">
+                <div class="card">
+                    <div class="card-label">Recommendation 1</div>
+                    <h3>Start with High-Value Use Cases</h3>
+                    <p>Don't attempt enterprise-wide KM from day one. Identify 2-3 high-impact use cases:</p>
+                    <ul>
+                        <li>Onboarding acceleration</li>
+                        <li>Project template reuse</li>
+                        <li>Troubleshooting knowledge capture</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <div class="card-label">Recommendation 2</div>
+                    <h3>Design for Simplicity</h3>
+                    <p>Complexity kills adoption. Favor:</p>
+                    <ul>
+                        <li>Limited custom fields (8-10 max)</li>
+                        <li>Simple, transparent automation</li>
+                        <li>Informal capture over formal requirements</li>
+                        <li>Easy consumption over creation</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <div class="card-label">Recommendation 3</div>
+                    <h3>Integrate into Workflows</h3>
+                    <p>Embed knowledge activities into existing processes:</p>
+                    <ul>
+                        <li>Project templates include knowledge review</li>
+                        <li>Task completion triggers documentation</li>
+                        <li>Weekly meetings include knowledge highlights</li>
+                        <li>Performance reviews evaluate contribution</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <div class="card-label">Recommendation 4</div>
+                    <h3>Invest in Culture</h3>
+                    <p>Technology consumes weeks; culture requires years:</p>
+                    <ul>
+                        <li>Leadership modeling and participation</li>
+                        <li>Recognition programs for contributors</li>
+                        <li>Protected time for knowledge work</li>
+                        <li>Psychological safety enabling gaps</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <div class="card-label">Recommendation 5</div>
+                    <h3>Measure What Matters</h3>
+                    <p>Connect to business outcomes, not activity counts:</p>
+                    <ul>
+                        <li>Efficiency: Time to find info, onboarding duration</li>
+                        <li>Quality: Documentation coverage, review rates</li>
+                        <li>Outcomes: Delivery performance, satisfaction, retention</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <div class="card-label">Recommendation 6</div>
+                    <h3>Establish Clear Governance</h3>
+                    <p>Knowledge requires ongoing stewardship:</p>
+                    <ul>
+                        <li>Domain ownership accountability</li>
+                        <li>Review cadence policies</li>
+                        <li>Quality standards definition</li>
+                        <li>Deprecation processes</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA -->
+        <div class="cta-section">
+            <h2>Transform ClickUp into Your Knowledge Engine</h2>
+            <p>The framework presented here demonstrates how ClickUp's technical features map to established knowledge management principles, enabling systematic knowledge flow from individual creation to portfolio-level strategic intelligence.</p>
+            <div style="margin-top: 30px;">
+                <span class="badge badge-blue">Hierarchical Organization</span>
+                <span class="badge badge-purple">Conditional Automation</span>
+                <span class="badge badge-green">SECI Model Integration</span>
+                <span class="badge badge-orange">Three-Tier Architecture</span>
+                <span class="badge badge-blue">Push/Pull Distribution</span>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>Based on comprehensive research integrating ClickUp's architecture with organizational knowledge management theory</p>
+            <p style="margin-top: 10px;">Knowledge Creation, Publication, and Distribution Framework • 2024</p>
+        </footer>
+    </div>
+
+    <script>
+        // Progress bar
+        window.addEventListener('scroll', () => {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            document.getElementById('progressBar').style.width = scrolled + '%';
+        });
+
+        // Scroll reveal
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.section').forEach(section => {
+            observer.observe(section);
+        });
+
+        // Tabs functionality
+        document.querySelectorAll('.tab-button').forEach(button => {
+            button.addEventListener('click', () => {
+                const tabName = button.getAttribute('data-tab');
+                const tabButtons = button.parentElement.querySelectorAll('.tab-button');
+                const tabContents = button.closest('.tabs').querySelectorAll('.tab-content');
+
+                tabButtons.forEach(btn => btn.classList.remove('active'));
+                tabContents.forEach(content => content.classList.remove('active'));
+
+                button.classList.add('active');
+                document.getElementById(tabName).classList.add('active');
+            });
+        });
+
+        // Accordion functionality
+        document.querySelectorAll('.accordion-item').forEach(item => {
+            const header = item.querySelector('.accordion-header');
+            header.addEventListener('click', () => {
+                const isOpen = item.classList.contains('open');
+                
+                // Close all accordions in the same group
+                item.parentElement.querySelectorAll('.accordion-item').forEach(otherItem => {
+                    otherItem.classList.remove('open');
+                });
+
+                // Toggle current accordion
+                if (!isOpen) {
+                    item.classList.add('open');
+                }
+            });
+        });
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

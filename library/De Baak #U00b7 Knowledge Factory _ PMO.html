@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<!-- saved from url=(0083)file:///C:/Users/arijj/Desktop/0107presentations/deepseek_html_20260630_ea4e7b.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>De Baak · Knowledge Factory | PMO Infographic</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg);
+            font-family: Arial, sans-serif;
+            color: var(--text);
+            line-height: 1.4;
+            padding: 2rem 1.5rem;
+        }
+
+        /* CSS Variables – De Baak huisstijl v2.0 */
+        :root {
+            --primary: #005ADC;
+            --secondary: #00A555;
+            --accent: #FFE100;
+            --bg: #F5F5EB;
+            --text: #1A1A2E;
+            --shadow: 0 12px 28px rgba(0, 0, 0, 0.08), 0 2px 4px rgba(0, 0, 0, 0.02);
+            --card-radius: 16px;
+            --transition: all 0.2s ease;
+        }
+
+        /* container */
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        /* header / title */
+        .infographic-header {
+            margin-bottom: 2rem;
+        }
+        .infographic-header h1 {
+            font-size: 1.9rem;
+            font-weight: 700;
+            color: var(--primary);
+            letter-spacing: -0.3px;
+            margin-bottom: 0.5rem;
+        }
+        .infographic-header p {
+            font-size: 1rem;
+            color: #3a3a4e;
+            max-width: 680px;
+        }
+
+        /* dot legend (flex row) */
+        .legend {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+            align-items: center;
+            background: rgba(0, 90, 220, 0.03);
+            padding: 0.75rem 1rem;
+            border-radius: 60px;
+            width: fit-content;
+        }
+        .legend-item {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--text);
+        }
+        .legend-dot {
+            width: 14px;
+            height: 14px;
+            border-radius: 14px;
+            display: inline-block;
+        }
+        .legend-dot.primary { background-color: var(--primary); }
+        .legend-dot.secondary { background-color: var(--secondary); }
+        .legend-dot.accent { background-color: var(--accent); }
+
+        /* tabs styling */
+        .tabs-container {
+            margin-bottom: 2rem;
+        }
+        .tabs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            border-bottom: 2px solid #e2e2d8;
+            margin-bottom: 1.8rem;
+        }
+        .tab-btn {
+            background: transparent;
+            border: none;
+            font-family: Arial, sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+            padding: 0.75rem 1.5rem;
+            cursor: pointer;
+            color: #5a5a6e;
+            transition: var(--transition);
+            border-radius: 40px 40px 0 0;
+            min-height: 48px;  /* touch target ≥44px */
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            letter-spacing: -0.2px;
+        }
+        .tab-btn:hover {
+            background-color: rgba(0, 90, 220, 0.05);
+            color: var(--primary);
+        }
+        .tab-btn.active {
+            color: var(--primary);
+            background-color: white;
+            border-bottom: 3px solid var(--primary);
+            font-weight: 700;
+        }
+
+        /* card grid – 2 columns */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.8rem;
+        }
+
+        /* card style: white bg, top border 4px, shadow, radius */
+        .card {
+            background: white;
+            border-radius: var(--card-radius);
+            box-shadow: var(--shadow);
+            padding: 1.5rem;
+            transition: var(--transition);
+            border-top: 4px solid var(--primary); /* fallback, but will be overridden by modifier class */
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+        .card.primary-border { border-top-color: var(--primary); }
+        .card.secondary-border { border-top-color: var(--secondary); }
+        .card.accent-border { border-top-color: var(--accent); }
+
+        .card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 20px 28px -12px rgba(0,0,0,0.15);
+        }
+        .card h3 {
+            font-size: 1.35rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+            color: var(--text);
+        }
+        .card .card-meta {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            display: inline-block;
+            color: #5e5e74;
+        }
+        .card p {
+            font-size: 0.9rem;
+            line-height: 1.45;
+            color: #2d2d42;
+            margin-bottom: 1.2rem;
+            flex: 1;
+        }
+        .stat-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            background: #f0f0ea;
+            border-radius: 40px;
+            padding: 0.3rem 0.9rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            width: fit-content;
+            margin-top: 0.5rem;
+        }
+
+        /* footer */
+        .footer {
+            margin-top: 3rem;
+            background-color: var(--primary);
+            color: white;
+            border-radius: 24px 24px 0 0;
+            padding: 1.8rem 2rem;
+            position: relative;
+            text-align: center;
+        }
+        .footer p {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+        .gradient-bar {
+            height: 6px;
+            width: 100%;
+            background: linear-gradient(90deg, var(--secondary) 0%, var(--accent) 50%, var(--secondary) 100%);
+            border-radius: 3px;
+            margin-top: 1rem;
+        }
+
+        /* Responsive: mobile stack */
+        @media (max-width: 768px) {
+            body {
+                padding: 1.2rem;
+            }
+            .cards-grid {
+                grid-template-columns: 1fr;
+                gap: 1.2rem;
+            }
+            .tab-btn {
+                padding: 0.6rem 1rem;
+                font-size: 0.9rem;
+                min-height: 44px;
+            }
+            .legend {
+                width: 100%;
+                justify-content: flex-start;
+            }
+            .card h3 {
+                font-size: 1.2rem;
+            }
+            .infographic-header h1 {
+                font-size: 1.6rem;
+            }
+            .footer {
+                padding: 1.2rem;
+            }
+        }
+
+        /* extra touch-friendly for buttons */
+        .tab-btn, .legend-item {
+            touch-action: manipulation;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <!-- header -->
+    <div class="infographic-header">
+        <h1>📊 Knowledge Factory Agent</h1>
+        <p>AI‑driven portfolio &amp; project intelligence · Disco LMS · ClickUp · Claude assistant<br>
+        Stacked projects, automatic roll‑ups, Karpathy‑style knowledge retrieval.</p>
+    </div>
+
+    <!-- dot legend -->
+    <div class="legend">
+        <span class="legend-item"><span class="legend-dot primary"></span> Portfolio &amp; Projects</span>
+        <span class="legend-item"><span class="legend-dot secondary"></span> Resource &amp; Roll‑ups</span>
+        <span class="legend-item"><span class="legend-dot accent"></span> AI Knowledge Assistant</span>
+    </div>
+
+    <!-- tabs navigation -->
+    <div class="tabs-container">
+        <div class="tabs">
+            <button class="tab-btn" data-tab="tab1" style="min-height: 44px;">📌 Portfolio &amp; Stack</button>
+            <button class="tab-btn" data-tab="tab2" style="min-height: 44px;">🧠 Knowledge Factory</button>
+            <button class="tab-btn active" data-tab="tab3" style="min-height: 44px;">⚙️ PPM Process</button>
+        </div>
+
+        <!-- TAB 1: Portfolio & Stacked projects -->
+        <div id="tab1" class="tab-content active-tab" style="display: none;">
+            <div class="cards-grid">
+                <div class="card primary-border">
+                    <span class="card-meta">◉ STACKED PORTFOLIO</span>
+                    <h3>Automatic parent dashboard roll‑ups</h3>
+                    <p>Child project metrics (progress, budget, risks) are aggregated in real‑time. Executive view with zero manual consolidation. KPI roll‑ups: schedule, cost, resource health.</p>
+                    <div class="stat-badge">⬆️ 12 active initiatives · 4 programs</div>
+                </div>
+                <div class="card secondary-border">
+                    <span class="card-meta">◉ RESOURCE SCENARIOS</span>
+                    <h3>Capacity planning · “What‑if” simulations</h3>
+                    <p>Model resource demand before project kick-off. Avoid overallocation across 200+ team members. Integrated with ClickUp workloads and team calendars.</p>
+                    <div class="stat-badge">📊 93% resource utilisation target</div>
+                </div>
+                <div class="card primary-border">
+                    <span class="card-meta">◉ CENTRAL PROJECT LIST</span>
+                    <h3>Single source of truth (database)</h3>
+                    <p>No more scattered spreadsheets. Every project, from idea to closure, lives in our PPM hub. Linked to Disco LMS course portfolios.</p>
+                    <div class="stat-badge">🗂️ 47 active projects · 100% traceability</div>
+                </div>
+                <div class="card accent-border">
+                    <span class="card-meta">◉ PORTFOLIO DASHBOARD</span>
+                    <h3>Strategic alignment &amp; health</h3>
+                    <p>At a glance: red/yellow/green status, strategic contribution score, and cost‑benefit heatmap. Fully customisable for MT reviews.</p>
+                    <div class="stat-badge">🎯 83% strategic goal coverage</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 2: Knowledge Factory (Karpathy‑style assistant) -->
+        <div id="tab2" class="tab-content" style="display:none;">
+            <div class="cards-grid">
+                <div class="card accent-border">
+                    <span class="card-meta">⚡ KARPATHY‑STYLE AGENT</span>
+                    <h3>Claude knowledge assistant</h3>
+                    <p>Generative AI over project docs, lessons learned, course content (Disco) and PMO templates. Ask “What risks did the last module have?” or “Show me resource conflicts in Q2”.</p>
+                    <div class="stat-badge">🤖 Retrieval‑augmented · non‑open‑source</div>
+                </div>
+                <div class="card primary-border">
+                    <span class="card-meta">📚 VECTOR MEMORY</span>
+                    <h3>Context‑aware document retrieval</h3>
+                    <p>All project artefacts, WBS templates, and LMS materials are indexed. Claude provides instant, cited answers — boosting decision velocity.</p>
+                    <div class="stat-badge">⚡ avg. response &lt; 1.8 sec</div>
+                </div>
+                <div class="card secondary-border">
+                    <span class="card-meta">🔁 LESSONS LEARNED LOOP</span>
+                    <h3>Continuous improvement engine</h3>
+                    <p>Post‑project insights are fed into the vector database. Future projects automatically surface relevant past experiences &amp; mitigations.</p>
+                    <div class="stat-badge">🔄 98% knowledge retention improvement</div>
+                </div>
+                <div class="card accent-border">
+                    <span class="card-meta">🧩 INTEGRATION HUBS</span>
+                    <h3>Disco LMS + ClickUp + Claude</h3>
+                    <p>Unified search across training assets, project portfolios, and AI threads. Single pane of glass for L&amp;D, PMO and delivery teams.</p>
+                    <div class="stat-badge">🔌 No open‑source code · IP protected</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 3: PPM Process (Baak PPM Proces) -->
+        <div id="tab3" class="tab-content" style="display: block;">
+            <div class="cards-grid">
+                <div class="card primary-border">
+                    <span class="card-meta">📋 STANDARDISED INITIATION</span>
+                    <h3>Project ideation → approval workflow</h3>
+                    <p>Three‑tier process (small/medium/large) integrated with ClickUp forms and resource scenario planning. Every request is logged in central database.</p>
+                    <div class="stat-badge">⏱️ 40% faster intake</div>
+                </div>
+                <div class="card secondary-border">
+                    <span class="card-meta">📈 REAL‑TIME CONTROLLING</span>
+                    <h3>Earned value · status reports</h3>
+                    <p>Automated weekly reports with traffic‑light indicators. Portfolio meeting prep reduced from 8 hours to 15 minutes with live dashboards.</p>
+                    <div class="stat-badge">📉 Variance tracking &amp; forecast</div>
+                </div>
+                <div class="card primary-border">
+                    <span class="card-meta">🧑‍🤝‍🧑 TEAM / RESOURCE MANAGEMENT</span>
+                    <h3>Tactical &amp; strategic capacity</h3>
+                    <p>Team leaders manage operational tasks; PMs request project resources. Overloads visible at portfolio level — data‑driven prioritisation.</p>
+                    <div class="stat-badge">✅ 95% on‑time resource allocation</div>
+                </div>
+                <div class="card accent-border">
+                    <span class="card-meta">🏛️ PMO GOVERNANCE</span>
+                    <h3>Baak PPM Proces (technology‑free)</h3>
+                    <p>Independent of tools. Defines roles (PMO, L&amp;D, MT) and processes: project list, scenarios, reporting, and continuous improvement.</p>
+                    <div class="stat-badge">📐 ISO21500 aligned · future‑proof</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- footer with gradient bar -->
+    <div class="footer">
+        <p>© 2026 De Baak — Knowledge Factory Agent · Non‑open‑source architecture · Disco LMS + ClickUp + Claude · Stacked projects with automatic parent roll‑ups<br>MT approved · PPM process v2.0 · Cost efficient for 200–5000 employees</p>
+        <div class="gradient-bar"></div>
+    </div>
+</div>
+
+<script>
+    // tab switching logic + accessibility
+    const tabBtns = document.querySelectorAll('.tab-btn');
+    const tabContents = {
+        tab1: document.getElementById('tab1'),
+        tab2: document.getElementById('tab2'),
+        tab3: document.getElementById('tab3')
+    };
+
+    function activateTab(tabId) {
+        // hide all contents
+        Object.values(tabContents).forEach(content => {
+            if (content) content.style.display = 'none';
+        });
+        // show selected
+        if (tabContents[tabId]) {
+            tabContents[tabId].style.display = 'block';
+        }
+        // update button active state
+        tabBtns.forEach(btn => {
+            btn.classList.remove('active');
+            if (btn.getAttribute('data-tab') === tabId) {
+                btn.classList.add('active');
+            }
+        });
+    }
+
+    // attach event listeners
+    tabBtns.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            const targetTab = btn.getAttribute('data-tab');
+            if (targetTab && tabContents[targetTab]) {
+                activateTab(targetTab);
+            }
+        });
+        // ensure touch target ≥44px
+        btn.style.minHeight = '44px';
+    });
+
+    // initial active tab = tab1 (already visible, others hidden)
+    // ensure correct state on load (tab1 visible, others hidden from inline style)
+    if (tabContents.tab2) tabContents.tab2.style.display = 'none';
+    if (tabContents.tab3) tabContents.tab3.style.display = 'none';
+    if (tabContents.tab1) tabContents.tab1.style.display = 'block';
+
+    // Add window load guard (responsive already handled)
+    // also add some interactive flair – optional, but keep robust
+    const cards = document.querySelectorAll('.card');
+    cards.forEach(card => {
+        card.addEventListener('click', (e) => {
+            // no action needed, just subtle feedback (keep interface informative)
+            // you could add a future mt placeholder.
+        });
+    });
+</script>
+
+</body></html>

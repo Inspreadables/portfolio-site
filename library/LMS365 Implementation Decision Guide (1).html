@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LMS365 Implementation Decision Guide</title>
+<style>
+/* Theme Variables */
+:root {
+  --font-family-display: Arial, sans-serif;
+  --font-weight-display: 600;
+  --font-family-content: Arial, sans-serif;
+  --font-weight-content: 400;
+  --font-size-content: 16px;
+  --line-height-content: 1.4;
+}
+
+/* LIGHT THEME */
+body.theme-light {
+  --color-bg-base: #ffffff;
+  --color-bg-elevated: #f8fafc;
+  --color-bg-surface: #f1f5f9;
+  --color-bg-muted: #e2e8f0;
+  --color-text-primary: #0f172a;
+  --color-text-secondary: #475569;
+  --color-text-muted: #64748b;
+  --color-text-accent: #0284c7;
+  --color-primary: #0284c7;
+  --color-primary-foreground: #ffffff;
+}
+
+/* Base Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-family-content);
+  font-weight: var(--font-weight-content);
+  font-size: var(--font-size-content);
+  line-height: var(--line-height-content);
+  overflow-x: hidden;
+}
+
+/* Slide Container */
+.slide {
+  width: 960px;
+  height: 540px;
+  margin: 0 auto 20px;
+  display: flex;
+  flex-shrink: 0;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Layout Utilities */
+.row { flex-direction: row; }
+.col { flex-direction: column; }
+.center {
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+.space-between { justify-content: space-between; }
+.items-center { align-items: center; }
+.items-start { align-items: flex-start; }
+.items-end { align-items: flex-end; }
+.fill-width { flex: 1; }
+.fill-height { flex: 1; display: flex; flex-direction: column; }
+
+/* Spacing */
+.gap-sm { gap: 0.5rem; }
+.gap-md { gap: 1rem; }
+.gap-lg { gap: 1.5rem; }
+.gap-xl { gap: 2rem; }
+.gap-2xl { gap: 3rem; }
+
+.p-4 { padding: 1rem; }
+.p-6 { padding: 1.5rem; }
+.p-8 { padding: 2rem; }
+.p-12 { padding: 3rem; }
+.p-16 { padding: 4rem; }
+
+.mb-2 { margin-bottom: 0.5rem; }
+.mb-4 { margin-bottom: 1rem; }
+.mb-6 { margin-bottom: 1.5rem; }
+.mb-8 { margin-bottom: 2rem; }
+.mb-12 { margin-bottom: 3rem; }
+
+.mt-2 { margin-top: 0.5rem; }
+.mt-4 { margin-top: 1rem; }
+.mt-6 { margin-top: 1.5rem; }
+.mt-8 { margin-top: 2rem; }
+.mt-12 { margin-top: 3rem; }
+
+/* Typography */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-family-display);
+  font-weight: var(--font-weight-display);
+  line-height: 1.2;
+  margin: 0;
+}
+
+h1 { font-size: 3rem; }
+h2 { font-size: 2.25rem; }
+h3 { font-size: 1.75rem; }
+h4 { font-size: 1.5rem; }
+h5 { font-size: 1.25rem; }
+h6 { font-size: 1rem; }
+
+.text-6xl { font-size: 3.75rem; }
+.text-5xl { font-size: 3rem; }
+.text-4xl { font-size: 2.25rem; }
+.text-3xl { font-size: 1.875rem; }
+.text-2xl { font-size: 1.5rem; }
+.text-xl { font-size: 1.25rem; }
+.text-lg { font-size: 1.125rem; }
+.text-base { font-size: 1rem; }
+.text-sm { font-size: 0.875rem; }
+.text-xs { font-size: 0.75rem; }
+
+.font-bold { font-weight: 700; }
+.font-semibold { font-weight: 600; }
+.font-medium { font-weight: 500; }
+.font-normal { font-weight: 400; }
+
+.text-center { text-align: center; }
+.text-left { text-align: left; }
+.text-right { text-align: right; }
+
+.opacity-90 { opacity: 0.9; }
+.opacity-80 { opacity: 0.8; }
+.opacity-70 { opacity: 0.7; }
+.opacity-60 { opacity: 0.6; }
+
+/* Lists */
+ul, ol {
+  margin-left: 2rem;
+  line-height: 1.8;
+}
+
+ul li { list-style: disc; }
+ol li { list-style: decimal; }
+
+li { margin-bottom: 0.75rem; }
+li:last-child { margin-bottom: 0; }
+
+/* Card Styles */
+.card-rect {
+  padding: 2rem;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+}
+</style>
+</head>
+<body class="theme-light">
+
+  <!-- Slide 1: Title Slide -->
+  <section class="slide p-16 col center" style="background-color: #0284c7; color: #ffffff;">
+    <h1 class="text-6xl mb-4" style="color: #ffffff;">LMS365 Implementation</h1>
+    <p class="text-2xl" style="color: #ffffff;">Management Decision Guide</p>
+    <p class="text-sm mt-8" style="color: #ffffff;">Strategic Overview & Decision Framework</p>
+    <p class="text-xs mt-2" style="color: #ffffff;">November 19, 2025</p>
+  </section>
+
+  <!-- Slide 2: Executive Summary -->
+  <section class="slide p-16 col" style="background-color: #ffffff; color: #0f172a;">
+    <h2 class="mb-6" style="color: #0284c7;">Executive Summary</h2>
+    <ul class="text-lg" style="color: #475569;">
+      <li><strong>Project:</strong> LMS365 complete student journey platform</li>
+      <li><strong>Timeline:</strong> 16-20 weeks across 7 phases</li>
+      <li><strong>Budget:</strong> €150,000 - €250,000 (first year)</li>
+      <li><strong>Team:</strong> 8-12 FTEs (varies by phase)</li>
+    </ul>
+  </section>
+
+  <!-- Slide 3: Strategic Scope -->
+  <section class="slide p-16 col" style="background-color: #ffffff; color: #0f172a;">
+    <h2 class="mb-6" style="color: #0284c7;">Strategic Scope</h2>
+    <ul class="text-lg" style="color: #475569;">
+      <li>Unified learning ecosystem leveraging Microsoft 365</li>
+      <li>End-to-end student journey from recruitment to alumni</li>
+      <li>Integration: Azure AD, Dynamics 365, Power Platform</li>
+      <li>Modern learning delivery through Teams and SharePoint</li>
+    </ul>
+  </section>
+
+  <!-- Slide 4: Implementation Roadmap Overview -->
+  <section class="slide p-16 col" style="background-color: #ffffff; color: #0f172a;">
+    <h2 class="mb-6" style="color: #0284c7;">Implementation Phases</h2>
+    <div class="row gap-md">
+      <div class="fill-width" style="background-color: #f1f5f9; color: #0f172a; padding: 1.5rem;">
+        <h4 class="mb-2" style="color: #0284c7;">Phase 0-1</h4>
+        <p style="color: #475569; font-size: 0.95rem;">Discovery & Foundation (4-6 weeks)</p>
+      </div>
+      <div class="fill-width" style="background-color: #f1f5f9; color: #0f172a; padding: 1.5rem;">
+        <h4 class="mb-2" style="color: #0284c7;">Phase 2-3</h4>
+        <p style="color: #475569; font-size: 0.95rem;">Integration & Content (7-9 weeks)</p>
+      </div>
+      <div class="fill-width" style="background-color: #f1f5f9; color: #0f172a; padding: 1.5rem;">
+        <h4 class="mb-2" style="color: #0284c7;">Phase 4-6</h4>
+        <p style="color: #475569; font-size: 0.95rem;">Custom Apps & Launch (7-9 weeks)</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Slide 5: Phase 0 - Discovery & Planning -->
+  <section class="slide p-16 col" style="background-color: #ffffff; color: #0f172a;">
+    <h2 class="mb-4" style="color: #0284c7;">Phase 0: Discovery & Planning</h2>
+    <p class="text-lg mb-4" style="color: #475569;">Weeks 1-3 • Foundation for success</p>
+    <ul class="text-lg" style="color: #475569;">
+      <li>Stakeholder workshops across all departments</li>
+      <li>Technical architecture design</li>
+      <li>Project governance and RACI matrix</li>
+      <li>Licensing and procurement finalization</li>
+    </ul>
+  </section>
+
+  <!-- Slide 6: Phase 1 - Foundation Setup -->
+  <section class="slide p-16 col" style="background-color: #ffffff; color: #0f172a;">
+    <h2 class="mb-4" style="color: #0284c7;">Phase 1: Foundation Setup</h2>
+    <p class="text-lg mb-4" style="color: #475569;">Weeks 4-6 • Core infrastructure</p>
+    <ul class="text-lg" style="color: #475569;">
+      <li>LMS365 installation and configuration</li>
+      <li>Azure AD with SSO and MFA</li>
+      <li>SharePoint structure and Teams integration</li>
+      <li>Security and compliance framework</li>
+    </ul>
+  </section>
+
+  <!-- Slide 7: Phase 2 - Dynamics 365 Integration -->
+  <section class="slide p-16 col" style="background-color: #ffffff; color: #0f172a;">
+    <h2 class="mb-4" style="color: #0284c7;">Phase 2: Dynamics 365 Integration</h2>
+    <p class="text-lg mb-4" style="color: #475569;">Weeks 7-10 • Student lifecycle automation</p>
+    <ul class="text-lg" style="color: #475569;">
+      <li>CRM data model customization</li>
+      <li>Automated enrollment workflows</li>
+      <li>Marketing automation for recruitment</li>
+    </ul>
+  </section>
+
+  <!-- Slide 8: Phase 3 - Learning Content -->
+  <section class="slide p-16 col" style="background-color: #ffffff; color: #0f172a;">
+    <h2 class="mb-4" style="color: #0284c7;">Phase 3: Learning Content & Delivery</h2>
+    <p class="text-lg mb-4" style="color: #475569;">Weeks 11-15 • Course catalog and migration</p>
+    <ul class="text-lg" style="color: #475569;">
+      <li>Course catalog with 20-30 pilot courses</li>
+      <li>Content migration from legacy systems</li>
+      <li>Assessment tools and certification</li>
+    </ul>
+  </section>
+
+  <!-- Slide 9: Phase 4 - Custom Applications -->
+  <section class="slide p-16 col" style="background-color: #ffffff; color: #0f172a;">
+    <h2 class="mb-4" style="color: #0284c7;">Phase 4: Custom Apps & Workflows</h2>
+    <p class="text-lg mb-4" style="color: #475569;">Weeks 16-19 • Power Platform solutions</p>
+    <ul class="text-lg" style="color: #475569;">
+      <li>Internship management Power App</li>
+      <li>Alumni engagement portal</li>
+      <li>Administrative workflow automation</li>
+      <li>Power BI analytics dashboards</li>
+    </ul>
+  </section>
+
+  <!-- Slide 10: Phase 5 - Testing & Training -->
+  <section class="slide p-16 col" style="background-color: #ffffff; color: #0f172a;">
+    <h2 class="mb-4" style="color: #0284c7;">Phase 5: Testing & Training</h2>
+    <p class="text-lg mb-4" style="color: #475569;">Weeks 20-22 • Quality assurance and readiness</p>
+    <ul class="text-lg" style="color: #475569;">
+      <li>Comprehensive UAT with all user roles</li>
+      <li>Performance and security testing</li>
+      <li>Role-based training programs</li>
+      <li>Documentation and support preparation</li>
+    </ul>
+  </section>
+
+  <!-- Slide 11: Phase 6 - Go-Live -->
+  <section class="slide p-16 col" style="background-color: #ffffff; color: #0f172a;">
+    <h2 class="mb-4" style="color: #0284c7;">Phase 6: Go-Live & Hypercare</h2>
+    <p class="text-lg mb-4" style="color: #475569;">Weeks 23-24 • Production deployment</p>
+    <ul class="text-lg" style="color: #475569;">
+      <li>Phased rollout recommended (pilot → full)</li>
+      <li>Intensive support period with extended hours</li>
+      <li>Real-time monitoring and rapid issue resolution</li>
+      <li>Feedback collection and optimization</li>
+    </ul>
+  </section>
+
+  <!-- Slide 12: Budget Breakdown -->
+  <section class="slide p-16 col" style="background-color: #ffffff; color: #0f172a;">
+    <h2 class="mb-6" style="color: #0284c7;">Budget Components</h2>
+    <div class="row gap-lg">
+      <div class="fill-width" style="background-color: #f1f5f9; color: #0f172a; padding: 1.5rem;">
+        <h4 style="color: #0284c7;">Licensing</h4>
+        <p class="text-xl mb-2" style="color: #0f172a;">€245K - €345K</p>
+        <p class="text-sm" style="color: #475569;">M365, LMS365, Dynamics, Azure</p>
+      </div>
+      <div class="fill-width" style="background-color: #f1f5f9; color: #0f172a; padding: 1.5rem;">
+        <h4 style="color: #0284c7;">Implementation</h4>
+        <p class="text-xl mb-2" style="color: #0f172a;">€175K - €280K</p>
+        <p class="text-sm" style="color: #475569;">Services, development, training</p>
+      </div>
+      <div class="fill-width" style="background-color: #f1f5f9; color: #0f172a; padding: 1.5rem;">
+        <h4 style="color: #0284c7;">Support</h4>
+        <p class="text-xl mb-2" style="color: #0f172a;">€140K - €215K</p>
+        <p class="text-sm" style="color: #475569;">Year 1 staffing and contracts</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Slide 13: Critical Success Factors -->
+  <section class="slide p-16 col" style="background-color: #ffffff; color: #0f172a;">
+    <h2 class="mb-6" style="color: #0284c7;">Critical Success Factors</h2>
+    <ul class="text-lg" style="color: #475569;">
+      <li>Executive sponsorship and sustained commitment</li>
+      <li>Adequate skilled personnel and budget</li>
+      <li>Effective change management for adoption</li>
+      <li>Rigorous project governance</li>
+    </ul>
+  </section>
+
+  <!-- Slide 14: Risk Management Overview -->
+  <section class="slide p-16 col" style="background-color: #ffffff; color: #0f172a;">
+    <h2 class="mb-6" style="color: #0284c7;">Top Risks & Mitigation</h2>
+    <ul class="text-lg" style="color: #475569;">
+      <li><strong>Scope Creep:</strong> Formal change control process</li>
+      <li><strong>User Adoption:</strong> Champions program and training</li>
+      <li><strong>Integration Failures:</strong> Early API testing</li>
+      <li><strong>Budget Overrun:</strong> 15-20% contingency</li>
+    </ul>
+  </section>
+
+  <!-- Slide 15: Expected Benefits -->
+  <section class="slide p-16 col" style="background-color: #ffffff; color: #0f172a;">
+    <h2 class="mb-6" style="color: #0284c7;">Expected Outcomes (Year 1)</h2>
+    <ul class="text-lg" style="color: #475569;">
+      <li>20-30% reduction in administrative overhead</li>
+      <li>10-15% increase in course completion rates</li>
+      <li>15-20% improvement in student satisfaction</li>
+      <li>25-35% cost savings from legacy retirement</li>
+    </ul>
+  </section>
+
+  <!-- Divider Slide -->
+  <section class="slide p-16 col center" style="background-color: #0284c7; color: #ffffff;">
+    <h2 class="text-5xl" style="color: #ffffff;">Management Decision Framework</h2>
+    <p class="text-xl mt-4" style="color: #ffffff;">Best Practices for Informed Decision-Making</p>
+  </section>
+
+  <!-- Slide 16: Business Value Proposition -->
+  <section class="slide p-16 col" style="background-color: #ffffff; color: #0f172a;">
+    <h2 class="mb-4" style="color: #0284c7;">Business Value Proposition</h2>
+    <p class="text-lg mb-4" style="color: #475569;"><strong>Strategic Value:</strong></p>
+    <ul class="text-lg" style="color: #475569;">
+      <li>Unified digital infrastructure reduces fragmentation</li>
+      <li>Improved student experience increases retention</li>
+      <li>Data-driven insights enhance decision-making</li>
+    </ul>
+  </section>
+
+  <!-- Slide 17: Value Drivers -->
+  <section class="slide p-16 col" style="background-color: #ffffff; color: #0f172a;">
+    <h2 class="mb-6" style="color: #0284c7;">Value Drivers</h2>
+    <div class="row gap-lg">
+      <div class="fill-width" style="background-color: #f1f5f9; color: #0f172a; padding: 1.5rem;">
+        <h4 style="color: #0284c7;">Operational</h4>
+        <p style="color: #475569;">Automation, efficiency, reduced manual work</p>
+      </div>
+      <div class="fill-width" style="background-color: #f1f5f9; color: #0f172a; padding: 1.5rem;">
+        <h4 style="color: #0284c7;">Academic</h4>
+        <p style="color: #475569;">Better learning outcomes, engagement, completion</p>
+      </div>
+      <div class="fill-width" style="background-color: #f1f5f9; color: #0f172a; padding: 1.5rem;">
+        <h4 style="color: #0284c7;">Strategic</h4>
+        <p style="color: #475569;">Competitive advantage, innovation platform</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Slide 18: Structured Objectives -->
+  <section class="slide p-16 col" style="background-color: #ffffff; color: #0f172a;">
+    <h2 class="mb-4" style="color: #0284c7;">Structured Objectives</h2>
+    <p class="text-lg mb-4" style="color: #475569;"><strong>SMART Framework:</strong></p>
+    <ul class="text-lg" style="color: #475569;">
+      <li><strong>Specific:</strong> LMS365 for complete student journey</li>
+      <li><strong>Measurable:</strong> >80% user adoption in 3 months</li>
+      <li><strong>Achievable:</strong> 16-20 weeks, proven technology</li>
+      <li><strong>Relevant:</strong> Aligns with digital transformation</li>
+    </ul>
+  </section>
+
+  <!-- Slide 19: Measurable Indicators (Part 1) -->
+  <section class="slide p-16 col" style="background-color: #ffffff; color: #0f172a;">
+    <h2 class="mb-4" style="color: #0284c7;">Key Performance Indicators</h2>
+    <p class="text-lg mb-4" style="color: #475569;"><strong>Implementation KPIs:</strong></p>
+    <ul class="text-lg" style="color: #475569;">
+      <li>On-time milestone completion: >90%</li>
+      <li>Budget variance: <10%</li>
+      <li>UAT satisfaction: >4.0/5.0</li>
+      <li>Training completion: >90% of users</li>
+    </ul>
+  </section>
+
+  <!-- Slide 20: Measurable Indicators (Part 2) -->
+  <section class="slide p-16 col" style="background-color: #ffffff; color: #0f172a;">
+    <h2 class="mb-4" style="color: #0284c7;">Post-Launch Success Metrics</h2>
+    <p class="text-lg mb-4" style="color: #475569;"><strong>3-Month Targets:</strong></p>
+    <ul class="text-lg" style="color: #475569;">
+      <li>User login rate: >80% within 2 weeks</li>
+      <li>Assignment submission: >85%</li>
+      <li>System uptime: >99.5%</li>
+      <li>Student satisfaction: >4.0/5.0</li>
+    </ul>
+  </section>
+
+  <!-- Slide 21: Realistic Timeline -->
+  <section class="slide p-16 col" style="background-color: #ffffff; color: #0f172a;">
+    <h2 class="mb-4" style="color: #0284c7;">Timeline Considerations</h2>
+    <p class="text-lg mb-4" style="color: #475569;"><strong>16-20 weeks is realistic given:</strong></p>
+    <ul class="text-lg" style="color: #475569;">
+      <li>7 phases with defined deliverables</li>
+      <li>Built-in buffer time for adjustments</li>
+      <li>Proven Microsoft ecosystem integration</li>
+      <li>Phased rollout reduces launch risk</li>
+    </ul>
+  </section>
+
+  <!-- Slide 22: Decision Options -->
+  <section class="slide p-16 col" style="background-color: #ffffff; color: #0f172a;">
+    <h2 class="mb-6" style="color: #0284c7;">Decision Options</h2>
+    <ul class="text-lg" style="color: #475569;">
+      <li><strong>Option 1:</strong> Full implementation (all 6 phases)</li>
+      <li><strong>Option 2:</strong> Phased approach (core first, expand later)</li>
+      <li><strong>Option 3:</strong> Pilot program (1-2 departments, then scale)</li>
+      <li><strong>Option 4:</strong> Defer decision (further evaluation)</li>
+    </ul>
+  </section>
+
+  <!-- Slide 23: Option Comparison -->
+  <section class="slide p-16 col" style="background-color: #ffffff; color: #0f172a;">
+    <h2 class="mb-6" style="color: #0284c7;">Recommended Approach</h2>
+    <div style="background-color: #f1f5f9; color: #0f172a; padding: 2rem;">
+      <h3 class="mb-4" style="color: #0284c7;">Option 3: Pilot Program</h3>
+      <p class="text-lg mb-4" style="color: #475569;"><strong>Rationale:</strong></p>
+      <ul class="text-lg" style="color: #475569;">
+        <li>Reduces risk and validates approach</li>
+        <li>Demonstrates value before full investment</li>
+        <li>Allows refinement based on real feedback</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Slide 24: Go/No-Go Criteria -->
+  <section class="slide p-16 col" style="background-color: #ffffff; color: #0f172a;">
+    <h2 class="mb-4" style="color: #0284c7;">Go/No-Go Decision Criteria</h2>
+    <p class="text-lg mb-4" style="color: #475569;"><strong>Proceed if:</strong></p>
+    <ul class="text-lg" style="color: #475569;">
+      <li>Budget approved with 15-20% contingency</li>
+      <li>Executive sponsor committed</li>
+      <li>8-12 FTE resources available</li>
+      <li>Stakeholder alignment achieved</li>
+    </ul>
+  </section>
+
+  <!-- Slide 25: Governance Requirements -->
+  <section class="slide p-16 col" style="background-color: #ffffff; color: #0f172a;">
+    <h2 class="mb-4" style="color: #0284c7;">Governance Structure</h2>
+    <p class="text-lg mb-4" style="color: #475569;"><strong>Required bodies:</strong></p>
+    <ul class="text-lg" style="color: #475569;">
+      <li><strong>Steering Committee:</strong> Monthly strategic oversight</li>
+      <li><strong>PMO:</strong> Weekly coordination and reporting</li>
+      <li><strong>Technical Working Group:</strong> Bi-weekly design decisions</li>
+      <li><strong>User Advisory Group:</strong> Monthly validation</li>
+    </ul>
+  </section>
+
+  <!-- Slide 26: Change Management -->
+  <section class="slide p-16 col" style="background-color: #ffffff; color: #0f172a;">
+    <h2 class="mb-4" style="color: #0284c7;">Change Management Essentials</h2>
+    <p class="text-lg mb-4" style="color: #475569;"><strong>Critical for adoption success:</strong></p>
+    <ul class="text-lg" style="color: #475569;">
+      <li>15-20 change champions across departments</li>
+      <li>Role-based training programs</li>
+      <li>Multi-channel communication strategy</li>
+      <li>Continuous feedback loops and quick wins</li>
+    </ul>
+  </section>
+
+  <!-- Slide 27: Risk Mitigation -->
+  <section class="slide p-16 col" style="background-color: #ffffff; color: #0f172a;">
+    <h2 class="mb-6" style="color: #0284c7;">Risk Mitigation Strategy</h2>
+    <ul class="text-lg" style="color: #475569;">
+      <li>Weekly risk reviews with project team</li>
+      <li>Formal change control board</li>
+      <li>Comprehensive testing at each phase</li>
+      <li>Rollback plans for critical components</li>
+    </ul>
+  </section>
+
+  <!-- Slide 28: Resource Requirements -->
+  <section class="slide p-16 col" style="background-color: #ffffff; color: #0f172a;">
+    <h2 class="mb-4" style="color: #0284c7;">Key Resource Requirements</h2>
+    <p class="text-lg mb-4" style="color: #475569;"><strong>Full project team includes:</strong></p>
+    <ul class="text-lg" style="color: #475569;">
+      <li>Project Manager and Solution Architect (full-time)</li>
+      <li>Power Platform developers (2 FTEs)</li>
+      <li>Business Analysts and training staff</li>
+      <li>Vendor support contracts in place</li>
+    </ul>
+  </section>
+
+  <!-- Slide 29: Next Steps -->
+  <section class="slide p-16 col" style="background-color: #ffffff; color: #0f172a;">
+    <h2 class="mb-6" style="color: #0284c7;">Immediate Next Steps</h2>
+    <ol class="text-lg" style="color: #475569;">
+      <li>Steering committee approval of roadmap</li>
+      <li>Budget and resource commitment secured</li>
+      <li>Assemble Phase 0 project team</li>
+      <li>Initiate discovery workshops</li>
+    </ol>
+  </section>
+
+  <!-- Slide 30: Thank You -->
+  <section class="slide p-16 col center" style="background-color: #0284c7; color: #ffffff;">
+    <h2 class="text-5xl mb-6" style="color: #ffffff;">Questions?</h2>
+    <p class="text-xl" style="color: #ffffff;">Ready to discuss your decision</p>
+    <p class="text-sm mt-8" style="color: #ffffff;">ICT Architecture Team • November 2025</p>
+  </section>
+
+</body>
+</html>

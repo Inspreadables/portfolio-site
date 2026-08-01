@@ -1,0 +1,1035 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logische Niveaus van Bateson — De Baak</title>
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --blue:        #005ADC;
+            --blue-dark:   #0047b0;
+            --blue-light:  #3380e6;
+            --blue-tint:   rgba(0, 90, 220, 0.07);
+            --blue-tint2:  rgba(0, 90, 220, 0.12);
+            --green:       #00A555;
+            --green-dark:  #008f47;
+            --green-light: #33b972;
+            --green-tint:  rgba(0, 165, 85, 0.08);
+            --yellow:      #FFE100;
+            --alabaster:   #F5F5EB;
+            --white:       #ffffff;
+            --charcoal:    #2d2d2d;
+            --gray:        #5a5a5a;
+            --gray-light:  #8a8a8a;
+            --border:      #d4cfc4;
+
+            /* Level colors — blue to green spectrum */
+            --l1: #33b972;
+            --l2: #00A555;
+            --l3: #3380e6;
+            --l4: #005ADC;
+            --l5: #0047b0;
+            --l6: #003380;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: var(--alabaster);
+            color: var(--charcoal);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        /* ─── PROGRESS BAR ─── */
+        #progress-bar {
+            position: fixed; top: 0; left: 0; width: 0; height: 3px;
+            background: linear-gradient(90deg, var(--blue), var(--green));
+            z-index: 1000;
+            transition: width 0.1s linear;
+        }
+
+        /* ─── NAV ─── */
+        nav {
+            position: fixed; top: 3px; left: 0; right: 0;
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 0 48px;
+            height: 56px;
+            background: rgba(245, 245, 235, 0.92);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+            z-index: 999;
+        }
+        .nav-brand {
+            font-size: 15px; font-weight: 700; color: var(--blue);
+            letter-spacing: 0.03em;
+        }
+        .nav-brand span { font-weight: 400; color: var(--gray); }
+        .nav-links { display: flex; gap: 32px; }
+        .nav-links a {
+            font-size: 13px; color: var(--gray); text-decoration: none;
+            font-weight: 600; letter-spacing: 0.04em;
+            transition: color 0.2s;
+        }
+        .nav-links a:hover { color: var(--blue); }
+
+        /* ─── HERO ─── */
+        .hero {
+            min-height: 100vh;
+            display: flex; align-items: center; justify-content: center;
+            padding: 120px 48px 96px;
+            position: relative;
+            overflow: hidden;
+            background: var(--alabaster);
+        }
+
+        /* Baken triangle decorations */
+        .hero::before {
+            content: '';
+            position: absolute; top: 0; right: 0;
+            width: 0; height: 0;
+            border-style: solid;
+            border-width: 0 260px 260px 0;
+            border-color: transparent rgba(0, 90, 220, 0.06) transparent transparent;
+            pointer-events: none;
+        }
+        .hero::after {
+            content: '';
+            position: absolute; bottom: 0; left: 0;
+            width: 0; height: 0;
+            border-style: solid;
+            border-width: 180px 0 0 180px;
+            border-color: transparent transparent transparent rgba(0, 165, 85, 0.06);
+            pointer-events: none;
+        }
+
+        .hero-inner {
+            max-width: 860px;
+            text-align: center;
+            animation: riseIn 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
+        }
+
+        .hero-badge {
+            display: inline-flex; align-items: center; gap: 8px;
+            background: var(--blue);
+            color: #fff;
+            font-size: 11px; font-weight: 700;
+            letter-spacing: 0.12em; text-transform: uppercase;
+            padding: 6px 16px; border-radius: 2px;
+            margin-bottom: 36px;
+        }
+        .hero-badge-dot {
+            width: 6px; height: 6px; border-radius: 50%;
+            background: var(--yellow);
+        }
+
+        h1 {
+            font-size: clamp(40px, 6.5vw, 80px);
+            font-weight: 900;
+            color: var(--blue);
+            line-height: 1.1;
+            margin-bottom: 28px;
+            letter-spacing: -0.02em;
+        }
+        h1 em {
+            font-style: normal;
+            color: var(--green);
+        }
+
+        .hero-sub {
+            font-size: clamp(17px, 2.2vw, 21px);
+            color: var(--gray);
+            max-width: 640px;
+            margin: 0 auto 48px;
+            line-height: 1.7;
+        }
+
+        .hero-author {
+            display: inline-flex; align-items: center; gap: 12px;
+            font-size: 14px; color: var(--gray-light);
+        }
+        .hero-author-line {
+            width: 32px; height: 1px; background: var(--border);
+        }
+
+        .scroll-cue {
+            margin-top: 72px;
+            display: flex; flex-direction: column; align-items: center; gap: 8px;
+            font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase;
+            color: var(--gray-light);
+            animation: nudge 2.5s ease-in-out infinite;
+        }
+        .scroll-cue svg { width: 20px; opacity: 0.4; }
+
+        /* ─── SECTIONS ─── */
+        section {
+            padding: 100px 0;
+            opacity: 0; transform: translateY(32px);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+        section.visible { opacity: 1; transform: none; }
+
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 48px; }
+
+        .section-label {
+            font-size: 11px; font-weight: 700; letter-spacing: 0.14em;
+            text-transform: uppercase; color: var(--blue);
+            margin-bottom: 16px;
+            display: flex; align-items: center; gap: 10px;
+        }
+        .section-label::after {
+            content: ''; flex: 1; height: 1px; background: var(--border);
+        }
+
+        h2 {
+            font-size: clamp(28px, 4vw, 44px);
+            font-weight: 900; color: var(--charcoal);
+            line-height: 1.15; margin-bottom: 20px;
+            letter-spacing: -0.02em;
+        }
+        h2 span { color: var(--blue); }
+
+        .lead {
+            font-size: clamp(16px, 2vw, 18px);
+            color: var(--gray); line-height: 1.8;
+            max-width: 680px;
+        }
+
+        /* ─── STATS ROW ─── */
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2px;
+            margin: 60px 0 0;
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        .stat-block {
+            background: var(--white);
+            padding: 40px 32px;
+            text-align: center;
+            transition: background 0.25s;
+        }
+        .stat-block:hover { background: var(--blue-tint); }
+        .stat-num {
+            font-size: 64px; font-weight: 900;
+            color: var(--blue); line-height: 1;
+            margin-bottom: 10px;
+        }
+        .stat-lbl {
+            font-size: 13px; font-weight: 700;
+            letter-spacing: 0.06em; text-transform: uppercase;
+            color: var(--gray);
+        }
+
+        /* ─── PRINCIPLE BAND ─── */
+        .principle-band {
+            background: var(--blue);
+            padding: 64px 48px;
+            margin: 0;
+            position: relative; overflow: hidden;
+        }
+        .principle-band::before {
+            content: '';
+            position: absolute; top: -60px; right: -60px;
+            width: 300px; height: 300px;
+            background: rgba(255,255,255,0.04);
+            border-radius: 50%;
+        }
+        .principle-band::after {
+            content: '';
+            position: absolute; bottom: -40px; left: 20%;
+            width: 0; height: 0;
+            border-style: solid;
+            border-width: 0 80px 80px 0;
+            border-color: transparent rgba(255,225,0,0.08) transparent transparent;
+        }
+        .principle-inner {
+            max-width: 1200px; margin: 0 auto;
+            display: grid; grid-template-columns: 1fr 1fr; gap: 60px;
+            align-items: center;
+        }
+        .principle-quote {
+            font-size: clamp(20px, 2.5vw, 28px);
+            font-weight: 700; color: #fff;
+            line-height: 1.4;
+        }
+        .principle-quote em {
+            font-style: normal;
+            color: var(--yellow);
+        }
+        .principle-cards { display: grid; gap: 12px; }
+        .principle-card {
+            background: rgba(255,255,255,0.09);
+            border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 6px;
+            padding: 20px 24px;
+            display: flex; align-items: flex-start; gap: 16px;
+        }
+        .principle-card-icon {
+            width: 32px; height: 32px; flex-shrink: 0;
+            border-radius: 4px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 16px;
+        }
+        .principle-card-icon.up { background: var(--green); }
+        .principle-card-icon.down { background: rgba(255,225,0,0.2); }
+        .principle-card-text { font-size: 14px; color: rgba(255,255,255,0.85); line-height: 1.6; }
+        .principle-card-text strong { color: #fff; display: block; margin-bottom: 2px; }
+
+        /* ─── PYRAMID SECTION ─── */
+        .pyramid-section { background: var(--white); }
+
+        .pyramid-wrap {
+            display: grid;
+            grid-template-columns: 1fr 480px;
+            gap: 80px;
+            align-items: center;
+        }
+
+        .pyramid-svg-wrap { position: relative; }
+
+        .pyr-svg { width: 100%; max-width: 420px; display: block; }
+
+        .pyr-level {
+            cursor: pointer;
+            transition: filter 0.2s, transform 0.2s;
+            transform-origin: center;
+        }
+        .pyr-level:hover { filter: brightness(1.08); }
+        .pyr-level.active rect, .pyr-level.active polygon { filter: brightness(1.12); }
+
+        .pyramid-legend { display: flex; flex-direction: column; gap: 0; }
+        .pyr-legend-item {
+            display: flex; align-items: stretch; gap: 0;
+            border-bottom: 1px solid var(--border);
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .pyr-legend-item:last-child { border-bottom: none; }
+        .pyr-legend-item:hover { background: var(--blue-tint); }
+        .pyr-legend-item.active { background: var(--blue-tint2); }
+        .pyr-legend-swatch {
+            width: 4px; flex-shrink: 0;
+            border-radius: 0;
+        }
+        .pyr-legend-body {
+            padding: 16px 20px;
+            flex: 1;
+        }
+        .pyr-legend-num {
+            font-size: 10px; font-weight: 700; letter-spacing: 0.1em;
+            text-transform: uppercase; color: var(--gray-light);
+            margin-bottom: 2px;
+        }
+        .pyr-legend-title {
+            font-size: 15px; font-weight: 700; color: var(--charcoal);
+        }
+        .pyr-legend-q {
+            font-size: 12px; color: var(--gray); margin-top: 2px;
+        }
+
+        /* ─── LEVELS DETAIL ─── */
+        .levels-section { background: var(--alabaster); }
+
+        .levels-grid { display: grid; gap: 3px; margin-top: 48px; }
+
+        .level-card {
+            background: var(--white);
+            border-radius: 0;
+            overflow: hidden;
+            border-left: 4px solid transparent;
+            transition: border-color 0.2s;
+        }
+        .level-card.open { border-left-color: var(--blue); }
+
+        .level-trigger {
+            display: flex; align-items: center;
+            padding: 24px 32px;
+            cursor: pointer;
+            gap: 24px;
+            transition: background 0.2s;
+            user-select: none;
+        }
+        .level-trigger:hover { background: var(--blue-tint); }
+
+        .level-num-badge {
+            width: 40px; height: 40px; flex-shrink: 0;
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 13px; font-weight: 900; color: #fff;
+        }
+        .level-trigger-text { flex: 1; }
+        .level-trigger-title {
+            font-size: 18px; font-weight: 700; color: var(--charcoal);
+        }
+        .level-trigger-sub {
+            font-size: 13px; color: var(--gray); margin-top: 2px;
+        }
+        .level-trigger-arrow {
+            width: 28px; height: 28px;
+            border: 1.5px solid var(--border); border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            color: var(--gray); font-size: 12px;
+            transition: transform 0.3s, border-color 0.2s, background 0.2s;
+            flex-shrink: 0;
+        }
+        .level-card.open .level-trigger-arrow {
+            transform: rotate(180deg);
+            border-color: var(--blue); background: var(--blue); color: #fff;
+        }
+
+        .level-body {
+            max-height: 0; overflow: hidden;
+            transition: max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .level-body.open { max-height: 600px; }
+
+        .level-body-inner {
+            padding: 0 32px 32px 32px;
+            display: grid; grid-template-columns: 1fr 1fr; gap: 32px;
+        }
+
+        .level-desc {
+            font-size: 15px; color: var(--charcoal); line-height: 1.8;
+        }
+
+        .questions-box {
+            background: var(--blue-tint);
+            border-radius: 6px;
+            padding: 24px;
+        }
+        .questions-box-title {
+            font-size: 11px; font-weight: 700; letter-spacing: 0.1em;
+            text-transform: uppercase; color: var(--blue);
+            margin-bottom: 14px;
+        }
+        .questions-box ul { list-style: none; }
+        .questions-box li {
+            display: flex; gap: 10px; align-items: flex-start;
+            font-size: 14px; color: var(--charcoal); line-height: 1.6;
+            padding: 5px 0;
+            border-bottom: 1px solid rgba(0, 90, 220, 0.1);
+        }
+        .questions-box li:last-child { border-bottom: none; }
+        .questions-box li::before {
+            content: '?';
+            width: 18px; height: 18px; flex-shrink: 0;
+            background: var(--blue); color: #fff;
+            border-radius: 50%;
+            font-size: 10px; font-weight: 700;
+            display: flex; align-items: center; justify-content: center;
+            margin-top: 2px;
+        }
+
+        /* ─── APPLICATIONS ─── */
+        .apps-section { background: var(--white); }
+        .apps-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2px;
+            margin-top: 48px;
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        .app-card {
+            padding: 36px 28px;
+            background: var(--white);
+            transition: background 0.25s;
+        }
+        .app-card:hover { background: var(--blue-tint); }
+        .app-icon {
+            width: 44px; height: 44px;
+            background: var(--blue); border-radius: 8px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 20px; margin-bottom: 16px;
+        }
+        .app-icon.green { background: var(--green); }
+        .app-icon.yellow { background: var(--yellow); }
+        .app-title {
+            font-size: 15px; font-weight: 700; color: var(--charcoal);
+            margin-bottom: 8px;
+        }
+        .app-text { font-size: 13px; color: var(--gray); line-height: 1.7; }
+
+        /* ─── BAKEN ACCENT (yellow call-out) ─── */
+        .baken-callout {
+            margin: 80px 0 0;
+            background: var(--yellow);
+            border-radius: 8px;
+            padding: 36px 40px;
+            display: flex; gap: 24px; align-items: center;
+        }
+        .baken-callout-icon {
+            font-size: 32px; flex-shrink: 0;
+        }
+        .baken-callout-text {
+            font-size: 16px; font-weight: 700; color: var(--charcoal);
+            line-height: 1.6;
+        }
+        .baken-callout-text span { font-weight: 400; }
+
+        /* ─── FOOTER ─── */
+        footer {
+            background: var(--charcoal);
+            padding: 60px 48px;
+            position: relative; overflow: hidden;
+        }
+        footer::before {
+            content: '';
+            position: absolute; top: 0; right: 0;
+            width: 0; height: 0;
+            border-style: solid;
+            border-width: 0 200px 200px 0;
+            border-color: transparent rgba(0,90,220,0.1) transparent transparent;
+        }
+        .footer-inner {
+            max-width: 1200px; margin: 0 auto;
+            display: flex; align-items: center; justify-content: space-between;
+        }
+        .footer-logo {
+            font-size: 28px; font-weight: 900;
+            color: var(--blue);
+            letter-spacing: -0.01em;
+        }
+        .footer-tagline {
+            font-size: 12px; color: rgba(255,255,255,0.4);
+            letter-spacing: 0.08em; text-transform: uppercase;
+            margin-top: 6px;
+        }
+        .footer-descriptor {
+            font-size: 13px; color: rgba(255,255,255,0.5);
+            text-align: right;
+        }
+
+        /* ─── ANIMATIONS ─── */
+        @keyframes riseIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to   { opacity: 1; transform: none; }
+        }
+        @keyframes nudge {
+            0%, 100% { transform: translateY(0); }
+            50%       { transform: translateY(8px); }
+        }
+
+        /* ─── RESPONSIVE ─── */
+        @media (max-width: 900px) {
+            nav { padding: 0 24px; }
+            .nav-links { display: none; }
+            .container { padding: 0 24px; }
+            .pyramid-wrap { grid-template-columns: 1fr; gap: 40px; }
+            .principle-inner { grid-template-columns: 1fr; gap: 36px; }
+            .apps-grid { grid-template-columns: 1fr 1fr; }
+            .level-body-inner { grid-template-columns: 1fr; }
+            .stats-row { grid-template-columns: 1fr; }
+            .footer-inner { flex-direction: column; gap: 24px; text-align: center; }
+            .footer-descriptor { text-align: center; }
+            .baken-callout { flex-direction: column; text-align: center; }
+        }
+        @media (max-width: 600px) {
+            .apps-grid { grid-template-columns: 1fr; }
+            .hero { padding: 100px 24px 80px; }
+            section { padding: 72px 0; }
+        }
+    </style>
+</head>
+<body>
+
+<div id="progress-bar"></div>
+
+<!-- NAV -->
+<nav>
+    <div class="nav-brand">De Baak <span>· Logische Niveaus van Bateson</span></div>
+    <div class="nav-links">
+        <a href="#intro">Introductie</a>
+        <a href="#pyramid">Piramide</a>
+        <a href="#levels">Niveaus</a>
+        <a href="#application">Toepassing</a>
+    </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+    <div class="hero-inner">
+        <div class="hero-badge">
+            <div class="hero-badge-dot"></div>
+            Persoonlijke Ontwikkeling
+        </div>
+        <h1>Logische Niveaus<br>van <em>Bateson</em></h1>
+        <p class="hero-sub">Zes denkniveaus voor dieper inzicht in jezelf en je handelen — een hiërarchisch model dat verandering begrijpbaar maakt.</p>
+        <div class="hero-author">
+            <div class="hero-author-line"></div>
+            Gregory Bateson (1904–1980) · Bioloog, Antropoloog & Filosoof
+            <div class="hero-author-line"></div>
+        </div>
+        <div class="scroll-cue">
+            <span>Scroll om te verkennen</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 5v14M5 12l7 7 7-7"/>
+            </svg>
+        </div>
+    </div>
+</section>
+
+<!-- INTRO -->
+<section id="intro">
+    <div class="container">
+        <div class="section-label">Achtergrond</div>
+        <h2>Een <span>hiërarchie</span> van denkniveaus</h2>
+        <p class="lead">De gedachte dat er een hiërarchie van logische niveaus bestaat in het denken van mensen, is afkomstig van de Britse bioloog, antropoloog en filosoof Gregory Bateson. Elk niveau beïnvloedt het niveau eronder — en doorbreking begint altijd bovenaan.</p>
+
+        <div class="stats-row">
+            <div class="stat-block">
+                <div class="stat-num">6</div>
+                <div class="stat-lbl">Denkniveaus</div>
+            </div>
+            <div class="stat-block">
+                <div class="stat-num">∞</div>
+                <div class="stat-lbl">Mogelijkheden</div>
+            </div>
+            <div class="stat-block">
+                <div class="stat-num">1</div>
+                <div class="stat-lbl">Kernprincipe</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- PRINCIPLE BAND -->
+<div class="principle-band">
+    <div class="principle-inner">
+        <div>
+            <div style="font-size:11px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.5);margin-bottom:20px;">Kernprincipe</div>
+            <div class="principle-quote">
+                "Veranderingen op een hoger niveau zullen <em>altijd</em> leiden tot veranderingen op een lager niveau."
+            </div>
+            <p style="font-size:14px;color:rgba(255,255,255,0.6);margin-top:24px;line-height:1.7;">
+                Bateson gaat ervan uit dat mensen gedrag laten zien dat past in de omgeving waarin zij zich bevinden — maar dat gedrag wordt niet alleen door die omgeving bepaald.
+            </p>
+        </div>
+        <div class="principle-cards">
+            <div class="principle-card">
+                <div class="principle-card-icon up">↑</div>
+                <div class="principle-card-text">
+                    <strong>Van Laag naar Hoog</strong>
+                    Veranderingen op een lager niveau kunnen leiden tot een verandering op een hoger niveau — maar dit is niet gegarandeerd.
+                </div>
+            </div>
+            <div class="principle-card">
+                <div class="principle-card-icon down">↓</div>
+                <div class="principle-card-text">
+                    <strong>Van Hoog naar Laag</strong>
+                    Veranderingen op een hoger niveau zullen altijd leiden tot veranderingen op alle niveaus eronder.
+                </div>
+            </div>
+            <div class="principle-card">
+                <div class="principle-card-icon" style="background:rgba(255,255,255,0.15)">⚖</div>
+                <div class="principle-card-text">
+                    <strong>Wederzijdse Invloed</strong>
+                    De niveaus beïnvloeden elkaar voortdurend in een dynamisch en levend proces.
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- PYRAMID -->
+<section id="pyramid" class="pyramid-section">
+    <div class="container">
+        <div class="section-label">Visueel overzicht</div>
+        <h2>De <span>Piramide</span> van Niveaus</h2>
+        <p class="lead" style="margin-bottom:56px;">Klik op een niveau in de piramide of in de legenda om meer te ontdekken.</p>
+
+        <div class="pyramid-wrap">
+            <!-- SVG Pyramid -->
+            <div class="pyramid-svg-wrap">
+                <svg class="pyr-svg" viewBox="0 0 420 400" xmlns="http://www.w3.org/2000/svg" id="pyramidSvg">
+                    <!-- Level 1 Omgeving — bottom, widest -->
+                    <g class="pyr-level" data-index="0" onclick="activateLevel(0)">
+                        <polygon points="0,340 420,340 390,400 30,400" fill="#33b972"/>
+                        <text x="210" y="378" text-anchor="middle" fill="white" font-family="Arial" font-weight="700" font-size="14">1. Omgeving</text>
+                    </g>
+                    <!-- Level 2 Gedrag -->
+                    <g class="pyr-level" data-index="1" onclick="activateLevel(1)">
+                        <polygon points="30,280 390,280 360,340 60,340" fill="#00A555"/>
+                        <text x="210" y="317" text-anchor="middle" fill="white" font-family="Arial" font-weight="700" font-size="14">2. Gedrag</text>
+                    </g>
+                    <!-- Level 3 Kwaliteiten -->
+                    <g class="pyr-level" data-index="2" onclick="activateLevel(2)">
+                        <polygon points="60,220 360,220 330,280 90,280" fill="#3380e6"/>
+                        <text x="210" y="257" text-anchor="middle" fill="white" font-family="Arial" font-weight="700" font-size="14">3. Kwaliteiten</text>
+                    </g>
+                    <!-- Level 4 Waarden -->
+                    <g class="pyr-level" data-index="3" onclick="activateLevel(3)">
+                        <polygon points="90,160 330,160 300,220 120,220" fill="#005ADC"/>
+                        <text x="210" y="197" text-anchor="middle" fill="white" font-family="Arial" font-weight="700" font-size="13">4. Waarden &amp; Overtuigingen</text>
+                    </g>
+                    <!-- Level 5 Identiteit -->
+                    <g class="pyr-level" data-index="4" onclick="activateLevel(4)">
+                        <polygon points="120,100 300,100 270,160 150,160" fill="#0047b0"/>
+                        <text x="210" y="137" text-anchor="middle" fill="white" font-family="Arial" font-weight="700" font-size="14">5. Identiteit</text>
+                    </g>
+                    <!-- Level 6 Missie — top, smallest -->
+                    <g class="pyr-level" data-index="5" onclick="activateLevel(5)">
+                        <polygon points="150,40 270,40 240,100 180,100" fill="#003380"/>
+                        <text x="210" y="77" text-anchor="middle" fill="white" font-family="Arial" font-weight="700" font-size="14">6. Missie</text>
+                    </g>
+                </svg>
+            </div>
+
+            <!-- Legend -->
+            <div class="pyramid-legend" id="pyramidLegend">
+                <div class="pyr-legend-item" data-index="5" onclick="activateLevel(5)">
+                    <div class="pyr-legend-swatch" style="background:#003380"></div>
+                    <div class="pyr-legend-body">
+                        <div class="pyr-legend-num">Niveau 6</div>
+                        <div class="pyr-legend-title">Missie</div>
+                        <div class="pyr-legend-q">Waartoe? Wat is mijn opdracht?</div>
+                    </div>
+                </div>
+                <div class="pyr-legend-item" data-index="4" onclick="activateLevel(4)">
+                    <div class="pyr-legend-swatch" style="background:#0047b0"></div>
+                    <div class="pyr-legend-body">
+                        <div class="pyr-legend-num">Niveau 5</div>
+                        <div class="pyr-legend-title">Identiteit</div>
+                        <div class="pyr-legend-q">Wie ben ik? Wat is mijn essentie?</div>
+                    </div>
+                </div>
+                <div class="pyr-legend-item" data-index="3" onclick="activateLevel(3)">
+                    <div class="pyr-legend-swatch" style="background:#005ADC"></div>
+                    <div class="pyr-legend-body">
+                        <div class="pyr-legend-num">Niveau 4</div>
+                        <div class="pyr-legend-title">Waarden & Overtuigingen</div>
+                        <div class="pyr-legend-q">Wat geloof ik? Waarom doe ik het?</div>
+                    </div>
+                </div>
+                <div class="pyr-legend-item" data-index="2" onclick="activateLevel(2)">
+                    <div class="pyr-legend-swatch" style="background:#3380e6"></div>
+                    <div class="pyr-legend-body">
+                        <div class="pyr-legend-num">Niveau 3</div>
+                        <div class="pyr-legend-title">Kwaliteiten</div>
+                        <div class="pyr-legend-q">Wat kan ik? Hoe doe ik het?</div>
+                    </div>
+                </div>
+                <div class="pyr-legend-item" data-index="1" onclick="activateLevel(1)">
+                    <div class="pyr-legend-swatch" style="background:#00A555"></div>
+                    <div class="pyr-legend-body">
+                        <div class="pyr-legend-num">Niveau 2</div>
+                        <div class="pyr-legend-title">Gedrag</div>
+                        <div class="pyr-legend-q">Wat doe ik? Hoe handel ik?</div>
+                    </div>
+                </div>
+                <div class="pyr-legend-item" data-index="0" onclick="activateLevel(0)">
+                    <div class="pyr-legend-swatch" style="background:#33b972"></div>
+                    <div class="pyr-legend-body">
+                        <div class="pyr-legend-num">Niveau 1</div>
+                        <div class="pyr-legend-title">Omgeving</div>
+                        <div class="pyr-legend-q">Waar en wanneer?</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- LEVELS DETAIL -->
+<section id="levels" class="levels-section">
+    <div class="container">
+        <div class="section-label">Verdieping</div>
+        <h2>De Zes Niveaus <span>in Detail</span></h2>
+        <p class="lead">Klik op een niveau om de beschrijving en kernvragen te openen.</p>
+
+        <div class="levels-grid" id="levelsGrid">
+
+            <div class="level-card" id="lcard-5" data-index="5">
+                <div class="level-trigger" onclick="toggleCard(5)">
+                    <div class="level-num-badge" style="background:#003380">6</div>
+                    <div class="level-trigger-text">
+                        <div class="level-trigger-title">Missie</div>
+                        <div class="level-trigger-sub">Waartoe? Wat is mijn opdracht?</div>
+                    </div>
+                    <div class="level-trigger-arrow">▼</div>
+                </div>
+                <div class="level-body" id="lbody-5">
+                    <div class="level-body-inner">
+                        <div class="level-desc">Op dit hoogste niveau gaat het over de zin van het bestaan, verantwoordelijkheid voor wereld en komende generaties. Diepgevoelde religieuze of spirituele visies zijn hier aan de orde. Dit is het wijsheidsniveau.</div>
+                        <div class="questions-box">
+                            <div class="questions-box-title">Kernvragen</div>
+                            <ul>
+                                <li>Wat geeft jou zin?</li>
+                                <li>Waaraan levert wat jij doet een bijdrage?</li>
+                                <li>Welke opdracht heb jij te vervullen?</li>
+                                <li>Wat is jouw missie?</li>
+                                <li>Van waaruit handel je?</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="level-card" id="lcard-4" data-index="4">
+                <div class="level-trigger" onclick="toggleCard(4)">
+                    <div class="level-num-badge" style="background:#0047b0">5</div>
+                    <div class="level-trigger-text">
+                        <div class="level-trigger-title">Identiteit</div>
+                        <div class="level-trigger-sub">Wie ben ik? Wat is mijn essentie?</div>
+                    </div>
+                    <div class="level-trigger-arrow">▼</div>
+                </div>
+                <div class="level-body" id="lbody-4">
+                    <div class="level-body-inner">
+                        <div class="level-desc">Het zelfbeeld en de bijbehorende gevoelens van uniciteit en eigenwaarde. Het gaat hier om de persoonlijke essentie van waaruit mensen werken en leven. De verbinding met de eigen kracht en kern staat daarbij centraal.</div>
+                        <div class="questions-box">
+                            <div class="questions-box-title">Kernvragen</div>
+                            <ul>
+                                <li>Wat voor iemand ben jij?</li>
+                                <li>Wie ben jij terwijl jij dit werk doet?</li>
+                                <li>Wat is typend aan jou?</li>
+                                <li>Waar zit je kracht?</li>
+                                <li>Wat is jouw essentie?</li>
+                                <li>Wat maakt je tot wie je bent?</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="level-card" id="lcard-3" data-index="3">
+                <div class="level-trigger" onclick="toggleCard(3)">
+                    <div class="level-num-badge" style="background:#005ADC">4</div>
+                    <div class="level-trigger-text">
+                        <div class="level-trigger-title">Waarden & Overtuigingen</div>
+                        <div class="level-trigger-sub">Wat geloof ik? Waarom doe ik het?</div>
+                    </div>
+                    <div class="level-trigger-arrow">▼</div>
+                </div>
+                <div class="level-body" id="lbody-3">
+                    <div class="level-body-inner">
+                        <div class="level-desc">Het gaat hier over het waarom van het gedrag, de achterliggende normen en waarden. Over de oordelen over onszelf, anderen en de wereld om ons heen.</div>
+                        <div class="questions-box">
+                            <div class="questions-box-title">Kernvragen</div>
+                            <ul>
+                                <li>Waarom doe je het?</li>
+                                <li>Wat vind je zo belangrijk aan wat je doet?</li>
+                                <li>Waar gaat het eigenlijk om voor jou?</li>
+                                <li>Waarom doe je wat je doet?</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="level-card" id="lcard-2" data-index="2">
+                <div class="level-trigger" onclick="toggleCard(2)">
+                    <div class="level-num-badge" style="background:#3380e6">3</div>
+                    <div class="level-trigger-text">
+                        <div class="level-trigger-title">Kwaliteiten</div>
+                        <div class="level-trigger-sub">Wat kan ik? Hoe doe ik het?</div>
+                    </div>
+                    <div class="level-trigger-arrow">▼</div>
+                </div>
+                <div class="level-body" id="lbody-2">
+                    <div class="level-body-inner">
+                        <div class="level-desc">De inzichten, capaciteiten, vaardigheden en denkstrategieën waarover iemand beschikt. En ook de acties die iemand graag had willen uitvoeren, maar steeds niet toe komt.</div>
+                        <div class="questions-box">
+                            <div class="questions-box-title">Kernvragen</div>
+                            <ul>
+                                <li>Hoe pak je het aan?</li>
+                                <li>Wat kun je echt goed?</li>
+                                <li>Waar blijkt dat uit?</li>
+                                <li>Wat doe je van nature?</li>
+                                <li>Wat kun je nog meer?</li>
+                                <li>Wat zet je eigenlijk niet echt in?</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="level-card" id="lcard-1" data-index="1">
+                <div class="level-trigger" onclick="toggleCard(1)">
+                    <div class="level-num-badge" style="background:#00A555">2</div>
+                    <div class="level-trigger-text">
+                        <div class="level-trigger-title">Gedrag</div>
+                        <div class="level-trigger-sub">Wat doe ik? Hoe handel ik?</div>
+                    </div>
+                    <div class="level-trigger-arrow">▼</div>
+                </div>
+                <div class="level-body" id="lbody-1">
+                    <div class="level-body-inner">
+                        <div class="level-desc">De waarneembare acties en reacties die iemand in zijn of haar omgeving vertoont. Wat heeft iemand zelf bedacht en gedaan en welke invloed heeft iemand uitgeoefend op de situatie.</div>
+                        <div class="questions-box">
+                            <div class="questions-box-title">Kernvragen</div>
+                            <ul>
+                                <li>Wat doe je?</li>
+                                <li>Hoe handel je?</li>
+                                <li>Wat zeg je, tegen wie?</li>
+                                <li>Wat zie je jezelf doen?</li>
+                                <li>Hoe doe je dat?</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="level-card" id="lcard-0" data-index="0">
+                <div class="level-trigger" onclick="toggleCard(0)">
+                    <div class="level-num-badge" style="background:#33b972">1</div>
+                    <div class="level-trigger-text">
+                        <div class="level-trigger-title">Omgeving</div>
+                        <div class="level-trigger-sub">Waar en wanneer? Waar reageer ik op?</div>
+                    </div>
+                    <div class="level-trigger-arrow">▼</div>
+                </div>
+                <div class="level-body" id="lbody-0">
+                    <div class="level-body-inner">
+                        <div class="level-desc">Het laagste niveau in de hiërarchie is de omgeving van de mens: de omstandigheden met hun mogelijkheden en beperkingen, zoals je dagelijkse werkomgeving.</div>
+                        <div class="questions-box">
+                            <div class="questions-box-title">Kernvragen</div>
+                            <ul>
+                                <li>Hoe ziet je omgeving eruit?</li>
+                                <li>Beschrijf de situatie.</li>
+                                <li>Waar reageer je op?</li>
+                                <li>Wanneer en met wie?</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- APPLICATIONS -->
+<section id="application" class="apps-section">
+    <div class="container">
+        <div class="section-label">Toepassing</div>
+        <h2>In de <span>Praktijk</span></h2>
+        <p class="lead">Het model is bruikbaar in uiteenlopende professionele contexten.</p>
+
+        <div class="apps-grid">
+            <div class="app-card">
+                <div class="app-icon">🎯</div>
+                <div class="app-title">Persoonlijke Ontwikkeling</div>
+                <div class="app-text">Verdiep je zelfreflectie en krijg inzicht in je eigen veranderingsprocessen.</div>
+            </div>
+            <div class="app-card">
+                <div class="app-icon green">🤝</div>
+                <div class="app-title">Coaching & Leiderschap</div>
+                <div class="app-text">Stel effectieve vragen en faciliteer ontwikkeling op het juiste niveau.</div>
+            </div>
+            <div class="app-card">
+                <div class="app-icon">🔄</div>
+                <div class="app-title">Verandermanagement</div>
+                <div class="app-text">Begrijp waar weerstand vandaan komt en werk op het meest effectieve niveau.</div>
+            </div>
+            <div class="app-card">
+                <div class="app-icon green">💡</div>
+                <div class="app-title">Communicatie</div>
+                <div class="app-text">Herken op welk niveau communicatie plaatsvindt en stem hierop af.</div>
+            </div>
+        </div>
+
+        <!-- Baken Yellow callout — used sparingly -->
+        <div class="baken-callout">
+            <div class="baken-callout-icon">☀</div>
+            <div class="baken-callout-text">
+                Reflectieoefening — <span>Denk aan een situatie op je werk. Doorloop de niveaus van onder naar boven: Wat was de omgeving? Wat deed je? Welke kwaliteiten gebruikte je? Wat zijn je waarden hierin? Wie ben jij in deze rol? En wat is jouw grotere missie?</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+    <div class="footer-inner">
+        <div>
+            <div class="footer-logo">De Baak</div>
+            <div class="footer-tagline">Training · Ontwikkeling · Leiderschap · Sinds 1947</div>
+        </div>
+        <div class="footer-descriptor">
+            Logische Niveaus van Bateson<br>
+            Interactieve Infographic
+        </div>
+    </div>
+</footer>
+
+<script>
+    // ── Progress bar
+    window.addEventListener('scroll', () => {
+        const h = document.documentElement;
+        const pct = (h.scrollTop || document.body.scrollTop) / (h.scrollHeight - h.clientHeight) * 100;
+        document.getElementById('progress-bar').style.width = pct + '%';
+    });
+
+    // ── Scroll reveal
+    const revealObs = new IntersectionObserver((entries) => {
+        entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.1, rootMargin: '0px 0px -80px 0px' });
+    document.querySelectorAll('section').forEach(s => revealObs.observe(s));
+
+    // ── Pyramid + legend sync
+    let activeLevel = null;
+    function activateLevel(index) {
+        // Reset all pyramid levels
+        document.querySelectorAll('.pyr-level').forEach(el => el.classList.remove('active'));
+        document.querySelectorAll('.pyr-legend-item').forEach(el => el.classList.remove('active'));
+
+        if (activeLevel === index) {
+            activeLevel = null;
+            return;
+        }
+        activeLevel = index;
+
+        document.querySelector(`.pyr-level[data-index="${index}"]`).classList.add('active');
+        document.querySelector(`.pyr-legend-item[data-index="${index}"]`).classList.add('active');
+
+        // Scroll to & open the corresponding level card
+        const cardMap = [0, 1, 2, 3, 4, 5]; // data-index matches card id
+        const card = document.getElementById(`lcard-${index}`);
+        if (card) {
+            setTimeout(() => {
+                card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                openCard(index);
+            }, 200);
+        }
+    }
+
+    // ── Level cards accordion
+    let openCardIndex = null;
+    function toggleCard(index) {
+        if (openCardIndex === index) {
+            closeCard(index);
+            openCardIndex = null;
+        } else {
+            if (openCardIndex !== null) closeCard(openCardIndex);
+            openCard(index);
+            openCardIndex = index;
+        }
+    }
+    function openCard(index) {
+        const card = document.getElementById(`lcard-${index}`);
+        const body = document.getElementById(`lbody-${index}`);
+        if (card && body) {
+            card.classList.add('open');
+            body.classList.add('open');
+            openCardIndex = index;
+        }
+    }
+    function closeCard(index) {
+        const card = document.getElementById(`lcard-${index}`);
+        const body = document.getElementById(`lbody-${index}`);
+        if (card && body) {
+            card.classList.remove('open');
+            body.classList.remove('open');
+        }
+    }
+</script>
+</body>
+</html>

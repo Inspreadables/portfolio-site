@@ -1,0 +1,928 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Het Adviesgespreksmodel - De Baak</title>
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700;900&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Source Sans 3', sans-serif;
+            background-color: #f5f3ef;
+            color: #2d2d2d;
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 20px 60px;
+            box-shadow: 0 4px 20px rgba(45, 45, 45, 0.08);
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-title {
+            font-family: 'Merriweather', serif;
+            font-size: 20px;
+            font-weight: 700;
+            color: #5a8f8f;
+        }
+
+        .nav-progress {
+            flex: 1;
+            max-width: 400px;
+            margin: 0 40px;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 6px;
+            background: #e8e5df;
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: #5a8f8f;
+            width: 0%;
+            transition: width 0.5s ease;
+        }
+
+        .nav-controls {
+            display: flex;
+            gap: 12px;
+        }
+
+        .nav-btn {
+            background: #5a8f8f;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-family: 'Source Sans 3', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .nav-btn:hover {
+            background: #4a7f7f;
+            transform: translateY(-2px);
+        }
+
+        .nav-btn:disabled {
+            background: #d4cfc4;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* Main Content */
+        .container {
+            max-width: 1400px;
+            margin: 96px auto 60px;
+            padding: 0 60px;
+        }
+
+        .section {
+            min-height: 80vh;
+            padding: 96px 0;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .section.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: 120px 0;
+        }
+
+        .hero h1 {
+            font-family: 'Merriweather', serif;
+            font-size: 56px;
+            font-weight: 900;
+            color: #5a8f8f;
+            margin-bottom: 24px;
+            line-height: 1.2;
+        }
+
+        .hero-subtitle {
+            font-size: 24px;
+            color: #5a5a5a;
+            margin-bottom: 16px;
+        }
+
+        .hero-meta {
+            font-size: 16px;
+            color: #8a8a8a;
+            margin-bottom: 48px;
+        }
+
+        .hero-tagline {
+            display: inline-block;
+            background: white;
+            padding: 24px 48px;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(45, 45, 45, 0.08);
+            font-size: 18px;
+            line-height: 1.8;
+            max-width: 800px;
+        }
+
+        /* Typography */
+        h2 {
+            font-family: 'Merriweather', serif;
+            font-size: 44px;
+            font-weight: 700;
+            color: #5a8f8f;
+            margin-bottom: 32px;
+        }
+
+        h3 {
+            font-family: 'Merriweather', serif;
+            font-size: 28px;
+            font-weight: 700;
+            color: #2d2d2d;
+            margin-bottom: 20px;
+        }
+
+        h4 {
+            font-family: 'Merriweather', serif;
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        p {
+            font-size: 18px;
+            line-height: 1.7;
+            margin-bottom: 20px;
+        }
+
+        /* Cards */
+        .card {
+            background: white;
+            padding: 48px;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(45, 45, 45, 0.08);
+            margin-bottom: 32px;
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 30px rgba(45, 45, 45, 0.12);
+        }
+
+        /* Two Column Layout */
+        .two-columns {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 48px;
+            margin: 48px 0;
+        }
+
+        /* Phase Cards */
+        .phase-card {
+            background: white;
+            padding: 40px;
+            border-radius: 8px;
+            border-left: 6px solid #5a8f8f;
+            box-shadow: 0 4px 20px rgba(45, 45, 45, 0.08);
+        }
+
+        .phase-card.profile {
+            border-left-color: #8b6f47;
+        }
+
+        .phase-card h3 {
+            color: #5a8f8f;
+        }
+
+        .phase-card.profile h3 {
+            color: #8b6f47;
+        }
+
+        .phase-card ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .phase-card li {
+            padding: 16px 0;
+            border-bottom: 1px solid #e8e5df;
+            font-size: 16px;
+        }
+
+        .phase-card li:last-child {
+            border-bottom: none;
+        }
+
+        .phase-card li::before {
+            content: "→";
+            color: #5a8f8f;
+            font-weight: bold;
+            margin-right: 12px;
+        }
+
+        .phase-card.profile li::before {
+            color: #8b6f47;
+        }
+
+        /* Interactive Elements */
+        .accordion {
+            margin: 32px 0;
+        }
+
+        .accordion-item {
+            background: white;
+            margin-bottom: 16px;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(45, 45, 45, 0.05);
+        }
+
+        .accordion-header {
+            padding: 24px 32px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+            background: white;
+        }
+
+        .accordion-header:hover {
+            background: #f5f3ef;
+        }
+
+        .accordion-header h4 {
+            margin: 0;
+            color: #5a8f8f;
+        }
+
+        .accordion-icon {
+            font-size: 24px;
+            color: #5a8f8f;
+            transition: transform 0.3s ease;
+        }
+
+        .accordion-item.active .accordion-icon {
+            transform: rotate(180deg);
+        }
+
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease;
+            padding: 0 32px;
+        }
+
+        .accordion-item.active .accordion-content {
+            max-height: 1000px;
+            padding: 0 32px 24px;
+        }
+
+        /* Steps */
+        .steps {
+            margin: 48px 0;
+        }
+
+        .step {
+            display: flex;
+            gap: 24px;
+            margin-bottom: 40px;
+            align-items: flex-start;
+        }
+
+        .step-number {
+            flex-shrink: 0;
+            width: 60px;
+            height: 60px;
+            background: #5a8f8f;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Merriweather', serif;
+            font-size: 28px;
+            font-weight: 700;
+        }
+
+        .step-content {
+            flex: 1;
+            padding-top: 8px;
+        }
+
+        /* Grid Layout */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 32px;
+            margin: 48px 0;
+        }
+
+        .grid-item {
+            background: white;
+            padding: 32px;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(45, 45, 45, 0.08);
+            transition: all 0.3s ease;
+        }
+
+        .grid-item:hover {
+            transform: translateY(-4px);
+        }
+
+        .grid-item h4 {
+            color: #8b6f47;
+        }
+
+        /* Highlight Box */
+        .highlight {
+            background: rgba(90, 143, 143, 0.1);
+            border: 2px solid #5a8f8f;
+            padding: 32px;
+            border-radius: 8px;
+            margin: 48px 0;
+            text-align: center;
+        }
+
+        .highlight p {
+            font-size: 20px;
+            font-weight: 600;
+            color: #5a8f8f;
+            margin: 0;
+        }
+
+        /* Communication Levels */
+        .comm-levels {
+            background: rgba(90, 143, 143, 0.05);
+            border: 2px solid #5a8f8f;
+            border-radius: 8px;
+            padding: 32px;
+            margin: 32px 0;
+        }
+
+        .comm-levels h4 {
+            color: #5a8f8f;
+            margin-bottom: 20px;
+        }
+
+        .comm-levels ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .comm-levels li {
+            padding: 12px 0;
+            font-size: 16px;
+            border-bottom: 1px solid #d4cfc4;
+        }
+
+        .comm-levels li:last-child {
+            border-bottom: none;
+        }
+
+        /* Contract Types */
+        .contract-type {
+            background: white;
+            padding: 32px;
+            border-radius: 8px;
+            border-left: 6px solid #5a8f8f;
+            margin-bottom: 24px;
+            box-shadow: 0 2px 8px rgba(45, 45, 45, 0.05);
+        }
+
+        .contract-type:nth-child(2) {
+            border-left-color: #8b6f47;
+        }
+
+        .contract-type:nth-child(3) {
+            border-left-color: #4a7c59;
+        }
+
+        .contract-type h4 {
+            color: #5a8f8f;
+        }
+
+        .contract-type:nth-child(2) h4 {
+            color: #8b6f47;
+        }
+
+        .contract-type:nth-child(3) h4 {
+            color: #4a7c59;
+        }
+
+        /* Footer */
+        .footer {
+            background: #5a8f8f;
+            color: white;
+            padding: 60px;
+            text-align: center;
+            margin-top: 96px;
+        }
+
+        .footer h2 {
+            color: white;
+            margin-bottom: 24px;
+        }
+
+        .footer p {
+            font-size: 20px;
+            margin-bottom: 12px;
+        }
+
+        .footer-meta {
+            font-size: 16px;
+            margin-top: 32px;
+            opacity: 0.8;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .container {
+                padding: 0 32px;
+            }
+
+            .nav {
+                padding: 16px 32px;
+            }
+
+            .two-columns {
+                grid-template-columns: 1fr;
+                gap: 32px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 40px;
+            }
+
+            h2 {
+                font-size: 32px;
+            }
+
+            .container {
+                margin-top: 80px;
+                padding: 0 16px;
+            }
+
+            .nav {
+                padding: 12px 16px;
+            }
+
+            .nav-title {
+                font-size: 16px;
+            }
+
+            .nav-progress {
+                display: none;
+            }
+
+            .card, .phase-card {
+                padding: 24px;
+            }
+
+            .grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-title">Het Adviesgespreksmodel</div>
+        <div class="nav-progress">
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+        </div>
+        <div class="nav-controls">
+            <button class="nav-btn" id="prevBtn" onclick="changeSection(-1)" disabled>Vorige</button>
+            <button class="nav-btn" id="nextBtn" onclick="changeSection(1)">Volgende</button>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container">
+        <!-- Section 1: Hero -->
+        <section class="section active" id="section-1">
+            <div class="hero">
+                <h1>Het Adviesgespreksmodel</h1>
+                <p class="hero-subtitle">Een praktische leidraad voor effectieve adviesgesprekken</p>
+                <p class="hero-meta">Raymond Eilander MSc. Ba. | Praktijk Adviseur, Coach en Trainer<br>
+                Lid Orde voor Organisatieadviseurs, NIVE en Associé van de Baak</p>
+                <div class="hero-tagline">
+                    Het adviesgespreksmodel helpt adviseurs om hun vakinhoudelijke expertise optimaal in te zetten, 
+                    terwijl vertrouwen, veiligheid en geloofwaardigheid centraal staan in de relatie met de klant.
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 2: Waarom dit model -->
+        <section class="section" id="section-2">
+            <h2>Waarom dit model?</h2>
+            <div class="card">
+                <p>Een adviseur komt in beeld wanneer de klant een probleem of vraag heeft. De klant verwacht van de adviseur dat hij zijn vakinhoudelijke expertise aanwendt om het probleem te helpen oplossen of de vraag te beantwoorden.</p>
+                
+                <p>Voor de acceptatie van het advies zijn naast de vakinhoudelijke en professionele kwaliteiten van de adviseur essentieel:</p>
+                
+                <div class="grid">
+                    <div class="grid-item">
+                        <h4>Vertrouwen</h4>
+                        <p>In de relatie met de adviseur</p>
+                    </div>
+                    <div class="grid-item">
+                        <h4>Veiligheid</h4>
+                        <p>Tijdens het adviesgesprek</p>
+                    </div>
+                    <div class="grid-item">
+                        <h4>Geloofwaardigheid</h4>
+                        <p>Van de adviseur en het advies</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="highlight">
+                <p>Het adviesgespreksmodel biedt een praktische leidraad om te bepalen wat er in elke fase van het adviesgesprek nodig is.</p>
+            </div>
+        </section>
+
+        <!-- Section 3: Overzicht -->
+        <section class="section" id="section-3">
+            <h2>Het Model: Twee Fasen</h2>
+            <div class="two-columns">
+                <div class="phase-card">
+                    <h3>1. Oriëntatiefase</h3>
+                    <p style="font-style: italic; color: #5a5a5a; margin-bottom: 24px;">Focus: Diagnose stellen</p>
+                    <ul>
+                        <li>Entree maken: een goede relatie opbouwen</li>
+                        <li>Divergeren: verbreden met open vragen</li>
+                        <li>Convergeren: trechteren naar de vraag achter de vraag</li>
+                    </ul>
+                </div>
+
+                <div class="phase-card profile">
+                    <h3>2. Profileringfase</h3>
+                    <p style="font-style: italic; color: #5a5a5a; margin-bottom: 24px;">Focus: Oplossingen ontwikkelen</p>
+                    <ul>
+                        <li>Divergeren: opties en consequenties schetsen</li>
+                        <li>Convergeren: begeleiden naar een keuze</li>
+                        <li>Contract: afspraken vastleggen</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 4: Oriëntatiefase - Entree -->
+        <section class="section" id="section-4">
+            <h2>Oriëntatiefase: Entree Maken</h2>
+            <div class="card">
+                <h3>Focus op het opbouwen van een goede relatie</h3>
+                <p>Het is voor de klant niet vanzelfsprekend om hulp in te roepen. Zet daarom niet direct het probleem centraal, maar richt de aandacht eerst op de onderlinge relatie.</p>
+            </div>
+
+            <div class="grid">
+                <div class="grid-item">
+                    <h4 style="color: #5a8f8f;">Vertrouwen</h4>
+                    <p>Bied structuur in het gesprek en wees transparant over je werkwijze.</p>
+                </div>
+                <div class="grid-item">
+                    <h4 style="color: #5a8f8f;">Veiligheid</h4>
+                    <p>Geef de klant voldoende invloed op het adviesgesprek.</p>
+                </div>
+                <div class="grid-item">
+                    <h4 style="color: #5a8f8f;">Geloofwaardigheid</h4>
+                    <p>Erken het probleem én durf de klant te confronteren met vooronderstellingen en interpretaties.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 5: Divergeren -->
+        <section class="section" id="section-5">
+            <h2>Oriëntatiefase: Divergeren</h2>
+            <p style="font-size: 20px; font-style: italic; color: #5a5a5a; margin-bottom: 32px;">Verbreden met behulp van open vragen</p>
+
+            <div class="two-columns">
+                <div class="card">
+                    <h3>Van aanvangsvraag naar dieper begrip</h3>
+                    <p>De adviseur gaat niet zo maar mee in de omschrijving van het probleem. Om een passende oplossing te bieden die meer is dan symptoombestrijding, is meer informatie over de context nodig.</p>
+                    
+                    <div class="steps">
+                        <div class="step">
+                            <div class="step-number">1</div>
+                            <div class="step-content">
+                                <h4>Brandende vraag</h4>
+                                <p>Herken en erken het meest urgente probleem van de klant.</p>
+                            </div>
+                        </div>
+                        <div class="step">
+                            <div class="step-number">2</div>
+                            <div class="step-content">
+                                <h4>Vraag achter de vraag</h4>
+                                <p>Onderzoek samen met de klant wat het werkelijke probleem is.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="comm-levels">
+                    <h4>Communicatieniveaus</h4>
+                    <p style="margin-bottom: 16px;">Stel vragen op verschillende niveaus:</p>
+                    <ul>
+                        <li><strong>Inhoud:</strong> Wat is de situatie? Wie is betrokken?</li>
+                        <li><strong>Procedure:</strong> Welke stappen zijn al gezet?</li>
+                        <li><strong>Interactie:</strong> Hoe zijn de onderlinge verhoudingen?</li>
+                        <li><strong>Persoonlijk:</strong> Welke gevoelens ervaren betrokkenen?</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 6: Convergeren -->
+        <section class="section" id="section-6">
+            <h2>Oriëntatiefase: Convergeren</h2>
+            <p style="font-size: 20px; font-style: italic; color: #5a5a5a; margin-bottom: 32px;">Trechteren naar de vraag achter de vraag</p>
+
+            <div class="accordion">
+                <div class="accordion-item">
+                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                        <h4>Ordenen van informatie</h4>
+                        <span class="accordion-icon">▼</span>
+                    </div>
+                    <div class="accordion-content">
+                        <p>De adviseur neemt het initiatief bij het ordenen van de verkende informatie door onderscheid te maken tussen hoofd- en bijzaken, tussen aanleiding, symptomen, oorzaken en gevolgen.</p>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                        <h4>Vooronderstellingen expliciet maken</h4>
+                        <span class="accordion-icon">▼</span>
+                    </div>
+                    <div class="accordion-content">
+                        <p>De adviseur zorgt ervoor dat vooronderstellingen van de klant expliciet worden benoemd en bespreekt deze kritisch.</p>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                        <h4>Commitment creëren</h4>
+                        <span class="accordion-icon">▼</span>
+                    </div>
+                    <div class="accordion-content">
+                        <p>De adviseur checkt telkens de voorlopige conclusies bij de klant en roept hem op om te kiezen wat buiten beschouwing moet blijven.</p>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                        <h4>Type vragen in deze fase</h4>
+                        <span class="accordion-icon">▼</span>
+                    </div>
+                    <div class="accordion-content">
+                        <p>Meer keuze- en gesloten vragen zoals: "Klopt het dat…?", "Hoe anders dan?", "Wat versta je onder…?"</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="highlight">
+                <p>Resultaat: Klant en adviseur zijn het eens over het wezenlijke probleem. De vraag achter de vraag is helder.</p>
+            </div>
+        </section>
+
+        <!-- Section 7: Profileringfase - Opties -->
+        <section class="section" id="section-7">
+            <h2>Profileringfase: Opties en Consequenties</h2>
+            
+            <div class="card">
+                <p style="font-size: 20px; font-style: italic; text-align: center; margin-bottom: 32px;">
+                    "Op basis van de vraag achter de vraag schetst de adviseur alternatieve oplossingsrichtingen"
+                </p>
+            </div>
+
+            <div class="grid">
+                <div class="grid-item">
+                    <h4>Optie A</h4>
+                    <p>Onderbouwd met kennis, argumenten en ervaringen</p>
+                </div>
+                <div class="grid-item">
+                    <h4>Optie B</h4>
+                    <p>Met duidelijke voordelen en nadelen</p>
+                </div>
+                <div class="grid-item">
+                    <h4>Optie C</h4>
+                    <p>Consequenties inzichtelijk gemaakt</p>
+                </div>
+                <div class="grid-item">
+                    <h4>Nuloptie</h4>
+                    <p>Niets doen is ook een optie met consequenties</p>
+                </div>
+            </div>
+
+            <div class="card" style="margin-top: 32px;">
+                <h3>Samen tot opties komen</h3>
+                <p>Opties kunnen ook tot stand komen samen met de klant - oplossingen die de adviseur niet van tevoren heeft kunnen bedenken zonder de kennis van en interactie met de klant.</p>
+            </div>
+        </section>
+
+        <!-- Section 8: Profileringfase - Besluit -->
+        <section class="section" id="section-8">
+            <h2>Profileringfase: Naar een Besluit</h2>
+            
+            <div class="two-columns">
+                <div class="card">
+                    <h3>De rol van de adviseur</h3>
+                    <ul style="list-style: none; padding: 0;">
+                        <li style="padding: 16px 0; border-bottom: 1px solid #e8e5df;">→ Begeleiden van de klant in het proces</li>
+                        <li style="padding: 16px 0; border-bottom: 1px solid #e8e5df;">→ Doorvragen op afwegingen, motivatie en twijfels</li>
+                        <li style="padding: 16px 0;">→ Helpen bij het doorhakken van de knoop</li>
+                    </ul>
+                    
+                    <div style="margin-top: 24px; padding: 20px; background: #f5f3ef; border-radius: 6px;">
+                        <p style="margin: 0; font-size: 16px;"><strong>Sturende vragen:</strong></p>
+                        <p style="margin-top: 12px; font-size: 15px;">"Wat spreekt het meest aan?" | "Wat heeft de grootste voorkeur?" | "Wat vindt u van de consequenties?"</p>
+                    </div>
+                </div>
+
+                <div class="card" style="background: rgba(139, 111, 71, 0.05); border: 2px solid #8b6f47;">
+                    <h3 style="color: #8b6f47;">Verantwoordelijkheid</h3>
+                    <p style="font-size: 20px; font-weight: 600; color: #2d2d2d; margin-bottom: 24px;">
+                        De keuze en verantwoordelijkheid ligt bij de klant.
+                    </p>
+                    <p>
+                        De adviseur is verantwoordelijk voor het aanreiken van gedegen adviezen (opties en consequenties), maar uiteindelijk niet voor de gekozen oplossing.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 9: Contract -->
+        <section class="section" id="section-9">
+            <h2>Het Contract Vastleggen</h2>
+            
+            <p style="font-size: 18px; margin-bottom: 40px;">De adviseur neemt het initiatief om het besluit te bezegelen in de vorm van een contract. Dit contract bestaat uit drie onderdelen:</p>
+
+            <div class="contract-type">
+                <h4>Zakelijk Contract</h4>
+                <p>Afspraken over investeringen uitgedrukt in tijd en geld.</p>
+            </div>
+
+            <div class="contract-type">
+                <h4>Professioneel Contract</h4>
+                <p>De te hanteren criteria van het op te leveren advies.</p>
+            </div>
+
+            <div class="contract-type">
+                <h4>Psychologisch Contract</h4>
+                <p>Het onderlinge vertrouwen en de benodigde samenwerking om de afspraken na te komen.</p>
+            </div>
+
+            <div class="highlight" style="margin-top: 48px;">
+                <p>Alle drie de contractvormen zijn essentieel voor een succesvolle samenwerking tussen adviseur en klant.</p>
+            </div>
+        </section>
+
+        <!-- Section 10: In de praktijk -->
+        <section class="section" id="section-10">
+            <h2>Het Model in de Praktijk</h2>
+            
+            <div class="card">
+                <h3>Van theorie naar praktijk</h3>
+                <p style="font-size: 18px; line-height: 1.8;">
+                    Het adviesgespreksmodel is een leidraad voor het voeren van adviesgesprekken en natuurlijk een vereenvoudiging van het werkelijke gesprek. Het adviesgesprek verloopt in de praktijk vaak grilliger.
+                </p>
+                <p style="font-size: 18px; line-height: 1.8;">
+                    Toch blijkt het adviesgespreksmodel een praktische structuur voor het adviesgesprek en om invloed uit te oefenen zonder hiërarchische macht.
+                </p>
+            </div>
+
+            <div class="highlight">
+                <p>Het model helpt de adviseur om zijn persoonlijke en professionele impact te vergroten.</p>
+            </div>
+
+            <div class="card" style="margin-top: 48px; background: rgba(74, 124, 89, 0.05); border: 2px solid #4a7c59;">
+                <h3 style="color: #4a7c59;">Praktijkgerichte oefeningen</h3>
+                <p>
+                    Het adviesgespreksmodel is een inleiding op een serie praktijkgerichte oefeningen voor trainingen en workshops om de persoonlijke en professionele impact te vergroten van de (interne) adviseur.
+                </p>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <h2>Vragen of meer informatie?</h2>
+        <p>info@pactgroep.nl | info@debaak.nl</p>
+        <p>06-51844982</p>
+        <p class="footer-meta">De Baak | training ontwikkeling leiderschap | sinds 1947</p>
+    </footer>
+
+    <script>
+        let currentSection = 1;
+        const totalSections = 10;
+
+        function showSection(n) {
+            const sections = document.querySelectorAll('.section');
+            sections.forEach(section => section.classList.remove('active'));
+            
+            const targetSection = document.getElementById(`section-${n}`);
+            if (targetSection) {
+                targetSection.classList.add('active');
+                targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+            
+            // Update navigation buttons
+            document.getElementById('prevBtn').disabled = (n === 1);
+            document.getElementById('nextBtn').disabled = (n === totalSections);
+            
+            // Update progress bar
+            const progress = ((n - 1) / (totalSections - 1)) * 100;
+            document.getElementById('progressFill').style.width = progress + '%';
+            
+            currentSection = n;
+        }
+
+        function changeSection(direction) {
+            const newSection = currentSection + direction;
+            if (newSection >= 1 && newSection <= totalSections) {
+                showSection(newSection);
+            }
+        }
+
+        function toggleAccordion(header) {
+            const item = header.parentElement;
+            const wasActive = item.classList.contains('active');
+            
+            // Close all accordion items
+            document.querySelectorAll('.accordion-item').forEach(i => {
+                i.classList.remove('active');
+            });
+            
+            // Open clicked item if it wasn't already open
+            if (!wasActive) {
+                item.classList.add('active');
+            }
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'ArrowLeft') {
+                changeSection(-1);
+            } else if (e.key === 'ArrowRight') {
+                changeSection(1);
+            }
+        });
+
+        // Initialize - show first section
+        window.addEventListener('load', function() {
+            showSection(1);
+        });
+
+        // Scroll-triggered animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe all cards and grid items
+        document.querySelectorAll('.card, .grid-item, .phase-card, .step').forEach(el => {
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>

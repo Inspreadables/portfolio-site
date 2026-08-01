@@ -1,0 +1,1215 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Het PPM-paradijs - Interactieve Infographic</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            color: #ffffff;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Progress Bar */
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            width: 0%;
+            z-index: 1000;
+            transition: width 0.3s ease;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            padding: 60px 20px;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1));
+            border-radius: 20px;
+            margin-bottom: 40px;
+            animation: fadeInDown 1s ease;
+        }
+
+        .header h1 {
+            font-size: 3.5em;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 20px;
+        }
+
+        .header p {
+            font-size: 1.3em;
+            color: #b8b8d1;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Section Styles */
+        .section {
+            margin: 80px 0;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s ease;
+        }
+
+        .section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .section-title {
+            font-size: 2.5em;
+            margin-bottom: 30px;
+            text-align: center;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .section-subtitle {
+            font-size: 1.8em;
+            margin: 40px 0 20px;
+            color: #4facfe;
+        }
+
+        /* Six-Layer Architecture */
+        .architecture-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .arch-card {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.05));
+            border: 1px solid rgba(102, 126, 234, 0.3);
+            border-radius: 15px;
+            padding: 30px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .arch-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(102, 126, 234, 0.1) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .arch-card:hover::before {
+            opacity: 1;
+        }
+
+        .arch-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.4);
+            border-color: #667eea;
+        }
+
+        .arch-card h3 {
+            font-size: 1.5em;
+            margin-bottom: 15px;
+            color: #667eea;
+        }
+
+        .arch-card ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .arch-card ul li {
+            padding: 8px 0;
+            padding-left: 25px;
+            position: relative;
+            color: #b8b8d1;
+        }
+
+        .arch-card ul li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: #667eea;
+        }
+
+        /* Tabs System */
+        .tabs-container {
+            background: linear-gradient(135deg, rgba(79, 172, 254, 0.1), rgba(0, 242, 254, 0.05));
+            border-radius: 20px;
+            padding: 30px;
+            margin: 30px 0;
+        }
+
+        .tabs-header {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .tab-button {
+            background: linear-gradient(135deg, rgba(79, 172, 254, 0.2), rgba(0, 242, 254, 0.1));
+            border: 2px solid transparent;
+            border-radius: 10px;
+            padding: 15px 30px;
+            color: #ffffff;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1.1em;
+            flex: 1;
+            min-width: 150px;
+        }
+
+        .tab-button:hover {
+            background: linear-gradient(135deg, rgba(79, 172, 254, 0.3), rgba(0, 242, 254, 0.2));
+            transform: translateY(-3px);
+        }
+
+        .tab-button.active {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            border-color: #4facfe;
+            box-shadow: 0 5px 20px rgba(79, 172, 254, 0.5);
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* SECI Cycle Cards */
+        .seci-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .seci-card {
+            background: linear-gradient(135deg, rgba(245, 87, 108, 0.1), rgba(240, 147, 251, 0.05));
+            border: 2px solid transparent;
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .seci-card.socialization {
+            border-color: #f5576c;
+        }
+
+        .seci-card.externalization {
+            border-color: #4facfe;
+        }
+
+        .seci-card.combination {
+            border-color: #43e97b;
+        }
+
+        .seci-card.internalization {
+            border-color: #fa709a;
+        }
+
+        .seci-card:hover {
+            transform: scale(1.05) rotate(2deg);
+            box-shadow: 0 10px 30px rgba(245, 87, 108, 0.3);
+        }
+
+        .seci-card .icon {
+            font-size: 3em;
+            margin-bottom: 15px;
+        }
+
+        .seci-card h3 {
+            font-size: 1.4em;
+            margin-bottom: 10px;
+        }
+
+        /* Timeline */
+        .timeline {
+            position: relative;
+            padding: 40px 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: linear-gradient(180deg, #667eea 0%, #764ba2 100%);
+            transform: translateX(-50%);
+        }
+
+        .timeline-item {
+            display: flex;
+            margin: 40px 0;
+            position: relative;
+        }
+
+        .timeline-item:nth-child(odd) {
+            flex-direction: row;
+        }
+
+        .timeline-item:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+
+        .timeline-content {
+            width: 45%;
+            background: linear-gradient(135deg, rgba(67, 233, 123, 0.1), rgba(56, 249, 215, 0.05));
+            border: 2px solid rgba(67, 233, 123, 0.3);
+            border-radius: 15px;
+            padding: 25px;
+            position: relative;
+        }
+
+        .timeline-content:hover {
+            border-color: #43e97b;
+            box-shadow: 0 10px 30px rgba(67, 233, 123, 0.3);
+            transform: scale(1.05);
+            transition: all 0.3s ease;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: 50%;
+            width: 20px;
+            height: 20px;
+            background: #43e97b;
+            border-radius: 50%;
+            transform: translateX(-50%);
+            box-shadow: 0 0 20px rgba(67, 233, 123, 0.8);
+        }
+
+        /* Accordion */
+        .accordion {
+            margin: 20px 0;
+        }
+
+        .accordion-item {
+            background: linear-gradient(135deg, rgba(250, 112, 154, 0.1), rgba(254, 225, 64, 0.05));
+            border: 1px solid rgba(250, 112, 154, 0.3);
+            border-radius: 10px;
+            margin: 10px 0;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .accordion-header {
+            padding: 20px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+
+        .accordion-header:hover {
+            background: linear-gradient(135deg, rgba(250, 112, 154, 0.2), rgba(254, 225, 64, 0.1));
+        }
+
+        .accordion-header h3 {
+            font-size: 1.3em;
+            color: #fa709a;
+        }
+
+        .accordion-icon {
+            font-size: 1.5em;
+            transition: transform 0.3s ease;
+        }
+
+        .accordion-item.active .accordion-icon {
+            transform: rotate(180deg);
+        }
+
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            padding: 0 20px;
+        }
+
+        .accordion-item.active .accordion-content {
+            max-height: 1000px;
+            padding: 20px;
+        }
+
+        /* Three-Tier Architecture */
+        .three-tier {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+
+        .tier-card {
+            background: linear-gradient(135deg, rgba(254, 140, 0, 0.1), rgba(248, 54, 0, 0.05));
+            border: 2px solid transparent;
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .tier-card::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            right: -30px;
+            width: 30px;
+            height: 2px;
+            background: linear-gradient(90deg, #fe8c00, transparent);
+            transform: translateY(-50%);
+        }
+
+        .tier-card:last-child::after {
+            display: none;
+        }
+
+        .tier-card:hover {
+            border-color: #fe8c00;
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(254, 140, 0, 0.4);
+        }
+
+        .tier-card .number {
+            font-size: 4em;
+            font-weight: bold;
+            background: linear-gradient(135deg, #fe8c00 0%, #f83600 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 20px;
+        }
+
+        .tier-card h3 {
+            font-size: 1.8em;
+            margin-bottom: 15px;
+            color: #fe8c00;
+        }
+
+        /* Integration Diagram */
+        .integration-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 30px 0;
+        }
+
+        .integration-card {
+            background: linear-gradient(135deg, rgba(138, 35, 135, 0.1), rgba(233, 64, 87, 0.05));
+            border: 2px solid rgba(138, 35, 135, 0.3);
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .integration-card:hover {
+            border-color: #8a2387;
+            transform: scale(1.1);
+            box-shadow: 0 10px 25px rgba(138, 35, 135, 0.4);
+        }
+
+        .integration-card .icon {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2em;
+            }
+
+            .header p {
+                font-size: 1em;
+            }
+
+            .section-title {
+                font-size: 1.8em;
+            }
+
+            .architecture-grid,
+            .seci-grid,
+            .three-tier,
+            .integration-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .timeline::before {
+                left: 20px;
+            }
+
+            .timeline-item {
+                flex-direction: column !important;
+            }
+
+            .timeline-content {
+                width: calc(100% - 40px);
+                margin-left: 40px;
+            }
+
+            .timeline-dot {
+                left: 20px;
+            }
+
+            .tier-card::after {
+                display: none;
+            }
+
+            .tabs-header {
+                flex-direction: column;
+            }
+
+            .tab-button {
+                min-width: 100%;
+            }
+        }
+
+        /* Stats Cards */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.15), rgba(118, 75, 162, 0.1));
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+        }
+
+        .stat-number {
+            font-size: 3em;
+            font-weight: bold;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .stat-label {
+            font-size: 1.1em;
+            color: #b8b8d1;
+            margin-top: 10px;
+        }
+
+        /* Benefits List */
+        .benefits-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .benefit-item {
+            background: linear-gradient(135deg, rgba(67, 233, 123, 0.1), rgba(56, 249, 215, 0.05));
+            border-left: 4px solid #43e97b;
+            border-radius: 10px;
+            padding: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .benefit-item:hover {
+            transform: translateX(10px);
+            box-shadow: 0 5px 20px rgba(67, 233, 123, 0.3);
+        }
+
+        .benefit-item .icon {
+            font-size: 2em;
+            color: #43e97b;
+            margin-bottom: 10px;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 40px 20px;
+            margin-top: 80px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .footer p {
+            color: #b8b8d1;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+    <div class="progress-bar" id="progressBar"></div>
+
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <h1>🏆 Het PPM-paradijs</h1>
+            <p>De optimale omgeving voor succesvol project-, portfolio- en resourcemanagement</p>
+            <p style="margin-top: 20px; font-size: 1em;">Volledig onafhankelijk van de gebruikte technologie</p>
+        </header>
+
+        <!-- Introduction Section -->
+        <section class="section" id="intro">
+            <h2 class="section-title">Waarom dit belangrijk is</h2>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number">❌</div>
+                    <div class="stat-label">Onvoldoende overzicht</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">❓</div>
+                    <div class="stat-label">Onbekend resourcegebruik</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">📊</div>
+                    <div class="stat-label">Verouderde data</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Portfolio Dashboard - Six Layer Architecture -->
+        <section class="section" id="dashboard">
+            <h2 class="section-title">📊 Portfolio Dashboard</h2>
+            <p style="text-align: center; color: #b8b8d1; margin-bottom: 30px;">
+                Het goede gevoel om altijd volledige controle te hebben over uw projectomgeving
+            </p>
+            <div class="architecture-grid">
+                <div class="arch-card">
+                    <h3>🚦 Toestand</h3>
+                    <p style="color: #b8b8d1; margin-bottom: 15px;">Algemene status van de portefeuille</p>
+                    <ul>
+                        <li>Status van alle projecten</li>
+                        <li>Aandeel projecten naar status</li>
+                        <li>Ontwikkeling over tijd</li>
+                    </ul>
+                </div>
+                <div class="arch-card">
+                    <h3>📁 Portefeuille</h3>
+                    <p style="color: #b8b8d1; margin-bottom: 15px;">Strategische projectoverzicht</p>
+                    <ul>
+                        <li>Kosten-batenverhouding</li>
+                        <li>Prioritering visualisatie</li>
+                        <li>Bellendiagram weergave</li>
+                    </ul>
+                </div>
+                <div class="arch-card">
+                    <h3>🔄 Pijplijn</h3>
+                    <p style="color: #b8b8d1; margin-bottom: 15px;">Project lifecycle overzicht</p>
+                    <ul>
+                        <li>Voortgang per fase</li>
+                        <li>Kritieke accumulaties</li>
+                        <li>Nieuwe projecten status</li>
+                    </ul>
+                </div>
+                <div class="arch-card">
+                    <h3>⚠️ Risico</h3>
+                    <p style="color: #b8b8d1; margin-bottom: 15px;">Risicobeoordeling</p>
+                    <ul>
+                        <li>Waarschijnlijkheid impact</li>
+                        <li>Potentiële schade</li>
+                        <li>Maatregelen definitie</li>
+                    </ul>
+                </div>
+                <div class="arch-card">
+                    <h3>👥 Hulpbronnen</h3>
+                    <p style="color: #b8b8d1; margin-bottom: 15px;">Resource utilization</p>
+                    <ul>
+                        <li>Bezetting per team</li>
+                        <li>Overbelasting detectie</li>
+                        <li>Capaciteitsplanning</li>
+                    </ul>
+                </div>
+                <div class="arch-card">
+                    <h3>💰 Kosten</h3>
+                    <p style="color: #b8b8d1; margin-bottom: 15px;">Financieel overzicht</p>
+                    <ul>
+                        <li>Budget status</li>
+                        <li>Kostenanalyse</li>
+                        <li>Forecast tracking</li>
+                    </ul>
+                </div>
+                <div class="arch-card">
+                    <h3>🎯 Strategie</h3>
+                    <p style="color: #b8b8d1; margin-bottom: 15px;">Strategische bijdrage</p>
+                    <ul>
+                        <li>Strategic alignment</li>
+                        <li>Prioritering scoring</li>
+                        <li>Value contribution</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Conditional Logic System -->
+        <section class="section" id="initiation">
+            <h2 class="section-title">🔄 Gestandaardiseerde Projectinitiatie</h2>
+            <div class="tabs-container">
+                <div class="tabs-header">
+                    <button class="tab-button active" onclick="switchTab('phase1')">Fase 1: Idee</button>
+                    <button class="tab-button" onclick="switchTab('phase2')">Fase 2: Evaluatie</button>
+                    <button class="tab-button" onclick="switchTab('phase3')">Fase 3: Goedkeuring</button>
+                </div>
+                <div class="tab-content active" id="phase1">
+                    <h3 style="color: #4facfe; margin-bottom: 15px;">Fase 1: Projectidee</h3>
+                    <div class="benefits-list">
+                        <div class="benefit-item">
+                            <div class="icon">💡</div>
+                            <h4>Centrale registratie</h4>
+                            <p>Van ideeën en projectaanvragen</p>
+                        </div>
+                        <div class="benefit-item">
+                            <div class="icon">📋</div>
+                            <h4>Methodische aanpak</h4>
+                            <p>Processen en workflows</p>
+                        </div>
+                        <div class="benefit-item">
+                            <div class="icon">✅</div>
+                            <h4>Kwaliteitswaarborg</h4>
+                            <p>Planning van nieuwe projecten</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-content" id="phase2">
+                    <h3 style="color: #4facfe; margin-bottom: 15px;">Fase 2: Evaluatie</h3>
+                    <div class="benefits-list">
+                        <div class="benefit-item">
+                            <div class="icon">🔍</div>
+                            <h4>Haalbaarheid</h4>
+                            <p>Technische en organisatorische evaluatie</p>
+                        </div>
+                        <div class="benefit-item">
+                            <div class="icon">💼</div>
+                            <h4>Business Case</h4>
+                            <p>Kosten-baten analyse</p>
+                        </div>
+                        <div class="benefit-item">
+                            <div class="icon">👥</div>
+                            <h4>Stakeholders</h4>
+                            <p>Identificatie en betrokkenheid</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-content" id="phase3">
+                    <h3 style="color: #4facfe; margin-bottom: 15px;">Fase 3: Goedkeuring</h3>
+                    <div class="benefits-list">
+                        <div class="benefit-item">
+                            <div class="icon">🎯</div>
+                            <h4>Besluitvorming</h4>
+                            <p>Machtigingen en criteria</p>
+                        </div>
+                        <div class="benefit-item">
+                            <div class="icon">📊</div>
+                            <h4>Projectenlijst</h4>
+                            <p>Opname in centrale database</p>
+                        </div>
+                        <div class="benefit-item">
+                            <div class="icon">🚀</div>
+                            <h4>Start</h4>
+                            <p>Projectkick-off en resource allocatie</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECI Knowledge Conversion Cycle -->
+        <section class="section" id="modules">
+            <h2 class="section-title">🔧 Modules van het PPM-paradijs</h2>
+            <div class="seci-grid">
+                <div class="seci-card socialization">
+                    <div class="icon">📝</div>
+                    <h3>Centrale Projectlijst</h3>
+                    <p style="color: #b8b8d1;">Database met alle projecten</p>
+                    <ul style="text-align: left; margin-top: 15px; list-style: none;">
+                        <li>✓ Standaardisatie</li>
+                        <li>✓ Eén actuele status</li>
+                        <li>✓ Historisering</li>
+                    </ul>
+                </div>
+                <div class="seci-card externalization">
+                    <div class="icon">📅</div>
+                    <h3>Resource Scenario's</h3>
+                    <p style="color: #b8b8d1;">Optimale timing voor projectstart</p>
+                    <ul style="text-align: left; margin-top: 15px; list-style: none;">
+                        <li>✓ Scenario planning</li>
+                        <li>✓ Capaciteitscheck</li>
+                        <li>✓ Overbelasting vermijden</li>
+                    </ul>
+                </div>
+                <div class="seci-card combination">
+                    <div class="icon">🎯</div>
+                    <h3>Projectmanagement</h3>
+                    <p style="color: #b8b8d1;">Professionele projectomgeving</p>
+                    <ul style="text-align: left; margin-top: 15px; list-style: none;">
+                        <li>✓ Planning & tracking</li>
+                        <li>✓ Risicobeheer</li>
+                        <li>✓ Statusrapportage</li>
+                    </ul>
+                </div>
+                <div class="seci-card internalization">
+                    <div class="icon">📊</div>
+                    <h3>Controle & Rapportage</h3>
+                    <p style="color: #b8b8d1;">Geautomatiseerde reporting</p>
+                    <ul style="text-align: left; margin-top: 15px; list-style: none;">
+                        <li>✓ KPI dashboards</li>
+                        <li>✓ Forecast</li>
+                        <li>✓ ERP integratie</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Team Management -->
+        <section class="section" id="teams">
+            <h2 class="section-title">👥 Team & Resource Management</h2>
+            <div class="accordion">
+                <div class="accordion-item">
+                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                        <h3>Teammanagement</h3>
+                        <span class="accordion-icon">▼</span>
+                    </div>
+                    <div class="accordion-content">
+                        <div class="benefits-list">
+                            <div class="benefit-item">
+                                <div class="icon">✓</div>
+                                <h4>Betrokkenheid teamleiders</h4>
+                                <p>Bij het planningsproces</p>
+                            </div>
+                            <div class="benefit-item">
+                                <div class="icon">✓</div>
+                                <h4>Volledige planning</h4>
+                                <p>Van werktijden alle teamleden</p>
+                            </div>
+                            <div class="benefit-item">
+                                <div class="icon">✓</div>
+                                <h4>Projectbeschikbaarheid</h4>
+                                <p>Weergave van werklast</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                        <h3>Werkbeheer binnen het Team</h3>
+                        <span class="accordion-icon">▼</span>
+                    </div>
+                    <div class="accordion-content">
+                        <div class="benefits-list">
+                            <div class="benefit-item">
+                                <div class="icon">✓</div>
+                                <h4>Betrokkenheid individuen</h4>
+                                <p>Bij planningsproces</p>
+                            </div>
+                            <div class="benefit-item">
+                                <div class="icon">✓</div>
+                                <h4>Betere inschattingen</h4>
+                                <p>Door teamleden zelf</p>
+                            </div>
+                            <div class="benefit-item">
+                                <div class="icon">✓</div>
+                                <h4>Statusrapportage</h4>
+                                <p>Uit de eerste hand</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                        <h3>Tijdregistratie</h3>
+                        <span class="accordion-icon">▼</span>
+                    </div>
+                    <div class="accordion-content">
+                        <div class="benefits-list">
+                            <div class="benefit-item">
+                                <div class="icon">✓</div>
+                                <h4>Centrale specificatie</h4>
+                                <p>Elementen uit planning</p>
+                            </div>
+                            <div class="benefit-item">
+                                <div class="icon">✓</div>
+                                <h4>Herinneringsproces</h4>
+                                <p>Voor laatkomers</p>
+                            </div>
+                            <div class="benefit-item">
+                                <div class="icon">✓</div>
+                                <h4>Gedetailleerde registratie</h4>
+                                <p>Correcte toewijzing</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Three-Tier Architecture -->
+        <section class="section" id="approaches">
+            <h2 class="section-title">🛤️ Drie Manieren om te Beginnen</h2>
+            <p style="text-align: center; color: #b8b8d1; margin-bottom: 40px;">
+                Kies de aanpak die het beste past bij uw organisatie
+            </p>
+            <div class="three-tier">
+                <div class="tier-card">
+                    <div class="number">1</div>
+                    <h3>Via Planning</h3>
+                    <p style="color: #b8b8d1; margin: 20px 0;">
+                        Focus op structuur en roosteroverzicht
+                    </p>
+                    <ul style="text-align: left; list-style: none;">
+                        <li>✓ Controle over planning</li>
+                        <li>✓ Externe coördinatie</li>
+                        <li>✓ Contractprojecten</li>
+                    </ul>
+                </div>
+                <div class="tier-card">
+                    <div class="number">2</div>
+                    <h3>Via Resourcebeheer</h3>
+                    <p style="color: #b8b8d1; margin: 20px 0;">
+                        Optimalisatie van werklast
+                    </p>
+                    <ul style="text-align: left; list-style: none;">
+                        <li>✓ Beschikbaarheid centraal</li>
+                        <li>✓ Werklast optimalisatie</li>
+                        <li>✓ Snelle resourceplanning</li>
+                    </ul>
+                </div>
+                <div class="tier-card">
+                    <div class="number">3</div>
+                    <h3>Via Portfoliobeheer</h3>
+                    <p style="color: #b8b8d1; margin: 20px 0;">
+                        Strategische projectselectie
+                    </p>
+                    <ul style="text-align: left; list-style: none;">
+                        <li>✓ Strategische matching</li>
+                        <li>✓ Projectprioritering</li>
+                        <li>✓ Portfolio optimalisatie</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- IDEO-Style Implementation Timeline -->
+        <section class="section" id="timeline">
+            <h2 class="section-title">⏱️ Implementatie Roadmap</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <h3 style="color: #43e97b; margin-bottom: 10px;">Fase 1: Foundation</h3>
+                        <p><strong>Centrale Projectenlijst</strong></p>
+                        <p style="color: #b8b8d1; margin-top: 10px;">
+                            Implementeer database-ondersteunde projectenlijst als fundament voor PPM
+                        </p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <h3 style="color: #43e97b; margin-bottom: 10px;">Fase 2: Process</h3>
+                        <p><strong>Initiatieproces & Workflows</strong></p>
+                        <p style="color: #b8b8d1; margin-top: 10px;">
+                            Standaardiseer projectinitiatie en goedkeuringsprocessen
+                        </p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <h3 style="color: #43e97b; margin-bottom: 10px;">Fase 3: Planning</h3>
+                        <p><strong>Resource & Scenario Planning</strong></p>
+                        <p style="color: #b8b8d1; margin-top: 10px;">
+                            Implementeer capaciteitsplanning en scenario-analyse
+                        </p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <h3 style="color: #43e97b; margin-bottom: 10px;">Fase 4: Execution</h3>
+                        <p><strong>Team & Work Management</strong></p>
+                        <p style="color: #b8b8d1; margin-top: 10px;">
+                            Activeer team-level planning en werkbeheer tools
+                        </p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <h3 style="color: #43e97b; margin-bottom: 10px;">Fase 5: Control</h3>
+                        <p><strong>Reporting & Integration</strong></p>
+                        <p style="color: #b8b8d1; margin-top: 10px;">
+                            Automatiseer rapportage en integreer met ERP/CRM systemen
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- System Integration -->
+        <section class="section" id="integration">
+            <h2 class="section-title">🔗 Systeemintegratie</h2>
+            <p style="text-align: center; color: #b8b8d1; margin-bottom: 30px;">
+                Verbind uw PPM-omgeving met bestaande systemen
+            </p>
+            <div class="integration-grid">
+                <div class="integration-card">
+                    <div class="icon">📊</div>
+                    <p>SAP</p>
+                </div>
+                <div class="integration-card">
+                    <div class="icon">📋</div>
+                    <p>Jira</p>
+                </div>
+                <div class="integration-card">
+                    <div class="icon">💼</div>
+                    <p>Microsoft Project</p>
+                </div>
+                <div class="integration-card">
+                    <div class="icon">🔄</div>
+                    <p>Planner</p>
+                </div>
+                <div class="integration-card">
+                    <div class="icon">📈</div>
+                    <p>Salesforce</p>
+                </div>
+                <div class="integration-card">
+                    <div class="icon">🔧</div>
+                    <p>DevOps/TFS</p>
+                </div>
+                <div class="integration-card">
+                    <div class="icon">💻</div>
+                    <p>SharePoint</p>
+                </div>
+                <div class="integration-card">
+                    <div class="icon">🌐</div>
+                    <p>Webservices</p>
+                </div>
+            </div>
+            <div class="benefits-list" style="margin-top: 40px;">
+                <div class="benefit-item">
+                    <div class="icon">✓</div>
+                    <h4>Optimale tools per rol</h4>
+                    <p>Elke rol werkt met de beste tool</p>
+                </div>
+                <div class="benefit-item">
+                    <div class="icon">✓</div>
+                    <h4>Actuele gegevens</h4>
+                    <p>Real-time data uit alle systemen</p>
+                </div>
+                <div class="benefit-item">
+                    <div class="icon">✓</div>
+                    <h4>Hogere efficiëntie</h4>
+                    <p>Geautomatiseerde processen</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Success Factors -->
+        <section class="section" id="success">
+            <h2 class="section-title">✨ Succesfactoren</h2>
+            <div class="benefits-list">
+                <div class="benefit-item">
+                    <div class="icon">🎯</div>
+                    <h4>Beslissingen op het juiste moment</h4>
+                    <p>Actuele data voor tijdige besluitvorming</p>
+                </div>
+                <div class="benefit-item">
+                    <div class="icon">📊</div>
+                    <h4>Relevante gegevens actueel</h4>
+                    <p>Real-time inzicht in projectstatus</p>
+                </div>
+                <div class="benefit-item">
+                    <div class="icon">🛠️</div>
+                    <h4>Geschikte hulpmiddelen</h4>
+                    <p>Tools afgestemd op de rol</p>
+                </div>
+                <div class="benefit-item">
+                    <div class="icon">📋</div>
+                    <h4>Passende processen</h4>
+                    <p>Gestandaardiseerde workflows</p>
+                </div>
+                <div class="benefit-item">
+                    <div class="icon">👥</div>
+                    <h4>Alle belanghebbenden</h4>
+                    <p>Volledige stakeholder betrokkenheid</p>
+                </div>
+                <div class="benefit-item">
+                    <div class="icon">🏢</div>
+                    <h4>PMO verantwoordelijkheid</h4>
+                    <p>Centrale coördinatie en sturing</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>© 2023 The Inspreadables - TPG De Projectgroep</p>
+            <p style="margin-top: 10px;">Voor meer informatie: info@inspreadables.com</p>
+            <p style="margin-top: 20px; font-size: 0.8em;">
+                Deze infographic is gebaseerd op "Het PPM-paradijs" whitepaper v1.0
+            </p>
+        </footer>
+    </div>
+
+    <script>
+        // Progress Bar
+        window.addEventListener('scroll', () => {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            document.getElementById('progressBar').style.width = scrolled + '%';
+        });
+
+        // Scroll Animation
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.section').forEach(section => {
+            observer.observe(section);
+        });
+
+        // Tab Switching
+        function switchTab(tabId) {
+            // Remove active class from all tabs and contents
+            document.querySelectorAll('.tab-button').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+
+            // Add active class to clicked tab and corresponding content
+            event.target.classList.add('active');
+            document.getElementById(tabId).classList.add('active');
+        }
+
+        // Accordion Toggle
+        function toggleAccordion(header) {
+            const item = header.parentElement;
+            const isActive = item.classList.contains('active');
+
+            // Close all accordions
+            document.querySelectorAll('.accordion-item').forEach(acc => {
+                acc.classList.remove('active');
+            });
+
+            // Open clicked accordion if it wasn't active
+            if (!isActive) {
+                item.classList.add('active');
+            }
+        }
+
+        // Add animation delays to cards
+        document.addEventListener('DOMContentLoaded', () => {
+            const cards = document.querySelectorAll('.arch-card, .seci-card, .tier-card');
+            cards.forEach((card, index) => {
+                card.style.animationDelay = `${index * 0.1}s`;
+            });
+        });
+
+        // Smooth scroll for internal links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

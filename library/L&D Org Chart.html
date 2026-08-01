@@ -1,0 +1,1634 @@
+<!DOCTYPE html>
+<html lang="en" data-color-scheme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>L&amp;D Department Interactive Org Chart</title>
+  <style>
+    /* ===== PERPLEXITY DESIGN SYSTEM (abridged, required tokens) ===== */
+    :root {
+      --color-white: rgba(255, 255, 255, 1);
+      --color-cream-50: rgba(252, 252, 249, 1);
+      --color-cream-100: rgba(255, 255, 253, 1);
+      --color-gray-200: rgba(245, 245, 245, 1);
+      --color-gray-300: rgba(167, 169, 169, 1);
+      --color-gray-400: rgba(119, 124, 124, 1);
+      --color-slate-500: rgba(98, 108, 113, 1);
+      --color-brown-600: rgba(94, 82, 64, 1);
+      --color-charcoal-700: rgba(31, 33, 33, 1);
+      --color-charcoal-800: rgba(38, 40, 40, 1);
+      --color-slate-900: rgba(19, 52, 59, 1);
+      --color-teal-300: rgba(50, 184, 198, 1);
+      --color-teal-400: rgba(45, 166, 178, 1);
+      --color-teal-500: rgba(33, 128, 141, 1);
+      --color-teal-600: rgba(29, 116, 128, 1);
+      --color-teal-700: rgba(26, 104, 115, 1);
+      --color-red-400: rgba(255, 84, 89, 1);
+      --color-red-500: rgba(192, 21, 47, 1);
+      --color-orange-400: rgba(230, 129, 97, 1);
+      --color-orange-500: rgba(168, 75, 47, 1);
+
+      --color-brown-600-rgb: 94, 82, 64;
+      --color-teal-500-rgb: 33, 128, 141;
+      --color-slate-900-rgb: 19, 52, 59;
+      --color-red-500-rgb: 192, 21, 47;
+      --color-red-400-rgb: 255, 84, 89;
+      --color-orange-500-rgb: 168, 75, 47;
+      --color-orange-400-rgb: 230, 129, 97;
+      --color-slate-500-rgb: 98, 108, 113;
+
+      --color-background: var(--color-cream-50);
+      --color-surface: var(--color-cream-100);
+      --color-text: var(--color-slate-900);
+      --color-text-secondary: var(--color-slate-500);
+      --color-primary: var(--color-teal-500);
+      --color-primary-hover: var(--color-teal-600);
+      --color-primary-active: var(--color-teal-700);
+      --color-secondary: rgba(var(--color-brown-600-rgb), 0.12);
+      --color-secondary-hover: rgba(var(--color-brown-600-rgb), 0.2);
+      --color-secondary-active: rgba(var(--color-brown-600-rgb), 0.25);
+      --color-border: rgba(var(--color-brown-600-rgb), 0.2);
+      --color-btn-primary-text: var(--color-cream-50);
+      --color-card-border: rgba(var(--color-brown-600-rgb), 0.12);
+      --color-card-border-inner: rgba(var(--color-brown-600-rgb), 0.12);
+      --color-error: var(--color-red-500);
+      --color-success: var(--color-teal-500);
+      --color-warning: var(--color-orange-500);
+      --color-info: var(--color-slate-500);
+      --color-focus-ring: rgba(var(--color-teal-500-rgb), 0.4);
+
+      --color-success-rgb: var(--color-teal-500-rgb);
+      --color-error-rgb: var(--color-red-500-rgb);
+      --color-warning-rgb: var(--color-orange-500-rgb);
+      --color-info-rgb: var(--color-slate-500-rgb);
+
+      --font-family-base: "FKGroteskNeue", "Geist", "Inter", -apple-system,
+        BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      --font-family-mono: "Berkeley Mono", ui-monospace, SFMono-Regular, Menlo,
+        Monaco, Consolas, monospace;
+      --font-size-xs: 11px;
+      --font-size-sm: 12px;
+      --font-size-base: 14px;
+      --font-size-lg: 16px;
+      --font-size-2xl: 20px;
+      --font-size-3xl: 24px;
+      --font-size-4xl: 30px;
+      --font-weight-normal: 400;
+      --font-weight-medium: 500;
+      --font-weight-semibold: 550;
+      --line-height-tight: 1.2;
+      --line-height-normal: 1.5;
+
+      --space-4: 4px;
+      --space-6: 6px;
+      --space-8: 8px;
+      --space-12: 12px;
+      --space-16: 16px;
+      --space-20: 20px;
+      --space-24: 24px;
+      --space-32: 32px;
+
+      --radius-sm: 6px;
+      --radius-base: 8px;
+      --radius-md: 10px;
+      --radius-lg: 12px;
+      --radius-full: 9999px;
+
+      --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.04),
+        0 1px 2px rgba(0, 0, 0, 0.02);
+      --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.04),
+        0 2px 4px -1px rgba(0, 0, 0, 0.02);
+
+      --duration-fast: 150ms;
+      --duration-normal: 250ms;
+      --ease-standard: cubic-bezier(0.16, 1, 0.3, 1);
+
+      --container-lg: 1024px;
+
+      --focus-ring: 0 0 0 3px var(--color-focus-ring);
+      --focus-outline: 2px solid var(--color-primary);
+      --status-bg-opacity: 0.15;
+      --status-border-opacity: 0.25;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --color-gray-400-rgb: 119, 124, 124;
+        --color-teal-300-rgb: 50, 184, 198;
+        --color-gray-300-rgb: 167, 169, 169;
+        --color-gray-200-rgb: 245, 245, 245;
+
+        --color-background: var(--color-charcoal-700);
+        --color-surface: var(--color-charcoal-800);
+        --color-text: var(--color-gray-200);
+        --color-text-secondary: rgba(var(--color-gray-300-rgb), 0.7);
+        --color-primary: var(--color-teal-300);
+        --color-primary-hover: var(--color-teal-400);
+        --color-primary-active: rgba(41, 150, 161, 1);
+        --color-secondary: rgba(var(--color-gray-400-rgb), 0.15);
+        --color-secondary-hover: rgba(var(--color-gray-400-rgb), 0.25);
+        --color-secondary-active: rgba(var(--color-gray-400-rgb), 0.3);
+        --color-border: rgba(var(--color-gray-400-rgb), 0.3);
+        --color-error: var(--color-red-400);
+        --color-success: var(--color-teal-300);
+        --color-warning: var(--color-orange-400);
+        --color-info: var(--color-gray-300);
+        --color-focus-ring: rgba(var(--color-teal-300-rgb), 0.4);
+        --color-btn-primary-text: var(--color-slate-900);
+        --color-card-border: rgba(var(--color-gray-400-rgb), 0.2);
+        --color-card-border-inner: rgba(var(--color-gray-400-rgb), 0.15);
+
+        --color-success-rgb: var(--color-teal-300-rgb);
+        --color-error-rgb: var(--color-red-400-rgb);
+        --color-warning-rgb: var(--color-orange-400-rgb);
+        --color-info-rgb: var(--color-gray-300-rgb);
+      }
+    }
+
+    [data-color-scheme="dark"] {
+      --color-background: var(--color-charcoal-700);
+      --color-surface: var(--color-charcoal-800);
+      --color-text: var(--color-gray-200);
+      --color-text-secondary: rgba(245, 245, 245, 0.7);
+      --color-primary: var(--color-teal-300);
+      --color-primary-hover: var(--color-teal-400);
+      --color-primary-active: rgba(41, 150, 161, 1);
+      --color-secondary: rgba(119, 124, 124, 0.15);
+      --color-secondary-hover: rgba(119, 124, 124, 0.25);
+      --color-secondary-active: rgba(119, 124, 124, 0.3);
+      --color-border: rgba(119, 124, 124, 0.3);
+      --color-error: var(--color-red-400);
+      --color-success: var(--color-teal-300);
+      --color-warning: var(--color-orange-400);
+      --color-info: var(--color-gray-300);
+      --color-focus-ring: rgba(50, 184, 198, 0.4);
+      --color-btn-primary-text: var(--color-slate-900);
+      --color-card-border: rgba(119, 124, 124, 0.2);
+      --color-card-border-inner: rgba(119, 124, 124, 0.15);
+
+      --color-success-rgb: 50, 184, 198;
+      --color-error-rgb: 255, 84, 89;
+      --color-warning-rgb: 230, 129, 97;
+      --color-info-rgb: 167, 169, 169;
+    }
+
+    [data-color-scheme="light"] {
+      --color-background: var(--color-cream-50);
+      --color-surface: var(--color-cream-100);
+      --color-text: var(--color-slate-900);
+      --color-text-secondary: var(--color-slate-500);
+      --color-primary: var(--color-teal-500);
+      --color-primary-hover: var(--color-teal-600);
+      --color-primary-active: var(--color-teal-700);
+      --color-secondary: rgba(var(--color-brown-600-rgb), 0.12);
+      --color-secondary-hover: rgba(var(--color-brown-600-rgb), 0.2);
+      --color-secondary-active: rgba(var(--color-brown-600-rgb), 0.25);
+      --color-border: rgba(var(--color-brown-600-rgb), 0.2);
+      --color-btn-primary-text: var(--color-cream-50);
+      --color-card-border: rgba(var(--color-brown-600-rgb), 0.12);
+      --color-card-border-inner: rgba(var(--color-brown-600-rgb), 0.12);
+      --color-error: var(--color-red-500);
+      --color-success: var(--color-teal-500);
+      --color-warning: var(--color-orange-500);
+      --color-info: var(--color-slate-500);
+      --color-focus-ring: rgba(var(--color-teal-500-rgb), 0.4);
+
+      --color-success-rgb: var(--color-teal-500-rgb);
+      --color-error-rgb: var(--color-red-500-rgb);
+      --color-warning-rgb: var(--color-orange-500-rgb);
+      --color-info-rgb: var(--color-slate-500-rgb);
+    }
+
+    @font-face {
+      font-family: "FKGroteskNeue";
+      src: url("https://r2cdn.perplexity.ai/fonts/FKGroteskNeue.woff2")
+        format("woff2");
+    }
+
+    html {
+      font-size: var(--font-size-base);
+      font-family: var(--font-family-base);
+      line-height: var(--line-height-normal);
+      color: var(--color-text);
+      background-color: var(--color-background);
+      -webkit-font-smoothing: antialiased;
+      box-sizing: border-box;
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: inherit;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: var(--color-background);
+      color: var(--color-text);
+    }
+
+    h1,
+    h2,
+    h3 {
+      margin: 0;
+      font-weight: var(--font-weight-semibold);
+      line-height: var(--line-height-tight);
+      color: var(--color-text);
+    }
+
+    h1 {
+      font-size: var(--font-size-4xl);
+    }
+
+    h2 {
+      font-size: var(--font-size-3xl);
+    }
+
+    h3 {
+      font-size: var(--font-size-2xl);
+    }
+
+    p {
+      margin: 0 0 var(--space-16) 0;
+    }
+
+    a {
+      color: var(--color-primary);
+      text-decoration: none;
+      transition: color var(--duration-fast) var(--ease-standard);
+    }
+
+    a:hover {
+      color: var(--color-primary-hover);
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: var(--space-8) var(--space-16);
+      border-radius: var(--radius-base);
+      font-size: var(--font-size-base);
+      font-weight: var(--font-weight-medium);
+      cursor: pointer;
+      border: none;
+      transition: all var(--duration-normal) var(--ease-standard);
+      background: var(--color-primary);
+      color: var(--color-btn-primary-text);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .btn:hover {
+      background: var(--color-primary-hover);
+      box-shadow: var(--shadow-md);
+    }
+
+    .btn:active {
+      background: var(--color-primary-active);
+      transform: translateY(1px);
+    }
+
+    .btn:focus-visible {
+      outline: none;
+      box-shadow: var(--focus-ring);
+    }
+
+    .container {
+      max-width: var(--container-lg);
+      margin: 0 auto;
+      padding: var(--space-24) var(--space-16) var(--space-32);
+    }
+
+    .app-shell {
+      background-color: var(--color-surface);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--color-card-border);
+      box-shadow: var(--shadow-sm);
+      padding: var(--space-24);
+    }
+
+    .app-header {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-16);
+      margin-bottom: var(--space-24);
+    }
+
+    .app-header-main {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-8);
+    }
+
+    .app-title {
+      display: flex;
+      align-items: center;
+      gap: var(--space-12);
+    }
+
+    .app-title-circle {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: linear-gradient(
+        135deg,
+        var(--color-primary),
+        var(--color-teal-300)
+      );
+    }
+
+    .app-subtitle {
+      font-size: var(--font-size-sm);
+      color: var(--color-text-secondary);
+      max-width: 520px;
+    }
+
+    .view-toggle {
+      display: flex;
+      background: var(--color-secondary);
+      border-radius: var(--radius-full);
+      padding: var(--space-4);
+      gap: var(--space-4);
+    }
+
+    .view-toggle button {
+      flex: 1;
+      border-radius: var(--radius-full);
+      border: none;
+      padding: var(--space-6) var(--space-16);
+      font-size: var(--font-size-sm);
+      cursor: pointer;
+      background: transparent;
+      color: var(--color-text-secondary);
+      transition: all var(--duration-fast) var(--ease-standard);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-6);
+    }
+
+    .view-toggle button[aria-pressed="true"] {
+      background: var(--color-surface);
+      color: var(--color-text);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .view-toggle button:focus-visible {
+      outline: none;
+      box-shadow: var(--focus-ring);
+    }
+
+    .content-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 2fr) minmax(0, 1.2fr);
+      gap: var(--space-24);
+    }
+
+    @media (max-width: 900px) {
+      .content-layout {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .panel {
+      background-color: var(--color-surface);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--color-card-border-inner);
+      padding: var(--space-20);
+    }
+
+    .panel-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: var(--space-16);
+      gap: var(--space-8);
+    }
+
+    .panel-title {
+      font-size: var(--font-size-lg);
+      font-weight: var(--font-weight-semibold);
+      letter-spacing: -0.01em;
+    }
+
+    .panel-caption {
+      font-size: var(--font-size-xs);
+      color: var(--color-text-secondary);
+    }
+
+    .legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-8);
+      margin-bottom: var(--space-12);
+    }
+
+    .legend-item {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-6);
+      padding: var(--space-4) var(--space-8);
+      border-radius: var(--radius-full);
+      background: var(--color-secondary);
+      font-size: var(--font-size-xs);
+      color: var(--color-text-secondary);
+    }
+
+    .legend-color {
+      width: 12px;
+      height: 12px;
+      border-radius: 3px;
+    }
+
+    .color-exec {
+      background: var(--color-teal-500);
+    }
+
+    .color-director {
+      background: var(--color-red-500);
+    }
+
+    .color-manager {
+      background: var(--color-orange-500);
+    }
+
+    .color-staff {
+      background: var(--color-gray-300);
+    }
+
+    .org-canvas {
+      position: relative;
+      min-height: 420px;
+      padding-top: var(--space-16);
+    }
+
+    .org-node {
+      position: absolute;
+      min-width: 180px;
+      max-width: 220px;
+      padding: var(--space-12) var(--space-12);
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--color-border);
+      background-color: var(--color-surface);
+      cursor: pointer;
+      transition: transform var(--duration-fast) var(--ease-standard),
+        box-shadow var(--duration-fast) var(--ease-standard),
+        border-color var(--duration-fast) var(--ease-standard);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-4);
+    }
+
+    .org-node[data-level="0"] {
+      border-top: 4px solid var(--color-teal-500);
+    }
+    .org-node[data-level="1"] {
+      border-top: 4px solid var(--color-red-500);
+    }
+    .org-node[data-level="2"] {
+      border-top: 4px solid var(--color-orange-500);
+    }
+    .org-node[data-level="3"] {
+      border-top: 4px solid var(--color-gray-300);
+    }
+
+    .org-node:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+      border-color: var(--color-primary);
+    }
+
+    .org-node[aria-pressed="true"],
+    .org-node--active {
+      box-shadow: 0 0 0 2px rgba(var(--color-teal-500-rgb), 0.3),
+        var(--shadow-md);
+    }
+
+    .org-node-title {
+      font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-semibold);
+    }
+
+    .org-node-role {
+      font-size: var(--font-size-xs);
+      color: var(--color-text-secondary);
+    }
+
+    .org-node-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-4);
+      margin-top: var(--space-4);
+    }
+
+    .tag {
+      font-size: var(--font-size-xs);
+      padding: 2px 6px;
+      border-radius: var(--radius-full);
+      background: rgba(var(--color-info-rgb), 0.1);
+      color: var(--color-text-secondary);
+    }
+
+    .tag--focus {
+      background: rgba(var(--color-success-rgb), 0.12);
+      color: var(--color-success);
+    }
+
+    .org-connector {
+      position: absolute;
+      border-top: 2px solid rgba(var(--color-slate-500-rgb), 0.45);
+      transform-origin: left center;
+    }
+
+    .details-layout {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-16);
+    }
+
+    .role-title {
+      font-size: var(--font-size-2xl);
+      font-weight: var(--font-weight-semibold);
+    }
+
+    .role-level {
+      font-size: var(--font-size-sm);
+      color: var(--color-text-secondary);
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-6);
+      padding: var(--space-4) var(--space-8);
+      border-radius: var(--radius-full);
+      background: var(--color-secondary);
+      font-size: var(--font-size-xs);
+      color: var(--color-text-secondary);
+    }
+
+    .pill-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--color-primary);
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 2px 8px;
+      border-radius: var(--radius-full);
+      font-size: var(--font-size-xs);
+      border: 1px solid rgba(var(--color-info-rgb), 0.4);
+      color: var(--color-info);
+      background: rgba(var(--color-info-rgb), 0.06);
+    }
+
+    .two-column {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: var(--space-16);
+    }
+
+    @media (max-width: 640px) {
+      .two-column {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .list {
+      margin: 0;
+      padding-left: 18px;
+      font-size: var(--font-size-sm);
+    }
+
+    .list li + li {
+      margin-top: 4px;
+    }
+
+    .chips-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-8);
+      margin-top: var(--space-8);
+    }
+
+    .chip {
+      padding: 4px 10px;
+      font-size: var(--font-size-xs);
+      border-radius: var(--radius-full);
+      border: 1px solid rgba(var(--color-success-rgb), 0.4);
+      background: rgba(var(--color-success-rgb), 0.08);
+      color: var(--color-success);
+    }
+
+    .filters-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-8);
+      margin-bottom: var(--space-12);
+    }
+
+    .filter-pill {
+      padding: 4px 10px;
+      border-radius: var(--radius-full);
+      border: 1px solid var(--color-border);
+      font-size: var(--font-size-xs);
+      color: var(--color-text-secondary);
+      background: transparent;
+      cursor: pointer;
+      transition: all var(--duration-fast) var(--ease-standard);
+    }
+
+    .filter-pill[aria-pressed="true"] {
+      background: rgba(var(--color-primary-rgb, 33, 128, 141), 0.08);
+      color: var(--color-primary);
+      border-color: rgba(var(--color-primary-rgb, 33, 128, 141), 0.4);
+    }
+
+    .filter-pill:focus-visible {
+      outline: none;
+      box-shadow: var(--focus-ring);
+    }
+
+    .search-input-wrapper {
+      position: relative;
+      margin-bottom: var(--space-12);
+    }
+
+    .search-input {
+      width: 100%;
+      padding: 8px 30px 8px 10px;
+      border-radius: var(--radius-base);
+      border: 1px solid var(--color-border);
+      background: var(--color-surface);
+      color: var(--color-text);
+      font-size: var(--font-size-sm);
+    }
+
+    .search-input:focus-visible {
+      outline: var(--focus-outline);
+    }
+
+    .search-icon {
+      position: absolute;
+      right: 9px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 12px;
+      color: var(--color-text-secondary);
+    }
+
+    .report-section {
+      font-size: var(--font-size-sm);
+      color: var(--color-text-secondary);
+    }
+
+    .report-section h3 {
+      font-size: var(--font-size-base);
+      margin-bottom: var(--space-8);
+    }
+
+    .report-list {
+      margin: 0;
+      padding-left: 18px;
+    }
+
+    .report-list li + li {
+      margin-top: 4px;
+    }
+
+    .inline-metric {
+      display: inline-flex;
+      align-items: baseline;
+      gap: 4px;
+      font-size: var(--font-size-sm);
+    }
+
+    .inline-metric strong {
+      font-size: var(--font-size-lg);
+      color: var(--color-primary);
+    }
+
+    .toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-8);
+      align-items: center;
+      margin-top: var(--space-16);
+    }
+
+    .toolbar button {
+      border-radius: var(--radius-full);
+      border: 1px solid var(--color-border);
+      background: transparent;
+      padding: 4px 10px;
+      font-size: var(--font-size-xs);
+      cursor: pointer;
+      color: var(--color-text-secondary);
+    }
+
+    .toolbar button:hover {
+      background: var(--color-secondary);
+    }
+
+    .toolbar button:focus-visible {
+      outline: none;
+      box-shadow: var(--focus-ring);
+    }
+
+    .toolbar-label {
+      font-size: var(--font-size-xs);
+      color: var(--color-text-secondary);
+      margin-right: 6px;
+    }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border-width: 0;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="app-shell" role="application" aria-label="Interactive L&amp;D department org chart">
+      <header class="app-header">
+        <div class="app-header-main">
+          <div class="app-title">
+            <div class="app-title-circle" aria-hidden="true"></div>
+            <div>
+              <h1>L&amp;D Department Org Chart</h1>
+            </div>
+          </div>
+          <p class="app-subtitle">
+            Explore each role in the Learning &amp; Development organization. Click a card in the org chart to see a quick
+            role summary, responsibilities, and key skills on the right.
+          </p>
+        </div>
+        <div class="view-toggle" role="tablist" aria-label="View mode">
+          <button id="view-hierarchy" role="tab" aria-selected="true" aria-pressed="true">
+            Hierarchy
+          </button>
+          <button id="view-report" role="tab" aria-selected="false" aria-pressed="false">
+            Role Overview
+          </button>
+        </div>
+      </header>
+
+      <main class="content-layout">
+        <!-- LEFT: ORG CHART -->
+        <section class="panel" aria-label="Organization chart">
+          <div class="panel-header">
+            <div>
+              <div class="panel-title">Org Structure</div>
+              <div class="panel-caption">
+                Click any role card to focus it and read more in the details panel.
+              </div>
+            </div>
+            <button class="btn" id="btn-reset" type="button">
+              Reset focus
+            </button>
+          </div>
+
+          <div class="legend" aria-label="Role levels legend">
+            <div class="legend-item">
+              <span class="legend-color color-exec"></span>
+              <span>Executive</span>
+            </div>
+            <div class="legend-item">
+              <span class="legend-color color-director"></span>
+              <span>Director-level</span>
+            </div>
+            <div class="legend-item">
+              <span class="legend-color color-manager"></span>
+              <span>Manager-level</span>
+            </div>
+            <div class="legend-item">
+              <span class="legend-color color-staff"></span>
+              <span>Specialist &amp; staff</span>
+            </div>
+          </div>
+
+          <div class="org-canvas" id="org-canvas" aria-hidden="false">
+            <!-- Nodes are placed using percentage coordinates (top/left) -->
+            <!-- Level 0 -->
+            <button
+              class="org-node"
+              data-id="clo"
+              data-level="0"
+              style="top: 6%; left: 50%; transform: translateX(-50%);"
+              type="button"
+            >
+              <div class="org-node-title">Chief Learning Officer (CLO)</div>
+              <div class="org-node-role">
+                Strategic leadership, budget oversight, stakeholder management
+              </div>
+              <div class="org-node-tags">
+                <span class="tag tag--focus">Exec sponsor</span>
+                <span class="tag">Reports to CEO/CHRO</span>
+              </div>
+            </button>
+
+            <!-- Level 1 -->
+            <button
+              class="org-node"
+              data-id="ld-director"
+              data-level="1"
+              style="top: 26%; left: 20%; transform: translateX(-50%);"
+              type="button"
+            >
+              <div class="org-node-title">L&amp;D Director</div>
+              <div class="org-node-role">
+                Program strategy, team leadership, stakeholder alignment
+              </div>
+              <div class="org-node-tags">
+                <span class="tag">Portfolio planning</span>
+                <span class="tag">Leadership dev</span>
+              </div>
+            </button>
+
+            <button
+              class="org-node"
+              data-id="program-director"
+              data-level="1"
+              style="top: 26%; left: 50%; transform: translateX(-50%);"
+              type="button"
+            >
+              <div class="org-node-title">Program Director</div>
+              <div class="org-node-role">
+                Executive program design, curriculum governance
+              </div>
+              <div class="org-node-tags">
+                <span class="tag">Flagship programs</span>
+              </div>
+            </button>
+
+            <button
+              class="org-node"
+              data-id="operations-manager"
+              data-level="1"
+              style="top: 26%; left: 80%; transform: translateX(-50%);"
+              type="button"
+            >
+              <div class="org-node-title">Operations Manager</div>
+              <div class="org-node-role">
+                Logistics, facilities, vendor management
+              </div>
+              <div class="org-node-tags">
+                <span class="tag">Budget tracking</span>
+              </div>
+            </button>
+
+            <!-- Level 2 under L&D Director -->
+            <button
+              class="org-node"
+              data-id="senior-ld-specialist"
+              data-level="2"
+              style="top: 50%; left: 20%; transform: translateX(-50%);"
+              type="button"
+            >
+              <div class="org-node-title">Senior L&amp;D Specialist</div>
+              <div class="org-node-role">
+                Needs assessment, program evaluation
+              </div>
+              <div class="org-node-tags">
+                <span class="tag">Data-driven</span>
+              </div>
+            </button>
+
+            <!-- Level 2 under Program Director -->
+            <button
+              class="org-node"
+              data-id="lead-id"
+              data-level="2"
+              style="top: 50%; left: 38%; transform: translateX(-50%);"
+              type="button"
+            >
+              <div class="org-node-title">Lead Instructional Designer</div>
+              <div class="org-node-role">
+                Design methodology, content standards
+              </div>
+              <div class="org-node-tags">
+                <span class="tag">Learning science</span>
+              </div>
+            </button>
+
+            <button
+              class="org-node"
+              data-id="program-manager"
+              data-level="2"
+              style="top: 50%; left: 62%; transform: translateX(-50%);"
+              type="button"
+            >
+              <div class="org-node-title">Program Manager</div>
+              <div class="org-node-role">
+                Project management, delivery coordination
+              </div>
+              <div class="org-node-tags">
+                <span class="tag">Roadmaps</span>
+              </div>
+            </button>
+
+            <!-- Level 2 under Operations Manager -->
+            <button
+              class="org-node"
+              data-id="admin-support-manager"
+              data-level="2"
+              style="top: 50%; left: 80%; transform: translateX(-50%);"
+              type="button"
+            >
+              <div class="org-node-title">Administrative Support Manager</div>
+              <div class="org-node-role">
+                Scheduling, participant management, documentation
+              </div>
+              <div class="org-node-tags">
+                <span class="tag">Service excellence</span>
+              </div>
+            </button>
+
+            <!-- Level 3 staff -->
+            <button
+              class="org-node"
+              data-id="ld-specialists"
+              data-level="3"
+              style="top: 74%; left: 20%; transform: translateX(-50%);"
+              type="button"
+            >
+              <div class="org-node-title">L&amp;D Specialists</div>
+              <div class="org-node-role">
+                Training delivery, participant support
+              </div>
+              <div class="org-node-tags">
+                <span class="tag">Facilitation</span>
+              </div>
+            </button>
+
+            <button
+              class="org-node"
+              data-id="instructional-designers"
+              data-level="3"
+              style="top: 74%; left: 38%; transform: translateX(-50%);"
+              type="button"
+            >
+              <div class="org-node-title">Instructional Designers</div>
+              <div class="org-node-role">
+                Content creation, materials development
+              </div>
+              <div class="org-node-tags">
+                <span class="tag">Storyboards</span>
+              </div>
+            </button>
+
+            <button
+              class="org-node"
+              data-id="trainers"
+              data-level="3"
+              style="top: 74%; left: 62%; transform: translateX(-50%);"
+              type="button"
+            >
+              <div class="org-node-title">Trainers / Facilitators</div>
+              <div class="org-node-role">
+                Program delivery, executive coaching
+              </div>
+              <div class="org-node-tags">
+                <span class="tag">Classroom &amp; virtual</span>
+              </div>
+            </button>
+
+            <button
+              class="org-node"
+              data-id="logistics-coordinators"
+              data-level="3"
+              style="top: 74%; left: 80%; transform: translateX(-50%);"
+              type="button"
+            >
+              <div class="org-node-title">Logistics Coordinators</div>
+              <div class="org-node-role">
+                Event planning, resource coordination
+              </div>
+              <div class="org-node-tags">
+                <span class="tag">Events</span>
+              </div>
+            </button>
+
+            <!-- Connectors (simple straight segments) -->
+            <!-- CLO to Level 1 -->
+            <div
+              class="org-connector"
+              style="top: 20%; left: 20%; width: 30%;"
+              aria-hidden="true"
+            ></div>
+            <div
+              class="org-connector"
+              style="top: 20%; left: 50%; width: 0%;"
+              aria-hidden="true"
+            ></div>
+            <div
+              class="org-connector"
+              style="top: 20%; left: 50%; width: 30%;"
+              aria-hidden="true"
+            ></div>
+
+            <!-- Vertical connectors -->
+            <div
+              class="org-connector"
+              style="top: 26%; left: 20%; width: 0%; height: 12%; border-top: none; border-left: 2px solid rgba(98,108,113,0.45);"
+              aria-hidden="true"
+            ></div>
+            <div
+              class="org-connector"
+              style="top: 26%; left: 50%; width: 0%; height: 12%; border-top: none; border-left: 2px solid rgba(98,108,113,0.45);"
+              aria-hidden="true"
+            ></div>
+            <div
+              class="org-connector"
+              style="top: 26%; left: 80%; width: 0%; height: 12%; border-top: none; border-left: 2px solid rgba(98,108,113,0.45);"
+              aria-hidden="true"
+            ></div>
+
+            <!-- Level 2 to 3 verticals -->
+            <div
+              class="org-connector"
+              style="top: 50%; left: 20%; width: 0%; height: 12%; border-top: none; border-left: 2px solid rgba(98,108,113,0.45);"
+              aria-hidden="true"
+            ></div>
+            <div
+              class="org-connector"
+              style="top: 50%; left: 38%; width: 0%; height: 12%; border-top: none; border-left: 2px solid rgba(98,108,113,0.45);"
+              aria-hidden="true"
+            ></div>
+            <div
+              class="org-connector"
+              style="top: 50%; left: 62%; width: 0%; height: 12%; border-top: none; border-left: 2px solid rgba(98,108,113,0.45);"
+              aria-hidden="true"
+            ></div>
+            <div
+              class="org-connector"
+              style="top: 50%; left: 80%; width: 0%; height: 12%; border-top: none; border-left: 2px solid rgba(98,108,113,0.45);"
+              aria-hidden="true"
+            ></div>
+          </div>
+
+          <!-- Static fallback image from your upload, in case needed -->
+          <figure style="margin-top: var(--space-16); text-align: center;">
+            <figcaption class="panel-caption" style="margin-bottom: var(--space-8);">
+              Original static org chart reference
+            </figcaption>
+            <img
+              src="https://agi-prod-file-upload-public-main-use1.s3.amazonaws.com/2bfe8388-f06b-4d97-a85f-bdbd80bccd9c"
+              alt="Original L&amp;D department organizational chart"
+              style="max-width: 100%; border-radius: var(--radius-md); border: 1px solid var(--color-card-border-inner);"
+            />
+          </figure>
+        </section>
+
+        <!-- RIGHT: DETAILS / ROLE REPORT -->
+        <section class="panel" aria-label="Role details">
+          <div class="panel-header">
+            <div>
+              <div class="panel-title" id="details-title-label">
+                Role Details
+              </div>
+              <div class="panel-caption" id="details-caption">
+                Start by selecting a role from the org chart.
+              </div>
+            </div>
+          </div>
+
+          <div class="filters-row" aria-label="Quick filters for skills focus">
+            <span class="toolbar-label">Highlight focus areas:</span>
+            <button type="button" class="filter-pill" data-filter="leadership" aria-pressed="false">
+              Leadership &amp; strategy
+            </button>
+            <button type="button" class="filter-pill" data-filter="design" aria-pressed="false">
+              Learning design
+            </button>
+            <button type="button" class="filter-pill" data-filter="delivery" aria-pressed="false">
+              Program delivery
+            </button>
+            <button type="button" class="filter-pill" data-filter="operations" aria-pressed="false">
+              Operations &amp; logistics
+            </button>
+          </div>
+
+          <div class="search-input-wrapper">
+            <label class="sr-only" for="search-role">Search by responsibility or skill</label>
+            <input
+              id="search-role"
+              type="text"
+              class="search-input"
+              placeholder="Search responsibilities or skills (e.g., 'coaching', 'logistics')"
+              autocomplete="off"
+            />
+            <span class="search-icon" aria-hidden="true">⌕</span>
+          </div>
+
+          <div class="details-layout" id="details-panel" aria-live="polite">
+            <div>
+              <div class="role-title" id="role-name">No role selected</div>
+              <div class="role-level" id="role-level">
+                Choose a card on the left to see a summary.
+              </div>
+            </div>
+            <div>
+              <div class="badge">Snapshot</div>
+              <p id="role-summary" style="margin-top: var(--space-8);">
+                The details panel will show an at-a-glance description,
+                responsibilities, and key skills for the selected position.
+              </p>
+              <div class="chips-row" id="role-tags"></div>
+            </div>
+
+            <div class="two-column">
+              <div>
+                <h3 style="font-size: var(--font-size-base); margin-bottom: var(--space-8);">
+                  Core Responsibilities
+                </h3>
+                <ul class="list" id="role-responsibilities"></ul>
+              </div>
+              <div>
+                <h3 style="font-size: var(--font-size-base); margin-bottom: var(--space-8);">
+                  Skills &amp; Capabilities
+                </h3>
+                <ul class="list" id="role-skills"></ul>
+              </div>
+            </div>
+
+            <div class="report-section" id="report-section">
+              <h3>Org Design Insights</h3>
+              <ul class="report-list">
+                <li>
+                  <span class="inline-metric">
+                    <strong id="metric-leadership-count">4</strong> leadership roles
+                  </span>
+                  anchor strategic direction across programs, operations, and design.
+                </li>
+                <li>
+                  Specialized delivery and design roles ensure high-quality
+                  learning experiences while a dedicated operations branch
+                  protects the participant experience.
+                </li>
+                <li>
+                  Senior specialist roles create a career path from individual
+                  contributor to leadership within L&amp;D.
+                </li>
+              </ul>
+            </div>
+
+            <div class="toolbar">
+              <span class="toolbar-label">Quick actions:</span>
+              <button type="button" id="btn-random">Jump to random role</button>
+              <button type="button" id="btn-leadership-path">
+                Highlight leadership path
+              </button>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+  </div>
+
+  <script>
+    // Simple in-memory role data for interactivity
+    const roleData = {
+      clo: {
+        name: "Chief Learning Officer (CLO)",
+        level: "Executive leadership",
+        summary:
+          "Owns the enterprise learning strategy and ensures L&D investments directly support business priorities.",
+        tags: ["Executive sponsor", "Budget owner", "Stakeholder mgmt"],
+        responsibilities: [
+          "Define and communicate the global learning and talent development strategy.",
+          "Align L&D initiatives with corporate OKRs and workforce planning.",
+          "Secure sponsorship and funding for key learning programs.",
+          "Measure impact of learning on business outcomes and report to C‑suite."
+        ],
+        skills: [
+          "Executive communication and influence",
+          "Strategic planning and portfolio management",
+          "Change leadership",
+          "Financial acumen and vendor governance"
+        ]
+      },
+      "ld-director": {
+        name: "L&D Director",
+        level: "Director-level leadership",
+        summary:
+          "Leads the L&D function, translating strategy into a cohesive portfolio of programs and services.",
+        tags: ["Portfolio planning", "People leadership"],
+        responsibilities: [
+          "Translate CLO strategy into an annual L&D roadmap.",
+          "Lead and coach L&D managers, designers, and specialists.",
+          "Partner with HRBPs and business leaders to prioritize initiatives.",
+          "Monitor program effectiveness and drive continuous improvement."
+        ],
+        skills: [
+          "People leadership and coaching",
+          "Stakeholder management",
+          "Organizational development",
+          "Data-driven decision making"
+        ]
+      },
+      "program-director": {
+        name: "Program Director",
+        level: "Director-level program owner",
+        summary:
+          "Owns flagship programs and ensures curriculum quality, consistency, and scalability across regions.",
+        tags: ["Curriculum governance", "Flagship programs"],
+        responsibilities: [
+          "Design and maintain program architectures and learning journeys.",
+          "Govern curriculum standards, templates, and quality criteria.",
+          "Coordinate with regional teams on localization and rollout.",
+          "Sponsor continuous iteration based on learner feedback and analytics."
+        ],
+        skills: [
+          "Program architecture design",
+          "Curriculum governance",
+          "Cross-functional collaboration",
+          "Stakeholder communication"
+        ]
+      },
+      "operations-manager": {
+        name: "Operations Manager",
+        level: "Manager-level",
+        summary:
+          "Runs the operational backbone of L&D—logistics, systems, and vendor partnerships.",
+        tags: ["Operations", "Budget tracking"],
+        responsibilities: [
+          "Oversee scheduling, facilities, and virtual classroom operations.",
+          "Manage vendor contracts, SLAs, and invoicing.",
+          "Maintain training calendars and resource utilization.",
+          "Ensure operational risk, compliance, and data privacy controls."
+        ],
+        skills: [
+          "Operational excellence",
+          "Vendor and contract management",
+          "Systems thinking",
+          "Attention to detail"
+        ]
+      },
+      "senior-ld-specialist": {
+        name: "Senior L&D Specialist",
+        level: "Senior individual contributor",
+        summary:
+          "Leads needs assessments and evaluation to ensure programs solve the right problems.",
+        tags: ["Needs analysis", "Impact evaluation"],
+        responsibilities: [
+          "Conduct performance and capability needs assessments with stakeholders.",
+          "Define learning objectives and success metrics for programs.",
+          "Design evaluation strategies (surveys, interviews, data dashboards).",
+          "Translate insights into recommendations for iteration."
+        ],
+        skills: [
+          "Consultative skills",
+          "Data analysis and storytelling",
+          "Instructional needs assessment",
+          "Stakeholder facilitation"
+        ]
+      },
+      "lead-id": {
+        name: "Lead Instructional Designer",
+        level: "Manager or principal IC",
+        summary:
+          "Sets the learning design standards and coaches designers to apply evidence-based methods.",
+        tags: ["Learning science", "Design standards"],
+        responsibilities: [
+          "Define learning design guidelines and templates for the team.",
+          "Review and coach on program blueprints, storyboards, and prototypes.",
+          "Champion accessibility and inclusive learning experiences.",
+          "Evaluate new modalities, tools, and technologies."
+        ],
+        skills: [
+          "Instructional design expertise",
+          "Coaching and mentoring",
+          "Knowledge of learning technologies",
+          "UX thinking and learner empathy"
+        ]
+      },
+      "program-manager": {
+        name: "Program Manager",
+        level: "Manager-level",
+        summary:
+          "Plans and delivers programs on time, within scope, and aligned to stakeholder expectations.",
+        tags: ["Roadmaps", "Delivery coordination"],
+        responsibilities: [
+          "Develop and maintain program plans, timelines, and risks.",
+          "Coordinate SMEs, designers, facilitators, and operations.",
+          "Communicate status and issues to sponsors and stakeholders.",
+          "Track completion, satisfaction, and business impact metrics."
+        ],
+        skills: [
+          "Project and program management",
+          "Risk and dependency management",
+          "Communication and stakeholder alignment",
+          "Strong organizational skills"
+        ]
+      },
+      "admin-support-manager": {
+        name: "Administrative Support Manager",
+        level: "Manager-level",
+        summary:
+          "Leads the participant and admin support function to create a smooth learner experience.",
+        tags: ["Participant management", "Service operations"],
+        responsibilities: [
+          "Oversee registration, enrolment, and attendance tracking.",
+          "Lead the team handling learner queries and support tickets.",
+          "Maintain documentation and standard operating procedures.",
+          "Coordinate certificates, records, and reporting."
+        ],
+        skills: [
+          "Team coordination and coaching",
+          "Customer service mindset",
+          "Process design and documentation",
+          "Systems proficiency (LMS, HRIS)"
+        ]
+      },
+      "ld-specialists": {
+        name: "L&D Specialists",
+        level: "Individual contributors",
+        summary:
+          "Deliver training, support learners, and act as the face of L&D in day‑to‑day interactions.",
+        tags: ["Facilitation", "Support"],
+        responsibilities: [
+          "Facilitate workshops and virtual sessions.",
+          "Support participants before, during, and after training.",
+          "Capture feedback and escalate recurring issues.",
+          "Coordinate with SMEs to keep materials up to date."
+        ],
+        skills: [
+          "Strong facilitation and presentation skills",
+          "Customer focus",
+          "Time management",
+          "Basic instructional techniques"
+        ]
+      },
+      "instructional-designers": {
+        name: "Instructional Designers",
+        level: "Individual contributors",
+        summary:
+          "Translate business needs into engaging learning experiences and materials.",
+        tags: ["Storyboards", "Content creation"],
+        responsibilities: [
+          "Design learning objectives and assessment strategies.",
+          "Create storyboards, facilitator guides, and learner materials.",
+          "Develop e‑learning modules and blended journeys.",
+          "Collaborate with SMEs to ensure content accuracy."
+        ],
+        skills: [
+          "Instructional design models (ADDIE, SAM, etc.)",
+          "Content writing and structuring",
+          "Authoring tools and LMS basics",
+          "Visual and experience design"
+        ]
+      },
+      trainers: {
+        name: "Trainers / Facilitators",
+        level: "Individual contributors",
+        summary:
+          "Lead learning sessions, coach participants, and adapt delivery in the moment.",
+        tags: ["Delivery", "Coaching"],
+        responsibilities: [
+          "Deliver in‑person and virtual training sessions.",
+          "Create psychologically safe learning environments.",
+          "Adapt facilitation based on learner feedback and energy.",
+          "Provide coaching or office hours for deeper practice."
+        ],
+        skills: [
+          "Facilitation and group dynamics",
+          "Coaching and feedback",
+          "Storytelling",
+          "Virtual classroom tools"
+        ]
+      },
+      "logistics-coordinators": {
+        name: "Logistics Coordinators",
+        level: "Individual contributors",
+        summary:
+          "Handle the behind‑the‑scenes details that make programs run smoothly.",
+        tags: ["Events", "Logistics"],
+        responsibilities: [
+          "Book rooms, catering, and technology for events.",
+          "Manage invites, reminders, and joining instructions.",
+          "Coordinate materials, kits, and equipment.",
+          "Support trainers with on‑the‑day logistics."
+        ],
+        skills: [
+          "Event planning and coordination",
+          "Prioritization and multitasking",
+          "Communication",
+          "Attention to detail"
+        ]
+      }
+    };
+
+    const leadershipRoles = ["clo", "ld-director", "program-director", "operations-manager"];
+    const designRoles = ["lead-id", "instructional-designers", "senior-ld-specialist"];
+    const deliveryRoles = ["program-manager", "trainers", "ld-specialists"];
+    const operationsRoles = ["operations-manager", "admin-support-manager", "logistics-coordinators"];
+
+    const nodes = Array.from(document.querySelectorAll(".org-node"));
+    const detailsPanel = document.getElementById("details-panel");
+    const roleNameEl = document.getElementById("role-name");
+    const roleLevelEl = document.getElementById("role-level");
+    const roleSummaryEl = document.getElementById("role-summary");
+    const roleTagsEl = document.getElementById("role-tags");
+    const roleRespEl = document.getElementById("role-responsibilities");
+    const roleSkillsEl = document.getElementById("role-skills");
+    const metricLeadershipCountEl = document.getElementById("metric-leadership-count");
+    const btnReset = document.getElementById("btn-reset");
+    const btnRandom = document.getElementById("btn-random");
+    const btnLeadershipPath = document.getElementById("btn-leadership-path");
+    const viewHierarchy = document.getElementById("view-hierarchy");
+    const viewReport = document.getElementById("view-report");
+    const orgCanvas = document.getElementById("org-canvas");
+    const filters = Array.from(document.querySelectorAll(".filter-pill"));
+    const searchInput = document.getElementById("search-role");
+
+    let activeRoleId = null;
+
+    function clearActiveNode() {
+      nodes.forEach((node) => node.classList.remove("org-node--active"));
+    }
+
+    function setActiveNode(id) {
+      clearActiveNode();
+      const node = nodes.find((n) => n.dataset.id === id);
+      if (node) {
+        node.classList.add("org-node--active");
+        node.focus();
+      }
+    }
+
+    function renderRole(id) {
+      const data = roleData[id];
+      if (!data) return;
+
+      activeRoleId = id;
+      setActiveNode(id);
+
+      roleNameEl.textContent = data.name;
+      roleLevelEl.textContent = data.level;
+      roleSummaryEl.textContent = data.summary;
+
+      roleTagsEl.innerHTML = "";
+      data.tags.forEach((tag) => {
+        const span = document.createElement("span");
+        span.className = "chip";
+        span.textContent = tag;
+        roleTagsEl.appendChild(span);
+      });
+
+      roleRespEl.innerHTML = "";
+      data.responsibilities.forEach((item) => {
+        const li = document.createElement("li");
+        li.textContent = item;
+        roleRespEl.appendChild(li);
+      });
+
+      roleSkillsEl.innerHTML = "";
+      data.skills.forEach((item) => {
+        const li = document.createElement("li");
+        li.textContent = item;
+        roleSkillsEl.appendChild(li);
+      });
+    }
+
+    nodes.forEach((node) => {
+      node.addEventListener("click", () => {
+        const id = node.dataset.id;
+        renderRole(id);
+      });
+
+      node.addEventListener("keydown", (event) => {
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
+          renderRole(node.dataset.id);
+        }
+      });
+    });
+
+    btnReset.addEventListener("click", () => {
+      activeRoleId = null;
+      clearActiveNode();
+      roleNameEl.textContent = "No role selected";
+      roleLevelEl.textContent = "Choose a card on the left to see a summary.";
+      roleSummaryEl.textContent =
+        "The details panel will show an at-a-glance description, responsibilities, and key skills for the selected position.";
+      roleTagsEl.innerHTML = "";
+      roleRespEl.innerHTML = "";
+      roleSkillsEl.innerHTML = "";
+    });
+
+    btnRandom.addEventListener("click", () => {
+      const ids = Object.keys(roleData);
+      const randomId = ids[Math.floor(Math.random() * ids.length)];
+      renderRole(randomId);
+    });
+
+    btnLeadershipPath.addEventListener("click", () => {
+      clearActiveNode();
+      nodes.forEach((node) => {
+        const id = node.dataset.id;
+        if (leadershipRoles.includes(id)) {
+          node.classList.add("org-node--active");
+        }
+      });
+      metricLeadershipCountEl.textContent = leadershipRoles.length.toString();
+    });
+
+    filters.forEach((filter) => {
+      filter.addEventListener("click", () => {
+        const active = filter.getAttribute("aria-pressed") === "true";
+        filters.forEach((f) => f.setAttribute("aria-pressed", "false"));
+        if (!active) {
+          filter.setAttribute("aria-pressed", "true");
+          highlightByFilter(filter.dataset.filter);
+        } else {
+          highlightByFilter(null);
+        }
+      });
+    });
+
+    function highlightByFilter(filterName) {
+      clearActiveNode();
+      if (!filterName) return;
+
+      let set = [];
+      if (filterName === "leadership") set = leadershipRoles;
+      if (filterName === "design") set = designRoles;
+      if (filterName === "delivery") set = deliveryRoles;
+      if (filterName === "operations") set = operationsRoles;
+
+      nodes.forEach((node) => {
+        if (set.includes(node.dataset.id)) {
+          node.classList.add("org-node--active");
+        }
+      });
+    }
+
+    function searchRoles(term) {
+      const search = term.trim().toLowerCase();
+      if (!search) {
+        nodes.forEach((node) => {
+          node.style.opacity = "";
+        });
+        return;
+      }
+
+      nodes.forEach((node) => {
+        const id = node.dataset.id;
+        const data = roleData[id];
+        if (!data) return;
+        const haystack = [
+          data.name,
+          data.level,
+          data.summary,
+          data.tags.join(" "),
+          data.responsibilities.join(" "),
+          data.skills.join(" ")
+        ]
+          .join(" ")
+          .toLowerCase();
+
+        node.style.opacity = haystack.includes(search) ? "1" : "0.25";
+      });
+    }
+
+    searchInput.addEventListener("input", (e) => {
+      searchRoles(e.target.value);
+    });
+
+    viewHierarchy.addEventListener("click", () => {
+      viewHierarchy.setAttribute("aria-selected", "true");
+      viewHierarchy.setAttribute("aria-pressed", "true");
+      viewReport.setAttribute("aria-selected", "false");
+      viewReport.setAttribute("aria-pressed", "false");
+      orgCanvas.style.display = "";
+      document.getElementById("report-section").style.display = "";
+    });
+
+    viewReport.addEventListener("click", () => {
+      viewHierarchy.setAttribute("aria-selected", "false");
+      viewHierarchy.setAttribute("aria-pressed", "false");
+      viewReport.setAttribute("aria-selected", "true");
+      viewReport.setAttribute("aria-pressed", "true");
+      orgCanvas.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+
+    // Initialize with CLO highlighted
+    renderRole("clo");
+  </script>
+</body>
+</html>

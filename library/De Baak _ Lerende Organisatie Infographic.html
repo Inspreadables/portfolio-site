@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<!-- saved from url=(0089)file:///C:/Users/arijj/Desktop/0107presentations/deepseek_html_20260630_fc54ad%20(1).html -->
+<html lang="nl"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>De Baak | Lerende Organisatie Infographic</title>
+  <style>
+    /* ----- De Baak Huisstijl v2.0 ----- */
+    :root {
+      --primary: #005ADC;
+      --secondary: #00A555;
+      --accent: #FFE100;
+      --bg: #F5F5EB;
+      --text: #1A1A2E;
+      --shadow: 0 12px 24px -12px rgba(0, 0, 0, 0.15), 0 1px 3px rgba(0, 0, 0, 0.05);
+      --radius: 16px;
+      --transition: all 0.2s ease;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: var(--bg);
+      font-family: Arial, sans-serif;
+      color: var(--text);
+      line-height: 1.4;
+      padding: 2rem 1.5rem;
+    }
+
+    /* main container */
+    .baak-container {
+      max-width: 1280px;
+      margin: 0 auto;
+      background: transparent;
+    }
+
+    /* header & MT brief */
+    .mt-brief {
+      background: white;
+      border-radius: 20px;
+      padding: 1.5rem 2rem;
+      margin-bottom: 2rem;
+      box-shadow: var(--shadow);
+      border-top: 6px solid var(--primary);
+    }
+    .mt-brief h2 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      color: var(--primary);
+      letter-spacing: -0.3px;
+    }
+    .mt-brief-sub {
+      font-size: 0.9rem;
+      color: #2c3e4e;
+      border-left: 3px solid var(--secondary);
+      padding-left: 1rem;
+      margin-bottom: 1rem;
+    }
+    .brief-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      margin-top: 1rem;
+      justify-content: space-between;
+    }
+    .brief-item {
+      flex: 1;
+      min-width: 180px;
+      background: #F9F9F4;
+      padding: 0.8rem 1rem;
+      border-radius: 14px;
+    }
+    .brief-item strong {
+      display: block;
+      font-size: 0.9rem;
+      color: var(--primary);
+      margin-bottom: 6px;
+    }
+    .brief-item p {
+      font-size: 0.85rem;
+      line-height: 1.4;
+    }
+
+    /* dot legend */
+    .dot-legend {
+      background: white;
+      border-radius: 60px;
+      padding: 0.7rem 1.5rem;
+      display: inline-flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      margin-bottom: 1.8rem;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+      align-items: center;
+    }
+    .legend-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+    .dot {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      display: inline-block;
+    }
+    .dot-primary { background-color: var(--primary); }
+    .dot-secondary { background-color: var(--secondary); }
+    .dot-accent { background-color: var(--accent); }
+
+    /* tabs navigation */
+    .tabs-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-bottom: 2rem;
+      border-bottom: 2px solid #e0e4dc;
+      padding-bottom: 0.5rem;
+    }
+    .tab-btn {
+      background: transparent;
+      border: none;
+      font-family: Arial, sans-serif;
+      font-weight: 700;
+      font-size: 1rem;
+      padding: 0.8rem 1.4rem;
+      cursor: pointer;
+      border-radius: 40px;
+      transition: var(--transition);
+      color: #3b4b5e;
+      background: rgba(255,255,255,0.7);
+      backdrop-filter: blur(2px);
+      min-height: 48px;
+      touch-action: manipulation;
+    }
+    .tab-btn.active {
+      background: var(--primary);
+      color: white;
+      box-shadow: 0 6px 12px rgba(0, 90, 220, 0.2);
+    }
+    .tab-btn:hover:not(.active) {
+      background: #e9ede4;
+      color: var(--primary);
+    }
+
+    /* tab panels */
+    .tab-panel {
+      display: none;
+      animation: fade 0.25s ease;
+    }
+    .tab-panel.active-panel {
+      display: block;
+    }
+    @keyframes fade {
+      from { opacity: 0; transform: translateY(6px);}
+      to { opacity: 1; transform: translateY(0);}
+    }
+
+    /* 2-column card grid */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.8rem;
+    }
+
+    /* card styles: white bg, top border 4px, radius, shadow */
+    .card {
+      background: white;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      transition: transform 0.2s, box-shadow 0.2s;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      border-top: 4px solid transparent;
+    }
+    .card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 20px 28px -14px rgba(0,0,0,0.2);
+    }
+    /* top border variations via utility classes */
+    .card-primary {
+      border-top-color: var(--primary);
+    }
+    .card-secondary {
+      border-top-color: var(--secondary);
+    }
+    .card-accent {
+      border-top-color: var(--accent);
+    }
+    .card-content {
+      padding: 1.5rem 1.3rem 1.8rem;
+      flex: 1;
+    }
+    .card-title {
+      font-size: 1.25rem;
+      font-weight: 800;
+      margin-bottom: 0.6rem;
+      color: var(--text);
+    }
+    .card-desc {
+      font-size: 0.85rem;
+      line-height: 1.45;
+      color: #2d3e4f;
+      margin-bottom: 1rem;
+    }
+    .card-meta {
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: #6b7f8f;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+      display: inline-block;
+      background: #f0f2ea;
+      padding: 0.2rem 0.7rem;
+      border-radius: 30px;
+    }
+
+    /* footer styling */
+    .baak-footer {
+      margin-top: 3rem;
+      background-color: var(--primary);
+      color: white;
+      border-radius: 24px 24px 16px 16px;
+      overflow: hidden;
+      position: relative;
+    }
+    .footer-content {
+      padding: 1.4rem 2rem;
+      text-align: center;
+      font-size: 0.85rem;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+    }
+    .footer-content span {
+      opacity: 0.9;
+    }
+    .gradient-bar {
+      height: 6px;
+      background: linear-gradient(90deg, var(--secondary), var(--accent), var(--secondary));
+      width: 100%;
+    }
+
+    /* responsive: mobile stack */
+    @media (max-width: 768px) {
+      body {
+        padding: 1.2rem;
+      }
+      .card-grid {
+        grid-template-columns: 1fr;
+        gap: 1.2rem;
+      }
+      .tab-btn {
+        padding: 0.6rem 1rem;
+        font-size: 0.85rem;
+        min-height: 44px;
+      }
+      .dot-legend {
+        width: 100%;
+        justify-content: center;
+        border-radius: 30px;
+      }
+      .brief-grid {
+        flex-direction: column;
+        gap: 0.8rem;
+      }
+      .footer-content {
+        flex-direction: column;
+        text-align: center;
+        padding: 1rem;
+      }
+      .mt-brief {
+        padding: 1rem;
+      }
+    }
+
+    /* touch targets */
+    button, .tab-btn {
+      cursor: pointer;
+      min-height: 44px;
+      min-width: 44px;
+    }
+    .legend-item {
+      min-height: 32px;
+    }
+  </style>
+</head>
+<body>
+<div class="baak-container">
+  <!-- MT Brief – Management Team section -->
+  <div class="mt-brief">
+    <h2>📋 MT Brief · Versnelling Lerende Organisatie</h2>
+    <div class="mt-brief-sub">De Baak | Leiderschap in beweging · Prioriteiten 2025-2026</div>
+    <div class="brief-grid">
+      <div class="brief-item"><strong>🎯 Doel &amp; Richting</strong><p>Strategische focus op toekomstbestendig leiderschap &amp; creatieve innovatiekracht. 61% meer succesvolle initiatieven door helder Purpose.</p></div>
+      <div class="brief-item"><strong>🔍 Naar Buiten Kijken</strong><p>Klantgedreven ontwerpen &amp; continue marktscans. Versterken externe empathie in alle processen.</p></div>
+      <div class="brief-item"><strong>⚡ Experiment &amp; Schaal</strong><p>IDEO-aanpak: fail fast, learn sooner. 4x hogere kans op impact door prototyping. Investeren in veilige experimenteerruimte.</p></div>
+    </div>
+  </div>
+
+  <!-- Dot legenda (uitleg top border kleuren) -->
+  <div class="dot-legend">
+    <div class="legend-item"><span class="dot dot-primary"></span> <span>Strategisch kompas &amp; Purpose</span></div>
+    <div class="legend-item"><span class="dot dot-secondary"></span> <span>Operationeel &amp; Uitvoering</span></div>
+    <div class="legend-item"><span class="dot dot-accent"></span> <span>Innovatie &amp; Experiment</span></div>
+  </div>
+
+  <!-- Tabs navigatie -->
+  <div class="tabs-nav">
+    <button class="tab-btn active" data-tab="tab1">🎯 Strategische Agenda</button>
+    <button class="tab-btn" data-tab="tab2">⚙️ Operationele Uitrol</button>
+    <button class="tab-btn" data-tab="tab3">💡 Creative Difference</button>
+  </div>
+
+  <!-- Tab 1: Strategische Agenda -->
+  <div id="tab1" class="tab-panel active-panel">
+    <div class="card-grid">
+      <!-- card primary: Doel & purpose -->
+      <div class="card card-primary">
+        <div class="card-content">
+          <div class="card-title">Helder Doel (Purpose)</div>
+          <div class="card-desc">Bestaansreden die inspireert en richting geeft. 61% meer succesvolle lanceringen voor teams die doel actief gebruiken. Verankerd in alle MT-besluiten.</div>
+          <div class="card-meta">KPI: Doelhelderheid &gt;85%</div>
+        </div>
+      </div>
+      <!-- card secondary: Looking Out -->
+      <div class="card card-secondary">
+        <div class="card-content">
+          <div class="card-title">Naar Buiten Kijken</div>
+          <div class="card-desc">Diepgaand klantbegrip, trendanalyses &amp; empathie. Maandelijkse 'klantimmersion' en technologieverkenning. Voorkomt interne tunnelvisie.</div>
+          <div class="card-meta">8+ klantinterviews / maand</div>
+        </div>
+      </div>
+      <!-- card accent: Experimentation -->
+      <div class="card card-accent">
+        <div class="card-content">
+          <div class="card-title">Experimenteer Snel</div>
+          <div class="card-desc">Prototyping &amp; validatie. "Fail early to succeed sooner". Wekelijks experimenteersprints met minimaal risico. 4x hogere kans op succes.</div>
+          <div class="card-meta">12+ prototypes per kwartaal</div>
+        </div>
+      </div>
+      <!-- card primary: Empowerment -->
+      <div class="card card-primary">
+        <div class="card-content">
+          <div class="card-title">Empowerment &amp; Eigenaarschap</div>
+          <div class="card-desc">Decentrale innovatiekracht: elke medewerker krijgt tools &amp; ruimte om verandering te initiëren. Innovatiebudget voor teams.</div>
+          <div class="card-meta">Innovatiekracht ↑ 32%</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tab 2: Operationele Uitrol -->
+  <div id="tab2" class="tab-panel">
+    <div class="card-grid">
+      <div class="card card-secondary">
+        <div class="card-content">
+          <div class="card-title">Procesoptimalisatie</div>
+          <div class="card-desc">Leren van data &amp; continue verbetering van productie / kwaliteitscontrole. KPI's: time-to-market, doorlooptijden trainingontwikkeling.</div>
+          <div class="card-meta">Time-to-market reductie &gt;15%</div>
+        </div>
+      </div>
+      <div class="card card-primary">
+        <div class="card-content">
+          <div class="card-title">Kwaliteitsborging 4.0</div>
+          <div class="card-desc">Future-proof kwaliteit aanbod: geautomatiseerde feedbackloops, leerdoelmatigheid &amp; continue verbetercycli (PDCA).</div>
+          <div class="card-meta">Refinement index: 8,2/10</div>
+        </div>
+      </div>
+      <div class="card card-accent">
+        <div class="card-content">
+          <div class="card-title">Samenwerking &amp; Tension</div>
+          <div class="card-desc">"Hold space for tension" – constructief omgaan met tegengestelde perspectieven tussen afdelingen. Wekelijkse creative differences sessies.</div>
+          <div class="card-meta">Spanning → kans ratio &gt;75%</div>
+        </div>
+      </div>
+      <div class="card card-secondary">
+        <div class="card-content">
+          <div class="card-title">Verfijning &amp; Implementatie</div>
+          <div class="card-desc">Van idee naar markt: iteratieve releases, evaluatie en bijsturing. Voorkomt 'polishing the same idea'. Meten van omzet uit nieuwe diensten.</div>
+          <div class="card-meta">30% omzet uit nieuwe ideeën</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tab 3: Creative Difference (IDEO framework diep) -->
+  <div id="tab3" class="tab-panel">
+    <div class="card-grid">
+      <div class="card card-accent">
+        <div class="card-content">
+          <div class="card-title">Creative Differences Labs</div>
+          <div class="card-desc">IDEO-geïnspireerde sessies: multidisciplinaire teams ontwerpen oplossingen vanuit 'creatieve spanning'. Maandelijks 'design duel'.</div>
+          <div class="card-meta">Prototyping verbetert kans x4</div>
+        </div>
+      </div>
+      <div class="card card-primary">
+        <div class="card-content">
+          <div class="card-title">DVF Filter (Desirability-Viability-Feasibility)</div>
+          <div class="card-desc">Elke innovatie wordt getoetst op wenselijkheid (klant), levensvatbaarheid (business), haalbaarheid (techniek). Voorkomt verspilling.</div>
+          <div class="card-meta">Focus op desirability eerst</div>
+        </div>
+      </div>
+      <div class="card card-secondary">
+        <div class="card-content">
+          <div class="card-title">Learning Loops &amp; Refinement</div>
+          <div class="card-desc">Continue verbeteren op alle niveaus: wekelijkse retrospectives, A/B testen in L&amp;D, snelle iteratie in 3D deployment.</div>
+          <div class="card-meta">+32% innovatiesucces</div>
+        </div>
+      </div>
+      <div class="card card-accent">
+        <div class="card-content">
+          <div class="card-title">Empowerment voor Iedereen</div>
+          <div class="card-desc">Van backoffice tot directie: iedereen draagt bij aan de lerende organisatie. Micro-grants voor bottom-up experimenten.</div>
+          <div class="card-meta">Decentrale innovatiekracht</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer met gradient bar -->
+  <footer class="baak-footer">
+    <div class="footer-content">
+      <span>© De Baak · Leiderschap &amp; Organisatieontwikkeling</span>
+      <span>Creative Difference Framework · IDEO-gebaseerd · Data-driven innovatie</span>
+      <span>Versie 2.0 — Lerende organisatie infographic</span>
+    </div>
+    <div class="gradient-bar"></div>
+  </footer>
+</div>
+
+<script>
+  // Tab functionaliteit zonder libraries
+  (function() {
+    const tabs = document.querySelectorAll('.tab-btn');
+    const panels = {
+      tab1: document.getElementById('tab1'),
+      tab2: document.getElementById('tab2'),
+      tab3: document.getElementById('tab3')
+    };
+
+    function activateTab(tabId) {
+      // deactivate all panels
+      Object.values(panels).forEach(panel => {
+        if (panel) panel.classList.remove('active-panel');
+      });
+      // deactivate buttons
+      tabs.forEach(btn => btn.classList.remove('active'));
+      // activate selected panel
+      const activePanel = panels[tabId];
+      if (activePanel) activePanel.classList.add('active-panel');
+      // active button
+      const correspondingBtn = document.querySelector(`.tab-btn[data-tab="${tabId}"]`);
+      if (correspondingBtn) correspondingBtn.classList.add('active');
+    }
+
+    tabs.forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const tabId = btn.getAttribute('data-tab');
+        if (tabId && panels[tabId]) {
+          activateTab(tabId);
+        }
+      });
+      // touch / click accessibility
+      btn.addEventListener('touchstart', (e) => {
+        // trigger for touch devices
+        const tabId = btn.getAttribute('data-tab');
+        if (tabId && panels[tabId]) {
+          activateTab(tabId);
+        }
+      });
+    });
+
+    // initial active state = tab1
+    activateTab('tab1');
+  })();
+</script>
+
+</body></html>

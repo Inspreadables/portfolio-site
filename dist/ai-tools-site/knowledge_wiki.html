@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>De Baak · AI Project Assistant</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: var(--bg);
+      font-family: Arial, sans-serif;
+      color: var(--text);
+      line-height: 1.4;
+      padding: 2rem 1.5rem;
+    }
+
+    /* CSS variables – De Baak huisstijl v2.0 */
+    :root {
+      --primary: #005ADC;
+      --secondary: #00A555;
+      --accent: #FFE100;
+      --bg: #F5F5EB;
+      --text: #1A1A2E;
+      --shadow: 0 8px 20px rgba(0, 0, 0, 0.08), 0 2px 4px rgba(0, 0, 0, 0.02);
+      --card-radius: 16px;
+    }
+
+    /* container */
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+    }
+
+    /* header */
+    .title-section {
+      margin-bottom: 2rem;
+    }
+
+    .title-section h1 {
+      font-size: 1.8rem;
+      font-weight: 700;
+      letter-spacing: -0.3px;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+      display: inline-block;
+    }
+
+    .title-section p {
+      color: #4a4a5e;
+      margin-top: 0.5rem;
+      font-size: 1rem;
+      max-width: 680px;
+    }
+
+    /* dot legend row */
+    .dot-legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      margin: 1.8rem 0 1.5rem 0;
+      padding: 0.5rem 0;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.85rem;
+      font-weight: 500;
+      background: rgba(0, 0, 0, 0.02);
+      padding: 0.25rem 0.75rem;
+      border-radius: 40px;
+    }
+
+    .dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      display: inline-block;
+    }
+
+    .dot.primary { background-color: var(--primary); }
+    .dot.secondary { background-color: var(--secondary); }
+    .dot.accent { background-color: var(--accent); }
+
+    /* tabs */
+    .tabs {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      margin-bottom: 2rem;
+      border-bottom: 2px solid rgba(0, 0, 0, 0.05);
+      padding-bottom: 0.5rem;
+    }
+
+    .tab-btn {
+      background: transparent;
+      border: none;
+      padding: 0.75rem 1.5rem;
+      font-size: 1rem;
+      font-weight: 600;
+      font-family: Arial, sans-serif;
+      color: #4a4a5e;
+      cursor: pointer;
+      border-radius: 40px;
+      transition: all 0.2s ease;
+      min-height: 48px;  /* touch target */
+      min-width: 100px;
+    }
+
+    .tab-btn:hover {
+      background: rgba(0, 90, 220, 0.08);
+      color: var(--primary);
+    }
+
+    .tab-btn.active {
+      background: var(--primary);
+      color: white;
+      box-shadow: 0 2px 6px rgba(0, 90, 220, 0.2);
+    }
+
+    /* card grid - 2 columns */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    /* card style */
+    .card {
+      background: white;
+      border-radius: var(--card-radius);
+      box-shadow: var(--shadow);
+      transition: transform 0.2s ease, box-shadow 0.2s;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+
+    .card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 16px 28px rgba(0, 0, 0, 0.1);
+    }
+
+    /* 4px top border using theme colors (we'll assign dynamic classes or inline) */
+    .card.primary-border {
+      border-top: 4px solid var(--primary);
+    }
+
+    .card.secondary-border {
+      border-top: 4px solid var(--secondary);
+    }
+
+    .card.accent-border {
+      border-top: 4px solid var(--accent);
+    }
+
+    .card-content {
+      padding: 1.5rem;
+      flex: 1;
+    }
+
+    .card-icon {
+      font-size: 2rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .card h3 {
+      font-size: 1.35rem;
+      margin-bottom: 0.75rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .card p {
+      color: #3a3a4e;
+      line-height: 1.45;
+      font-size: 0.9rem;
+    }
+
+    .card ul, .card .stat {
+      margin-top: 0.75rem;
+      padding-left: 1.2rem;
+      font-size: 0.9rem;
+      color: #2c2c3a;
+    }
+
+    .card li {
+      margin: 0.5rem 0;
+    }
+
+    .badge {
+      display: inline-block;
+      background: #EEF2F9;
+      padding: 0.2rem 0.7rem;
+      border-radius: 30px;
+      font-size: 0.7rem;
+      font-weight: bold;
+      color: var(--primary);
+      margin-top: 1rem;
+    }
+
+    hr {
+      margin: 1rem 0;
+      border: 0;
+      height: 1px;
+      background: rgba(0,0,0,0.05);
+    }
+
+    /* tab panels */
+    .tab-panel {
+      display: none;
+      animation: fade 0.25s ease;
+    }
+
+    .tab-panel.active-panel {
+      display: block;
+    }
+
+    @keyframes fade {
+      from { opacity: 0; transform: translateY(6px);}
+      to { opacity: 1; transform: translateY(0);}
+    }
+
+    /* footer */
+    .footer {
+      background-color: var(--primary);
+      color: white;
+      border-radius: 24px 24px 0 0;
+      margin-top: 2rem;
+      overflow: hidden;
+    }
+
+    .footer-inner {
+      padding: 1.8rem 2rem 1rem;
+      text-align: center;
+    }
+
+    .gradient-bar {
+      height: 6px;
+      background: linear-gradient(90deg, var(--secondary) 0%, var(--accent) 50%, var(--secondary) 100%);
+      width: 100%;
+    }
+
+    .footer p {
+      font-size: 0.85rem;
+      opacity: 0.9;
+      margin-top: 1rem;
+    }
+
+    .footer small {
+      display: block;
+      margin-top: 0.5rem;
+      font-size: 0.7rem;
+      opacity: 0.7;
+    }
+
+    /* responsive: mobile */
+    @media (max-width: 768px) {
+      body {
+        padding: 1.2rem;
+      }
+      .card-grid {
+        grid-template-columns: 1fr;
+        gap: 1.2rem;
+      }
+      .tab-btn {
+        padding: 0.6rem 1rem;
+        font-size: 0.9rem;
+        min-width: 80px;
+      }
+      .card-content {
+        padding: 1.2rem;
+      }
+      .legend-item {
+        font-size: 0.75rem;
+      }
+      .title-section h1 {
+        font-size: 1.5rem;
+      }
+    }
+
+    /* touch targets additional */
+    button, .tab-btn, .legend-item {
+      cursor: pointer;
+      touch-action: manipulation;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  
+  <!-- header -->
+  <div class="title-section">
+    <h1>AI Project Assistant · De Baak</h1>
+    <p>Intelligent portfolio companion · real‑time bottleneck detection · persistent knowledge wiki</p>
+  </div>
+
+  <!-- dot legend -->
+  <div class="dot-legend">
+    <span class="legend-item"><i class="dot primary"></i> Strategic product development</span>
+    <span class="legend-item"><i class="dot secondary"></i> Process efficiency & experiments</span>
+    <span class="legend-item"><i class="dot accent"></i> Team dynamics & creative differences</span>
+  </div>
+
+  <!-- tabs navigation (3 tabs) -->
+  <div class="tabs" role="tablist" aria-label="Infographic sections">
+    <button class="tab-btn active" data-tab="tab1" role="tab" aria-selected="true">📉 The problem</button>
+    <button class="tab-btn" data-tab="tab2" role="tab" aria-selected="false">🤖 AI solution</button>
+    <button class="tab-btn" data-tab="tab3" role="tab" aria-selected="false">💰 Investment & scale</button>
+  </div>
+
+  <!-- TAB 1: PROBLEM & IMPACT -->
+  <div id="tab1" class="tab-panel active-panel" role="tabpanel">
+    <div class="card-grid">
+      <!-- card 1: hidden bottlenecks -->
+      <div class="card primary-border">
+        <div class="card-content">
+          <div class="card-icon">⏳</div>
+          <h3>Blind spots cost time</h3>
+          <p>Bottlenecks go unnoticed for <strong>3–5 days</strong>. Overloaded team members stay invisible until the townhall.</p>
+          <ul>
+            <li>🔴 Red projects detected late → firefighting mode</li>
+            <li>📉 Delayed dependencies cascade across portfolios</li>
+          </ul>
+          <div class="badge">−32% productivity leak</div>
+        </div>
+      </div>
+      <!-- card 2: meeting waste -->
+      <div class="card secondary-border">
+        <div class="card-content">
+          <div class="card-icon">🗣️</div>
+          <h3>Meeting overload</h3>
+          <p>Teams spend <strong>10+ hours/week</strong> just asking “what’s the status?” instead of acting.</p>
+          <ul>
+            <li>🧠 Tribal knowledge: lost when people leave</li>
+            <li>🔄 Manual status reports = outdated as soon as written</li>
+          </ul>
+        </div>
+      </div>
+      <!-- card 3: hidden costs -->
+      <div class="card accent-border">
+        <div class="card-content">
+          <div class="card-icon">💸</div>
+          <h3>Invisible waste</h3>
+          <p>400+ team hours per year lost on coordination & chasing updates. No single source of truth across L&D projects.</p>
+          <div class="badge">€20k+ annual value at risk</div>
+        </div>
+      </div>
+      <!-- card 4: dependency chaos -->
+      <div class="card primary-border">
+        <div class="card-content">
+          <div class="card-icon">🔗</div>
+          <h3>Dependency blindness</h3>
+          <p>Cross-project blockers (Kennishub → Marketing launch) surface only after delays hit critical path.</p>
+          <ul><li>📊 No automated dependency graph</li><li>🚨 No early warning system</li></ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TAB 2: AI SOLUTION & HOW IT WORKS -->
+  <div id="tab2" class="tab-panel" role="tabpanel">
+    <div class="card-grid">
+      <!-- card Karpathy knowledge -->
+      <div class="card primary-border">
+        <div class="card-content">
+          <div class="card-icon">🧠</div>
+          <h3>Karpathy knowledge stack</h3>
+          <p>AI reads meeting notes, charters & KPIs → compiles a persistent wiki. Never forgets. <strong>Search, not index.</strong></p>
+          <ul>
+            <li>📁 raw/ → wiki/ → outputs/</li>
+            <li>🔍 hybrid search works at 200+ projects</li>
+          </ul>
+        </div>
+      </div>
+      <!-- card weekly alerts + google chat -->
+      <div class="card secondary-border">
+        <div class="card-content">
+          <div class="card-icon">🔔</div>
+          <h3>Proactive Monday alerts</h3>
+          <p>Every week at 8:00 AM: Google Chat report lists bottlenecks, overloaded resources & blocked dependencies.</p>
+          <div class="badge">Same‑day detection</div>
+          <p style="margin-top:8px">🚨 <em>“Robin overloaded (120%) – document flow blocked”</em></p>
+        </div>
+      </div>
+      <!-- card stack & integration -->
+      <div class="card accent-border">
+        <div class="card-content">
+          <div class="card-icon">⚙️</div>
+          <h3>No lock‑in, open source</h3>
+          <p>Claude (reasoning) + DeepSeek (batch) + 4iops dashboard. All self‑hosted, runs on your Google Drive & GitHub.</p>
+          <ul><li>✅ Data never leaves De Baak</li><li>✅ No Microsoft vendor lock</li></ul>
+        </div>
+      </div>
+      <!-- card for human in loop -->
+      <div class="card primary-border">
+        <div class="card-content">
+          <div class="card-icon">👥</div>
+          <h3>Human‑in‑the‑loop</h3>
+          <p>AI suggests, townhall decides. Read‑only mode first, full trust after pilots. Improved decision quality & speed.</p>
+          <div class="badge">AI as assistant, not autopilot</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TAB 3: INVESTMENT, ROI & SCALING -->
+  <div id="tab3" class="tab-panel" role="tabpanel">
+    <div class="card-grid">
+      <!-- cost card -->
+      <div class="card secondary-border">
+        <div class="card-content">
+          <div class="card-icon">💰</div>
+          <h3>Minimal out‑of‑pocket</h3>
+          <p><strong>€250/year</strong> AI token budget (Claude + DeepSeek). Zero software licenses. 270 hours of internal time (already on payroll).</p>
+          <div class="badge">Less than €1/day</div>
+        </div>
+      </div>
+      <!-- ROI card -->
+      <div class="card primary-border">
+        <div class="card-content">
+          <div class="card-icon">📈</div>
+          <h3>8.000%+ ROI</h3>
+          <p>400+ team hours saved annually → €20k+ value. Bottleneck detection from 3 days → same day. First L&D AI‑driven PMO.</p>
+          <ul><li>✨ 6‑week pilot, decision point</li><li>✨ risk: 82 hours + €55 worst case</li></ul>
+        </div>
+      </div>
+      <!-- scaling roadmap -->
+      <div class="card accent-border">
+        <div class="card-content">
+          <div class="card-icon">📊</div>
+          <h3>From 20 to 1.000 projects</h3>
+          <p><strong>20‑50 projects</strong> → full wiki compilation<br>
+          <strong>200 projects</strong> → llmwiki hybrid search<br>
+          <strong>500+ projects</strong> → multi‑agent swarm & exception routing</p>
+          <div class="badge">Modular architecture, scales with you</div>
+        </div>
+      </div>
+      <!-- timeline card -->
+      <div class="card secondary-border">
+        <div class="card-content">
+          <div class="card-icon">⏱️</div>
+          <h3>6‑week launch track</h3>
+          <p><strong>W1‑2</strong> Setup & Karpathy brain<br>
+          <strong>W3‑4</strong> 3 pilots (Kennishub, document flow, RACI matrix)<br>
+          <strong>W5</strong> First automated reports<br>
+          <strong>W6</strong> Townhall go/no‑go</p>
+          <div class="badge">Stop anytime after pilots</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- footer with gradient bar -->
+  <div class="footer">
+    <div class="gradient-bar"></div>
+    <div class="footer-inner">
+      <p>🚀 De Baak · AI Project Assistant · built on Karpathy stack + 4iops · transparent, open, no vendor lock-in</p>
+      <small>© 2026 De Baak – L&D AI portfolio intelligence | Questions? connect with PMO team</small>
+    </div>
+  </div>
+</div>
+
+<script>
+  (function() {
+    // Tab switching logic
+    const tabs = document.querySelectorAll('.tab-btn');
+    const panels = document.querySelectorAll('.tab-panel');
+
+    function activateTab(tabId) {
+      // update panels
+      panels.forEach(panel => {
+        if (panel.id === tabId) {
+          panel.classList.add('active-panel');
+          panel.setAttribute('aria-hidden', 'false');
+        } else {
+          panel.classList.remove('active-panel');
+          panel.setAttribute('aria-hidden', 'true');
+        }
+      });
+      // update buttons ARIA
+      tabs.forEach(btn => {
+        const btnTab = btn.getAttribute('data-tab');
+        if (btnTab === tabId) {
+          btn.classList.add('active');
+          btn.setAttribute('aria-selected', 'true');
+        } else {
+          btn.classList.remove('active');
+          btn.setAttribute('aria-selected', 'false');
+        }
+      });
+    }
+
+    tabs.forEach(btn => {
+      btn.addEventListener('click', function(e) {
+        const tabId = this.getAttribute('data-tab');
+        if (tabId) activateTab(tabId);
+      });
+      // touch / keyboard friendly
+      btn.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          this.click();
+        }
+      });
+    });
+
+    // ensure initial active state matches default (tab1 open)
+    const activeTab = document.querySelector('.tab-btn.active');
+    if (activeTab) {
+      const initialTab = activeTab.getAttribute('data-tab');
+      if (initialTab && document.getElementById(initialTab)) {
+        activateTab(initialTab);
+      }
+    } else {
+      activateTab('tab1');
+    }
+  })();
+</script>
+</body>
+</html>
